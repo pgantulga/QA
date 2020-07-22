@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "qaproject-23417": {
+      "hosting": {
+        "QA": [
+          "qaproject-23417"
+        ]
+      }
+    }
+  }
+}

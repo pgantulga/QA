@@ -1,0 +1,11 @@
+<mat-toolbar class="header" [ngStyle]="{background: 'url(../assets/default_image.png)', width: '100%'}" fxLayout="column">
+    <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
+        <span class="mat-display-1">{{pageTitle}}</span>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="sub-nav">
+        <mat-chip-list>
+            <mat-chip color="accent" selected="true" class="nav">Эрэлттэй</mat-chip>
+            <mat-chip color="accent" selected="false" class="nav">Сүүлийн</mat-chip>
+        </mat-chip-list>
+    </mat-toolbar-row>
+</mat-toolbar>

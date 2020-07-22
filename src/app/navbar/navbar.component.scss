@@ -1,0 +1,16 @@
+@import "../../styles/custom-theme.scss";
+
+.toolbarLogo {
+    width: 220px;
+}
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 12px;
+}
+
+.active-list-item {
+    border-bottom: 1.5px solid mat-color($QA-accent,500);
+}

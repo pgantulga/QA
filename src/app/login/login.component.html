@@ -1,0 +1,8 @@
+<div *ngIf="authService.user$ | async as user; else login">
+    {{user | json}}
+    <button mat-raised-button color="accent" (click)="authService.signOut()">Sign out</button>
+</div>
+
+<ng-template #login>
+    <button mat-raised-button color="accent" (click)="loginWithGoogle()">Login with Google</button>
+</ng-template>

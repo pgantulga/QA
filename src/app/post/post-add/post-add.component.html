@@ -1,0 +1,28 @@
+<div class="" fxLayout="row">
+    <div class="container_content mat-elevation-z2">
+        <header pageTitle="Асуулт нэмэх"></header>
+        <div class="post-add">
+            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <mat-form-field style="width:100%" floatLabel="never" color="accent">
+                        <mat-label>Гарчиг</mat-label>
+                        <input matInput placeholder="Гарчиг" formControlName="title">
+                    </mat-form-field>
+
+<!--                    <div style="paddin: 8px 0 8px 0">-->
+<!--                        <input type="file" (change)="getFile($event)"/>-->
+<!--                    </div>-->
+                    <p class="mat-body-2">Агуулга</p>
+                    <quill-editor formControlName="editor" [modules]="config"></quill-editor>
+                </div>
+                <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
+                    <button mat-flat-button (click)="cancel()">Цуцлах</button>
+                    <button mat-flat-button type="submit" color="primary">Нийтлэх</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="side_container">
+        <p>Here goes dropdown info</p>
+    </div>
+</div>

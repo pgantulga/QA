@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+    <p>{{data.title}}</p>
+    <p>{{data.content}}</p>
+</div>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Үгүй</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Тийм</button>
+</div>

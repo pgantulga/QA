@@ -1,0 +1,24 @@
+.post-list {
+  padding: 8px 8px;
+}
+
+.post-list p {
+  margin: 0;
+}
+
+.post-list .question {
+  margin: 0 0 6px 0;
+}
+
+.post-list mat-icon {
+  margin:0 8px 0 0;
+}
+
+.post-list .score {
+  padding: 6px; margin: 0 8px 0 8px; width: 56px
+}
+//chip style
+.mat-standard-chip.tag {
+  min-height: 24px !important;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,41 @@
+<h1 class="mat-display-1">This is h1 with mat-display-1</h1>
+<h1>This is h1 header</h1>
+<h2>this is h2 header</h2>
+<h3>This is h3 header</h3>
+<p>this is normal</p>
+<p class="mat-body-2">this is p with mat-body-2</p>
+<p class="mat-body-1"> this is p with mat-body-1</p>
+
+<mat-divider></mat-divider>
+<mat-chip-list>
+    <mat-chip class="tag">Байгал орчин</mat-chip>
+</mat-chip-list>
+
+<mat-chip-list>
+    <mat-chip color="accent" selected="false" class="sub-nav">Эрэлттэй</mat-chip>
+    <mat-chip color="accent" selected="true" class="sub-nav">Эрэлттэй</mat-chip>
+</mat-chip-list>
+
+
+<mat-divider></mat-divider>
+
+<mat-toolbar class="sub-toolbar" [ngStyle]="{background: 'url(../assets/default_image.png)', width: '100%'}">
+    <mat-toolbar-row></mat-toolbar-row>
+    <mat-toolbar-row>
+        <span>Асуултууд</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="avatar-image">
+    <img src="../assets/default_image.png">
+</div>
+
+<div class="container-content" fxLayout="column">
+    <div *ngFor="let item of [1,2,3,4]; last as last" >
+        <post-list></post-list>
+        <mat-divider *ngIf="!last"></mat-divider>
+    </div>
+
+</div>
+
+
+

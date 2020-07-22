@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <div fxFlex></div>
+        <div class="container" fxLayout="row" fxLayoutAlign="center center">
+            <img src="../../assets/logo_eng.jpg" alt="English logo" class="toolbarLogo">
+            <div class="example-spacer"></div>
+            <div *ngIf="authService.user$ | async as user; else login">
+                <button mat-raised-button color="accent" routerLink="ask">
+                    <mat-icon>edit</mat-icon>
+                    Асуух
+                </button>
+                <button mat-icon-button class="example-icon" aria-label="Icon button" color="accent" [matMenuTriggerFor]="dropMenu">
+                    <mat-icon>account_circle</mat-icon>
+                </button>
+                <mat-menu #dropMenu="matMenu">
+                    <button mat-menu-item disabled  >{{user.displayName}}</button>
+                    <button mat-menu-item *ngIf="authService.canDelete(user)" routerLink="admin">Админ</button>
+                    <button mat-menu-item (click)="signOut()">Sign out</button>
+                </mat-menu>
+            </div>
+            <ng-template #login>
+                <button mat-raised-button color="accent" routerLink="login">
+                    Нэвтрэх
+                </button>
+            </ng-template>
+        </div>
+        <div fxFlex></div>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <div fxFlex></div>
+        <div class="container" fxLayout="row">
+            <div fxLayout="row">
+                <mat-nav-list fxLayout="row">
+                    <a *ngFor="let menu of topMenu" mat-list-item routerLink="{{menu.link}}" routerLinkActive="active-list-item">{{menu.name}}</a>
+                </mat-nav-list>
+            </div>
+            <span class="example-spacer"></span>
+            <mat-form-field appearance="outline">
+                <mat-label>Хайх</mat-label>
+                <input matInput placeholder="Хайх" label="search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <div fxFlex></div>
+    </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,34 @@
+@import "../../../../styles/custom-theme.scss";
+/*typography*/
+
+.mat-display-1 {
+    margin: 0;
+}
+
+.header {
+    padding: 12px 30px;
+    height: 165px;
+}
+.header .title {
+    height: auto;
+    margin-bottom: 18px;
+}
+.header .sub-nav {
+    height: 32px;
+}
+
+
+.mat-chip.mat-standard-chip.nav {
+    background-color: transparent;
+    padding: 7px 24px;
+}
+.mat-chip.mat-standard-chip.mat-chip-selected {
+    /*background-color: red !important;*/
+    background-color: mat-color($QA-accent,500);
+}
+
+.mat-chip.nav.mat-chip-selected {
+    color: #ffffff !important;
+}
+
+

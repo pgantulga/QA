@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+@import "custom-theme.scss";
+@import "~@angular/material/theming";
+@import "../../node_modules/quill/dist/quill.bubble.css";
+@import "../../node_modules/quill/dist/quill.core.css";
+@import "../../node_modules/quill/dist/quill.snow.css";
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//typography
+.mat-list-base {
+  .mat-list-item {
+    color: rgba(0,0,0,0.60);
+  }
+}
+
+
+
+//Button
+button.mat-raised-button{
+  border-radius: 300px;
+  text-transform: uppercase;
+}
+button.mat-raised-button.mat-accent{
+  color: white!important;
+  text-transform: uppercase;
+}
+
+//*****************************Global styles*************************************
+
+//Container
+
+@media only screen and (max-width: 1920px ) and ( min-width: 1280px){
+  .container {
+    width: 1110px;
+  }
+}
+
+@media only screen and (max-width: 1280px ) and ( min-width: 960px) {
+  .container {
+    width: 945px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .container {
+    width: 100%;
+    //margin: 0 32px;
+  }
+}
+
+.mat-toolbar-row {
+  padding: 0!important;
+}
+
+.container_content {
+  max-width: 800px;
+}
+
+.container_content .list {
+  padding: 0 22px;
+}
+
+.editor {
+  height: 300px;
+}
+
+.ql-editor {
+  height: 300px !important;
+}
+
