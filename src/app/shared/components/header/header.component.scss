@@ -1,6 +1,5 @@
 @import "../../../../styles/custom-theme.scss";
 /*typography*/
-
 .mat-display-1 {
     margin: 0;
 }
@@ -15,6 +14,10 @@
 }
 .header .sub-nav {
     height: 32px;
+}
+
+.header .mat-caption {
+    margin: 0;
 }
 
 

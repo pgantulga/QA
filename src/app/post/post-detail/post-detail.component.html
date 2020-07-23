@@ -1,10 +1,10 @@
 <div class="" fxLayout="row">
     <div class="container_content mat-elevation-z2" fxFlex="70" *ngIf="post | async as post">
         <header [pageTitle]="post.title">
-            <div sub-nav fxLayout="row">
-                <p class="mat-caption">{{post.dateUpdated}}</p>
-                <div fxLayout="row" fxLayoutAlign="start center">
-                    <mat-icon>edit</mat-icon>
+            <div sub-nav fxLayout="row" fxLayoutAlign="start center">
+                <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.dateUpdated | momentPipe}}</p>
+                <div fxLayout="row" fxLayoutAlign="start center" class="time">
+                    <mat-icon>visibility</mat-icon>
                     <p class="mat-caption">13</p>
                 </div>
             </div>

@@ -1,3 +1,14 @@
+/*typography*/
+.mat-caption {
+    margin: 0;
+}
+
+
 .post-detail {
     padding: 12px;
+}
+
+.time {
+    margin: 0 0 0 56px;
+    /*color: #dadada;*/
 }

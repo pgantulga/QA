@@ -17,10 +17,7 @@ export class PostDetailComponent implements OnInit {
     this.post = this.route.paramMap.pipe(
         switchMap( params => {
           return this.postService.getPost(params.get('id'));
-        }))
-    // ).subscribe( post => {
-    //   this.post = post;
-    // })
+        }));
   }
 
 
