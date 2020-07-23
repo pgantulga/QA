@@ -1,3 +1,4 @@
+@import "../../../styles/custom-theme.scss";
 .post-list {
   padding: 8px 8px;
 }
@@ -8,6 +9,10 @@
 
 .post-list .question {
   margin: 0 0 6px 0;
+  cursor: pointer;
+}
+.post-list .question:hover {
+  color: mat-color($QA-accent,500)
 }
 
 .post-list mat-icon {

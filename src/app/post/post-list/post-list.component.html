@@ -1,14 +1,11 @@
 <div class="post-list" fxLayout="row">
     <div fxLayout="column" fxFlex="">
-        <p class="mat-body-2 question">{{post.title}}</p>
+        <p class="mat-body-2 question" [routerLink]="['/posts', post.id]">{{post.title}}</p>
         <mat-chip-list>
             <mat-chip class="tag">Байгал орчин</mat-chip>
             <mat-chip class="tag">ХУУ</mat-chip>
         </mat-chip-list>
-        <div fxLayout="row" fxLayoutAlign="start center">
-            <mat-icon>edit</mat-icon>
-            <p class="mat-caption">Сүүлд шинэчлэгдсэн <span>{{post.dateUpdated}}</span></p>
-        </div>
+        `
     </div>
     <div fxLayout="row" fxLayoutAlign="start start">
         <div class="score" *ngFor="let item of [1,2,3]" fxLayout="column" fxLayoutAlign="center center" >

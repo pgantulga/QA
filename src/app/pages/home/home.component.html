@@ -1,6 +1,11 @@
 <div class="" fxLayout="row">
-    <div class="container_content mat-elevation-z2">
-        <header pageTitle="Асуултууд"></header>
+    <div class="container_content mat-elevation-z2" fxFlex="70">
+        <header pageTitle="Асуултууд">
+            <mat-chip-list sub-nav>
+            <mat-chip color="accent" selected="true" class="nav">Эрэлттэй</mat-chip>
+            <mat-chip color="accent" selected="false" class="nav">Сүүлийн</mat-chip>
+            </mat-chip-list>
+        </header>
         <div class="list">
             <ng-container *ngFor="let item of posts | async; last as last" >
                 <post-list [post]="item"></post-list>
@@ -8,7 +13,7 @@
             </ng-container>
         </div>
     </div>
-    <div class="side_container">
+    <div class="side_container" fxFlex>
         <p>Here goes users list</p>
     </div>
 </div>

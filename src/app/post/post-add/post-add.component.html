@@ -1,5 +1,5 @@
 <div class="" fxLayout="row">
-    <div class="container_content mat-elevation-z2">
+    <div class="container_content mat-elevation-z2" fxFlex>
         <header pageTitle="Асуулт нэмэх"></header>
         <div class="post-add">
             <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
@@ -22,7 +22,7 @@
             </form>
         </div>
     </div>
-    <div class="side_container">
+    <div class="side_container" fxFlex>
         <p>Here goes dropdown info</p>
     </div>
 </div>

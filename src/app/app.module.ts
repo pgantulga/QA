@@ -21,6 +21,8 @@ import { ReactiveFormsModule} from "@angular/forms";
 import { QuillModule} from "ngx-quill";
 import { SnackComponent } from './shared/components/snack/snack.component';
 import { MdModule} from "./modules/md.module";
+import { PostDetailComponent } from './post/post-detail/post-detail.component';
+import { MomentPipe } from './shared/moment.pipe';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { MdModule} from "./modules/md.module";
     HeaderComponent,
     PostListComponent,
     PostAddComponent,
-    SnackComponent
+    SnackComponent,
+    PostDetailComponent,
+    MomentPipe
   ],
     imports: [
         BrowserModule,
@@ -45,6 +49,7 @@ import { MdModule} from "./modules/md.module";
         RouterModule.forRoot([
             {path: 'components', component: MdComponentsComponent},
             {path: 'home', component: HomeComponent},
+            {path: 'posts/:id', component: PostDetailComponent},
             {path: 'users', component: UsersComponent},
             {path: 'login', component: LoginComponent},
             {path: 'ask', component: PostAddComponent},

@@ -3,9 +3,6 @@
         <span class="mat-display-1">{{pageTitle}}</span>
     </mat-toolbar-row>
     <mat-toolbar-row class="sub-nav">
-        <mat-chip-list>
-            <mat-chip color="accent" selected="true" class="nav">Эрэлттэй</mat-chip>
-            <mat-chip color="accent" selected="false" class="nav">Сүүлийн</mat-chip>
-        </mat-chip-list>
+        <ng-content select="[sub-nav]"></ng-content>
     </mat-toolbar-row>
 </mat-toolbar>

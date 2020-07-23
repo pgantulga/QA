@@ -10,6 +10,10 @@ export class PostService {
   postCollection = this.db.collection<any>('posts');
 
   constructor(private db: AngularFirestore) { }
+  getPost(id) {
+    return this.postCollection.doc(id).valueChanges();
+  }
+
   getAllPosts () {
     return this.postCollection.valueChanges();
   }
