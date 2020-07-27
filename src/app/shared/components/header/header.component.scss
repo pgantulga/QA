@@ -7,6 +7,7 @@
 .header {
     padding: 12px 30px;
     height: 165px;
+    border-bottom: 1px solid mat-color($QA-primary, A400);
 }
 .header .title {
     height: auto;

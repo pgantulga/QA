@@ -5,10 +5,20 @@
 
 
 .post-detail {
-    padding: 12px;
+    padding: 30px;
 }
+.post-detail .tags {
+    padding: 0 15px;
+}
+
 
 .time {
     margin: 0 0 0 56px;
     /*color: #dadada;*/
 }
+
+.post-detail.view{
+    text-align: justify;
+}
+
+

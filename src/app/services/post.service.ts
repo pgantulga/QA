@@ -26,10 +26,12 @@ export class PostService {
       dateUpdated: new Date(),
       author: {
         displayName: user.displayName,
-        uid:user.uid,
+        uid: user.uid,
       },
       isOpen: true,
-      isParent: true
+      isParent: true,
+      answersCount: 0,
+      recommendsCount: 0
     }).then( res => {
       console.log(res.id);
       return res.update({

@@ -5,9 +5,13 @@
             <mat-chip class="tag">Байгал орчин</mat-chip>
             <mat-chip class="tag">ХУУ</mat-chip>
         </mat-chip-list>
+        <div fxLayout="row" fxLayoutAlign="start center" class="time">
+            <mat-icon>edit</mat-icon>
+            <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.dateUpdated | momentPipe}}</p>
+        </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start start">
-        <div class="score" *ngFor="let item of [1,2,3]" fxLayout="column" fxLayoutAlign="center center" >
+        <div class="score" *ngFor="let item of [1,2]" fxLayout="column" fxLayoutAlign="center center" >
             <p class="mat-body-2">15</p>
             <p class="mat-caption" >Үзсэн</p>
         </div>

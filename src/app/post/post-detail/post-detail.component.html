@@ -9,11 +9,16 @@
                 </div>
             </div>
         </header>
-        <div class="post-detail">
-            {{post}}
+        <div class="post-detail view">
+            <div [innerHTML]="post.content"></div>
+            <mat-chip-list>
+                <mat-chip class="tag">Байгал орчин</mat-chip>
+                <mat-chip class="tag">ХУУ</mat-chip>
+            </mat-chip-list>
         </div>
     </div>
     <div class="side_container" fxFlex>
         <p>Here goes dropdown info</p>
     </div>
 </div>
+
