@@ -8,22 +8,19 @@ import {AngularFirestore} from "@angular/fire/firestore";
 })
 export class PostService {
   postCollection = this.db.collection<any>('posts');
-
   constructor(private db: AngularFirestore) { }
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();
   }
-
-  getAllPosts () {
+  getAllPosts() {
     return this.postCollection.valueChanges();
   }
-
   createPost(formData, user) {
     return  this.postCollection.add({
       title: formData.title,
       content: formData.content,
-      dateCreated: new Date(),
-      dateUpdated: new Date(),
+      createdAt: new Date(),
+      updateAt: new Date(),
       author: {
         displayName: user.displayName,
         uid: user.uid,

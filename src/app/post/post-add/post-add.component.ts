@@ -46,7 +46,7 @@ export class PostAddComponent implements OnInit {
               public snackBar: MatSnackBar) {
       this.authService.user$.subscribe(user => {
           this.author = user;
-      })
+      });
   }
   ngOnInit(): void {
       this.config = config;
@@ -55,7 +55,6 @@ export class PostAddComponent implements OnInit {
           title: '',
       });
   }
-
   createPost() {
       return this.postService.createPost( {
           title: this.postForm.get('title').value,
@@ -72,18 +71,15 @@ export class PostAddComponent implements OnInit {
           }
       });
       dialogRef.afterClosed().subscribe( result => {
-          if (result) this.createPost()
+          if (result) { this.createPost()
               .then(() => {
                     this.snackBar.openFromComponent(SnackComponent, {
                         data: 'Шинэ асуулт нэмэгдлээ.',
                     });
                     return this.router.navigate(['/home']);
-              })
-      })
+              });
+          }
+      });
   }
-  cancel() {
-
-  }
-
 
 }

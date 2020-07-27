@@ -23,6 +23,7 @@ import { SnackComponent } from './shared/components/snack/snack.component';
 import { MdModule} from "./modules/md.module";
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { MomentPipe } from './shared/moment.pipe';
+import { CommentAddComponent } from './comment/comment-add/comment-add.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { MomentPipe } from './shared/moment.pipe';
     PostAddComponent,
     SnackComponent,
     PostDetailComponent,
-    MomentPipe
+    MomentPipe,
+    CommentAddComponent
   ],
     imports: [
         BrowserModule,
