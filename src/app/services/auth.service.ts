@@ -29,13 +29,13 @@ export interface Roles {
 export class AuthService {
   userCollection = this.db.collection<any>('users');
   user$: Observable<User>;
-  constructor(public af: AngularFireAuth, private router: Router, private db:   AngularFirestore) {
+  constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore) {
     this.user$ = this.af.authState.pipe(
         switchMap( user => {
           if (user) { return this.userCollection.doc<User>(user.uid).valueChanges()}
           else {return of(null)}
         })
-    )
+    );
   }
   async googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -61,9 +61,9 @@ export class AuthService {
     return ref.set(data, {merge: true});
   }
   // permission and roles
-  private checkAuth (user: User, allowedRoles: string[]): boolean {
-    if(!user) return false;
-    for(const role of allowedRoles) {
+  private checkAuth(user: User, allowedRoles: string[]): boolean {
+    if (!user) { return false; }
+    for (const role of allowedRoles) {
       if ( user.roles[role]) {
         return true;
       }

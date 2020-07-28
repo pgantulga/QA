@@ -3,27 +3,29 @@ import { NgModule } from '@angular/core';
 import { RouterModule} from '@angular/router';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FlexLayoutModule} from "@angular/flex-layout";
+import { FlexLayoutModule} from '@angular/flex-layout';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/users/users.component';
 import { MdComponentsComponent } from './admin/md-components/md-components.component';
-import { AngularFireModule} from "@angular/fire";
-import { environment} from "../environments/environment";
+import { AngularFireModule} from '@angular/fire';
+import { environment} from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
-import { AdminGuard} from "./services/auth-guard.service";
+import { AdminGuard} from './services/auth-guard.service';
 import { AdminComponent } from './admin/admin/admin.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostAddComponent } from './post/post-add/post-add.component';
-import { ReactiveFormsModule} from "@angular/forms";
-import { QuillModule} from "ngx-quill";
+import { ReactiveFormsModule} from '@angular/forms';
+import { QuillModule} from 'ngx-quill';
 import { SnackComponent } from './shared/components/snack/snack.component';
-import { MdModule} from "./modules/md.module";
+import { MdModule} from './modules/md.module';
 import { PostDetailComponent } from './post/post-detail/post-detail.component';
 import { MomentPipe } from './shared/moment.pipe';
 import { CommentAddComponent } from './comment/comment-add/comment-add.component';
+import { AnswerAddComponent } from './answer/answer-add/answer-add.component';
+import { AnswerListComponent } from './answer/answer-list/answer-list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { CommentAddComponent } from './comment/comment-add/comment-add.component
     SnackComponent,
     PostDetailComponent,
     MomentPipe,
-    CommentAddComponent
+    CommentAddComponent,
+    AnswerAddComponent,
+    AnswerListComponent
   ],
     imports: [
         BrowserModule,

@@ -59,7 +59,7 @@ export class PostAddComponent implements OnInit {
       return this.postService.createPost( {
           title: this.postForm.get('title').value,
           content: this.postForm.get('editor').value,
-      }, this.author)
+      }, this.author);
 
   }
     //add tag

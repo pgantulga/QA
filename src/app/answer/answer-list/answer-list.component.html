@@ -1,0 +1,16 @@
+<div class="answer-list" fxLayout="column">
+    <div fxLayout="row">
+        <div class="vote" fxLayout="column" fxLayoutAlign="center center">
+            <button mat-icon-button aria-label="Vote button">
+                <mat-icon class="vote-icon">done</mat-icon>
+            </button>
+            <p class="mat-body-2">6</p>
+        </div>
+        <div fxFlex fxLayout="column">
+            <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
+            <div class="vote-content" [innerHTML]="answer.content"></div>
+        </div>
+    </div>
+    <ng-content select="[answer-divider]" ></ng-content>
+</div>
+

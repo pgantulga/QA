@@ -6,6 +6,10 @@
 .post-list p {
   margin: 0;
 }
+.post-list .author {
+  font-weight: bold;
+  cursor: pointer;
+}
 
 .post-list .question {
   margin: 0 0 6px 0;
@@ -30,4 +34,8 @@
 .mat-standard-chip.tag {
   min-height: 24px !important;
   margin-bottom: 8px;
+}
+.post-list .post-list-edited {
+  transform: scale(0.8);
+  color: rgba(0,0,0,0.6);
 }

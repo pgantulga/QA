@@ -6,14 +6,20 @@
             <mat-chip class="tag">ХУУ</mat-chip>
         </mat-chip-list>
         <div fxLayout="row" fxLayoutAlign="start center" class="time">
-            <mat-icon>edit</mat-icon>
-            <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.dateUpdated | momentPipe}}</p>
+            <mat-icon class="post-list-edited">edit</mat-icon>
+            <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}} <span class="author">{{post.author.displayName}}</span></p>
         </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start start">
-        <div class="score" *ngFor="let item of [1,2]" fxLayout="column" fxLayoutAlign="center center" >
-            <p class="mat-body-2">15</p>
+        <div class="score" fxLayout="column" fxLayoutAlign="center center" >
+            <p class="mat-body-2">{{post.answersCount}}</p>
+            <p class="mat-caption" >Хариулт</p>
+        </div>
+        <div class="score" fxLayout="column" fxLayoutAlign="center center" >
+            <p class="mat-body-2">{{post.readCount}}</p>
             <p class="mat-caption" >Үзсэн</p>
         </div>
     </div>
 </div>
+<ng-content select="[post-divider]"></ng-content>
+
