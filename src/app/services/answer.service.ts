@@ -13,8 +13,8 @@ export class AnswerService {
     this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'))
     return this.answersRef.valueChanges();
   }
-  addAnswer(postId, answer, user) {
-    this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
+  addAnswer(post, answer, user) {
+    this.answersRef = this.db.collection('posts').doc(post.id).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
     return this.answersRef.add({
       content: answer.content,
       createdAt: new Date(),
@@ -23,7 +23,10 @@ export class AnswerService {
         displayName: user.displayName,
         uid: user.uid,
       },
-      parentId: postId
+      parent: {
+        id: post.id,
+        title: post.title
+      },
     })
         .then(res => {
           console.log(res);

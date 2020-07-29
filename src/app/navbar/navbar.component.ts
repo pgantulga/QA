@@ -20,9 +20,10 @@ export class NavbarComponent{
       data: {title: 'Системээс гарах' , content: 'Та системээс гарахдаа итгэлтэй байна уу?'}
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(result) this.authService.signOut()
-          .then(()=> console.log("Signed out"));
-    })
+      if (result) { this.authService.signOut()
+          .then(() => console.log('Signed out'));
+      }
+    });
 
   }
 }

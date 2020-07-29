@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {VoteService} from '../../services/vote.service';
 
 @Component({
   selector: 'answer-list',
@@ -8,9 +9,12 @@ import {Component, Input, OnInit} from '@angular/core';
 export class AnswerListComponent implements OnInit {
   @Input() answer: any;
 
-  constructor() { }
+  constructor(public voteService: VoteService) { }
 
   ngOnInit(): void {
+  }
+  addVote() {
+    this.voteService.addVote(this.answer).subscribe();
   }
 
 }

@@ -32,7 +32,7 @@ const config = {
 export class AnswerAddComponent {
 
   @Input() user: any;
-  @Input() postId: any;
+  @Input() post: any;
   config: any;
   answerForm: FormGroup;
   constructor(public answerService: AnswerService,
@@ -47,8 +47,8 @@ export class AnswerAddComponent {
     });
   }
   addAnswer() {
-    console.log(this.postId, this.user);
-    return this.answerService.addAnswer( this.postId, {
+    console.log(this.post, this.user);
+    return this.answerService.addAnswer( this.post, {
       content: this.answerForm.get('editor').value,
     }, this.user);
   }

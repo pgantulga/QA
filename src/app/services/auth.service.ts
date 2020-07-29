@@ -7,20 +7,21 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import * as firebase from 'firebase';
 
 export interface User {
-  firstName:string,
-  lastName: string,
-  email: string,
-  phone: string,
-  displayName: string,
-  roles: Roles
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  displayName: string;
+  roles: Roles;
+  uid: string;
 }
 
 export interface Roles {
-  guest?: boolean,
-  subscriber?: boolean,
-  moderator?: boolean,
-  admin?: boolean,
-  phone: string
+  guest?: boolean;
+  subscriber?: boolean;
+  moderator?: boolean;
+  admin?: boolean;
+  phone: string;
 }
 
 @Injectable({
@@ -32,8 +33,8 @@ export class AuthService {
   constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore) {
     this.user$ = this.af.authState.pipe(
         switchMap( user => {
-          if (user) { return this.userCollection.doc<User>(user.uid).valueChanges()}
-          else {return of(null)}
+          if (user) { return this.userCollection.doc<User>(user.uid).valueChanges(); }
+          else {return of(null); }
         })
     );
   }

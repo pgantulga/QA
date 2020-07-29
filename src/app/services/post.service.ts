@@ -28,7 +28,7 @@ export class PostService {
       isOpen: true,
       isParent: true,
       answersCount: 0,
-      recommendsCount: 0,
+      totalVotes: 0,
       viewCount: 0
     }).then( res => {
       console.log(res.id);

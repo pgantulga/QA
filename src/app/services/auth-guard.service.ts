@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate{
   canActivate(){
     return this.authService.user$.pipe(
         take(1),
-        map(user=> !!(user && user.roles.admin)),
+        map(user => !!(user && user.roles.admin)),
         tap(isAdmin => {
           if(!isAdmin) {
             console.error('Access denied');
