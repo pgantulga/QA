@@ -26,6 +26,7 @@ import { MomentPipe } from './shared/moment.pipe';
 import { CommentAddComponent } from './comment/comment-add/comment-add.component';
 import { AnswerAddComponent } from './answer/answer-add/answer-add.component';
 import { AnswerListComponent } from './answer/answer-list/answer-list.component';
+import { VoteButtonComponent } from './vote/vote-button/vote-button.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AnswerListComponent } from './answer/answer-list/answer-list.component'
     MomentPipe,
     CommentAddComponent,
     AnswerAddComponent,
-    AnswerListComponent
+    AnswerListComponent,
+    VoteButtonComponent
   ],
     imports: [
         BrowserModule,

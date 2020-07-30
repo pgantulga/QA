@@ -1,11 +1,12 @@
 <div class="answer-list" fxLayout="column">
     <div fxLayout="row">
-        <div class="vote" fxLayout="column" fxLayoutAlign="center center">
-            <button mat-icon-button aria-label="Vote button" (click)="addVote()">
-                <mat-icon class="vote-icon">done</mat-icon>
-            </button>
-            <p class="mat-body-2">6</p>
-        </div>
+<!--        <div class="vote" fxLayout="column" fxLayoutAlign="center center">-->
+<!--            <button mat-icon-button aria-label="Vote button" (click)="onClick()">-->
+<!--                <mat-icon [class.vote-icon-color]="isVoted"  [class.vote-icon-dark]="!isVoted">done</mat-icon>-->
+<!--            </button>-->
+<!--            <p class="mat-body-2">6</p>-->
+<!--        </div>-->
+        <vote-button [answer]="answer"></vote-button>
         <div fxFlex fxLayout="column">
             <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
             <div class="vote-content" [innerHTML]="answer.content"></div>

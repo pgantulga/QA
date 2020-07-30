@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Router} from "@angular/router";
 import {Observable,of} from "rxjs";
-import {switchMap} from 'rxjs/operators';
+import {first, switchMap} from 'rxjs/operators';
 import {AngularFirestore} from "@angular/fire/firestore";
 import * as firebase from 'firebase';
 
@@ -37,6 +37,9 @@ export class AuthService {
           else {return of(null); }
         })
     );
+  }
+  getUser(): Promise<any> {
+    return this.user$.pipe(first()).toPromise();
   }
   async googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
