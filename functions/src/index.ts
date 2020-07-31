@@ -28,20 +28,53 @@ exports.aggregateComments = functions.firestore
             })
             .catch(error => console.log(error));
     });
-exports.voteChange = functions.firestore
+exports.voteAdded = functions.firestore
     .document('votes/{voteId}')
-    .onWrite( (snap, context) => {
-        // const voteId = context.params.voteId;
+    .onCreate( (snap, context) => {
         const increaseBy = admin.firestore.FieldValue.increment(1);
-        const newValue = snap.after.data();
-        // @ts-ignore
-        const postId = newValue.postId;
-        // @ts-ignore
-        const answerId = newValue.answerId;
-        const postRef = admin.firestore().collection('posts/' + postId);
+        const newValue = snap.data();
+        // const postId = newValue.postId;
+        // const answerId = newValue.answerId;
+        // const userId = newValue.voteReciever;
+        // const postRef = admin.firestore().collection('posts').doc(postId);
+        // const answerRef = admin.firestore().collection('posts').doc(postId).collection('answers').doc(answerId);
+        // const userRef = admin.firestore().collection('users').doc(userId);
         const batch = admin.firestore().batch();
-        // batch.set(likesRef, ...likeData);
-        // batch.update(storyRef, { likes: increment });
-        // batch.update(userRef, { totalLikes: increment });
-        // batch.commit();
-    })
+        batch.update(getPostRef(newValue.postId), {totalVotes: increaseBy});
+        batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: increaseBy});
+        batch.update(getUserRef(newValue.voteReceiver), {votesReceived: increaseBy});
+        batch.commit()
+            .then(() => {
+                    console.log('Vote added');
+                }
+            );
+    });
+exports.voteDeleted = functions.firestore
+    .document('votes/{voteId}')
+    .onDelete(snapshot => {
+            const decreasedBy = admin.firestore.FieldValue.increment(-1);
+            const newValue = snapshot.data();
+            const batch = admin.firestore().batch();
+            batch.update(getPostRef(newValue.postId), {totalVotes: decreasedBy});
+            batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: decreasedBy});
+            batch.update(getUserRef(newValue.voteReceiver), {votesReceived: decreasedBy});
+            batch.commit()
+                .then(() => {
+                            console.log('Vote deleted');
+                    }
+                );
+    });
+
+function getPostRef(postId: string) {
+        return admin.firestore().collection('posts').doc(postId);
+}
+function getUserRef(userId: string) {
+        return admin.firestore().collection('users').doc(userId);
+}
+function getAnswerRef(postId: string, answerId: string) {
+       return  admin.firestore().collection('posts').doc(postId).collection('answers').doc(answerId);
+}
+
+
+
+
