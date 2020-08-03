@@ -2,5 +2,5 @@
     <button mat-icon-button aria-label="Vote button" (click)="onClick()">
         <mat-icon [class.vote-icon-color]="isVoted"  [class.vote-icon-dark]="!isVoted">done</mat-icon>
     </button>
-    <p class="mat-body-2">6</p>
+    <p class="mat-body-2">{{answer.votesNumber}}</p>
 </div>

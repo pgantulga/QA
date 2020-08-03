@@ -78,3 +78,20 @@ button.mat-raised-button.mat-accent{
 .answer-divider.mat-divider.mat-divider-inset {
   margin-left: 102px;
 }
+
+
+
+//temp
+.avatar-image {
+  //position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: aliceblue;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.avatar-image img {
+  position: relative;
+  margin: 0 auto;
+  height: 100%;
+}

@@ -27,6 +27,7 @@ import { CommentAddComponent } from './comment/comment-add/comment-add.component
 import { AnswerAddComponent } from './answer/answer-add/answer-add.component';
 import { AnswerListComponent } from './answer/answer-list/answer-list.component';
 import { VoteButtonComponent } from './vote/vote-button/vote-button.component';
+import { UserProfileComponent } from './shared/components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { VoteButtonComponent } from './vote/vote-button/vote-button.component';
     CommentAddComponent,
     AnswerAddComponent,
     AnswerListComponent,
-    VoteButtonComponent
+    VoteButtonComponent,
+    UserProfileComponent
   ],
     imports: [
         BrowserModule,

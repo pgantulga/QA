@@ -33,12 +33,6 @@ exports.voteAdded = functions.firestore
     .onCreate( (snap, context) => {
         const increaseBy = admin.firestore.FieldValue.increment(1);
         const newValue = snap.data();
-        // const postId = newValue.postId;
-        // const answerId = newValue.answerId;
-        // const userId = newValue.voteReciever;
-        // const postRef = admin.firestore().collection('posts').doc(postId);
-        // const answerRef = admin.firestore().collection('posts').doc(postId).collection('answers').doc(answerId);
-        // const userRef = admin.firestore().collection('users').doc(userId);
         const batch = admin.firestore().batch();
         batch.update(getPostRef(newValue.postId), {totalVotes: increaseBy});
         batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: increaseBy});
