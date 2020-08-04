@@ -1,0 +1,11 @@
+.sidenav-container {
+    height: 100%;
+}
+.sidebar_container {
+    width: 250px;
+    background-color: yellow;
+    margin: 0 0 0 12px;
+}
+.container_content {
+    /*max-width: 800px;*/
+}

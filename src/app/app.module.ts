@@ -28,6 +28,10 @@ import { AnswerAddComponent } from './answer/answer-add/answer-add.component';
 import { AnswerListComponent } from './answer/answer-list/answer-list.component';
 import { VoteButtonComponent } from './vote/vote-button/vote-button.component';
 import { UserProfileComponent } from './shared/components/user-profile/user-profile.component';
+import { ShellComponent } from './shared/shell/shell.component';
+import {MatTableModule} from '@angular/material/table';
+import { TagAddComponent } from './tag/tag-add/tag-add.component';
+import { TagsComponent } from './tag/tags/tags.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,10 @@ import { UserProfileComponent } from './shared/components/user-profile/user-prof
     AnswerAddComponent,
     AnswerListComponent,
     VoteButtonComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ShellComponent,
+    TagAddComponent,
+    TagsComponent
   ],
     imports: [
         BrowserModule,
@@ -64,12 +71,14 @@ import { UserProfileComponent } from './shared/components/user-profile/user-prof
             {path: 'login', component: LoginComponent},
             {path: 'ask', component: PostAddComponent},
             {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
+            {path: 'tags', component: TagsComponent},
+            {path: 'addTag', component: TagAddComponent},
             {path: '**', redirectTo: '/home', pathMatch: 'full'},
-
         ]),
         MdModule,
         ReactiveFormsModule,
-        QuillModule.forRoot()
+        QuillModule.forRoot(),
+        MatTableModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]

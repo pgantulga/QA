@@ -1,28 +1,19 @@
-<div class="" fxLayout="row">
-    <div class="container_content mat-elevation-z2" fxFlex="70">
-        <header pageTitle="Асуултууд">
-            <mat-chip-list sub-nav>
+    <header pageTitle="Асуултууд">
+        <mat-chip-list sub-nav>
             <mat-chip color="accent" selected="true" class="nav">Эрэлттэй</mat-chip>
             <mat-chip color="accent" selected="false" class="nav">Сүүлийн</mat-chip>
-            </mat-chip-list>
-        </header>
-        <div class="list" *ngIf="posts | async as posts; else loading">
-            <ng-container *ngIf="posts.length; else noItems" >
-                <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                    <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                </post-list>
-            </ng-container>
-            <ng-template #noItems>Асуулт олдсонгүй</ng-template>
+        </mat-chip-list>
+    </header>
+    <div class="post-list_container" *ngIf="posts | async as posts; else loading">
+        <ng-container *ngIf="posts.length; else noItems" >
+            <post-list *ngFor="let item of posts; last as last"  [post]="item">
+                <mat-divider *ngIf="!last" post-divider ></mat-divider>
+            </post-list>
+        </ng-container>
+        <ng-template #noItems>Асуулт олдсонгүй</ng-template>
+    </div>
+    <ng-template #loading>
+        <div style="padding: 8px 22px" >
+            <p class="mat-caption">Ачааллаж байна. </p>
         </div>
-        <ng-template #loading>
-            <div style="padding: 8px 22px" >
-                <p class="mat-caption">Ачааллаж байна. </p>
-            </div>
-        </ng-template>
-    </div>
-    <div class="side_container" fxFlex>
-        <p>Here goes users list</p>
-    </div>
-</div>
-
-<!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
+    </ng-template>

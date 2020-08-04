@@ -1,1 +1,35 @@
-<p>users works!</p>
+<header pageTitle="Хэрэглэгчид">
+    <mat-chip-list sub-nav>
+        <mat-chip color="accent" selected="true" class="nav">Идэвхитэй</mat-chip>
+        <mat-chip color="accent" selected="false" class="nav">Шинэ</mat-chip>
+    </mat-chip-list>
+</header>
+<ng-container *ngIf="users$ | async as users; else loading">
+    <div class="users_page">
+        <div *ngFor="let item of users" class="user-grid">
+            <user-profile  [user]="item">
+            </user-profile>
+        </div>
+    </div>
+<!--    <mat-table [dataSource]="users" >-->
+<!--        <ng-container matColumnDef="name">-->
+<!--            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>-->
+<!--            <mat-cell *matCellDef="let element"> {{element.displayName}} </mat-cell>-->
+<!--        </ng-container>-->
+<!--        <ng-container matColumnDef="email">-->
+<!--            <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>-->
+<!--            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>-->
+<!--        </ng-container>-->
+<!--        <ng-container matColumnDef="votes">-->
+<!--            <mat-header-cell *matHeaderCellDef> Votes received </mat-header-cell>-->
+<!--            <mat-cell *matCellDef="let element"> {{element.votesReceived}} </mat-cell>-->
+<!--        </ng-container>-->
+<!--        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>-->
+<!--        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>-->
+<!--    </mat-table>-->
+</ng-container>
+<ng-template #loading>
+    <div style="padding: 8px 22px" >
+        <p class="mat-caption">Түр хүлээнэ үү. </p>
+    </div>
+</ng-template>

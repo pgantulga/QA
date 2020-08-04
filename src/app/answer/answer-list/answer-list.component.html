@@ -6,7 +6,15 @@
             <div class="vote-content" [innerHTML]="answer.content"></div>
         </div>
     </div>
-    <user-profile [user]="answer.author"></user-profile>
-    <ng-content select="[answer-divider]"></ng-content>
+    <div fxlayout="row" fxLayoutAlign="end center">
+<!--        <div fxLayout="row" fxLayoutAlign="start start">-->
+<!--            <div fxLayout="row" fxLayoutAlign="start center" class="replies">-->
+<!--                <mat-icon>reply</mat-icon>-->
+<!--                <p class="mat-caption">0</p>-->
+<!--            </div>-->
+<!--        </div>-->
+        <user-profile [user]="answer.author"></user-profile>
+    </div>
+    <ng-content select="[answer-divider]" ></ng-content>
 </div>
 
