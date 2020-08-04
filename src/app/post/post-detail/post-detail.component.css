@@ -16,6 +16,19 @@
     margin: 0 0 0 56px;
     /*color: #dadada;*/
 }
+.votes {
+    margin: 0 16px 0 0;
+}
+.votes mat-icon {
+    margin: 0 4px 0 0;
+}
+.replies {
+    margin: 0 16px 0 0;
+}
+.replies mat-icon {
+    margin: 0 4px 0 0;
+}
+
 
 .post-detail.view{
     text-align: justify;

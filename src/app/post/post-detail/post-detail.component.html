@@ -16,8 +16,20 @@
                     <mat-chip class="tag">Байгал орчин</mat-chip>
                     <mat-chip class="tag">ХУУ</mat-chip>
                 </mat-chip-list>
+                <div fxlayout="row" fxLayoutAlign="space-between center">
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <div fxLayout="row" fxLayoutAlign="start center" class="replies">
+                            <mat-icon>reply</mat-icon>
+                            <p class="mat-caption">13</p>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start center" class="votes">
+                            <mat-icon>done</mat-icon>
+                            <p class="mat-caption">13</p>
+                        </div>
+                    </div>
+                    <user-profile [user]="post.author"></user-profile>
+                </div>
             </div>
-            <user-profile [user]="post.author"></user-profile>
         </div>
         <mat-divider></mat-divider>
         <div *ngIf="answers$ | async as answers; else loading" class="answers">
