@@ -6,11 +6,38 @@
 .example-spacer {
     flex: 1 1 auto;
 }
+::ng-deep mat-form-field {
+    opacity: 1;
 
-mat-form-field.mat-form-field {
-    font-size: 12px;
+    transition: opacity .6s cubic-bezier(.25,.8,.25,1);
 }
 
+mat-form-field.mat-focused{
+    width: 400px;
+    transition: opacity .6s cubic-bezier(.25,.8,.25,1);
+
+    //transition: width 2s
+}
+mat-form-field.mat-focused.mat-focused.mat-form-field-label {
+    color: #ff1744 !important ;
+}
+
+
+
+
+mat-form-field.mat-form-field {
+
+    font-size: 12px;
+}
+mat-form-field .mat-form-field-wrapper {
+    padding: 0 !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    transition: opacity 1s cubic-bezier(.25,.8,.25,1);
+    padding: 0 !important;
+}
 .active-list-item {
     border-bottom: 1.5px solid mat-color($QA-accent,500);
 }
+

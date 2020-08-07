@@ -1,14 +1,19 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
     <mat-toolbar-row>
         <div fxFlex></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center">
             <img src="../../assets/logo_noTitle.png" alt="Logo" class="toolbarLogo">
             <div class="example-spacer"></div>
+            <mat-form-field appearance="outline"  color="accent" [floatLabel]="'never'">
+                <input matInput placeholder="Хайх" label="search">
+                <mat-label>Хайх</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
             <div *ngIf="authService.user$ | async as user; else login">
-                <button mat-raised-button color="accent" routerLink="ask">
-                    <mat-icon>edit</mat-icon>
-                    Асуух
-                </button>
+<!--                <button mat-raised-button color="accent" routerLink="ask">-->
+<!--                    <mat-icon>edit</mat-icon>-->
+<!--                    Асуух-->
+<!--                </button>-->
                 <button mat-icon-button class="example-icon" aria-label="Icon button" color="accent" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>
