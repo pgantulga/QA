@@ -32,6 +32,7 @@ import { ShellComponent } from './shared/shell/shell.component';
 import {MatTableModule} from '@angular/material/table';
 import { TagAddComponent } from './tag/tag-add/tag-add.component';
 import { TagsComponent } from './tag/tags/tags.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { TagsComponent } from './tag/tags/tags.component';
     UserProfileComponent,
     ShellComponent,
     TagAddComponent,
-    TagsComponent
+    TagsComponent,
+    SidebarComponent
   ],
     imports: [
         BrowserModule,

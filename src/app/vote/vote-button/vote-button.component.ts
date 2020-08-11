@@ -12,10 +12,14 @@ export class VoteButtonComponent implements OnInit  {
   constructor( public voteService: VoteService) {}
   ngOnInit(): void {
     this.voteService.findVote(this.answer).then(data => {
-      data.forEach(doc => {
-        console.log(doc.exists);
-        this.isVoted = doc.exists;
-      });
+      if (data) {
+        data.forEach(doc => {
+          console.log(doc.exists);
+          this.isVoted = doc.exists;
+        });
+      } else  {
+        console.log('No user');
+      }
     });
   }
   onClick() {

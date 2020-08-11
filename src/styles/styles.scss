@@ -4,7 +4,7 @@
 @import "../../node_modules/quill/dist/quill.bubble.css";
 @import "../../node_modules/quill/dist/quill.core.css";
 @import "../../node_modules/quill/dist/quill.snow.css";
-html, body { height: 100%; }
+//html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 //typography
@@ -32,6 +32,9 @@ button.mat-raised-button.mat-accent{
 //*****************************Global styles*************************************
 
 //Container
+.container {
+  //margin-top: 16px;
+}
 
 @media only screen and (max-width: 1920px ) and ( min-width: 1280px){
   .container {

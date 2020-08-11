@@ -1,8 +1,16 @@
-<mat-toolbar color="primary" style="border-bottom: 1px solid rgba(0,0,0,0.2)">
+<mat-toolbar color="primary" style="border-bottom: 1px solid rgba(0,0,0,0.2)" class="top-toolbar">
     <mat-toolbar-row>
-        <div fxFlex></div>
-        <div class="container" fxLayout="row" fxLayoutAlign="center center">
-            <img src="../../assets/logo_noTitle.png" alt="Logo" class="toolbarLogo">
+        <div fxFlex *ngIf="!isPostPage"></div>
+        <div class="container" fxLayout="row" fxLayoutAlign="center center" [class.postPage_container]="isPostPage">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button color="accent" type="button" aria-label="back" mat-icon-button *ngIf="isPostPage" routerLink="/home">
+                    <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
+                </button>
+                <ng-content></ng-content>
+                <button mat-icon-button class="homeButton" routerLink="/home">
+                    <img src="../../assets/logo_noTitle.png" alt="Logo" class="toolbarLogo">
+                </button>
+            </div>
             <div class="example-spacer"></div>
             <mat-form-field appearance="outline"  color="accent" [floatLabel]="'never'">
                 <input matInput placeholder="Хайх" label="search">
@@ -10,11 +18,7 @@
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <div *ngIf="authService.user$ | async as user; else login">
-<!--                <button mat-raised-button color="accent" routerLink="ask">-->
-<!--                    <mat-icon>edit</mat-icon>-->
-<!--                    Асуух-->
-<!--                </button>-->
-                <button mat-icon-button class="example-icon" aria-label="Icon button" color="accent" [matMenuTriggerFor]="dropMenu">
+                <button mat-icon-button class="example-icon " aria-label="Icon button" color="accent" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>
                 <mat-menu #dropMenu="matMenu">
@@ -24,28 +28,11 @@
                 </mat-menu>
             </div>
             <ng-template #login>
-                <button mat-raised-button color="accent" routerLink="login">
+                <button mat-button color="accent" routerLink="login" class="login">
                     Нэвтрэх
                 </button>
             </ng-template>
         </div>
-        <div fxFlex></div>
+        <div fxFlex *ngIf="!isPostPage"></div>
     </mat-toolbar-row>
-<!--    <mat-toolbar-row>-->
-<!--        <div fxFlex></div>-->
-<!--        <div class="container" fxLayout="row">-->
-<!--            <div fxLayout="row">-->
-<!--                <mat-nav-list fxLayout="row">-->
-<!--                    <a *ngFor="let menu of topMenu" mat-list-item routerLink="{{menu.link}}" routerLinkActive="active-list-item">{{menu.name}}</a>-->
-<!--                </mat-nav-list>-->
-<!--            </div>-->
-<!--            <span class="example-spacer"></span>-->
-<!--            <mat-form-field appearance="outline">-->
-<!--                <mat-label>Хайх</mat-label>-->
-<!--                <input matInput placeholder="Хайх" label="search">-->
-<!--                <mat-icon matSuffix>search</mat-icon>-->
-<!--            </mat-form-field>-->
-<!--        </div>-->
-<!--        <div fxFlex></div>-->
-<!--    </mat-toolbar-row>-->
 </mat-toolbar>

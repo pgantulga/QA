@@ -48,8 +48,11 @@ export class VoteService {
   }
   async findVote(answerObj) {
       const user = await this.authService.getUser();
+      if (!user ) {
+          return null;
+      }
       const voteRef =  this.db.collection('votes',
-              ref => ref.where('voteId', '==', answerObj.parent.id + '_' + answerObj.id + '_' + user.uid));
+          ref => ref.where('voteId', '==', answerObj.parent.id + '_' + answerObj.id + '_' + user.uid));
       return voteRef.get().toPromise();
   }
 }

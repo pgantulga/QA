@@ -3,7 +3,9 @@ import {MenuService} from "../services/menu.service";
 import {Menu} from "../interfaces/Menu";
 import {AuthService} from "../services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from "../shared/dialog/dialog.component";
+import {DialogComponent} from '../shared/dialog/dialog.component';
+import {filter} from 'rxjs/operators';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +14,17 @@ import {DialogComponent} from "../shared/dialog/dialog.component";
 })
 export class NavbarComponent{
   topMenu: Menu[];
-  constructor( public menu: MenuService, public authService: AuthService, public dialog: MatDialog) {
+  currentRoute: any;
+  isPostPage: boolean;
+  constructor( public menu: MenuService, public authService: AuthService, public dialog: MatDialog, public router: Router) {
     this.topMenu = menu.topMenu;
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd))
+        .subscribe(e => {
+          // @ts-ignore
+          this.currentRoute = e.url;
+          this.isPostPage = this.currentRoute.includes('posts/');
+        });
   }
   signOut() {
     const dialogRef = this.dialog.open(DialogComponent, {

@@ -1,5 +1,20 @@
 @import "../../styles/custom-theme.scss";
 
+.top-toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+img::selection {
+    border: none;
+}
+.homeButton {
+    height: 48px;
+    width: 48px;
+}
+
 .toolbarLogo {
     height: 48px;
 }
@@ -22,7 +37,12 @@ mat-form-field.mat-focused.mat-focused.mat-form-field-label {
     color: #ff1744 !important ;
 }
 
-
+//buttons
+.login {
+    border: 2px solid mat-color($QA-accent);
+    border-radius: 30px;
+    margin-left: 16px;
+}
 
 
 mat-form-field.mat-form-field {
@@ -39,5 +59,11 @@ mat-form-field .mat-form-field-wrapper {
 }
 .active-list-item {
     border-bottom: 1.5px solid mat-color($QA-accent,500);
+}
+
+.postPage_container {
+    width: 100%;
+    padding: 0 12px 0 12px;
+
 }
 
