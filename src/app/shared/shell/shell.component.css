@@ -5,8 +5,9 @@
 .sidenav-container {
     height: 100%;
 }
-mat-sidenav {
+::ng-deep mat-sidenav {
     width: 380px !important;
+    top: 64px !important;
 
 }
 .mat-sidenav-content-container {

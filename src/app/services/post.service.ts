@@ -7,7 +7,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
   providedIn: 'root'
 })
 export class PostService {
-  postCollection = this.db.collection<any>('posts', ref => ref.orderBy('createdAt', 'asc'));
+  postCollection = this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc'));
   constructor(private db: AngularFirestore) { }
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();

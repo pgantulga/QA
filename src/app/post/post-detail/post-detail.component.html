@@ -1,14 +1,16 @@
 <ng-container *ngIf="post$ | async as post">
     <header [pageTitle]="post.title">
         <div sub-nav fxLayout="row" fxLayoutAlign="start center">
-            <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
+            <p class="mat-caption" style="color: #ffffff">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
             <div fxLayout="row" fxLayoutAlign="start center" class="time">
-                <mat-icon>visibility</mat-icon>
+                <mat-icon style="color: #ffffff">visibility</mat-icon>
+                <p class="mat-caption" style="color: #ffffff">12</p>
             </div>
         </div>
     </header>
-    <div fxLayout="row">
-        <div class="post-detail view" fxFlex="">
+    <div fxLayout="column" class="post-detail">
+<!--        <user-profile [user]="post.author"></user-profile>-->
+        <div class="view" fxFlex="">
             <div [innerHTML]="post.content"></div>
             <mat-chip-list>
                 <mat-chip class="tag">Байгал орчин</mat-chip>

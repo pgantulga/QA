@@ -5,7 +5,12 @@
 
 
 .post-detail {
-    padding: 30px 30px 12px 30px;
+    padding: 12px 30px 12px 22px;
+}
+.post-detail .view{
+    text-align: justify;
+    margin: 0 0 0 74px;
+    padding: 16px 0 0 0;
 }
 .post-detail .tags {
     padding: 0 15px;
@@ -30,10 +35,8 @@
 }
 
 
-.post-detail.view{
-    text-align: justify;
-}
+
 .answers {
-    padding: 12px 30px ;
+    padding: 12px 22px ;
 }
 

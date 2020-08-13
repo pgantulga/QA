@@ -9,65 +9,9 @@
     </button>
 </app-navbar>
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #drawer class="sidenav" [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'">
+    <mat-sidenav class="mat-elevation-z3" [fixedInViewport]="true" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" style="top: 64px">
         <ng-container [ngSwitch]="isPostPage" >
-            <ng-container *ngSwitchCase="true">
-                <div class="post-list_container" *ngIf="posts | async as posts; else loading">
-                    <ng-container *ngIf="posts.length; else noItems" >
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                        <post-list *ngFor="let item of posts; last as last"  [post]="item">
-                            <mat-divider *ngIf="!last" post-divider ></mat-divider>
-                        </post-list>
-                    </ng-container>
-                    <ng-template #noItems>Асуулт олдсонгүй</ng-template>
-                </div>
-                <ng-template #loading>
-                    <div style="padding: 8px 22px" >
-                        <p class="mat-caption">Ачааллаж байна. </p>
-                    </div>
-                </ng-template>
-            </ng-container>
+            <post-sidenav *ngSwitchCase="true"></post-sidenav>
             <ng-container *ngSwitchCase="false">
                 <p>Navigation</p>
             </ng-container>
@@ -78,7 +22,7 @@
             <div fxFlex></div>
             <div [class.container]="!isPostPage" fxLayout="row" style="">
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
-                <div fxFlex class="container_content mat-elevation-z1">
+                <div fxFlex class="container_content">
                     <ng-content></ng-content>
                 </div>
             </div>

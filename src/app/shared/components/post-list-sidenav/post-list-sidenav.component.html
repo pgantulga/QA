@@ -1,0 +1,28 @@
+<!--    <div class="avatar">K</div>-->
+<div class="post-list-sidenav" fxLayout="column"[routerLink]="['/posts', post.id]">
+    <p class="mat-caption question" >{{post.title}}</p>
+    <div fxLayout="row" fxLayoutAlign="start center">
+        <mat-chip-list>
+            <mat-chip class="tag">Байгал орчин</mat-chip>
+            <mat-chip class="tag">ХУУ</mat-chip>
+        </mat-chip-list>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="">
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <div fxLayout="row" fxLayoutAlign="start center" class="replies" style="margin: 0 8px 0 0">
+                <mat-icon class="icon-dark">reply</mat-icon>
+                <p class="mat-caption">{{post.answersCount}}</p>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" class="votes">
+                <mat-icon class="icon-dark">done</mat-icon>
+                <p class="mat-caption">{{post.totalVotes}}</p>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="icon-small icon-dark">update</mat-icon>
+            <p class="mat-caption">{{post.updatedAt | momentPipe}}</p>
+        </div>
+    </div>
+</div>
+<ng-content></ng-content>
+

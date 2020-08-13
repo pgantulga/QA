@@ -13,11 +13,26 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: rgba(0,0,0,0.60);
   }
 }
-//
-//mat-icon {
-//  color: rgba(0,0,0,0.56);
-//}
-
+.icon-dark {
+  color: rgba(0,0,0,0.56);
+}
+.icon-small {
+  transform: scale(0.7);
+  //font-size: 16px;
+}
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 36px;
+  font-size: 18px;
+  line-height: 36px;
+  background-color: rgba(219, 160, 213);
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+  color: #ffffff;
+  margin: 2px 6px 0 0;
+}
 
 //Button
 button.mat-raised-button{

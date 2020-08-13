@@ -1,8 +1,13 @@
-<mat-toolbar class="header" [ngStyle]="{background: 'url(../assets/default_image.png)', width: '100%'}" fxLayout="column">
+<mat-toolbar class="header" [ngStyle]="styleObj" fxLayout="column">
     <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
-        <span class="mat-display-1">{{pageTitle}}</span>
+        <p class="mat-display-1" style="display: inline-grid">{{pageTitle}}</p>
     </mat-toolbar-row>
     <mat-toolbar-row class="sub-nav">
         <ng-content select="[sub-nav]"></ng-content>
     </mat-toolbar-row>
+    <button mat-fab color="accent" aria-label="reply" class="header-fab">
+        <mat-icon>reply</mat-icon>
+    </button>
 </mat-toolbar>
+
+

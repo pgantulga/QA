@@ -33,6 +33,8 @@ import {MatTableModule} from '@angular/material/table';
 import { TagAddComponent } from './tag/tag-add/tag-add.component';
 import { TagsComponent } from './tag/tags/tags.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { PostSidenavComponent } from './shared/components/post-sidenav/post-sidenav.component';
+import { PostListSidenavComponent } from './shared/components/post-list-sidenav/post-list-sidenav.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,9 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     ShellComponent,
     TagAddComponent,
     TagsComponent,
-    SidebarComponent
+    SidebarComponent,
+    PostSidenavComponent,
+    PostListSidenavComponent
   ],
     imports: [
         BrowserModule,
