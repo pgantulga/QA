@@ -10,6 +10,15 @@ import * as admin from 'firebase-admin';
 // });
 
 admin.initializeApp();
+exports.lastLog = functions.firestore
+    .document('posts/{postId}/logs/{log}')
+    .onCreate((snap, context) => {
+        const postId = context.params.postId;
+        const docRef = admin.firestore().collection('posts').doc(postId);
+        return docRef.update({
+            lastLog: snap.data()
+        });
+    });
 exports.aggregateComments = functions.firestore
     .document('posts/{postId}/answers/{answers}')
     .onWrite((change, context) => {
@@ -23,7 +32,6 @@ exports.aggregateComments = functions.firestore
                 const data = {
                     answersCount, updatedAt
                 };
-                console.log(data);
                 return docRef.update(data);
             })
             .catch(error => console.log(error));
@@ -37,7 +45,7 @@ exports.voteAdded = functions.firestore
         batch.update(getPostRef(newValue.postId), {totalVotes: increaseBy});
         batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: increaseBy});
         batch.update(getUserRef(newValue.voteReceiver), {votesReceived: increaseBy});
-        batch.commit()
+        return batch.commit()
             .then(() => {
                     console.log('Vote added');
                 }

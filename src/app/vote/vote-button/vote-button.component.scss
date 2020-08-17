@@ -4,6 +4,9 @@
     margin: 0 24px 0 0;
 }
 
+.active-button {
+    background-color: #e0f7fa;
+}
 .vote .mat-icon-button {
     width: 48px;
     height: 48px;
@@ -17,6 +20,7 @@
 }
 .vote-icon-color {
     color: mat-color($QA-accent,800);
+
 }
 
 .vote-content {

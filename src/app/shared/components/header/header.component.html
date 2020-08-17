@@ -1,13 +1,14 @@
-<mat-toolbar class="header" [ngStyle]="styleObj" fxLayout="column">
+<mat-toolbar class="header" [ngStyle]="styleObj" fxLayout="column" role="heading">
     <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
-        <p class="mat-display-1" style="display: inline-grid">{{pageTitle}}</p>
-    </mat-toolbar-row>
-    <mat-toolbar-row class="sub-nav">
+        <span class="mat-headline" fxHide.gt-xs="">{{testString}}</span>
+        <span class="mat-display-1" fxHide.xs="">{{testString}}</span>
         <ng-content select="[sub-nav]"></ng-content>
     </mat-toolbar-row>
-    <button mat-fab color="accent" aria-label="reply" class="header-fab">
-        <mat-icon>reply</mat-icon>
-    </button>
+<!--    <mat-toolbar-row class="sub-nav">-->
+<!--    </mat-toolbar-row>-->
+<!--    <button mat-fab color="accent" aria-label="reply" class="header-fab">-->
+<!--        <mat-icon>reply</mat-icon>-->
+<!--    </button>-->
 </mat-toolbar>
 
 

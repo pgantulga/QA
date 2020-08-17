@@ -1,13 +1,11 @@
-<!--<header pageTitle="Асуултууд">-->
-<!--    <mat-chip-list sub-nav>-->
-<!--        <mat-chip color="accent" selected="true" class="nav">Эрэлттэй</mat-chip>-->
-<!--        <mat-chip color="accent" selected="false" class="nav">Сүүлийн</mat-chip>-->
-<!--    </mat-chip-list>-->
-<!--</header>-->
 <div fxLayout="row" style="padding: 0 30px 0 14px" fxLayoutAlign="space-between center">
-    <button mat-button color="accent" class="login">СҮҮЛИЙН
+    <button mat-button color="accent" class="background-button" [matMenuTriggerFor]="menu">
+        СҮҮЛИЙН
         <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu.sort)">{{menu.name}}</button>
+    </mat-menu>
     <button mat-icon-button color="accent">
         <mat-icon>refresh</mat-icon>
     </button>

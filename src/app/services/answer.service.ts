@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {PostService} from './post.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,16 +8,17 @@ import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firest
 export class AnswerService {
   answersRef: AngularFirestoreCollection<any>;
 
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private postService: PostService) { }
   getAllAnswer(postId) {
     console.log(postId);
-    this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'))
+    this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
     return this.answersRef.valueChanges();
   }
   addAnswer(post, answer, user) {
     this.answersRef = this.db.collection('posts').doc(post.id).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
     return this.answersRef.add({
       content: answer.content,
+      votesNumber: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
       author: {
@@ -29,7 +31,7 @@ export class AnswerService {
       },
     })
         .then(res => {
-          console.log(res);
+          this.postService.addLog( user, 'answered', post.id);
           return res.update({id: res.id});
         })
         .catch(err => {

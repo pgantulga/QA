@@ -13,11 +13,12 @@ import {AnswerService} from '../../services/answer.service';
 export class PostDetailComponent implements OnInit {
   post$: any;
   answers$: any;
-
+  logs$: any;
   constructor(public route: ActivatedRoute, private postService: PostService, public authService: AuthService,
               public answerService: AnswerService) { }
 
   ngOnInit(): void {
+      // combine observers
     this.post$ = this.route.paramMap.pipe(
         switchMap( params => {
           return this.postService.getPost(params.get('id'));
@@ -25,6 +26,11 @@ export class PostDetailComponent implements OnInit {
     this.answers$ = this.route.paramMap.pipe(
         switchMap( params => {
             return this.answerService.getAllAnswer(params.get('id'));
+        })
+    );
+    this.logs$ = this.route.paramMap.pipe(
+        switchMap(params => {
+            return this.postService.getLogs(params.get('id'));
         })
     );
   }

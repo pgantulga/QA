@@ -11,6 +11,21 @@ export class PostListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+  getIcon(type) {
+    switch (type) {
+      case 'voted':
+        return 'done';
+      case 'created':
+        return 'edit';
+      case 'devoted':
+        return 'done';
+      case 'answered':
+        return 'reply';
+      default:
+        return 'update';
+    }
   }
 
 }

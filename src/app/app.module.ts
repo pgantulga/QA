@@ -35,6 +35,7 @@ import { TagsComponent } from './tag/tags/tags.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { PostSidenavComponent } from './shared/components/post-sidenav/post-sidenav.component';
 import { PostListSidenavComponent } from './shared/components/post-list-sidenav/post-list-sidenav.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { PostListSidenavComponent } from './shared/components/post-list-sidenav/
         ReactiveFormsModule,
         QuillModule.forRoot(),
         MatTableModule,
+        MatSelectModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]

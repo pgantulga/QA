@@ -8,8 +8,11 @@ import {Component, Input} from '@angular/core';
 export class HeaderComponent {
   styleObj: any;
   url: string;
+  testString: string ;
   @Input() pageTitle: string;
   constructor() {
+    this.testString = 'This is very long title of the post detal page look at this';
+    // this.testString = this.testString.slice(0, this.testString.length / 2);
     this.url = '../../../assets/mining.png';
     this.styleObj = {
       background: 'url(' + this.url + ') no-repeat center top',

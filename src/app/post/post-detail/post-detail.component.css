@@ -16,6 +16,11 @@
     padding: 0 15px;
 }
 
+.post-detail .log-section {
+    background-color: rgba(0,0,0,0.1);
+    margin: 0 0 0 74px;
+    padding: 4px;
+}
 
 .time {
     margin: 0 0 0 56px;

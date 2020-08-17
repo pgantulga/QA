@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +9,7 @@ export class PostService {
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();
   }
-  getAllPosts() {
+  getAllPosts(sort) {
     return this.postCollection.valueChanges();
   }
   createPost(formData, user) {
@@ -31,7 +28,7 @@ export class PostService {
       totalVotes: 0,
       viewCount: 0
     }).then( res => {
-      console.log(res.id);
+      this.addLog(user, 'created', res.id );
       return res.update({
         id: res.id
       });
@@ -39,5 +36,23 @@ export class PostService {
         .catch( error => {
           console.log('something happened' + error);
         });
+  }
+  addLog(user, action: string, postId) {
+    const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];
+    // const types_mn = ['Нэмсэн', 'Зассан', 'Санал өгсөн', 'Саналаа буцаасан', 'Хариулт өгсөн', 'Хариулсан' ]
+    const ref = this.postCollection.doc(postId).collection('logs');
+    if (!types.includes(action)) { return null; }
+    ref.add({
+      user: {
+        displayName: user.displayName,
+        uid: user.uid
+      },
+      type: action,
+      // type_mn: ,
+      timestamp: new Date()
+    }).then(res => console.log('Log Added'));
+  }
+  getLogs(postId) {
+    return this.postCollection.doc(postId).collection('logs', ref => ref.orderBy('timestamp', 'desc') ).valueChanges();
   }
 }

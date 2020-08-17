@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {AuthService} from './auth.service';
+import * as firebase from 'firebase';
 import {first, map, switchMap, take} from 'rxjs/operators';
+import {PostService} from './post.service';
+// import increment = firebase.database.ServerValue.increment;
 
 @Injectable({
   providedIn: 'root'
 })
 export class VoteService {
   votesCollection = this.db.collection<any>('votes');
-  constructor(private db: AngularFirestore, private authService: AuthService) { }
-  getVotesNumber(answerObj) {
-  }
+  constructor(private db: AngularFirestore, private authService: AuthService, private postService: PostService) { }
   async addVote(answerObj) {
       const user = await this.authService.getUser();
       return this.votesCollection.add(
@@ -28,6 +29,7 @@ export class VoteService {
               voteId: answerObj.parent.id + '_' + answerObj.id + '_' + user.uid
           })
           .then(res => {
+              this.postService.addLog(user, 'voted', answerObj.parent.id);
               res.update({
                       id: res.id,
                   }
@@ -43,7 +45,10 @@ export class VoteService {
         const user = await this.authService.getUser();
         const vote = await this.findVote(answerObj);
         vote.forEach( doc => {
-             doc.ref.delete();
+             doc.ref.delete()
+                 .then(() => {
+                     this.postService.addLog(user, 'devoted', answerObj.parent.id);
+                 });
         });
   }
   async findVote(answerObj) {

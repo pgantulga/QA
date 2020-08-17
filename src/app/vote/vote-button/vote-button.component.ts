@@ -24,15 +24,23 @@ export class VoteButtonComponent implements OnInit  {
   }
   onClick() {
     if (!this.isVoted) {
-      this.addVote().then(res => res ? this.isVoted = !this.isVoted : null );
+      this.addVote().then(res => {
+        if (res) {
+          this.answer.votesNumber ++; this.isVoted = !this.isVoted;
+        } else {
+          return null;
+        }
+      });
     } else {
       this.removeVote()
-          .then(() => this.isVoted = !this.isVoted);
+          .then(() => {
+            this.isVoted = !this.isVoted; this.answer.votesNumber --;
+          });
     }
   }
   addVote() {
     console.log('add');
-    return this.voteService.addVote(this.answer);
+    return this.voteService.addVote(this.answer)
   }
   removeVote(){
     return this.voteService.removeVote(this.answer);
