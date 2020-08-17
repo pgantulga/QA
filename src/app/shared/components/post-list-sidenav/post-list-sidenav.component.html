@@ -1,12 +1,14 @@
 <div class="post-list-sidenav" fxLayout="column" [routerLink]="['/posts', post.id]">
-    <p class="mat-caption question" >{{post.title}}</p>
-    <div fxLayout="row" fxLayoutAlign="start center">
-        <mat-chip-list>
-            <mat-chip class="tag">Байгал орчин</mat-chip>
-            <mat-chip class="tag">ХУУ</mat-chip>
-        </mat-chip-list>
+    <div fxLayout="column">
+        <p class="mat-caption question" >{{post.title}}</p>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-chip-list>
+                <mat-chip class="tag">Байгал орчин</mat-chip>
+                <mat-chip class="tag">ХУУ</mat-chip>
+            </mat-chip-list>
+        </div>
     </div>
-    <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
         <div fxLayout="row" fxLayoutAlign="start center">
             <div fxLayout="row" fxLayoutAlign="start center" class="replies" style="margin: 0 8px 0 0">
                 <mat-icon class="icon-dark">reply</mat-icon>

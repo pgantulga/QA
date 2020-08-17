@@ -12,7 +12,7 @@ export class PostSidenavComponent implements OnInit {
   constructor(public postService: PostService) { }
 
   ngOnInit(): void {
-    this.posts = this.postService.getAllPosts();
+    this.posts = this.postService.getAllPosts('latest');
   }
 
 }

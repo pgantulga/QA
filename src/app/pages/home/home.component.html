@@ -1,12 +1,12 @@
 <div fxLayout="row" style="padding: 0 30px 0 14px" fxLayoutAlign="space-between center">
     <button mat-button color="accent" class="background-button" [matMenuTriggerFor]="menu">
-        СҮҮЛИЙН
+        {{selected.name}}
         <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu.sort)">{{menu.name}}</button>
+        <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
     </mat-menu>
-    <button mat-icon-button color="accent">
+    <button mat-icon-button color="accent" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
     </button>
 </div>

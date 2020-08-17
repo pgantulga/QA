@@ -7,10 +7,9 @@
 }
 ::ng-deep mat-sidenav {
     width: 380px !important;
-    top: 64px !important;
+    /*top: 64px !important;*/
 
 }
 .mat-sidenav-content-container {
-    margin-top: 16px;
+    padding-top: 16px;
 }
-

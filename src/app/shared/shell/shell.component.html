@@ -9,18 +9,18 @@
     </button>
 </app-navbar>
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav class="mat-elevation-z3" [fixedInViewport]="true" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" style="top: 64px">
+    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" >
         <ng-container [ngSwitch]="isPostPage" >
             <post-sidenav *ngSwitchCase="true"></post-sidenav>
             <ng-container *ngSwitchCase="false">
-                <p>Navigation</p>
+                <p>Navigationasfdaf</p>
             </ng-container>
         </ng-container>
     </mat-sidenav>
     <mat-sidenav-content [class.mat-sidenav-content-container]="!isPostPage">
         <div fxLayout="row">
             <div fxFlex></div>
-            <div [class.container]="!isPostPage" fxLayout="row" style="">
+            <div [class.container]="!isPostPage" fxLayout="row">
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
                 <div fxFlex class="container_content">
                     <ng-content></ng-content>

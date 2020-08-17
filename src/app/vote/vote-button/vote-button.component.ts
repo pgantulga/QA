@@ -14,7 +14,6 @@ export class VoteButtonComponent implements OnInit  {
     this.voteService.findVote(this.answer).then(data => {
       if (data) {
         data.forEach(doc => {
-          console.log(doc.exists);
           this.isVoted = doc.exists;
         });
       } else  {

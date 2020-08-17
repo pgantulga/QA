@@ -3,6 +3,12 @@
         <post-list-sidenav *ngFor="let item of posts; last as last" [post]="item">
             <mat-divider *ngIf="!last" post-divider></mat-divider>
         </post-list-sidenav>
+        <post-list-sidenav *ngFor="let item of posts; last as last" [post]="item">
+            <mat-divider *ngIf="!last" post-divider></mat-divider>
+        </post-list-sidenav>
+        <post-list-sidenav *ngFor="let item of posts; last as last" [post]="item">
+            <mat-divider *ngIf="!last" post-divider></mat-divider>
+        </post-list-sidenav>
     </ng-container>
     <ng-template #noItems>Хэлэлцүүлэг олдсонгүй</ng-template>
 </div>

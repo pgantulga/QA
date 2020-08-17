@@ -29,11 +29,16 @@
                 <user-profile [user]="post.author"></user-profile>
             </div>
         </div>
-        <div class="log-section" *ngIf="logs$ | async as logs">
-            <div *ngFor="let log of logs">
-                <p>{{log.user.displayName}} {{log.type}} {{log.timestamp | momentPipe}}</p>
-            </div>
-        </div>
+
+        <ng-container *ngIf="authService.user$ | async as user">
+            <ng-container *ngIf="authService.canDelete(user)">
+                <div class="log-section" *ngIf="logs$ | async as logs">
+                    <div *ngFor="let log of logs">
+                        <p>{{log.user.displayName}} {{log.type}} {{log.timestamp | momentPipe}}</p>
+                    </div>
+                </div>
+            </ng-container>
+        </ng-container>
     </div>
     <mat-divider></mat-divider>
     <div *ngIf="answers$ | async as answers; else loading" class="answers">

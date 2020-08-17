@@ -11,10 +11,11 @@ import {AuthService} from "../../services/auth.service";
 export class HomeComponent implements OnInit {
   posts: Observable<any>;
   dropDownMenu: any;
+  selected: any;
   constructor( private postService: PostService, public authService: AuthService) { }
 
   ngOnInit(): void {
-    this.posts = this.postService.getAllPosts('latest');
+    console.log('ngonit');
     this.dropDownMenu = [{
       name: 'Сүүлийн',
       sort: 'latest'
@@ -24,8 +25,17 @@ export class HomeComponent implements OnInit {
         sort: 'active'
       }
     ];
+    this.selected = this.dropDownMenu[0];
+    this.posts = this.postService.getAllPosts(this.selected.sort);
+
+
   }
-  changeSort(sort: string) {
-    this.posts = this.postService.getAllPosts(sort);
+  changeSort(sort) {
+    this.selected = sort;
+    this.posts = this.postService.getAllPosts(this.selected.sort);
+  }
+  refresh() {
+    this.selected = this.dropDownMenu[0];
+    this.posts = this.postService.getAllPosts(this.selected.sort);
   }
 }

@@ -34,7 +34,6 @@ export class ShellComponent implements OnInit{
                 this.isPostPage = this.currentRoute.includes('/posts');
                 this.sidebarLogic = this.showSidebar(this.currentRoute);
             });
-        this.posts = this.postService.getAllPosts();
     }
 
     showSidebar(currentRoute) {

@@ -10,7 +10,8 @@ export class PostService {
     return this.postCollection.doc(id).valueChanges();
   }
   getAllPosts(sort) {
-    return this.postCollection.valueChanges();
+    return this.sort(sort).valueChanges();
+    // return this.postCollection.valueChanges();
   }
   createPost(formData, user) {
     return  this.postCollection.add({
@@ -48,11 +49,19 @@ export class PostService {
         uid: user.uid
       },
       type: action,
-      // type_mn: ,
       timestamp: new Date()
     }).then(res => console.log('Log Added'));
   }
   getLogs(postId) {
     return this.postCollection.doc(postId).collection('logs', ref => ref.orderBy('timestamp', 'desc') ).valueChanges();
   }
+  sort(sort) {
+    switch(sort) {
+        case 'latest':
+          return this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc'));
+        case 'active':
+          return this.db.collection<any>('posts', ref => ref.orderBy('answersCount', 'desc'));
+    }
+  }
 }
+
