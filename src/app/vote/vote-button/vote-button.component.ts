@@ -1,5 +1,7 @@
 import {Component, Input, OnInit,} from '@angular/core';
 import {VoteService} from '../../services/vote.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackComponent} from '../../shared/components/snack/snack.component';
 
 @Component({
   selector: 'vote-button',
@@ -9,7 +11,9 @@ import {VoteService} from '../../services/vote.service';
 export class VoteButtonComponent implements OnInit  {
   @Input() answer: any;
   isVoted: boolean;
-  constructor( public voteService: VoteService) {}
+  constructor( public voteService: VoteService,
+               public snackBar: MatSnackBar
+               ) {}
   ngOnInit(): void {
     this.voteService.findVote(this.answer).then(data => {
       if (data) {
@@ -24,6 +28,7 @@ export class VoteButtonComponent implements OnInit  {
   onClick() {
     if (!this.isVoted) {
       this.addVote().then(res => {
+        // @ts-ignore
         if (res) {
           this.answer.votesNumber ++; this.isVoted = !this.isVoted;
         } else {
@@ -40,8 +45,18 @@ export class VoteButtonComponent implements OnInit  {
   addVote() {
     console.log('add');
     return this.voteService.addVote(this.answer)
+        .then(() => {
+          this.snackBar.openFromComponent(SnackComponent, {
+            data: 'Таны үнэлгээ нэмэгдлээ'
+          });
+        });
   }
   removeVote(){
-    return this.voteService.removeVote(this.answer);
+    return this.voteService.removeVote(this.answer)
+        .then(() => {
+          this.snackBar.openFromComponent(SnackComponent, {
+            data: 'Таны үнэлгээ хасагдлаа'
+          });
+        });
   }
 }

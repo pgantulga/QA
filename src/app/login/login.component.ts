@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   loginWithGoogle() {
     this.authService.googleLogin()
-        .then(()=> console.log('Google login successfully'))
-        .catch(err => {console.log("Login error: "+ err)});
+        .then(() => console.log('Google login successfully'))
+        .catch(err => {console.log('Login error: ' + err); });
   }
 
 }

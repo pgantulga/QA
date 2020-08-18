@@ -6,17 +6,18 @@
 @import "../../node_modules/quill/dist/quill.snow.css";
 html {
   height: 100%;
+  overflow: hidden;
 }
 body {
   height: 100%;
-  position: relative;
+  //position: relative;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 //typography
 .mat-list-base {
   .mat-list-item {
-    color: rgba(0,0,0,0.60);
+    color: rgba(0,0,0,0.60) !important;
   }
 }
 .icon-dark {
@@ -53,7 +54,6 @@ button.mat-raised-button.mat-accent{
   //border: 2px solid mat-color($QA-accent);
   background-color: mat-color($QA-accent, 50, 0.7);
   border-radius: 300px;
-  margin-left: 16px;
 }
 
 //*****************************Global styles*************************************
@@ -107,3 +107,13 @@ button.mat-raised-button.mat-accent{
   margin-left: 102px;
 }
 
+
+
+//******************************************line clamps*****************************************************
+
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

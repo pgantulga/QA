@@ -17,7 +17,7 @@ import { AdminComponent } from './admin/admin/admin.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostAddComponent } from './post/post-add/post-add.component';
-import { ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuillModule} from 'ngx-quill';
 import { SnackComponent } from './shared/components/snack/snack.component';
 import { MdModule} from './modules/md.module';
@@ -36,6 +36,8 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
 import { PostSidenavComponent } from './shared/components/post-sidenav/post-sidenav.component';
 import { PostListSidenavComponent } from './shared/components/post-list-sidenav/post-list-sidenav.component';
 import {MatSelectModule} from '@angular/material/select';
+import { TagItemComponent } from './tag/tag-item/tag-item.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import {MatSelectModule} from '@angular/material/select';
     TagsComponent,
     SidebarComponent,
     PostSidenavComponent,
-    PostListSidenavComponent
+    PostListSidenavComponent,
+    TagItemComponent
   ],
     imports: [
         BrowserModule,
@@ -87,6 +90,8 @@ import {MatSelectModule} from '@angular/material/select';
         QuillModule.forRoot(),
         MatTableModule,
         MatSelectModule,
+        MatGridListModule,
+        FormsModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]

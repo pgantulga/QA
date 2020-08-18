@@ -1,14 +1,14 @@
 <div class="sidebar_container" fxLayout="column">
     <button mat-raised-button color="accent" routerLink="ask" >
         <mat-icon>edit</mat-icon>
-        Асуух
+        Хэлэлцүүлэг нэмэх
     </button>
-    <mat-action-list>
-        <mat-list-item style="border-radius: 30px" routerLink="home">
+    <mat-action-list class="navigation-list">
+        <mat-list-item class="navigation-list-item" style="border-radius: 30px" routerLink="home" role="navigation" routerLinkActive="active">
             <mat-icon matListIcon>forum</mat-icon>
             <p matLine style="font-weight: 500">Хэлэлцүүүлэг</p>
         </mat-list-item>
-        <mat-list-item style="border-radius: 30px">
+        <mat-list-item class="navigation-list-item" style="border-radius: 30px" routerLink="tags" role="navigation" routerLinkActive="active">
             <mat-icon matListIcon>view_module</mat-icon>
             <p matLine style="font-weight: 500">Таггууд</p>
         </mat-list-item>

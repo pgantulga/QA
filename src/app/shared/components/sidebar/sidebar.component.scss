@@ -1,0 +1,25 @@
+@import "../../../../styles/custom-theme.scss";
+
+.sidebar_container {
+    width: 233px;
+    /*background-color: yellow;*/
+    margin: 0 16px 0 0;
+}
+.mat-list-base {
+    .mat-list-item {
+        height: 40px;
+
+    }
+}
+
+.active {
+    background-color: mat-color($QA-accent, 50);
+    color:  mat-color($QA-accent, 800) !important;
+}
+
+.navigation-list {
+    margin: 16px 0 16px 0;
+}
+.navigation-list-item {
+    margin: 0 0 8px 0;
+}

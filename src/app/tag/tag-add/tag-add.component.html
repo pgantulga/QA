@@ -1,1 +1,16 @@
-<p>tag-add works!</p>
+<h1 mat-dialog-title>Таг нэмэх</h1>
+<div mat-dialog-content>
+    <mat-form-field color="accent" >
+        <mat-label>Нэр</mat-label>
+        <input type="text" matInput [(ngModel)]="data.name" >
+    </mat-form-field>
+    <mat-form-field color="accent" >
+        <mat-label>Тайлбар</mat-label>
+        <textarea matInput [(ngModel)]="data.description"  maxlength="256" #description></textarea>
+        <mat-hint align="end">{{description.value.length}} /200</mat-hint>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Цуцлах</button>
+    <button mat-button [mat-dialog-close]="data">Нэмэх</button>
+</div>

@@ -95,7 +95,7 @@ export class AuthService {
 
   canVote(user: User): boolean {
     const allowed = ['subscriber', 'moderator', 'admin'];
-    return this.checkAuth(user, allowed)
+    return this.checkAuth(user, allowed);
   }
 
   canRecommend(user: User): boolean {
