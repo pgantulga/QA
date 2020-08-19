@@ -1,0 +1,14 @@
+<div fxLayout="row" class="top-banner-container" *ngIf="!closed">
+    <div fxFlex></div>
+    <div class="container top-banner" fxLayout="column" fxLayoutAlign="center center" style="position: relative">
+        <button mat-icon-button color="accent" style="position: absolute; top: 4px;right: 4px" (click)="close()" *ngIf="!closed">
+            <mat-icon>close</mat-icon>
+        </button>
+        <p class="mat-headline">Тавтай морил!</p>
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+        <button mat-button color="accent" class="background-button">
+            Take tour
+        </button>
+    </div>
+    <div fxFlex></div>
+</div>

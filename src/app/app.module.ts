@@ -38,6 +38,7 @@ import { PostListSidenavComponent } from './shared/components/post-list-sidenav/
 import {MatSelectModule} from '@angular/material/select';
 import { TagItemComponent } from './tag/tag-item/tag-item.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { TopBannerComponent } from './shared/banners/top-banner/top-banner.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     SidebarComponent,
     PostSidenavComponent,
     PostListSidenavComponent,
-    TagItemComponent
+    TagItemComponent,
+    TopBannerComponent
   ],
     imports: [
         BrowserModule,

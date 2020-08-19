@@ -13,20 +13,26 @@
         <ng-container [ngSwitch]="isPostPage" >
             <post-sidenav *ngSwitchCase="true"></post-sidenav>
             <ng-container *ngSwitchCase="false">
-                <p>Navigationasfdaf</p>
+                <p>Navigatiosn</p>
             </ng-container>
         </ng-container>
     </mat-sidenav>
-    <mat-sidenav-content [class.mat-sidenav-content-container]="!isPostPage">
+    <mat-sidenav-content>
+        <top-banner *ngIf="!isPostPage"></top-banner>
         <div fxLayout="row">
             <div fxFlex></div>
-            <div [class.container]="!isPostPage" fxLayout="row">
+            <div [class.container]="!isPostPage" [class.mat-sidenav-content-container]="!isPostPage" fxLayout="row" >
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
-                <div fxFlex class="container_content">
+                <div fxFlex fxLayout="column">
                     <ng-content></ng-content>
+                    <div style="height: 100px">
+                        Footer
+                    </div>
                 </div>
             </div>
             <div fxFlex></div>
         </div>
     </mat-sidenav-content>
+<!--    <top-banner style="z-index: 1000"></top-banner>-->
+
 </mat-sidenav-container>
