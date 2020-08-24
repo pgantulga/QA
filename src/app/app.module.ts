@@ -39,6 +39,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { TagItemComponent } from './tag/tag-item/tag-item.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TopBannerComponent } from './shared/banners/top-banner/top-banner.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { TopBannerComponent } from './shared/banners/top-banner/top-banner.compo
         MatSelectModule,
         MatGridListModule,
         FormsModule,
+        MatPaginatorModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]
