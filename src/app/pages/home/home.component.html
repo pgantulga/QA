@@ -9,21 +9,25 @@
     <button mat-icon-button color="accent" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-button color="accent" (click)="addTestItems()">
-        Add Test Items
-    </button>
+<!--    <button mat-button color="accent" (click)="addTestItems()">-->
+<!--        Add Test Items-->
+<!--    </button>-->
 </div>
-<div class="post-list_container" *ngIf="posts | async as posts; else loading">
+<div class="post-list_container" *ngIf="posts ; else loading">
     <ng-container *ngIf="posts.length; else noItems">
         <post-list *ngFor="let item of posts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>
         </post-list>
-        <mat-paginator [length]="posts.length" [pageSize]="10" (page)="pageEvent = $event"></mat-paginator>
+        <mat-paginator [length]="postMetas.size" [pageSize]="10" (page)="pageEvent = getItem($event)"></mat-paginator>
         <div *ngIf="pageEvent">
             {{pageEvent.pageIndex}}
         </div>
+        {{lastItem.id}}
+        {{firstItem.id}}
     </ng-container>
     <ng-template #noItems>Асуулт олдсонгүй</ng-template>
+
+
 </div>
 <ng-template #loading>
     <div style="padding: 8px 22px">

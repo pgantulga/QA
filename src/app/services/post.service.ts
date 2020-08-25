@@ -5,13 +5,19 @@ import {AngularFirestore} from "@angular/fire/firestore";
 })
 export class PostService {
   postCollection = this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc'));
-  testCollection = this.db.collection<any>('tests', ref => ref.orderBy('createdAt', 'desc'));
+  postMetaDoc = this.db.doc('metas/post');
+  private testCollection: any;
   constructor(private db: AngularFirestore) { }
-  nextPage(index) {
-    return this.db.collection<any>('tests', ref => ref.orderBy('createdAt', 'desc').startAt(0).limit(10)).valueChanges();
+  nextPage(doc) {
+    console.log(doc.id);
+    return this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc').startAfter('Rhy7Ub81rjMYXe7KMB8K').limit(10)).get();
   }
-  async getFirstItemByIndex(index) {
-    this.db.collection('tests', ref => ref.orderBy('updatedAt', 'desc')).valueChanges().subscribe();
+  prevPage(doc) {
+    console.log(doc.id);
+    return this.db.collection('posts', ref => ref.orderBy('updatedAt', 'desc').endBefore(doc).limitToLast(10)).get();
+  }
+  getFirstItems(num) {
+    return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc').limit(num)).get();
   }
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();
@@ -19,9 +25,6 @@ export class PostService {
   getAllPosts(sort) {
     return this.sort(sort).valueChanges();
     // return this.postCollection.valueChanges();
-  }
-  getAllTestPosts() {
-    return this.testCollection.valueChanges();
   }
   createPost(formData, user) {
     return  this.postCollection.add({

@@ -19,6 +19,28 @@ exports.lastLog = functions.firestore
             lastLog: snap.data()
         });
     });
+
+exports.postMeta = functions.firestore
+    .document('posts/{postId}')
+    .onWrite((change, context) => {
+        if ( change.after.exists && change.before.exists) {
+            console.log('update method');
+            return null;
+        }
+        console.log('create or delete methods');
+        const metaRef = admin.firestore().collection('metas').doc('post');
+        const postRef = admin.firestore().collection('posts');
+        return postRef.orderBy('createdAt', 'desc')
+            .get()
+            .then(snapshot => {
+                const size = snapshot.size;
+                const updatedAt = admin.firestore.FieldValue.serverTimestamp();
+                const data = {
+                    size, updatedAt
+                };
+                return metaRef.update(data);
+            });
+    });
 exports.aggregateComments = functions.firestore
     .document('posts/{postId}/answers/{answers}')
     .onWrite((change, context) => {
