@@ -1,6 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <button mat-button color="accent" class="background-button" [matMenuTriggerFor]="menu">
-        {{selected.name}}
+        {{selectedSort.name}}
         <mat-icon>keyboard_arrow_down</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
@@ -9,28 +9,22 @@
     <button mat-icon-button color="accent" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
     </button>
-<!--    <button mat-button color="accent" (click)="addTestItems()">-->
+<!--    <button mat-button color="accent" (click)="this.postService.addTestPosts(50)">-->
 <!--        Add Test Items-->
 <!--    </button>-->
 </div>
-<div class="post-list_container" *ngIf="posts ; else loading">
-    <ng-container *ngIf="posts.length; else noItems">
+<div class="post-list_container">
+    <div *ngIf="posts.length; else loading">
         <post-list *ngFor="let item of posts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>
         </post-list>
-        <mat-paginator [length]="postMetas.size" [pageSize]="10" (page)="pageEvent = getItem($event)"></mat-paginator>
-        <div *ngIf="pageEvent">
-            {{pageEvent.pageIndex}}
-        </div>
-        {{lastItem.id}}
-        {{firstItem.id}}
-    </ng-container>
-    <ng-template #noItems>Асуулт олдсонгүй</ng-template>
-
-
+    </div>
+    <div *ngIf="this.postMetas | async as meta">
+        <mat-paginator [length]="meta.size" [pageSize]="10" (page)="pageEvent = getItem($event)" style="background-color: transparent"></mat-paginator>
+    </div>
 </div>
 <ng-template #loading>
-    <div style="padding: 8px 22px">
-        <p class="mat-caption">Ачааллаж байна. </p>
+    <div style="padding: 8px 22px;" fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner color="accent" [diameter]="24"></mat-spinner>
     </div>
 </ng-template>

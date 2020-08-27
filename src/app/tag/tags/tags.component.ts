@@ -38,7 +38,9 @@ export class TagsComponent implements OnInit {
     });
     dialogRef.afterClosed()
         .subscribe(result => {
-          console.log(result);
+          if ( result ) {
+            console.log(result);
+          }
         });
   }
 

@@ -1,4 +1,4 @@
-<div class="post-list-sidenav" fxLayout="column" [routerLink]="['/posts', post.id]">
+<div class="post-list-sidenav" fxLayout="column" [routerLink]="['/posts', post.id]" [class.activePost]="isActive" >
     <div fxLayout="column">
         <p class="mat-caption question" >{{post.title}}</p>
         <div fxLayout="row" fxLayoutAlign="start center">

@@ -4,27 +4,26 @@ import {AngularFirestore} from "@angular/fire/firestore";
   providedIn: 'root'
 })
 export class PostService {
-  postCollection = this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc'));
+  postCollection = this.db.collection<any>('posts', ref => ref.orderBy('createdAt', 'desc'));
   postMetaDoc = this.db.doc('metas/post');
-  private testCollection: any;
   constructor(private db: AngularFirestore) { }
-  nextPage(doc) {
-    console.log(doc.id);
-    return this.db.collection<any>('posts', ref => ref.orderBy('updatedAt', 'desc').startAfter('Rhy7Ub81rjMYXe7KMB8K').limit(10)).get();
+  nextPage(doc, sort) {
+    return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc').startAfter(doc).limit(10)).get();
   }
-  prevPage(doc) {
-    console.log(doc.id);
-    return this.db.collection('posts', ref => ref.orderBy('updatedAt', 'desc').endBefore(doc).limitToLast(10)).get();
+  prevPage(doc, sort) {
+    return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc').endBefore(doc).limitToLast(10)).get();
   }
-  getFirstItems(num) {
-    return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc').limit(num)).get();
+  getFirstItems(num, sort) {
+    return this.db.collection('posts', ref => ref.limit(num).orderBy(sort, 'desc')).get();
+  }
+  getFirstItemsSync(num, sort) {
+    return this.db.collection('posts', ref => ref.limit(num).orderBy(sort, 'desc')).valueChanges();
   }
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();
   }
-  getAllPosts(sort) {
-    return this.sort(sort).valueChanges();
-    // return this.postCollection.valueChanges();
+  getAllPosts() {
+    return this.db.collection('posts', ref => ref.orderBy('updatedAt', 'desc')).get();
   }
   createPost(formData, user) {
     return  this.postCollection.add({
@@ -76,23 +75,44 @@ export class PostService {
         return this.db.collection<any>('posts', ref => ref.orderBy('answersCount', 'desc'));
     }
   }
+  // tests
   addTestPosts(num) {
     for ( let i = 0; i < num; i++) {
-      this.testCollection.add({
-        title: 'this is test post' + i,
-        content: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
-        createdAt: new Date(),
-        author: {
-          displayName: 'Test name',
-          uid: 'testUid',
-        },
-        updatedAt: new Date()
-      }).then(res => {
-        return res.update({
-          id: res.id
-        });
+       // @ts-ignore
+      // this.addOperation(i).then(d => { console.log(d); });
+      setTimeout(() => { this.addOperation(i).then(res => {
+        console.log('added ' + i);
       });
+      }, i * 3000);
     }
   }
+  async addOperation(i) {
+    await this.postCollection.add({
+      title: 'this is test post' + i,
+      content: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
+      createdAt: new Date(),
+      author: {
+        displayName: 'Test name',
+        uid: 'testUid',
+      },
+      updatedAt: new Date(),
+      answersCount: 0,
+      totalVotes: 0,
+      viewCount: 0
+    }).then(res => {
+      this.addLog({
+        displayName: 'Test name',
+        uid: 'testUid',
+      }, 'created', res.id );
+      return res.update({
+        id: res.id
+      });
+    });
+    return i;
+  }
+  delay(i) {
+    setTimeout(() => {
+      console.log(i);
+    }, 3000);
+  }
 }
-

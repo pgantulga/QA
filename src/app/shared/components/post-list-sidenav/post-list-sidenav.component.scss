@@ -8,7 +8,10 @@
 }
 .post-list-sidenav:focus {
   outline: none;
-  background-color: rgba(0,0,0,0.1);;
+  background-color: rgba(0,0,0,0.1);
+}
+.post-list-sidenav.activePost {
+  background-color: mat-color($QA-accent, 50);
 }
 
 .post-list-sidenav p {

@@ -1,12 +1,12 @@
 @import "../../styles/custom-theme.scss";
 
 .top-toolbar {
-    position: -webkit-sticky; /* For macOS/iOS Safari */
     //position: -webkit-sticky;
-    position: -moz-sticky;
-    position: -ms-sticky;
-    position: -o-sticky;
-    position: sticky;
+    //position: -ms-sticky;
+    //position: -o-sticky;
+    //position: sticky;
+    //display: none;
+    position: fixed;
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
 }

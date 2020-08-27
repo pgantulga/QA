@@ -40,6 +40,8 @@ import { TagItemComponent } from './tag/tag-item/tag-item.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TopBannerComponent } from './shared/banners/top-banner/top-banner.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PostSidenavComponent,
     PostListSidenavComponent,
     TagItemComponent,
-    TopBannerComponent
+    TopBannerComponent,
+    FooterComponent
   ],
     imports: [
         BrowserModule,
@@ -96,9 +99,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         MatGridListModule,
         FormsModule,
         MatPaginatorModule,
+        MatProgressSpinnerModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

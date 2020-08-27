@@ -1,0 +1,13 @@
+@import "../../../../styles/custom-theme.scss";
+.footer-container {
+    position: relative;
+    background-color: mat-color($QA-accent, 900);
+    //margin-bottom: 8px;
+}
+p {
+    //color: mat-color($QA-accent,900);
+}
+.footer {
+    height: 200px;
+    padding: 40px 15px 30px;
+}

@@ -8,12 +8,12 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
 </app-navbar>
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" >
+<mat-sidenav-container class="sidenav-container" style="padding-top: 64px">
+    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" style="padding-top: 64px">
         <ng-container [ngSwitch]="isPostPage" >
             <post-sidenav *ngSwitchCase="true"></post-sidenav>
             <ng-container *ngSwitchCase="false">
-                <p>Navigatiosn</p>
+                <p>Navigation</p>
             </ng-container>
         </ng-container>
     </mat-sidenav>
@@ -25,14 +25,14 @@
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
                 <div fxFlex fxLayout="column">
                     <ng-content></ng-content>
-                    <div style="height: 100px">
-                        Footer
-                    </div>
+<!--                    <div style="height: 100px; background-color: red">-->
+<!--                        Footer-->
+<!--                    </div>-->
                 </div>
             </div>
             <div fxFlex></div>
         </div>
+        <footer></footer>
     </mat-sidenav-content>
-<!--    <top-banner style="z-index: 1000"></top-banner>-->
-
 </mat-sidenav-container>
+

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from '../../../services/post.service';
+import {Observable} from 'rxjs';
+import {ActivatedRoute, Route} from '@angular/router';
 
 @Component({
   selector: 'post-sidenav',
@@ -7,12 +9,9 @@ import {PostService} from '../../../services/post.service';
   styleUrls: ['./post-sidenav.component.css']
 })
 export class PostSidenavComponent implements OnInit {
-  posts: any;
-
-  constructor(public postService: PostService) { }
-
+  posts: Observable<any>;
+  constructor(public postService: PostService, public route: ActivatedRoute) { }
   ngOnInit(): void {
-    this.posts = this.postService.getAllPosts('latest');
+      this.posts = this.postService.getFirstItemsSync(15, 'updatedAt');
   }
-
 }

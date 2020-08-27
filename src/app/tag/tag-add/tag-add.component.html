@@ -2,7 +2,7 @@
 <div mat-dialog-content>
     <mat-form-field color="accent" >
         <mat-label>Нэр</mat-label>
-        <input type="text" matInput [(ngModel)]="data.name" >
+        <input type="text" matInput [(ngModel)]="data.name" required>
     </mat-form-field>
     <mat-form-field color="accent" >
         <mat-label>Тайлбар</mat-label>
@@ -12,5 +12,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Цуцлах</button>
-    <button mat-button [mat-dialog-close]="data">Нэмэх</button>
+    <button mat-button [mat-dialog-close]="data" [disabled]="!data.name">Нэмэх</button>
 </div>

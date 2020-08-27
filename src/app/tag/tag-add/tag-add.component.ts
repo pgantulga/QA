@@ -12,7 +12,6 @@ export interface TagData {
     uid: string
   };
 }
-
 @Component({
   selector: 'dialog-tag-add',
   templateUrl: './tag-add.component.html',
@@ -20,10 +19,9 @@ export interface TagData {
 })
 export class TagAddComponent  {
   constructor(public dialogRef: MatDialogRef<TagAddComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: TagData
-  ) {
+              @Inject(MAT_DIALOG_DATA) public data: TagData) {
   }
-  cancel() {
+  cancel(): void {
     this.dialogRef.close();
   }
 }
