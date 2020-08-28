@@ -15,7 +15,7 @@ export interface Tag {
   providedIn: 'root'
 })
 export class TagService {
-  tagsCollection = this.db.collection('tags');
+  tagsCollection = this.db.collection('tags', ref => ref.orderBy('createdAt', 'desc'));
   constructor(private db: AngularFirestore) { }
   getAllTags() {
     return this.tagsCollection.valueChanges();
@@ -34,7 +34,9 @@ export class TagService {
     }).then(res => {
       return res.update( {
         id: res.id
-      });
+      }
+      // log
+      );
     });
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {TagAddComponent} from '../tag-add/tag-add.component';
+import {TagService} from '../../services/tag.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'tags',
@@ -12,7 +14,9 @@ export class TagsComponent implements OnInit {
   selected: any;
   name: string;
   description: string;
-  constructor(public dialog: MatDialog) { }
+  currentUser: any;
+  tags: any;
+  constructor(public dialog: MatDialog, public tagService: TagService, public authService: AuthService) { }
   ngOnInit(): void {
     this.dropDownMenu = [{
       name: 'Сүүлийн',
@@ -24,6 +28,10 @@ export class TagsComponent implements OnInit {
       }
     ];
     this.selected = this.dropDownMenu[0];
+    this.tags = this.tagService.getAllTags();
+    this.authService.getUser().then(user => {
+      this.currentUser = user;
+    });
   }
   changeSort(sort) {
     this.selected = sort;
@@ -39,9 +47,9 @@ export class TagsComponent implements OnInit {
     dialogRef.afterClosed()
         .subscribe(result => {
           if ( result ) {
+            this.tagService.createTag(result, this.currentUser);
             console.log(result);
           }
         });
   }
-
 }

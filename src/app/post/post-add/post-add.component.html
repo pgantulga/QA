@@ -1,22 +1,26 @@
 <div class="container_content">
-<!--    <header pageTitle="Асуулт нэмэх"></header>-->
     <div class="post-add">
-        <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <form (ngSubmit)="onSubmit()" >
             <div class="form-group">
-                <mat-form-field style="width:100%" floatLabel="never" color="accent">
+                <p class="mat-subheading-2">Хэлэлцүүлгийн гарчиг</p>
+                <p class="mat-body-1">Be specific and imagine you’re asking a question to another person</p>
+                <mat-form-field style="width:100%" appearance="outline"  color="accent" [floatLabel]="'never'">
                     <mat-label>Гарчиг</mat-label>
-                    <input matInput placeholder="Гарчиг" formControlName="title">
+                    <input matInput placeholder="Гарчиг" [formControl]="title" required maxlength="150">
                 </mat-form-field>
-
-                <!--                    <div style="paddin: 8px 0 8px 0">-->
-                <!--                        <input type="file" (change)="getFile($event)"/>-->
-                <!--                    </div>-->
-                <p class="mat-body-2">Агуулга</p>
-                <quill-editor formControlName="editor" [modules]="config"></quill-editor>
+                <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{getErrorMessage()}}</mat-error>
+                <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint>
+                <p class="mat-subheading-2" style="margin-top: 16px">Агуулга</p>
+                <p class="mat-body-1">Include all the information someone would need to answer your question</p>
+                <quill-editor [formControl]="content" [modules]="config" required></quill-editor>
+                <mat-hint align="end" class="mat-caption">Агуулгын доод урт 300 тэмдэгт</mat-hint>
+                <p class="mat-subheading-2" style="margin-top: 16px">Таг</p>
+                <p class="mat-body-1">Add up to 3 tags to describe what your question is about</p>
+                <tag-select (emittingTags)="getTag($event)" required=""></tag-select>
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
                 <button mat-flat-button>Цуцлах</button>
-                <button mat-flat-button type="submit" color="primary">Нийтлэх</button>
+                <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Нийтлэх</button>
             </div>
         </form>
     </div>

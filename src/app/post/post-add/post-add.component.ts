@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Quill from 'quill';
-import {FormGroup, FormBuilder, FormControl} from "@angular/forms";
+import {FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
 import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -8,6 +8,8 @@ import {DialogComponent} from "../../shared/dialog/dialog.component";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackComponent} from "../../shared/components/snack/snack.component";
+import {TagService} from '../../services/tag.service';
+import {ErrorStateMatcher} from '@angular/material/core';
 
 const config = {
     toolbar: [
@@ -27,6 +29,12 @@ const config = {
         ['link', 'image']                         // link and image, video
     ]
 };
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
 
 @Component({
   selector: 'app-post-add',
@@ -37,16 +45,33 @@ export class PostAddComponent implements OnInit {
   postForm: FormGroup;
   author: any;
   config: any;
-
+  tags: any[] = [];
+  content = new FormControl('', [
+      Validators.minLength(150)
+  ]);
+  title = new FormControl('', [
+      Validators.required,
+      Validators.maxLength(300)
+  ]);
   constructor(private formBuilder: FormBuilder,
               public postService: PostService,
               public authService: AuthService,
               public router: Router,
               public dialog: MatDialog,
-              public snackBar: MatSnackBar) {
+              public snackBar: MatSnackBar,
+              public tagService: TagService) {
       this.authService.user$.subscribe(user => {
           this.author = user;
       });
+  }
+  getTag(tag) {
+      this.tags.push(tag);
+  }
+  getErrorMessage() {
+      if (this.title.hasError('required')) {
+          return 'Гарчиг шаардлагтай';
+      }
+      return this.title.hasError('length') ? '150 тэмдэгтэд багтаана уу' : '';
   }
   ngOnInit(): void {
       this.config = config;
@@ -57,12 +82,10 @@ export class PostAddComponent implements OnInit {
   }
   createPost() {
       return this.postService.createPost( {
-          title: this.postForm.get('title').value,
-          content: this.postForm.get('editor').value,
-      }, this.author);
-
+          title: this.title.value,
+          content: this.content.value,
+      }, this.author, this.tags);
   }
-    //add tag
   onSubmit() {
       const dialogRef = this.dialog.open(DialogComponent, {
           data: {

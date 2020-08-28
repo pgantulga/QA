@@ -42,6 +42,8 @@ import { TopBannerComponent } from './shared/banners/top-banner/top-banner.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { TagSelectComponent } from './tag/tag-select/tag-select.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     PostListSidenavComponent,
     TagItemComponent,
     TopBannerComponent,
-    FooterComponent
+    FooterComponent,
+    TagSelectComponent
   ],
     imports: [
         BrowserModule,
@@ -100,6 +103,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
         FormsModule,
         MatPaginatorModule,
         MatProgressSpinnerModule,
+        MatAutocompleteModule,
     ],
   providers: [AdminGuard],
   bootstrap: [AppComponent]

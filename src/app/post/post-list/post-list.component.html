@@ -2,10 +2,9 @@
     <div fxLayout="column" fxFlex="">
         <p class="mat-body-2 question" [routerLink]="['/posts', post.id]">{{post.title}}</p>
         <mat-chip-list>
-            <mat-chip class="tag">Байгал орчин</mat-chip>
-            <mat-chip class="tag">ХУУ</mat-chip>
+            <mat-chip class="tag" *ngFor="let tag of post.tags">{{tag?.name}}</mat-chip>
         </mat-chip-list>
-        <div fxLayout="row" fxLayoutAlign="start center" class="time">
+        <div fxLayout="row" fxLayoutAlign="start center" class="time" *ngIf="post.lastLog">
             <mat-icon class="post-list-edited">{{getIcon(post.lastLog.type)}}</mat-icon>
             <p class="mat-caption">{{post.lastLog.user.displayName}} {{post.lastLog.type}} {{post.lastLog.timestamp | momentPipe}} </p>
         </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'tag-item',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tag-item.component.scss']
 })
 export class TagItemComponent implements OnInit {
+  @Input() item: any;
   constructor() { }
 
   ngOnInit(): void {

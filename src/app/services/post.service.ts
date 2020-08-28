@@ -25,7 +25,7 @@ export class PostService {
   getAllPosts() {
     return this.db.collection('posts', ref => ref.orderBy('updatedAt', 'desc')).get();
   }
-  createPost(formData, user) {
+  createPost(formData, user, tagsArray) {
     return  this.postCollection.add({
       title: formData.title,
       content: formData.content,
@@ -39,14 +39,17 @@ export class PostService {
       isParent: true,
       answersCount: 0,
       totalVotes: 0,
-      viewCount: 0
-    }).then( res => {
-      this.addLog(user, 'created', res.id );
-      return res.update({
-        id: res.id
-      });
+      viewCount: 0,
+      tags: tagsArray
+    }).then((res) => {
+      return this.addLog(user, 'created', res.id).then(d => {
+            return res.update({
+              id: res.id
+            });
+          }
+      );
     })
-        .catch( error => {
+        .catch(error => {
           console.log('something happened' + error);
         });
   }
@@ -55,14 +58,14 @@ export class PostService {
     // const types_mn = ['Нэмсэн', 'Зассан', 'Санал өгсөн', 'Саналаа буцаасан', 'Хариулт өгсөн', 'Хариулсан' ]
     const ref = this.postCollection.doc(postId).collection('logs');
     if (!types.includes(action)) { return null; }
-    ref.add({
+    return  ref.add({
       user: {
         displayName: user.displayName,
         uid: user.uid
       },
       type: action,
       timestamp: new Date()
-    }).then(res => console.log('Log Added'));
+    });
   }
   getLogs(postId) {
     return this.postCollection.doc(postId).collection('logs', ref => ref.orderBy('timestamp', 'desc') ).valueChanges();
