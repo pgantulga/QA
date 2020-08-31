@@ -4,22 +4,22 @@
             aria-label="Toggle sidenav"
             mat-icon-button
             (click)="drawer.toggle()"
-            *ngIf="(isHandset$ | async) && !isPostPage">
+            *ngIf="(isHandset$ | async) && !(currentRoute == 'post-detail')">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
 </app-navbar>
 <mat-sidenav-container class="sidenav-container" style="padding-top: 64px">
-    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="isPostPage ? 'directory' : 'navigation'" [opened]="isPostPage && !(isHandset$ | async)" [mode]="isPostPage ? 'side' : 'over'" style="padding-top: 64px">
-        <ng-container [ngSwitch]="isPostPage" >
-            <post-sidenav *ngSwitchCase="true"></post-sidenav>
-            <ng-container *ngSwitchCase="false">
+    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="(currentRoute === 'post-detail') ? 'directory' : 'navigation'" [opened]="(currentRoute === 'post-detail') && !(isHandset$ | async)" [mode]="(currentRoute === 'post-detail') ? 'side' : 'over'" style="padding-top: 64px">
+        <ng-container [ngSwitch]="currentRoute" >
+            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>
+            <ng-container *ngSwitchDefault>
                 <p>Navigation</p>
             </ng-container>
         </ng-container>
     </mat-sidenav>
     <mat-sidenav-content>
-        <detail-header></detail-header>
-<!--        <top-banner *ngIf="!isPostPage"></top-banner>-->
+        <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>
+        <top-banner *ngIf="currentRoute === 'home'"></top-banner>
         <div fxLayout="row">
             <div fxFlex></div>
             <div [class.container]="!isPostPage" [class.mat-sidenav-content-container]="!isPostPage" fxLayout="row" >

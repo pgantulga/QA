@@ -7,6 +7,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {MatSidenav} from '@angular/material/sidenav';
 import {PostService} from '../../services/post.service';
+import {RouteService} from '../../services/route.service';
 // import {MatSidenav} from '@angular/material/sidenav';
 
 
@@ -25,18 +26,23 @@ export class ShellComponent implements OnInit{
             map( result => result.matches),
             shareReplay()
             );
-    constructor(private breakpointObserver: BreakpointObserver, private router: Router, private postService: PostService) {}
+    constructor(private breakpointObserver: BreakpointObserver,
+                private router: Router,
+                private postService: PostService,
+                private route: ActivatedRoute,
+                public routeService: RouteService) {}
     ngOnInit(): void {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))
             .subscribe(e => {
                 // @ts-ignore
-                this.currentRoute = e.url;
-                this.isPostPage = this.currentRoute.includes('/posts');
-                this.sidebarLogic = this.showSidebar(this.currentRoute);
+                this.currentRoute = this.routeService.getCurrentRoute(e.url);
+                // @ts-ignore
+                this.sidebarLogic = this.showSidebar(e.url);
             });
+        console.log(this.route.snapshot);
     }
-    showSidebar(currentRoute) {
-        return currentRoute.includes('/posts') || currentRoute.includes('login');
+    showSidebar(url) {
+        return url.includes('/posts') || url.includes('login');
     }
 }

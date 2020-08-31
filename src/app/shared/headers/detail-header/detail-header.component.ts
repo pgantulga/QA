@@ -10,24 +10,12 @@ import {TagService} from '../../../services/tag.service';
 })
 export class DetailHeaderComponent implements OnInit, OnDestroy {
   @Input() content: any;
+  @Input() currentRoute: any;
   detail: any;
-  currentRoute: any;
   constructor( public router: Router, public route: ActivatedRoute, public tagService: TagService) { }
 
     ngOnInit(): void {
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd))
-            .subscribe(e => {
-                // @ts-ignore
-                if (e.url.includes('/tagDetail')) {
-                    this.tagService.currentTag.subscribe(tagId => this.detail = this.tagService.getTagInfo(tagId));
-                    this.currentRoute = 'tagDetail';
-                }
-                // @ts-ignore
-                if (e.url.includes('/user')) {
-                    this.currentRoute = 'profileDetail';
-                }
-            });
+        this.tagService.currentTag.subscribe(tagId => this.detail = this.tagService.getTagInfo(tagId));
     }
     ngOnDestroy(): void {
         this.tagService.setCurrentTag(null);

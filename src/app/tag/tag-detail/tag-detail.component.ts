@@ -11,12 +11,9 @@ import {ActivatedRoute} from '@angular/router';
 export class TagDetailComponent implements OnInit {
   tagDetail$: any;
   constructor( public tagService: TagService, public route: ActivatedRoute) { }
-  tagId: string;
   ngOnInit(): void {
-    this.tagService.currentTag.subscribe(tagId => this.tagId = tagId);
     this.tagDetail$ = this.route.paramMap.pipe(
         switchMap(params => {
-          // this.tagService.setCurrentTag(params.get('tagId'));
           this.tagService.setCurrentTag(params.get('tagId'));
           return this.tagService.getTagInfo(params.get('tagId'));
         })
