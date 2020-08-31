@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {map, shareReplay, tap} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
+import {switchMap} from 'rxjs/internal/operators';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
 import {MatSidenav} from '@angular/material/sidenav';
@@ -35,7 +36,6 @@ export class ShellComponent implements OnInit{
                 this.sidebarLogic = this.showSidebar(this.currentRoute);
             });
     }
-
     showSidebar(currentRoute) {
         return currentRoute.includes('/posts') || currentRoute.includes('login');
     }

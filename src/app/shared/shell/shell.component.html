@@ -18,7 +18,8 @@
         </ng-container>
     </mat-sidenav>
     <mat-sidenav-content>
-        <top-banner *ngIf="!isPostPage"></top-banner>
+        <detail-header></detail-header>
+<!--        <top-banner *ngIf="!isPostPage"></top-banner>-->
         <div fxLayout="row">
             <div fxFlex></div>
             <div [class.container]="!isPostPage" [class.mat-sidenav-content-container]="!isPostPage" fxLayout="row" >

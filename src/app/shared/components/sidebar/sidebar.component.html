@@ -13,11 +13,11 @@
             <p matLine style="font-weight: 500">Таггууд</p>
         </mat-list-item>
     </mat-action-list>
-    <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
-
-        <mat-chip *ngFor="let chip of tags" style="background-color: transparent; color: #006064">
-<!--            <mat-icon matListIcon>label_outline_24pxr</mat-icon>-->
-            {{chip.name}} ({{chip.usedNumber}})
-        </mat-chip>
-    </mat-chip-list>
+    <ng-container *ngIf="tags$ | async as tags">
+        <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
+            <mat-chip *ngFor="let chip of tags" style="background-color: transparent; color: #006064" [routerLink]="['/tagDetail', chip.id]">
+                {{chip.name}} ({{chip.totalUsed}})
+            </mat-chip>
+        </mat-chip-list>
+    </ng-container>
 </div>

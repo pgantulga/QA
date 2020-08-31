@@ -24,7 +24,6 @@ export class TagSelectComponent {
   @Output() emittingTags = new EventEmitter();
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
-
   constructor(public tagService: TagService) {
     this.tagService.getAllTags().subscribe(items => {
       this.allTags = items;
@@ -62,6 +61,16 @@ export class TagSelectComponent {
     this.emittingTags.emit(event.option.viewValue);
   }
   getTagId(tag) {
+    if (this.tags.length) {
+      for (const item of this.tags) {
+        if (tag.id === item.id) {
+          this.tagInput.nativeElement.value = '';
+          this.tagCtrl.setValue(null);
+          console.log('exists');
+          return;
+        }
+      }
+    }
     this.tags.push({
       name: tag.name,
       id: tag.id
@@ -70,8 +79,6 @@ export class TagSelectComponent {
       name: tag.name,
       id: tag.id
     });
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
   }
 
   private _filter(value) {

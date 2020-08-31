@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 export interface Tag {
   id: string;
@@ -16,9 +17,20 @@ export interface Tag {
 })
 export class TagService {
   tagsCollection = this.db.collection('tags', ref => ref.orderBy('createdAt', 'desc'));
+  tagSource = new BehaviorSubject('default');
+  currentTag = this.tagSource.asObservable();
   constructor(private db: AngularFirestore) { }
+  setCurrentTag(tagId) {
+    this.tagSource.next(tagId);
+  }
   getAllTags() {
     return this.tagsCollection.valueChanges();
+  }
+  getPopularTags() {
+    return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(10)).valueChanges();
+  }
+  getTagInfo(id) {
+    return this.tagsCollection.doc(id).valueChanges();
   }
   createTag(formData, user) {
     return this.tagsCollection.add({

@@ -14,7 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { AdminGuard} from './services/auth-guard.service';
 import { AdminComponent } from './admin/admin/admin.component';
-import { HeaderComponent } from './shared/components/header/header.component';
+import { HeaderComponent } from './shared/headers/post-header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { PostAddComponent } from './post/post-add/post-add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -44,7 +44,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { TagSelectComponent } from './tag/tag-select/tag-select.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import { TagDetailComponent } from './tag/tag-detail/tag-detail.component';
+import { DetailHeaderComponent } from './shared/headers/detail-header/detail-header.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,9 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     TagItemComponent,
     TopBannerComponent,
     FooterComponent,
-    TagSelectComponent
+    TagSelectComponent,
+    TagDetailComponent,
+    DetailHeaderComponent,
   ],
     imports: [
         BrowserModule,
@@ -92,6 +95,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
             {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
             {path: 'tags', component: TagsComponent},
             {path: 'addTag', component: TagAddComponent},
+            {path: 'tagDetail/:tagId', component: TagDetailComponent},
             {path: '**', redirectTo: '/home', pathMatch: 'full'},
         ]),
         MdModule,
