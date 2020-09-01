@@ -19,7 +19,7 @@ import {RouteService} from '../../services/route.service';
 export class ShellComponent implements OnInit{
     currentRoute: string;
     sidebarLogic: boolean;
-    isPostPage: boolean;
+    showTopBanner: boolean;
     posts: any;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
         .pipe(
@@ -39,6 +39,7 @@ export class ShellComponent implements OnInit{
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 // @ts-ignore
                 this.sidebarLogic = this.showSidebar(e.url);
+                this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail');
             });
         console.log(this.route.snapshot);
     }

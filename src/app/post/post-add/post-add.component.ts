@@ -5,30 +5,14 @@ import {AuthService} from "../../services/auth.service";
 import {PostService} from "../../services/post.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackComponent} from "../../shared/components/snack/snack.component";
 import {TagService} from '../../services/tag.service';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {config} from '../../shared/quill-config';
+import {switchMap} from 'rxjs/operators';
 
-const config = {
-    toolbar: [
-        ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-        ['blockquote', 'code-block'],
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-        [{ 'direction': 'rtl' }],                         // text direction
-        [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-        [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-        // [{ 'font': [] }],
-        [{ 'align': [] }],
-        ['clean'],                                         // remove formatting button
-        ['link', 'image']                         // link and image, video
-    ]
-};
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
         const isSubmitted = form && form.submitted;
@@ -53,10 +37,13 @@ export class PostAddComponent implements OnInit {
         Validators.required,
         Validators.maxLength(300)
     ]);
+    editing = false;
+    oldValue: any;
 
     constructor(private formBuilder: FormBuilder,
                 public postService: PostService,
                 public authService: AuthService,
+                public route: ActivatedRoute,
                 public router: Router,
                 public dialog: MatDialog,
                 public snackBar: MatSnackBar,
@@ -64,10 +51,26 @@ export class PostAddComponent implements OnInit {
         this.authService.user$.subscribe(user => {
             this.author = user;
         });
+        this.route.paramMap.pipe(
+            switchMap( params => {
+                return params.get('id') ? this.postService.getPost(params.get('id')) : null;
+            })
+        ).subscribe((data: any) => {
+            if (data) {
+                console.log(data);
+                this.oldValue = data;
+                this.title.setValue(data.title);
+                this.content.setValue(data.content);
+                this.editing = true;
+            }
+        });
     }
 
     getTag(tag) {
-        this.tags.push(tag);
+        this.tags = [];
+        tag.forEach(item => {
+            this.tags.push(item);
+        });
     }
 
     getErrorMessage() {
@@ -79,10 +82,7 @@ export class PostAddComponent implements OnInit {
 
     ngOnInit(): void {
         this.config = config;
-        this.postForm = this.formBuilder.group({
-            editor: '',
-            title: '',
-        });
+        this.postForm = this.formBuilder.group({editor: '', title: '',});
     }
 
     createPost() {
@@ -91,24 +91,49 @@ export class PostAddComponent implements OnInit {
             content: this.content.value,
         }, this.author, this.tags);
     }
+    savePost() {
+        return this.postService.savePost ( {
+            title: this.title.value,
+            content: this.content.value,
+        }, this.author, this.tags, this.oldValue);
+    }
 
     onSubmit() {
+        if (!this.editing) {
+            const dialogRef = this.dialog.open(DialogComponent, {
+                data: {
+                    title: 'Асуултыг нэмэх',
+                    content: ' Таны асуултыг системд нэмэх гэж байна',
+                }
+            });
+            return dialogRef.afterClosed().subscribe( result => {
+                if (result) {
+                    this.createPost()
+                        .then(() => {
+                            this.snackBar.openFromComponent(SnackComponent, {
+                                data: 'Шинэ асуулт нэмэгдлээ.',
+                            });
+                            return this.router.navigate(['/home']);
+                        });
+                }
+            });
+        }
         const dialogRef = this.dialog.open(DialogComponent, {
             data: {
-                title: 'Асуултыг нэмэх',
-                content: ' Таны асуултыг системд нэмэх гэж байна',
+                title: 'Сануулах уу',
+                content: 'Таны өөрчлөлтийг сануулах гэж байна'
             }
         });
-        dialogRef.afterClosed().subscribe( result => {
+        return dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.createPost()
+                this.savePost()
                     .then(() => {
                         this.snackBar.openFromComponent(SnackComponent, {
-                            data: 'Шинэ асуулт нэмэгдлээ.',
-                        });
-                        return this.router.navigate(['/home']);
-                    });
+                            data: 'Санагдлаа',
+                        })
+                        return this.router.navigate(['/home'])
+                    })
             }
-        });
+        })
     }
 }

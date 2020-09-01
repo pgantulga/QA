@@ -20,7 +20,13 @@
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
                 <button mat-flat-button>Цуцлах</button>
-                <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Нийтлэх</button>
+                //add cancel event
+                <ng-container *ngIf="editing else add">
+                    <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Сануулах</button>
+                </ng-container>
+                <ng-template #add>
+                    <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Нийтлэх</button>
+                </ng-template>
             </div>
         </form>
     </div>

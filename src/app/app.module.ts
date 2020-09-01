@@ -92,6 +92,7 @@ import { DetailHeaderComponent } from './shared/headers/detail-header/detail-hea
             {path: 'users', component: UsersComponent},
             {path: 'login', component: LoginComponent},
             {path: 'ask', component: PostAddComponent},
+            {path: 'posts/:id/edit', component: PostAddComponent},
             {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
             {path: 'tags', component: TagsComponent},
             {path: 'addTag', component: TagAddComponent},

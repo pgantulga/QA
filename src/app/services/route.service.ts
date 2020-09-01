@@ -12,8 +12,11 @@ export class RouteService {
     this.routeSource.next(route);
   }
   getCurrentRoute(url) {
-    if (url.includes('/posts/')) {
+    if (url.includes('/posts/') && !url.includes('/edit')) {
       return 'post-detail';
+    }
+    if (url.includes('/posts/') && url.includes('/edit')) {
+      return 'post-edit';
     }
     if (url.includes('/tagDetail/')) {
       return 'tag-detail';

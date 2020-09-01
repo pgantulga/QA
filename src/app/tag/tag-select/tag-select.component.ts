@@ -75,10 +75,7 @@ export class TagSelectComponent {
       name: tag.name,
       id: tag.id
     });
-    this.emittingTags.emit({
-      name: tag.name,
-      id: tag.id
-    });
+    this.emittingTags.emit(this.tags);
   }
 
   private _filter(value) {

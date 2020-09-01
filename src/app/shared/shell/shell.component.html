@@ -17,21 +17,18 @@
             </ng-container>
         </ng-container>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content fxFlex="">
         <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>
-        <top-banner *ngIf="currentRoute === 'home'"></top-banner>
-        <div fxLayout="row">
-            <div fxFlex></div>
-            <div [class.container]="!isPostPage" [class.mat-sidenav-content-container]="!isPostPage" fxLayout="row" >
+        <top-banner *ngIf="showTopBanner"></top-banner>
+        <div fxLayout="row" style="padding-bottom: 32px">
+            <div fxFlex *ngIf="currentRoute!=='post-detail'"></div>
+            <div [class.container]="!(currentRoute === 'post-detail')" [class.mat-sidenav-content-container]="!(currentRoute === 'post-detail')" fxLayout="row">
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
-                <div fxFlex fxLayout="column">
+                <div fxFlex>
                     <ng-content></ng-content>
-<!--                    <div style="height: 100px; background-color: red">-->
-<!--                        Footer-->
-<!--                    </div>-->
                 </div>
             </div>
-            <div fxFlex></div>
+            <div fxFlex *ngIf="currentRoute!=='post-detail'"></div>
         </div>
         <footer></footer>
     </mat-sidenav-content>

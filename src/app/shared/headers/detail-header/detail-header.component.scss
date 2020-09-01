@@ -1,5 +1,7 @@
 @import "../../../../styles/custom-theme";
 .detail-header-container {
+  height: 200px;
+
   position: relative;
   background-color: mat-color($QA-accent,50);
   margin-bottom: 8px;
@@ -8,6 +10,5 @@ p {
   color: mat-color($QA-accent,900);
 }
 .detail-header {
-  height: 200px;
   padding: 40px 15px 30px;
 }

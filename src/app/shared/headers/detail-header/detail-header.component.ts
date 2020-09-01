@@ -8,7 +8,7 @@ import {TagService} from '../../../services/tag.service';
   templateUrl: './detail-header.component.html',
   styleUrls: ['./detail-header.component.scss']
 })
-export class DetailHeaderComponent implements OnInit, OnDestroy {
+export class DetailHeaderComponent implements OnInit {
   @Input() content: any;
   @Input() currentRoute: any;
   detail: any;
@@ -16,9 +16,6 @@ export class DetailHeaderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.tagService.currentTag.subscribe(tagId => this.detail = this.tagService.getTagInfo(tagId));
-    }
-    ngOnDestroy(): void {
-        this.tagService.setCurrentTag(null);
     }
 
 }

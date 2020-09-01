@@ -22,8 +22,9 @@ export class PostService {
   getPost(id) {
     return this.postCollection.doc(id).valueChanges();
   }
-  getAllPosts() {
-    return this.db.collection('posts', ref => ref.orderBy('updatedAt', 'desc')).get();
+  getPostByTag(tag) {
+    return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
+        .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
   }
   createPost(formData, user, tagsArray) {
     return  this.postCollection.add({
@@ -52,6 +53,14 @@ export class PostService {
         .catch(error => {
           console.log('something happened' + error);
         });
+  }
+  savePost(formData, user, tagsArray, oldValue) {
+    return this.postCollection.doc(oldValue.id).set({
+      title: formData.title,
+      content: formData.content,
+      updatedAt: new Date(),
+      tags: tagsArray
+    }, {merge: true});
   }
   addLog(user, action: string, postId) {
     const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];

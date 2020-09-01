@@ -8,7 +8,10 @@
             </div>
         </div>
     </header>
-    <div fxLayout="column" class="post-detail">
+    <div fxLayout="column" class="post-detail" style="position: relative">
+        <button mat-fab color="accent" aria-label="edit" style="position: absolute;right: 30px;top:-28px" [routerLink]="['/posts', post.id, 'edit']">
+            <mat-icon>edit</mat-icon>
+        </button>
         <div class="view" fxFlex="">
             <div [innerHTML]="post.content"></div>
             <mat-chip-list>
@@ -29,7 +32,6 @@
                 <user-profile [user]="post.author"></user-profile>
             </div>
         </div>
-
         <ng-container *ngIf="authService.user$ | async as user">
             <ng-container *ngIf="authService.canDelete(user)">
                 <div class="log-section" *ngIf="logs$ | async as logs">
