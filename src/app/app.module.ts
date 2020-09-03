@@ -46,6 +46,8 @@ import { TagSelectComponent } from './tag/tag-select/tag-select.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { TagDetailComponent } from './tag/tag-detail/tag-detail.component';
 import { DetailHeaderComponent } from './shared/headers/detail-header/detail-header.component';
+import { PostListGhostComponent } from './post/post-list-ghost/post-list-ghost.component';
+import { TagUpdateComponent } from './tag/tag-update/tag-update.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,8 @@ import { DetailHeaderComponent } from './shared/headers/detail-header/detail-hea
     TagSelectComponent,
     TagDetailComponent,
     DetailHeaderComponent,
+    PostListGhostComponent,
+    TagUpdateComponent,
   ],
     imports: [
         BrowserModule,

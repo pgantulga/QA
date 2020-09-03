@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {TagUpdateComponent} from '../tag-update/tag-update.component';
 
 export interface TagData {
   name: string;
@@ -18,7 +19,7 @@ export interface TagData {
   styleUrls: ['./tag-add.component.css']
 })
 export class TagAddComponent  {
-  constructor(public dialogRef: MatDialogRef<TagAddComponent>,
+  constructor(public dialogRef: MatDialogRef<TagUpdateComponent>,
               @Inject(MAT_DIALOG_DATA) public data: TagData) {
   }
   cancel(): void {

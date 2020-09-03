@@ -7,3 +7,14 @@
   padding: 12px;
   margin-bottom: 8px;
 }
+
+.tag-item .tag-link {
+  cursor: pointer;
+
+}
+.tag-item .tag-link:hover {
+  color: mat-color($QA-accent,800)
+}
+.tag-item .tag-link:focus {
+  outline:0;
+}

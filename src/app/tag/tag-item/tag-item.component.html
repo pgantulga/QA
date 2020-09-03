@@ -1,9 +1,9 @@
 <div class="tag-item" fxLayout="column" fxLayoutAlign="space-between start">
     <div fxLayout="column">
-        <p class="mat-body-2">{{item.name}}</p>
+        <p class="mat-body-2 tag-link" [routerLink]="['/tagDetail', item.id]">{{item.name}}</p>
         <p class="line-clamp-5">{{item.description}}</p>
     </div>
     <div fxLayout="row" fxLayoutAlign="start center">
-        <p class="mat-caption">{{item.totalUsed}} асуулт</p>
+        <p class="mat-caption tag-link" [routerLink]="['/tagDetail', item.id]">{{item.totalUsed}} асуулт</p>
     </div>
 </div>

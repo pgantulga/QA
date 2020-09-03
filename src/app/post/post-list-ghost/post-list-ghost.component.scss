@@ -1,0 +1,19 @@
+@import "../post-list/post-list.component";
+
+
+p.question {
+  background-color: rgba(0,0,0,0.1);
+  width: 100%;
+  border-radius: 4px;
+}
+p.meta {
+  background-color: rgba(0,0,0,0.1);
+  width: 350px;
+  border-radius: 4px;
+}
+.time {
+ margin-top: 4px;
+}
+.tag {
+ width: 100px;
+}

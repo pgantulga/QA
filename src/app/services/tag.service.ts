@@ -51,4 +51,11 @@ export class TagService {
       );
     });
   }
+  updateTag(formData, oldData) {
+    return this.tagsCollection.doc(oldData.id).set({
+      name: formData.name,
+      description: formData.description,
+      updatedAt: new Date(),
+    }, {merge: true});
+  }
 }
