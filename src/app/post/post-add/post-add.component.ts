@@ -12,6 +12,7 @@ import {TagService} from '../../services/tag.service';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {config} from '../../shared/quill-config';
 import {switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -39,7 +40,6 @@ export class PostAddComponent implements OnInit {
     ]);
     editing = false;
     oldValue: any;
-
     constructor(private formBuilder: FormBuilder,
                 public postService: PostService,
                 public authService: AuthService,
@@ -53,7 +53,7 @@ export class PostAddComponent implements OnInit {
         });
         this.route.paramMap.pipe(
             switchMap( params => {
-                return params.get('id') ? this.postService.getPost(params.get('id')) : null;
+                return params.get('id') ? this.postService.getPost(params.get('id')) : [];
             })
         ).subscribe((data: any) => {
             if (data) {
@@ -65,21 +65,18 @@ export class PostAddComponent implements OnInit {
             }
         });
     }
-
     getTag(tag) {
         this.tags = [];
         tag.forEach(item => {
             this.tags.push(item);
         });
     }
-
     getErrorMessage() {
         if (this.title.hasError('required')) {
             return 'Гарчиг шаардлагтай';
         }
         return this.title.hasError('length') ? '150 тэмдэгтэд багтаана уу' : '';
     }
-
     ngOnInit(): void {
         this.config = config;
         this.postForm = this.formBuilder.group({editor: '', title: '',});

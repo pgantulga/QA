@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
+import {TagService} from './tag.service';
+import {switchMap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
   postCollection = this.db.collection<any>('posts', ref => ref.orderBy('createdAt', 'desc'));
   postMetaDoc = this.db.doc('metas/post');
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, public tagService: TagService) { }
   nextPage(doc, sort) {
     return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc').startAfter(doc).limit(10)).get();
   }
@@ -25,6 +27,14 @@ export class PostService {
   getPostByTag(tag) {
     return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
         .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
+    // return this.tagService.getTagInfo(tag.id).pipe(
+    //     switchMap( detail => {
+    //       console.log(detail);
+    //
+    //     })
+    // );
+    // return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
+    //     .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
   }
   createPost(formData, user, tagsArray) {
     return  this.postCollection.add({

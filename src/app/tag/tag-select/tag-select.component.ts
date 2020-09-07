@@ -21,7 +21,7 @@ export class TagSelectComponent {
   filteredTags: Observable<string[]>;
   tags: any[] = [];
   allTags: any;
-  @Output() emittingTags = new EventEmitter();
+  @Output()   emittingTags = new EventEmitter();
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(public tagService: TagService) {

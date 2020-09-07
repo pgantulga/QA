@@ -12,23 +12,30 @@ exports.lastLog = functions.firestore
             lastLog: snap.data()
         });
     });
+exports.postUpdate = functions.firestore
+    .document('posts/{postId}')
+    .onUpdate(change => {
+        decreaseTagNumber(change.before.data());
+        increaseTagNumber(change.after.data());
+    });
 // count how many posts in post collection
 exports.postMeta = functions.firestore
     .document('posts/{postId}')
     .onWrite((change, context) => {
-        if ( change.after.exists && change.before.exists) {
-            console.log('update method');
-            if (checkTagUpdate(change.before.data(), change.after.data())) {
-                decreaseTagNumber(change.before.data());
-                increaseTagNumber(change.after.data());
-            }
-            return null;
-        }
+        // if ( change.after.exists && change.before.exists) {
+        //     console.log('update method');
+        //     decreaseTagNumber(change.before.data());
+        //     increaseTagNumber(change.after.data());
+        //     // if (checkTagUpdate(change.before.data(), change.after.data())) {
+        //     //
+        //     // }
+        //     return null;
+        // }
         console.log('create or delete methods');
-        if (change.before.exists) {
+        if (change.before.exists && !change.after.exists ) {
             decreaseTagNumber(change.before.data());
         }
-        if (change.after.exists) {
+        if (!change.before.exists && change.after.exists) {
             increaseTagNumber(change.after.data());
         }
         const metaRef = admin.firestore().collection('metas').doc('post');
@@ -94,7 +101,47 @@ exports.voteDeleted = functions.firestore
                     }
                 );
     });
-//to count how many times that tag used, need to change tag/used doc every time when post created/deleted
+// launch when tag info changed
+exports.tagChanged = functions.firestore
+    .document('tags/{tagId}')
+    .onUpdate( (change, context) => {
+        const newValue = change.after.data();
+        const oldValue = change.before.data();
+        const postRef = admin.firestore().collection('posts');
+        postRef.where('tags', 'array-contains', {id: oldValue.id, name: oldValue.name}).get()
+            .then(query => {
+                query.forEach(item => {
+                    item.ref.set({
+                        tags: updatePostTagArray(item.data(), newValue)
+                    }, {merge: true})
+                        .then(res => {
+                            console.log('Tag updated: ', item.data().id);
+                        });
+                });
+            })
+            .catch(err => {
+                console.log('error gettind doc: ', err);
+            });
+    })
+// to count how many times that tag used, need to change tag/used doc every time when post created/deleted
+//
+function updatePostTagArray( postValue: any, newValue: any) {
+    const array = [];
+    for ( const item of postValue.tags) {
+        if (item.id === newValue.id) {
+            array.push({
+                id: newValue.id,
+                name: newValue.name
+            });
+        } else {
+            array.push( {
+                id: item.id,
+                name: item.name
+            });
+        }
+    }
+    return array;
+}
 function getPostRef(postId: string) {
         return admin.firestore().collection('posts').doc(postId);
 }
@@ -127,22 +174,22 @@ function increaseTagNumber(post: any) {
         });
     }
 }
-function checkTagUpdate(oldPost: any, newPost: any) {
-    if (oldPost.tags.length !== newPost.tags.length) {
-        return true;
-    }
-    for (const [i, o] of oldPost.tags) {
-        for (const [j, n] of newPost.tags) {
-            console.log(i, o, j, n);
-            if (o === n) {
-                break;
-            }
-            if ( j === newPost.tags.length - 1 ) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
+// function checkTagUpdate(oldPost: any, newPost: any) {
+//     if (oldPost.tags.length !== newPost.tags.length) {
+//         return true;
+//     }
+//     for (const [i, o] of oldPost.tags) {
+//         for (const [j, n] of newPost.tags) {
+//             console.log(i, o, j, n);
+//             if (o === n) {
+//                 break;
+//             }
+//             if ( j === newPost.tags.length - 1 ) {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
 
 
