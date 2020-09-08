@@ -1,0 +1,21 @@
+@import "../../styles/custom-theme.scss";
+.login-background {
+    height: 600px;
+    //background-color: mat-color($QA-accent,900);
+}
+.login-card {
+    width: 500px;
+    height: 100%;
+    background-color: mat-color($QA-primary, A100);
+    padding: 40px 20px;
+    .logo-container {
+        padding: 16px 0 16px 0;
+    }
+    .logo {
+        height: 60px;
+        width: auto;
+    }
+    .formIcon {
+        color: mat-color($QA-primary, 600 );
+    }
+}

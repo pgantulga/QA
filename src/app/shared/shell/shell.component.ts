@@ -39,7 +39,7 @@ export class ShellComponent implements OnInit{
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 // @ts-ignore
                 this.sidebarLogic = this.showSidebar(e.url);
-                this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail');
+                this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail') && (this.currentRoute !== 'login');
             });
         console.log(this.route.snapshot);
     }

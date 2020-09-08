@@ -30,7 +30,7 @@
             </div>
             <div fxFlex *ngIf="currentRoute!=='post-detail'"></div>
         </div>
-        <footer></footer>
+        <footer *ngIf="currentRoute !== 'login'"></footer>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

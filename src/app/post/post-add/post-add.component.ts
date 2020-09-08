@@ -129,8 +129,8 @@ export class PostAddComponent implements OnInit {
                             data: 'Санагдлаа',
                         })
                         return this.router.navigate(['/home'])
-                    })
+                    });
             }
-        })
+        });
     }
 }

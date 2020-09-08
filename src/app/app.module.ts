@@ -48,6 +48,7 @@ import { TagDetailComponent } from './tag/tag-detail/tag-detail.component';
 import { DetailHeaderComponent } from './shared/headers/detail-header/detail-header.component';
 import { PostListGhostComponent } from './post/post-list-ghost/post-list-ghost.component';
 import { TagUpdateComponent } from './tag/tag-update/tag-update.component';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,6 +84,7 @@ import { TagUpdateComponent } from './tag/tag-update/tag-update.component';
     DetailHeaderComponent,
     PostListGhostComponent,
     TagUpdateComponent,
+    RegisterComponent,
   ],
     imports: [
         BrowserModule,
@@ -95,6 +97,7 @@ import { TagUpdateComponent } from './tag/tag-update/tag-update.component';
             {path: 'posts/:id', component: PostDetailComponent},
             {path: 'users', component: UsersComponent},
             {path: 'login', component: LoginComponent},
+            {path: 'register', component: RegisterComponent},
             {path: 'ask', component: PostAddComponent},
             {path: 'posts/:id/edit', component: PostAddComponent},
             {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
