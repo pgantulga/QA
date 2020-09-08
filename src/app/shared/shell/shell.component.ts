@@ -44,6 +44,6 @@ export class ShellComponent implements OnInit{
         console.log(this.route.snapshot);
     }
     showSidebar(url) {
-        return url.includes('/posts') || url.includes('login');
+        return url.includes('/posts') || url.includes('login') || url.includes('register');
     }
 }

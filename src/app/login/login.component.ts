@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/auth";
-import {AuthService} from "../services/auth.service";
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AuthService} from '../services/auth.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
 
 @Component({

@@ -1,8 +1,17 @@
 .container {
 }
+.fullWidth {
+    width: 100% ;
+}
+.color-background {
+    background-color: #006064;
+    padding-top: 0 ;
+    min-height: 1200px ;
+}
 
 .sidenav-container {
     height: 100%;
+    padding-top: 64px;
 }
 ::ng-deep mat-sidenav {
     width: 380px !important;

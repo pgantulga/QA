@@ -1,13 +1,15 @@
 @import "../../styles/custom-theme.scss";
 .login-background {
-    height: 600px;
-    //background-color: mat-color($QA-accent,900);
+    align-content: center;
+    //min-height: 1200px;
+    width: 100%;
 }
 .login-card {
-    width: 500px;
-    height: 100%;
+    min-width: 360px;
+    max-width: 450px;
+    max-height: 800px;
     background-color: mat-color($QA-primary, A100);
-    padding: 40px 20px;
+    padding: 20px 32px 40px 32px;
     .logo-container {
         padding: 16px 0 16px 0;
     }
@@ -18,4 +20,15 @@
     .formIcon {
         color: mat-color($QA-primary, 600 );
     }
+    .register-link {
+        color: mat-color($QA-accent, 800 );
+        font-weight: bold;
+    }
+    .register-link:hover {
+        cursor: pointer;
+    }
+    mat-form-field {
+        width: 100%;
+    }
+
 }

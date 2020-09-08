@@ -4,6 +4,7 @@
 @import "../../node_modules/quill/dist/quill.bubble.css";
 @import "../../node_modules/quill/dist/quill.core.css";
 @import "../../node_modules/quill/dist/quill.snow.css";
+//@import "font-awesome-4.7.0/css/font-awesome.css";
 html {
   height: 100%;
   overflow: hidden;
@@ -20,6 +21,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: rgba(0,0,0,0.60) !important;
   }
 }
+.fa-google {
+  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
 .icon-dark {
   color: rgba(0,0,0,0.56);
 }
@@ -50,9 +59,13 @@ button.mat-raised-button.mat-accent{
   color: white!important;
   text-transform: uppercase;
 }
-.mat-button.background-button {
+.mat-button .background-button {
   //border: 2px solid mat-color($QA-accent);
   background-color: mat-color($QA-accent, 50, 0.7);
+  border-radius: 300px;
+}
+.mat-button.google-login {
+  border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;
 }
 
