@@ -20,7 +20,7 @@
     <mat-sidenav-content fxFlex="">
         <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>
         <top-banner *ngIf="showTopBanner"></top-banner>
-        <div fxLayout="row" style="padding-bottom: 32px">
+        <div fxLayout="row" [class.main-content]="currentRoute!== 'post-detail'">
             <div fxFlex *ngIf="(currentRoute!=='post-detail') && (currentRoute!=='login') "></div>
             <div [class.container]="(currentRoute !== 'post-detail') && (currentRoute !=='login')" [class.mat-sidenav-content-container]="(currentRoute !== 'post-detail') && (currentRoute! =='login')" [class.fullWidth] = "currentRoute === 'login'" fxLayout="row">
                 <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>

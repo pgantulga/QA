@@ -5,6 +5,8 @@ import {Observable,of} from "rxjs";
 import {first, switchMap} from 'rxjs/operators';
 import {AngularFirestore} from "@angular/fire/firestore";
 import * as firebase from 'firebase';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackComponent} from '../shared/components/snack/snack.component';
 
 export interface User {
   firstName: string;
@@ -30,7 +32,7 @@ export interface Roles {
 export class AuthService {
   userCollection = this.db.collection<any>('users');
   user$: Observable<User>;
-  constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore) {
+  constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore, public snackBar: MatSnackBar) {
     this.user$ = this.af.authState.pipe(
         switchMap( user => {
           if (user) { return this.userCollection.doc<User>(user.uid).valueChanges(); }
@@ -50,11 +52,34 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-  async signOut() {
-    await this.af.signOut();
-    return this.router.navigate(['/'])
+  async emailSignUp(userData, errorSender) {
+    // const credential = await this.af.createUserWithEmailAndPassword(userData.email, userData.password);
+    // console.log(credential.user);
+    // return this.updateUserData(credential.user);
+  this.af.createUserWithEmailAndPassword(userData.email, userData.password)
+      .then(res => {
+        console.log('Success, user id: ' + res.user.uid);
+        console.log(res.user);
+        userData.uid = res.user.uid;
+        this.updateUserData(userData);
+      })
+      .catch(err => {
+        errorSender(err.message);
+      });
   }
-
+  signIn(userData) {
+    return this.af.signInWithEmailAndPassword(userData.email, userData.password);
+  }
+  async signOut() {
+    await this.af.signOut()
+        .then(res => {
+          console.log('Successfully signed out');
+          this.snackBar.openFromComponent(SnackComponent, {
+            data: 'Амжилттай гарлаа'
+          });
+        });
+    return this.router.navigate(['/']);
+  }
   private updateUserData(user: any) {
     const ref = this.userCollection.doc(user.uid);
     const data = {
@@ -68,7 +93,7 @@ export class AuthService {
     return ref.set(data, {merge: true});
   }
   // permission and roles
-  private checkAuth(user: User, allowedRoles: string[]): boolean {
+  checkAuth(user: User, allowedRoles: string[]): boolean {
     if (!user) { return false; }
     for (const role of allowedRoles) {
       if ( user.roles[role]) {

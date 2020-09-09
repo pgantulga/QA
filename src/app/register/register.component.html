@@ -1,9 +1,15 @@
 <div style="width: 100%;height: 100vh" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="login-card" fxLayout="column">
-        <ng-container *ngIf="authService.user$ | async as user; else login">
-            {{user | json}}
-            <button mat-raised-button color="accent" (click)="authService.signOut()">Sign out</button>
-        </ng-container>
+        <div *ngIf="authService.user$ | async as user; else login" fxLayout="column" fxFlex="">
+            <!--            <button mat-icon-button color="accent" routerLink="/home">-->
+            <!--                <mat-icon class="white">keyboard_arrow_left</mat-icon>-->
+            <!--            </button>-->
+            <p class="mat-body-1"> Та дараах хэрэглэгчээр нэвтэрсэн байна: <span class="mat-body-2">{{user.email}}</span></p>
+            <div fxLayout="column">
+                <button mat-button color="accent"  routerLink="/home" fxFlex="" class="background-button">Нүүр хуудасруу буцах</button>
+                <button mat-button color="accent" (click)="signOut()" fxFlex="">Гарах</button>
+            </div>
+        </div>
         <ng-template #login>
             <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
                 <button color="accent" type="button" aria-label="back" mat-icon-button routerLink="/login">
@@ -18,38 +24,38 @@
                         <i class="fab fa-google fa-2x"></i>
                         Sign in with Google
                     </button>
-                    <p class="mat-caption">Хэрэв та бүртгэлтэй бол, <span class="register-link" routerLink="/register">Нэвтрэх</span></p>
+                    <p class="mat-caption" style="margin: 12px 0 12px 0">Хэрэв та бүртгэлтэй бол, <span class="register-link" routerLink="/login"> Нэвтрэх</span></p>
                 </div>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Имэйл хаяг</mat-label>
                     <input matInput placeholder="Имэйл хаяг" formControlName="email" required>
                 </mat-form-field>
                 <mat-error class="mat-caption"  *ngIf="registerForm.get('email').hasError('email')">{{getEmailError()}}</mat-error>
 
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Нэр</mat-label>
                     <input matInput placeholder="Нэр" formControlName="firstName" required>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Овог</mat-label>
                     <input matInput placeholder="Овог" formControlName="lastName">
                 </mat-form-field>
-                <mat-form-field appearance="outline" >
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Нууц үг</mat-label>
                     <input matInput placeholder="Нууц үг" formControlName="password" type="password" required>
                 </mat-form-field>
-                <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline" color="accent">
                     <mat-label>Нууц үг давтах</mat-label>
                     <input matInput placeholder="Нууц үг давтах" formControlName="confirmPassword" type="password" required>
                     <mat-error style="color: red; padding: 0" *ngIf="registerForm.hasError('notSame')">{{getPasswordConfirmError()}}</mat-error>
                     <!--<mat-label *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</mat-label>-->
                 </mat-form-field>
                 <mat-error class="mat-caption"  *ngIf="registerForm.hasError('notSame')">{{getPasswordConfirmError()}}</mat-error>
-
                 <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
                     <button mat-raised-button color="accent" type="submit" fxFlex="" [disabled]="!registerForm.valid">Бүртгүүлэх</button>
                 </mat-card-actions>
+                <p class="mat-caption"  style="color: red" *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</p>
                 <div fxLayout="row" fxLayoutAlign="center center">
 <!--                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" routerLink="/register">Бүртгүүлэх</span></p>-->
                 </div>

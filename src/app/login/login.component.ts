@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthService} from '../services/auth.service';
-import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackComponent} from '../shared/components/snack/snack.component';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-  constructor(private af: AngularFireAuth, public authService: AuthService, public formBuilder: FormBuilder) { }
+  constructor(private af: AngularFireAuth, public authService: AuthService, public snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -32,8 +34,20 @@ export class LoginComponent implements OnInit {
       return 'Нууц үгээ оруулна уу';
     }
   }
-  onSubmit() {
-
+  signOut() {
+    this.authService.signOut();
   }
-
+  onSubmit() {
+    this.authService.signIn({email: this.email.value, password: this.password.value})
+        .then(res => {
+          this.openSnack('Амжилттай нэвтэрлээ.');
+          // window.location.reload();
+        })
+        .catch(err => {
+          this.openSnack(err.message);
+        });
+  }
+  openSnack(data) {
+    this.snackbar.openFromComponent(SnackComponent, {data});
+  }
 }

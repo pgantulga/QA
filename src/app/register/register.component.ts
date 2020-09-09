@@ -9,11 +9,8 @@ import {AuthService} from '../services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  // email = new FormControl('', [Validators.required, Validators.email]);
-  // userName = new FormControl('', [Validators.required]);
-  // password = new FormControl('', [Validators.required]);
-  // passwordConfirm = new FormControl('', [this.passwordCheck]);
   registerForm: FormGroup;
+  serviceErrorMessage: string;
 
   constructor(private af: AngularFireAuth, public authService: AuthService, private formBuilder: FormBuilder) { }
 
@@ -48,12 +45,23 @@ export class RegisterComponent implements OnInit {
   passwordCheck(group: FormGroup) {
     return group.get('password').value === group.get('confirmPassword').value ? null : { notSame: true };
   }
-  getUserNameError() {
-    if (this.registerForm.get('firstName').hasError('required')) {
-      return 'Нэр оруулна уу';
-    }
-  }
   onSubmit() {
+    this.authService
+        .emailSignUp({
+            firstName: this.registerForm.get('firstName').value,
+            lastName: this.registerForm.get('lastName').value,
+            displayName: this.registerForm.get('firstName').value,
+            email: this.registerForm.get('email').value,
+            password: this.registerForm.get('password').value
+        }, message => {
+          this.serviceErrorMessage = message;
+        })
+        .then(res => {
 
+          console.log(res);
+        });
+  }
+  signOut() {
+    this.authService.signOut();
   }
 }
