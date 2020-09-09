@@ -27,6 +27,9 @@ export class RouteService {
     if (url.includes('login') || url.includes('register')) {
       return 'login';
     }
+    if (url.includes('users/')) {
+      return 'user-detail';
+    }
   }
   currentLayout(route) {
     if (route === 'post-detail' || route === 'post-edit') {

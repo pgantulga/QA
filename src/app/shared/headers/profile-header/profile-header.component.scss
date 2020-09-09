@@ -1,0 +1,8 @@
+@import "../../../../styles/custom-theme";
+
+.profile-header-container {
+    height: 200px;
+    position: relative;
+    background-color: mat-color($QA-accent,50);
+    margin-bottom: 8px;
+}

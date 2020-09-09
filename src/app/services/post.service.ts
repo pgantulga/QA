@@ -27,14 +27,6 @@ export class PostService {
   getPostByTag(tag) {
     return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
         .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
-    // return this.tagService.getTagInfo(tag.id).pipe(
-    //     switchMap( detail => {
-    //       console.log(detail);
-    //
-    //     })
-    // );
-    // return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
-    //     .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
   }
   createPost(formData, user, tagsArray) {
     return  this.postCollection.add({

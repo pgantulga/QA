@@ -57,7 +57,6 @@ export class RegisterComponent implements OnInit {
           this.serviceErrorMessage = message;
         })
         .then(res => {
-
           console.log(res);
         });
   }

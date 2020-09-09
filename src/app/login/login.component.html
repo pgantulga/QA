@@ -1,14 +1,8 @@
-<div style="width: 100%;height: 100vh" fxLayout="row" fxLayoutAlign="center center">
     <mat-card class="login-card" fxLayout="column">
-        <div *ngIf="authService.user$ | async as user; else login" fxLayout="column" fxFlex="">
-<!--            <button mat-icon-button color="accent" routerLink="/home">-->
-<!--                <mat-icon class="white">keyboard_arrow_left</mat-icon>-->
-<!--            </button>-->
+        <div *ngIf="authService.user$ | async as user; else login" fxLayout="column">
             <p class="mat-body-1"> Та дараах хэрэглэгчээр нэвтэрсэн байна: <span class="mat-body-2">{{user.email}}</span></p>
-            <div fxLayout="column">
-                <button mat-button color="accent"  routerLink="/home" fxFlex="" class="background-button">Нүүр хуудасруу буцах</button>
-                <button mat-button color="accent" (click)="signOut()" fxFlex="">Гарах</button>
-            </div>
+            <button mat-button color="accent"  routerLink="/home" class="background-button">Нүүр хуудасруу буцах</button>
+            <button mat-button color="accent" (click)="signOut()">Гарах</button>
         </div>
         <ng-template #login>
                 <button color="accent" type="button" aria-label="back" mat-icon-button routerLink="/home">
@@ -18,7 +12,6 @@
                     <img src="../../assets/logo_noTitle.png" alt="Logo" class="logo">
                 </div>
                 <p class="mat-title" style="margin: 0;text-align: center">Сайн байна уу!</p>
-                <i class="fa fa-google" aria-hidden="true"></i>
                 <div class="social-login-container " fxLayout="column" fxLayoutAlign="center center">
                     <button mat-button class="google-login" (click)="loginWithGoogle()">
                         <i class="fab fa-google fa-2x"></i>
@@ -50,4 +43,3 @@
             </form>
         </ng-template>
     </mat-card>
-</div>

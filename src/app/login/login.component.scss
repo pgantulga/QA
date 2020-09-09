@@ -8,7 +8,7 @@
     width: 360px;
     max-height: 800px;
     background-color: mat-color($QA-primary, A100);
-    padding: 20px 32px 40px 32px;
+    padding: 20px 32px 20px 32px;
     .logo-container {
         padding: 16px 0 16px 0;
     }
@@ -29,5 +29,7 @@
     mat-form-field {
         width: 100%;
     }
-
+}
+.fa-2x {
+    font-size: 1.5em !important;
 }

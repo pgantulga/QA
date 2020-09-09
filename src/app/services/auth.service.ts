@@ -25,6 +25,22 @@ export interface Roles {
   admin?: boolean;
   phone: string;
 }
+const actionCodeSettings = {
+  // URL you want to redirect back to. The domain (www.example.com) for this
+  // URL must be whitelisted in the Firebase Console.
+  url: 'qaproject-23417.firebaseapp.com',
+  // This must be true.
+  handleCodeInApp: true,
+  iOS: {
+    bundleId: 'com.example.ios'
+  },
+  android: {
+    packageName: 'com.example.android',
+    installApp: true,
+    minimumVersion: '12'
+  },
+  dynamicLinkDomain: 'example.page.link'
+};
 
 @Injectable({
   providedIn: 'root'
@@ -52,20 +68,26 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
-  async emailSignUp(userData, errorSender) {
-    // const credential = await this.af.createUserWithEmailAndPassword(userData.email, userData.password);
-    // console.log(credential.user);
-    // return this.updateUserData(credential.user);
-  this.af.createUserWithEmailAndPassword(userData.email, userData.password)
-      .then(res => {
-        console.log('Success, user id: ' + res.user.uid);
-        console.log(res.user);
-        userData.uid = res.user.uid;
-        this.updateUserData(userData);
-      })
-      .catch(err => {
-        errorSender(err.message);
-      });
+  emailSignUp(userData, errorSender) {
+    return this.af.createUserWithEmailAndPassword(userData.email, userData.password)
+        .then(res => {
+          console.log('Success, user id: ' + res.user.uid);
+          userData.uid = res.user.uid;
+          this.emailVerify(userData.email);
+          return this.updateUserData(userData);
+        })
+        .catch(err => {
+          errorSender(err.message);
+        });
+  }
+  emailVerify(email) {
+    this.af.sendSignInLinkToEmail(email, actionCodeSettings)
+        .then(() => {
+          window.localStorage.setItem('emailForSignIn', email);
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
   }
   signIn(userData) {
     return this.af.signInWithEmailAndPassword(userData.email, userData.password);

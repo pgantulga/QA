@@ -5,8 +5,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
-import { UsersComponent } from './pages/users/users.component';
+import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './user/users/users.component';
 import { MdComponentsComponent } from './admin/md-components/md-components.component';
 import { AngularFireModule} from '@angular/fire';
 import { environment} from '../environments/environment';
@@ -52,6 +52,8 @@ import { RegisterComponent } from './register/register.component';
 import { LayoutOneComponent } from './shared/templates/layout-one/layout-one.component';
 import { LayoutTwoComponent } from './shared/templates/layout-two/layout-two.component';
 import { LayoutThreeComponent } from './shared/templates/layout-three/layout-three.component';
+import { ProfileHeaderComponent } from './shared/headers/profile-header/profile-header.component';
+import { UserDetailComponent } from './user/user-detail/user-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,6 +93,8 @@ import { LayoutThreeComponent } from './shared/templates/layout-three/layout-thr
     LayoutOneComponent,
     LayoutTwoComponent,
     LayoutThreeComponent,
+    ProfileHeaderComponent,
+    UserDetailComponent,
   ],
     imports: [
         BrowserModule,
@@ -102,6 +106,7 @@ import { LayoutThreeComponent } from './shared/templates/layout-three/layout-thr
             {path: 'home', component: HomeComponent},
             {path: 'posts/:id', component: PostDetailComponent},
             {path: 'users', component: UsersComponent},
+            {path: 'users/:uid', component: UserDetailComponent},
             {path: 'login', component: LoginComponent},
             {path: 'register', component: RegisterComponent},
             {path: 'ask', component: PostAddComponent},
