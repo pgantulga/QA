@@ -1,36 +1,46 @@
-<app-navbar *ngIf="currentRoute !== 'login'">
-    <button color="accent"
-            type="button"
-            aria-label="Toggle sidenav"
-            mat-icon-button
-            (click)="drawer.toggle()"
-            *ngIf="(isHandset$ | async) && (currentRoute !== 'post-detail')">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-</app-navbar>
-<mat-sidenav-container [class.sidenav-container]="currentRoute !== 'login'" [class.color-background]="(currentRoute === 'login')">
-    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="(currentRoute === 'post-detail') ? 'directory' : 'navigation'" [opened]="(currentRoute === 'post-detail') && !(isHandset$ | async)" [mode]="(currentRoute === 'post-detail') ? 'side' : 'over'" style="padding-top: 64px">
-        <ng-container [ngSwitch]="currentRoute" >
-            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>
-            <ng-container *ngSwitchDefault>
-                <p>Navigation</p>
-            </ng-container>
-        </ng-container>
-    </mat-sidenav>
-    <mat-sidenav-content fxFlex="">
-        <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>
-        <top-banner *ngIf="showTopBanner"></top-banner>
-        <div fxLayout="row" [class.main-content]="currentRoute!== 'post-detail'">
-            <div fxFlex *ngIf="(currentRoute!=='post-detail') && (currentRoute!=='login') "></div>
-            <div [class.container]="(currentRoute !== 'post-detail') && (currentRoute !=='login')" [class.mat-sidenav-content-container]="(currentRoute !== 'post-detail') && (currentRoute! =='login')" [class.fullWidth] = "currentRoute === 'login'" fxLayout="row">
-                <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>
-                <div fxFlex>
-                    <ng-content></ng-content>
-                </div>
-            </div>
-            <div fxFlex *ngIf="(currentRoute!=='post-detail') && (currentRoute!=='login')"></div>
-        </div>
-        <footer *ngIf="currentRoute !== 'login'"></footer>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+<!--<app-navbar *ngIf="!currentLayoutObj.layout3">-->
+<!--    <button color="accent"-->
+<!--            type="button"-->
+<!--            aria-label="Toggle sidenav"-->
+<!--            mat-icon-button-->
+<!--            (click)="drawer.toggle()"-->
+<!--            *ngIf="(isHandset$ | async) && (!currentLayoutObj.layout2)">-->
+<!--        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
+<!--    </button>-->
+<!--</app-navbar>-->
+<!--<mat-sidenav-container [class.sidenav-container]="!currentLayoutObj.layout3" [class.color-background]="currentLayoutObj.layout3">-->
+<!--    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="(currentLayoutObj.layout2) ? 'directory' : 'navigation'" [opened]="(currentLayoutObj.layout2) && !(isHandset$ | async)" [mode]="(currentLayoutObj.layout2) ? 'side' : 'over'">-->
+<!--        <ng-container [ngSwitch]="currentRoute" >-->
+<!--            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>-->
+<!--            <ng-container *ngSwitchDefault>-->
+<!--                <p>Navigation</p>-->
+<!--            </ng-container>-->
+<!--        </ng-container>-->
+<!--    </mat-sidenav>-->
+<!--    <mat-sidenav-content fxFlex="">-->
+<!--        <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>-->
+<!--        <top-banner *ngIf="showTopBanner"></top-banner>-->
+<!--        <div fxLayout="row" [class.main-content]="currentRoute!== 'post-detail'">-->
+<!--            <div fxFlex *ngIf="(currentRoute!=='post-detail') && (currentRoute!=='login') "></div>-->
+<!--            <div [class.container]="(currentRoute !== 'post-detail') && (currentRoute !=='login')" [class.mat-sidenav-content-container]="(currentRoute !== 'post-detail') && (currentRoute! =='login')" [class.fullWidth] = "currentRoute === 'login'" fxLayout="row">-->
+<!--                <sidebar *ngIf="!(isHandset$ | async) && !sidebarLogic"></sidebar>-->
+<!--                <div fxFlex>-->
+<!--                    <ng-content></ng-content>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div fxFlex *ngIf="(currentRoute!=='post-detail') && (currentRoute!=='login')"></div>-->
+<!--        </div>-->
+<!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
+<!--    </mat-sidenav-content>-->
+<!--</mat-sidenav-container>-->
 
+
+
+<ng-container [ngSwitch]="currentLayout">
+    <layout-one *ngSwitchDefault >
+        <router-outlet></router-outlet>
+    </layout-one>
+    <layout-two *ngSwitchCase="'layout-2'">
+        <router-outlet></router-outlet>
+    </layout-two>
+</ng-container>

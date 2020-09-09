@@ -18,8 +18,14 @@ import {RouteService} from '../../services/route.service';
 })
 export class ShellComponent implements OnInit{
     currentRoute: string;
+    currentLayout: string;
     sidebarLogic: boolean;
     showTopBanner: boolean;
+    currentLayoutObj: {
+        layout1: boolean,
+        layout2: boolean,
+        layout3: boolean
+    };
     posts: any;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
         .pipe(
@@ -30,18 +36,25 @@ export class ShellComponent implements OnInit{
                 private router: Router,
                 private postService: PostService,
                 private route: ActivatedRoute,
-                public routeService: RouteService) {}
+                public routeService: RouteService) {
+        this.getLayoutType(this.currentRoute);
+
+    }
     ngOnInit(): void {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))
             .subscribe(e => {
                 // @ts-ignore
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
+                this.currentLayout = this.routeService.currentLayout(this.currentRoute);
                 // @ts-ignore
                 this.sidebarLogic = this.showSidebar(e.url);
                 this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail') && (this.currentRoute !== 'login');
             });
         console.log(this.route.snapshot);
+    }
+    getLayoutType(currentRoute) {
+        this.currentLayoutObj = this.routeService.getLayout(currentRoute);
     }
     showSidebar(url) {
         return url.includes('/posts') || url.includes('login') || url.includes('register');

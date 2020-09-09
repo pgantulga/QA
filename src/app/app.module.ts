@@ -49,6 +49,9 @@ import { DetailHeaderComponent } from './shared/headers/detail-header/detail-hea
 import { PostListGhostComponent } from './post/post-list-ghost/post-list-ghost.component';
 import { TagUpdateComponent } from './tag/tag-update/tag-update.component';
 import { RegisterComponent } from './register/register.component';
+import { LayoutOneComponent } from './shared/templates/layout-one/layout-one.component';
+import { LayoutTwoComponent } from './shared/templates/layout-two/layout-two.component';
+import { LayoutThreeComponent } from './shared/templates/layout-three/layout-three.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -85,6 +88,9 @@ import { RegisterComponent } from './register/register.component';
     PostListGhostComponent,
     TagUpdateComponent,
     RegisterComponent,
+    LayoutOneComponent,
+    LayoutTwoComponent,
+    LayoutThreeComponent,
   ],
     imports: [
         BrowserModule,

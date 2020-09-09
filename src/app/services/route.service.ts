@@ -28,4 +28,34 @@ export class RouteService {
       return 'login';
     }
   }
+  currentLayout(route) {
+    if (route === 'post-detail' || route === 'post-edit') {
+      return 'layout-2';
+    } else if (route === 'login') {
+      return 'layout-3';
+    } else {
+      return 'layout-1';
+    }
+  }
+  getLayout(route) {
+    if (route === 'post-detail' || route === 'post-edit') {
+      return {
+        layout1: false,
+        layout2: true,
+        layout3: false
+      };
+    } else if (route === 'login') {
+      return {
+        layout1: false,
+        layout2: false,
+        layout3: true
+      };
+    } else {
+      return {
+        layout1: true,
+        layout2: false,
+        layout3: false
+      };
+    }
+  }
 }
