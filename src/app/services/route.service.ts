@@ -27,7 +27,7 @@ export class RouteService {
     if (url.includes('login') || url.includes('register')) {
       return 'login';
     }
-    if (url.includes('users/')) {
+    if (url.includes('/users/')) {
       return 'user-detail';
     }
   }

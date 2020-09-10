@@ -54,6 +54,7 @@ import { LayoutTwoComponent } from './shared/templates/layout-two/layout-two.com
 import { LayoutThreeComponent } from './shared/templates/layout-three/layout-three.component';
 import { ProfileHeaderComponent } from './shared/headers/profile-header/profile-header.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
+import {AppRoutingModule} from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,22 +102,7 @@ import { UserDetailComponent } from './user/user-detail/user-detail.component';
         FlexLayoutModule,
         BrowserAnimationsModule,
         AngularFireModule.initializeApp(environment.firebase),
-        RouterModule.forRoot([
-            {path: 'components', component: MdComponentsComponent},
-            {path: 'home', component: HomeComponent},
-            {path: 'posts/:id', component: PostDetailComponent},
-            {path: 'users', component: UsersComponent},
-            {path: 'users/:uid', component: UserDetailComponent},
-            {path: 'login', component: LoginComponent},
-            {path: 'register', component: RegisterComponent},
-            {path: 'ask', component: PostAddComponent},
-            {path: 'posts/:id/edit', component: PostAddComponent},
-            {path: 'admin', component: AdminComponent, canActivate: [AdminGuard]},
-            {path: 'tags', component: TagsComponent},
-            {path: 'addTag', component: TagAddComponent},
-            {path: 'tagDetail/:tagId', component: TagDetailComponent},
-            {path: '**', redirectTo: '/home', pathMatch: 'full'},
-        ]),
+        AppRoutingModule,
         MdModule,
         ReactiveFormsModule,
         QuillModule.forRoot(),

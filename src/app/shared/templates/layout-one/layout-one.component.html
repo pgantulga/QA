@@ -8,15 +8,15 @@
         <p>Navigation</p>
     </mat-sidenav>
     <mat-sidenav-content fxFlex="">
-        <top-banner *ngIf="currentRoute === 'home'"></top-banner>
-        <detail-header *ngIf="currentRoute === 'tag-detail'"></detail-header>
-        <profile-header *ngIf="currentRoute === 'user-detail'"></profile-header>
+            <top-banner *ngIf="currentRoute === 'home'"></top-banner>
+            <detail-header *ngIf="currentRoute === 'tag-detail'"></detail-header>
+            <profile-header *ngIf="currentRoute === 'user-detail'"></profile-header>
         <div fxLayout="row" class="main-content">
             <div fxFlex></div>
             <div class="container" fxLayout="row">
                 <sidebar *ngIf="!(isHandset$ | async)"></sidebar>
                 <div fxFlex>
-                    <ng-content></ng-content>
+                    <router-outlet></router-outlet>
                 </div>
             </div>
             <div fxFlex ></div>

@@ -28,6 +28,5 @@ export class AppComponent implements OnInit{
           this.currentRoute = this.routeService.getCurrentRoute(e.url);
           this.currentLayout = this.routeService.currentLayout(this.currentRoute);
         });
-    console.log(this.route.snapshot);
   }
 }

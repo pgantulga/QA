@@ -2,6 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter, switchMap, map} from 'rxjs/operators';
 import {TagService} from '../../../services/tag.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'detail-header',
@@ -9,13 +10,14 @@ import {TagService} from '../../../services/tag.service';
   styleUrls: ['./detail-header.component.scss']
 })
 export class DetailHeaderComponent implements OnInit {
-  @Input() content: any;
-  @Input() currentRoute: any;
-  detail: any;
+  detail: Observable<any>;
   constructor( public router: Router, public route: ActivatedRoute, public tagService: TagService) { }
-
     ngOnInit(): void {
-        this.tagService.currentTag.subscribe(tagId => this.detail = this.tagService.getTagInfo(tagId));
+        this.detail = this.route.paramMap.pipe(
+            switchMap((value: any) => {
+              return this.tagService.getTagInfo(value.params.tagId);
+            })
+        );
     }
 
 }

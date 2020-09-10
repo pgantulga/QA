@@ -5,7 +5,7 @@
             <button mat-button color="accent" (click)="signOut()">Гарах</button>
         </div>
         <ng-template #login>
-                <button color="accent" type="button" aria-label="back" mat-icon-button routerLink="/home">
+                <button color="accent" type="button" aria-label="back" mat-icon-button [routerLink]="['/home']">
                     <mat-icon>keyboard_arrow_left</mat-icon>
                 </button>
                 <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">

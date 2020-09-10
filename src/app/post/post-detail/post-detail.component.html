@@ -15,8 +15,7 @@
         <div class="view" fxFlex="">
             <div [innerHTML]="post.content"></div>
             <mat-chip-list>
-                <mat-chip class="tag">Байгал орчин</mat-chip>
-                <mat-chip class="tag">ХУУ</mat-chip>
+                <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tagDetail', tag.id]" >{{tag?.name}}</mat-chip>
             </mat-chip-list>
             <div fxlayout="row" fxLayoutAlign="space-between center">
                 <div fxLayout="row" fxLayoutAlign="start start">

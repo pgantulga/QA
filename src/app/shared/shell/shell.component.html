@@ -33,17 +33,14 @@
 <!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
 <!--    </mat-sidenav-content>-->
 <!--</mat-sidenav-container>-->
-
-
-
-<ng-container [ngSwitch]="currentLayout">
-    <layout-one *ngSwitchDefault >
-        <router-outlet></router-outlet>
+<ng-container *ngFor="let a of [1,2,3]">
+    <layout-one *ngIf="a === 1">
+        <ng-content></ng-content>
     </layout-one>
-    <layout-two *ngSwitchCase="'layout-2'">
-        <router-outlet></router-outlet>
+    <layout-two *ngIf="a === 2">
+        <ng-content></ng-content>
     </layout-two>
-    <layout-three *ngSwitchCase="'layout-3'">
-        <router-outlet></router-outlet>
+    <layout-three *ngIf="a === 3">
+        <ng-content></ng-content>
     </layout-three>
 </ng-container>

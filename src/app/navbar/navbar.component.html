@@ -3,11 +3,11 @@
         <div fxFlex *ngIf="layout!=='layout-2'"></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center" [class.postPage_container]="layout ==='layout-2'">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button color="accent" type="button" aria-label="back" mat-icon-button *ngIf="layout ==='layout-2'" routerLink="/home">
+                <button color="accent" type="button" aria-label="back" mat-icon-button *ngIf="layout ==='layout-2'" [routerLink]="['home']">
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
                 <ng-content></ng-content>
-                <button mat-icon-button class="homeButton" routerLink="/home">
+                <button mat-icon-button class="homeButton" [routerLink]="['/home']">
                     <img src="../../assets/logo_noTitle.png" alt="Logo" class="toolbarLogo">
                 </button>
             </div>
@@ -23,14 +23,12 @@
                 </button>
                 <mat-menu #dropMenu="matMenu">
                     <button mat-menu-item disabled  >{{user.displayName}}</button>
-                    <button mat-menu-item *ngIf="authService.canDelete(user)" routerLink="admin">Админ</button>
+                    <button mat-menu-item *ngIf="authService.canDelete(user)" [routerLink]="['/admin']">Админ</button>
                     <button mat-menu-item (click)="signOut()">Sign out</button>
                 </mat-menu>
             </div>
             <ng-template #login>
-                <button mat-button color="accent" routerLink="login" class="login">
-                Нэвтрэх
-            </button>
+                <button mat-button color="accent" [routerLink]="['/login']" class="login">Нэвтрэх</button>
             </ng-template>
         </div>
         <div fxFlex *ngIf="layout!=='layout-2'"></div>

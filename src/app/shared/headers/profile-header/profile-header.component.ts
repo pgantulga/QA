@@ -13,7 +13,8 @@ export class ProfileHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.userService.selectedUser
         .subscribe(uid => {
-          this.user$ = this.userService.getUserDetail(uid);
+            console.log(uid);
+            this.user$ = this.userService.getUserDetail(uid);
         });
   }
 }
