@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {TagService} from '../../../services/tag.service';
+import {TagService} from '../../services/tag.service';
 @Component({
   selector: 'sidebar',
   templateUrl: './sidebar.component.html',

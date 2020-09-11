@@ -21,12 +21,6 @@ export class AppComponent implements OnInit{
               public routeService: RouteService) {
   }
   ngOnInit(): void {
-    this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd))
-        .subscribe(e => {
-          // @ts-ignore
-          this.currentRoute = this.routeService.getCurrentRoute(e.url);
-          this.currentLayout = this.routeService.currentLayout(this.currentRoute);
-        });
+
   }
 }

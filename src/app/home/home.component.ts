@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {PostService} from "../services/post.service";
-import {AuthService} from "../services/auth.service";
+import {PostService} from '../services/post.service';
+import {AuthService} from '../services/auth.service';
 import {PageEvent} from '@angular/material/paginator';
 
 @Component({

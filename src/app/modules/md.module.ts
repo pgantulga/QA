@@ -13,6 +13,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import {MatPaginatorModule} from '@angular/material/paginator';
 @NgModule({
   exports: [
     CommonModule,
@@ -27,8 +28,8 @@ import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
     MatCardModule,
     MatMenuModule,
     MatDialogModule,
-    MatSidenavModule
-
+    MatSidenavModule,
+    MatPaginatorModule
   ],
   providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}},
               {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'never'}}, MatSidenav]

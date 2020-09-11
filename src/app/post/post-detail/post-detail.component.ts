@@ -16,7 +16,6 @@ export class PostDetailComponent implements OnInit {
   logs$: any;
   constructor(public route: ActivatedRoute, private postService: PostService, public authService: AuthService,
               public answerService: AnswerService) { }
-
   ngOnInit(): void {
       // combine observers
     this.post$ = this.route.paramMap.pipe(

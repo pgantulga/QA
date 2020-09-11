@@ -18,14 +18,13 @@ import {RouteService} from '../../services/route.service';
 })
 export class ShellComponent implements OnInit{
     currentRoute: string;
-    currentLayout: string;
-    sidebarLogic: boolean;
     showTopBanner: boolean;
     currentLayoutObj: {
         layout1: boolean,
         layout2: boolean,
         layout3: boolean
     };
+    isSidebar: boolean
     posts: any;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
         .pipe(
@@ -46,9 +45,11 @@ export class ShellComponent implements OnInit{
             .subscribe(e => {
                 // @ts-ignore
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
-                this.currentLayout = this.routeService.currentLayout(this.currentRoute);
+                this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
+                console.log(this.currentLayoutObj)
+
                 // @ts-ignore
-                this.sidebarLogic = this.showSidebar(e.url);
+                this.isSidebar = this.showSidebar(e.url);
                 this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail') && (this.currentRoute !== 'login');
             });
         console.log(this.route.snapshot);

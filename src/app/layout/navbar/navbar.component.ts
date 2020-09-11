@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {MenuService} from "../services/menu.service";
-import {Menu} from "../interfaces/Menu";
-import {AuthService} from "../services/auth.service";
+import {MenuService} from "../../services/menu.service";
+import {Menu} from "../../interfaces/Menu";
+import {AuthService} from "../../services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from '../shared/dialog/dialog.component';
+import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {filter} from 'rxjs/operators';
 import {NavigationEnd, Router} from '@angular/router';
-import {RouteService} from '../services/route.service';
+import {RouteService} from '../../services/route.service';
 
 @Component({
   selector: 'app-navbar',
