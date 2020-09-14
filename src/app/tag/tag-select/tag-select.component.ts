@@ -28,7 +28,6 @@ export class TagSelectComponent {
     this.tagService.getAllTags().subscribe(items => {
       this.allTags = items;
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
-          startWith(null),
           map((tag) => tag ? this._filter(tag) : this.allTags.slice()));
     });
   }

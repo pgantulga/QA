@@ -20,7 +20,6 @@
                     <p class="mat-caption" style="margin: 12px 0 12px 0">эсвэл бүртгэлтэй имэйл хаягаараа нэвтрэх</p>
                 </div>
             <form (ngSubmit)="onSubmit()">
-
                 <mat-form-field appearance="outline" color="accent" style="margin-bottom: 16px;width: 100%">
                     <mat-label>Имэйл хаяг</mat-label>
                     <input matInput placeholder="Имэйл хаяг" [formControl]="email">
@@ -37,7 +36,7 @@
                     <button mat-raised-button color="accent" type="submit" fxFlex="">Нэвтрэх</button>
                 </mat-card-actions>
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" routerLink="/register">Бүртгүүлэх</span>
+                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" [routerLink]="['/auth/register']" >Бүртгүүлэх</span>
                     </p>
                 </div>
             </form>

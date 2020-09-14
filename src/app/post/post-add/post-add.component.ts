@@ -79,7 +79,7 @@ export class PostAddComponent implements OnInit {
     }
     ngOnInit(): void {
         this.config = config;
-        this.postForm = this.formBuilder.group({editor: '', title: '',});
+        // this.postForm = this.formBuilder.group({editor: '', title: '',});
     }
 
     createPost() {

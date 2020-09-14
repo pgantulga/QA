@@ -1,11 +1,13 @@
+// @ts-ignore
 import * as functions from 'firebase-functions';
+// @ts-ignore
 import * as admin from 'firebase-admin';
 
 admin.initializeApp();
  // add latest log to post document
 exports.lastLog = functions.firestore
     .document('posts/{postId}/logs/{log}')
-    .onCreate((snap, context) => {
+    .onCreate((snap: any, context: any) => {
         const postId = context.params.postId;
         const docRef = admin.firestore().collection('posts').doc(postId);
         return docRef.update({
@@ -14,14 +16,14 @@ exports.lastLog = functions.firestore
     });
 exports.postUpdate = functions.firestore
     .document('posts/{postId}')
-    .onUpdate(change => {
+    .onUpdate((change: any) => {
         decreaseTagNumber(change.before.data());
         increaseTagNumber(change.after.data());
     });
 // count how many posts in post collection
 exports.postMeta = functions.firestore
     .document('posts/{postId}')
-    .onWrite((change, context) => {
+    .onWrite((change: any, context: any) => {
         // if ( change.after.exists && change.before.exists) {
         //     console.log('update method');
         //     decreaseTagNumber(change.before.data());
@@ -42,7 +44,7 @@ exports.postMeta = functions.firestore
         const postRef = admin.firestore().collection('posts');
         return postRef.orderBy('createdAt', 'desc')
             .get()
-            .then(snapshot => {
+            .then((snapshot: any) => {
                 const size = snapshot.size;
                 const updatedAt = admin.firestore.FieldValue.serverTimestamp();
                 const data = {
@@ -54,12 +56,12 @@ exports.postMeta = functions.firestore
 // to count answers number and last update time in post document
 exports.aggregateComments = functions.firestore
     .document('posts/{postId}/answers/{answers}')
-    .onWrite((change, context) => {
+    .onWrite((change: any, context: any) => {
         const postId = context.params.postId;
         const docRef = admin.firestore().collection('posts').doc(postId);
         return docRef.collection('answers').orderBy('createdAt', 'desc')
             .get()
-            .then(querySnapshot  => {
+            .then((querySnapshot: any)  => {
                 const answersCount = querySnapshot.size;
                 const updatedAt = admin.firestore.FieldValue.serverTimestamp();
                 const data = {
@@ -67,12 +69,12 @@ exports.aggregateComments = functions.firestore
                 };
                 return docRef.update(data);
             })
-            .catch(error => console.log(error));
+            .catch((error: any) => console.log(error));
     });
 // changing by batch to operation post/totalVotes, answer/votesNumber, user/votesReceived when vote added
 exports.voteAdded = functions.firestore
     .document('votes/{voteId}')
-    .onCreate( (snap, context) => {
+    .onCreate( (snap: any, context: any) => {
         const increaseBy = admin.firestore.FieldValue.increment(1);
         const newValue = snap.data();
         const batch = admin.firestore().batch();
@@ -88,7 +90,7 @@ exports.voteAdded = functions.firestore
 // changing by batch operation to post/totalVotes, answer/votesNumber, user/votesReceived when vote added
 exports.voteDeleted = functions.firestore
     .document('votes/{voteId}')
-    .onDelete(snapshot => {
+    .onDelete((snapshot: any) => {
             const decreasedBy = admin.firestore.FieldValue.increment(-1);
             const newValue = snapshot.data();
             const batch = admin.firestore().batch();
@@ -104,22 +106,22 @@ exports.voteDeleted = functions.firestore
 // launch when tag info changed
 exports.tagChanged = functions.firestore
     .document('tags/{tagId}')
-    .onUpdate( (change, context) => {
+    .onUpdate( (change: any, context: any) => {
         const newValue = change.after.data();
         const oldValue = change.before.data();
         const postRef = admin.firestore().collection('posts');
         postRef.where('tags', 'array-contains', {id: oldValue.id, name: oldValue.name}).get()
-            .then(query => {
-                query.forEach(item => {
+            .then((query: any) => {
+                query.forEach((item: any) => {
                     item.ref.set({
                         tags: updatePostTagArray(item.data(), newValue)
                     }, {merge: true})
-                        .then(res => {
+                        .then((res: any) => {
                             console.log('Tag updated: ', item.data().id);
                         });
                 });
             })
-            .catch(err => {
+            .catch((err: any) => {
                 console.log('error gettind doc: ', err);
             });
     })

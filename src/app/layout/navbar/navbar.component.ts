@@ -16,8 +16,19 @@ import {RouteService} from '../../services/route.service';
 export class NavbarComponent implements OnInit{
   @Input() layout: any;
   topMenu: Menu[];
-  constructor( public menu: MenuService, public authService: AuthService, public dialog: MatDialog, public router: Router) {}
+  constructor( public menu: MenuService,
+               public authService: AuthService,
+               public dialog: MatDialog,
+               public router: Router,
+               public routeService: RouteService) {}
   ngOnInit(): void {
+    this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd))
+        .subscribe(e => {
+          // @ts-ignore
+          this.currentRoute = e.url;
+          this.isPostPage = this.currentRoute.includes('posts/');
+        });
     this.topMenu = this.menu.topMenu;
   }
   signOut() {

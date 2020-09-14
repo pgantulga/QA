@@ -15,14 +15,21 @@ import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MdModule} from '../modules/md.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { SidePostDirComponent } from './side-post-dir/side-post-dir.component';
+import {PostSidenavComponent} from '../shared/components/post-sidenav/post-sidenav.component';
+import {PostListSidenavComponent} from '../shared/components/post-list-sidenav/post-list-sidenav.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 @NgModule({
-  declarations: [NavbarComponent, SidebarComponent, SidenavComponent],
+  declarations: [NavbarComponent, SidebarComponent, SidenavComponent, SidePostDirComponent, PostListSidenavComponent, PostSidenavComponent],
   exports: [
     NavbarComponent,
     SidebarComponent,
-    SidenavComponent
+    SidenavComponent,
+      SidePostDirComponent,
+      SharedModule,
+      PostSidenavComponent
   ],
   imports: [
     CommonModule,

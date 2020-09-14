@@ -4,10 +4,6 @@ import { PostRoutingModule } from './post-routing.module';
 import {PostDetailComponent} from './post-detail/post-detail.component';
 import {MdModule} from '../modules/md.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-// import {UserProfileComponent} from '../shared/components/user-profile/user-profile.component';
-// import {AnswerListComponent} from '../answer/answer-list/answer-list.component';
-// import {AnswerAddComponent} from '../answer/answer-add/answer-add.component';
-import {MomentPipe} from '../shared/moment.pipe';
 import {SharedModule} from '../shared/shared.module';
 import {HeaderComponent} from '../shared/headers/post-header/header.component';
 import {AnswerListComponent} from '../answer/answer-list/answer-list.component';
@@ -16,9 +12,6 @@ import {UserProfileComponent} from '../shared/components/user-profile/user-profi
 import {AnswerAddComponent} from '../answer/answer-add/answer-add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuillModule} from 'ngx-quill';
-
-// import {MomentPipe} from '../shared/moment.pipe';
-
 
 @NgModule({
   declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent],
@@ -32,6 +25,6 @@ import { QuillModule} from 'ngx-quill';
       QuillModule.forRoot(),
       FormsModule
   ],
-  exports: [MomentPipe]
+  exports: []
 })
 export class PostModule { }

@@ -1,16 +1,23 @@
-<app-navbar *ngIf="!currentLayoutObj.layout3">
-<!--    <button color="accent"-->
-<!--            type="button"-->
-<!--            aria-label="Toggle sidenav"-->
-<!--            mat-icon-button-->
-<!--            (click)="drawer.toggle()"-->
-<!--            *ngIf="(isHandset$ | async) && (!currentLayoutObj.layout2)">-->
-<!--        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
-<!--    </button>-->
+<app-navbar *ngIf="!currentLayoutObj.layout3" [layout]="currentRoute">
+    <button color="accent"
+            type="button"
+            aria-label="Toggle sidenav"
+            mat-icon-button
+            (click)="drawer.toggle()"
+            *ngIf="(isHandset$ | async) && (!currentLayoutObj.layout2)">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
 </app-navbar>
 <mat-sidenav-container [class.sidenav-container]="!currentLayoutObj.layout3" [class.color-background]="currentLayoutObj.layout3">
-<!--    <sidenav></sidenav>-->
-    <mat-sidenav-content>
+    <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="(currentRoute === 'post-detail') ? 'directory' : 'navigation'" [opened]="(currentRoute === 'post-detail') && !(isHandset$ | async)" [mode]="(currentRoute === 'post-detail') ? 'side' : 'over'" style="padding-top: 64px">
+        <ng-container [ngSwitch]="currentRoute" >
+            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>
+            <ng-container *ngSwitchDefault>
+                <p>Navigation</p>
+            </ng-container>
+        </ng-container>
+    </mat-sidenav>
+    <mat-sidenav-content fxLayout="column" [fxLayoutAlign]="currentLayoutObj.layout3 ? 'center center' : 'start center'">
 <!--        <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>-->
 <!--        <top-banner *ngIf="showTopBanner"></top-banner>-->
         <div fxLayout="row" [class.layout-one]="currentLayoutObj.layout1" [class.layout-two]="currentLayoutObj.layout2" [class.layout-three]="currentLayoutObj.layout3">
@@ -19,7 +26,7 @@
                 <sidebar *ngIf="!(isHandset$ | async) && !isSidebar"></sidebar>
                 <div fxFlex>
                     <ng-content></ng-content>
-                </div>
+            </div>
             </div>
             <div fxFlex ></div>
         </div>

@@ -16,6 +16,7 @@ import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.co
 // import {SidebarComponent} from '../layout/sidebar/sidebar.component';
 import {MomentPipe} from '../shared/moment.pipe';
 import {SharedModule} from '../shared/shared.module';
+import {PostSidenavComponent} from "../shared/components/post-sidenav/post-sidenav.component";
 
 
 @NgModule({
