@@ -14,7 +14,9 @@ import {RouteService} from '../../services/route.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit{
-  @Input() layout: any;
+  // @Input() layout: any;
+  layout: any;
+  currentRoute: any;
   topMenu: Menu[];
   constructor( public menu: MenuService,
                public authService: AuthService,
@@ -26,8 +28,9 @@ export class NavbarComponent implements OnInit{
         filter(event => event instanceof NavigationEnd))
         .subscribe(e => {
           // @ts-ignore
-          this.currentRoute = e.url;
-          this.isPostPage = this.currentRoute.includes('posts/');
+          this.currentRoute = this.routeService.getCurrentRoute(e.url);
+          this.layout = this.routeService.currentLayout(this.currentRoute);
+          // this.isPostPage = this.currentRoute.includes('posts/');
         });
     this.topMenu = this.menu.topMenu;
   }
@@ -37,7 +40,6 @@ export class NavbarComponent implements OnInit{
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) { this.authService.signOut()
-
           .then(() => console.log('Signed out'));
       }
     });
