@@ -17,9 +17,9 @@
             </ng-container>
         </ng-container>
     </mat-sidenav>
-    <mat-sidenav-content fxLayout="column" [fxLayoutAlign]="currentLayoutObj.layout3 ? 'center center' : 'start center'">
-<!--        <detail-header *ngIf="currentRoute === 'tag-detail'" [currentRoute]="currentRoute"></detail-header>-->
-<!--        <top-banner *ngIf="showTopBanner"></top-banner>-->
+    <mat-sidenav-content fxLayout="column" [fxLayoutAlign]="currentLayoutObj.layout3 ? 'center center' : ''">
+        <detail-header *ngIf="currentRoute === 'tag-detail'" ></detail-header>
+        <top-banner *ngIf="showTopBanner"></top-banner>
         <div fxLayout="row" [class.layout-one]="currentLayoutObj.layout1" [class.layout-two]="currentLayoutObj.layout2" [class.layout-three]="currentLayoutObj.layout3">
             <div fxFlex ></div>
             <div [class.container]="currentLayoutObj.layout1" class="mat-sidenav-content-container fullWidth" fxLayout="row">
@@ -30,7 +30,7 @@
             </div>
             <div fxFlex ></div>
         </div>
-<!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
+        <footer *ngIf="currentRoute !== 'login'"></footer>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

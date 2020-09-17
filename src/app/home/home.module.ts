@@ -5,7 +5,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import {HomeComponent} from './home.component';
 import {PostListComponent} from '../post/post-list/post-list.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MdModule} from '../modules/md.module';
+import {MdModule} from '../shared/md.module';
 // import {MatButtonModule} from '@angular/material/button';
 // import {MatMenuModule} from '@angular/material/menu';
 // import {AppModule} from '../app.module';

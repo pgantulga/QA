@@ -46,11 +46,9 @@ export class ShellComponent implements OnInit{
                 // @ts-ignore
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
-                console.log(this.currentLayoutObj)
-
                 // @ts-ignore
                 this.isSidebar = this.showSidebar(e.url);
-                this.showTopBanner = (this.currentRoute !== 'post-detail') && (this.currentRoute !== 'tag-detail') && (this.currentRoute !== 'login');
+                this.showTopBanner = (this.currentRoute === 'home');
             });
         console.log(this.route.snapshot);
     }
@@ -58,6 +56,6 @@ export class ShellComponent implements OnInit{
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);
     }
     showSidebar(url) {
-        return url.includes('/posts') || url.includes('login') || url.includes('register');
+        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts');
     }
 }

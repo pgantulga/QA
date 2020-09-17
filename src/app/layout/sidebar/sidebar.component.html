@@ -15,7 +15,7 @@
     </mat-action-list>
     <ng-container *ngIf="tags$ | async as tags">
         <mat-chip-list class="mat-chip-list-stacked" aria-label="Color selection">
-            <mat-chip *ngFor="let chip of tags" style="background-color: transparent; color: #006064" [routerLink]="['/tagDetail', chip.id]">
+            <mat-chip *ngFor="let chip of tags" style="background-color: transparent; color: #006064" [routerLink]="['tags/tagDetail', chip.id]">
                 {{chip.name}} ({{chip.totalUsed}})
             </mat-chip>
         </mat-chip-list>

@@ -2,7 +2,7 @@
     <div fxLayout="column" fxFlex="">
         <p class="mat-body-2 question" [routerLink]="['/posts', post.id]">{{post.title}}</p>
         <mat-chip-list>
-            <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tagDetail', tag.id]" >{{tag?.name}}</mat-chip>
+            <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tags/tagDetail', tag.id]" >{{tag?.name}}</mat-chip>
         </mat-chip-list>
         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="post.lastLog" class="metaData">
             <mat-icon class="post-list-edited">{{getIcon(post.lastLog.type)}}</mat-icon>

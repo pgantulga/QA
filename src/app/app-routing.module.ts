@@ -26,7 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'posts/:id',
-    loadChildren: () => import('./post/post.module').then(m => m.PostModule)
+    loadChildren: () => import('./post/post.' +
+    'module').then(m => m.PostModule)
   },
   {
     path: 'ask',
@@ -35,15 +36,11 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
+  {
+    path: 'tags',
+    loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)
   }
-
-  // {
-  //   path: 'posts/:id',
-  //   component: LayoutTwoComponent,
-  //   children: [
-  //     { path: '', component: PostDetailComponent}
-  //   ]
-  // },
   // {
   //   path: 'users',
   //   component: LayoutOneComponent,
@@ -58,50 +55,6 @@ const routes: Routes = [
   //     {path: '', component: UserDetailComponent}
   //   ]
   // },
-  // {
-  //   path: 'login',
-  //   component: LayoutThreeComponent,
-  //   children: [
-  //     {path: '', component: LoginComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'Register',
-  //   component: LayoutThreeComponent,
-  //   children: [
-  //     {path: '', component: RegisterComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'Ask',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     {path: '', component: PostAddComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'posts/:id/edit',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     {path: '', component: PostAddComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'tags',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     {path: '', component: TagsComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'tagDetail/:tagId',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     {path: '', component: TagDetailComponent}
-  //   ]
-  // },
-  // {path: 'addTag', component: TagAddComponent},
-  // {path: 'tagDetail/:tagId', component: TagDetailComponent},
 
 ];
 @NgModule({

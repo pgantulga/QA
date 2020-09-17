@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {AuthService} from '../services/auth.service';
+import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {SnackComponent} from '../shared/components/snack/snack.component';
+import {SnackComponent} from '../../shared/components/snack/snack.component';
 
 @Component({
   selector: 'app-login',

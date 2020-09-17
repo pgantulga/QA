@@ -13,23 +13,39 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
-import {MdModule} from '../modules/md.module';
+import {MdModule} from '../shared/md.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SidePostDirComponent } from './side-post-dir/side-post-dir.component';
 import {PostSidenavComponent} from '../shared/components/post-sidenav/post-sidenav.component';
 import {PostListSidenavComponent} from '../shared/components/post-list-sidenav/post-list-sidenav.component';
 import {SharedModule} from '../shared/shared.module';
+import {DetailHeaderComponent} from '../shared/headers/detail-header/detail-header.component';
+import {TopBannerComponent} from '../shared/banners/top-banner/top-banner.component';
+import {FooterComponent} from './footer/footer.component';
 
 
 @NgModule({
-  declarations: [NavbarComponent, SidebarComponent, SidenavComponent, SidePostDirComponent, PostListSidenavComponent, PostSidenavComponent],
+  declarations: [
+      NavbarComponent,
+    SidebarComponent,
+    SidenavComponent,
+    SidePostDirComponent,
+    PostListSidenavComponent,
+    PostSidenavComponent,
+    DetailHeaderComponent,
+    TopBannerComponent,
+    FooterComponent
+  ],
   exports: [
     NavbarComponent,
     SidebarComponent,
     SidenavComponent,
       SidePostDirComponent,
       SharedModule,
-      PostSidenavComponent
+      PostSidenavComponent,
+      DetailHeaderComponent,
+      TopBannerComponent,
+      FooterComponent
   ],
   imports: [
     CommonModule,

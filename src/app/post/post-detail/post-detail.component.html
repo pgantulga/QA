@@ -1,5 +1,4 @@
 <ng-container *ngIf="post$ | async as post">
-    <p>Post works</p>
     <header [pageTitle]="post.title">
         <div sub-nav fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
             <p class="mat-caption" style="color: #ffffff">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>

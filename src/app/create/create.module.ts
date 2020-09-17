@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateRoutingModule } from './create-routing.module';
 import {PostAddComponent} from '../post/post-add/post-add.component';
-import {MdModule} from '../modules/md.module';
+import {MdModule} from '../shared/md.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';

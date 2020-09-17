@@ -5,7 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {PostService} from '../../services/post.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {TagAddComponent} from '../tag-add/tag-add.component';
+// import {TagAddComponent} from '../tag-add/tag-add.component';
 import {TagUpdateComponent} from '../tag-update/tag-update.component';
 
 @Component({
