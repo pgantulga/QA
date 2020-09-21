@@ -16,8 +16,9 @@ export class UserDetailComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.route.paramMap.pipe(
         switchMap( params => {
-          this.userService.setSelectedUser(params.get('uid'));
-          return this.userService.getUserDetail(params.get('uid'));
+            console.log(params.get('uid'));
+            this.userService.setSelectedUser(params.get('uid'));
+            return this.userService.getUserDetail(params.get('uid'));
         })
     );
   }

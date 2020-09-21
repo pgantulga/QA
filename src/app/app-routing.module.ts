@@ -40,7 +40,11 @@ const routes: Routes = [
   {
     path: 'tags',
     loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)
-  }
+  },
+    {
+        path: 'users',
+        loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    }
   // {
   //   path: 'users',
   //   component: LayoutOneComponent,

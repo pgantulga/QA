@@ -9,7 +9,7 @@ import { DialogComponent } from './shared/dialog/dialog.component';
 import { AdminGuard} from './services/auth-guard.service';
 import { SnackComponent } from './shared/components/snack/snack.component';
 import { MdModule} from './shared/md.module';
-import { ShellComponent } from './shared/shell/shell.component';
+import { ShellComponent } from './shell/shell.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LayoutModule} from './layout/layout.module';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';

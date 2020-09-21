@@ -1,14 +1,7 @@
-<header pageTitle="Хэрэглэгчид">
-    <mat-chip-list sub-nav>
-        <mat-chip color="accent" selected="true" class="nav">Идэвхитэй</mat-chip>
-        <mat-chip color="accent" selected="false" class="nav">Шинэ</mat-chip>
-    </mat-chip-list>
-</header>
 <ng-container *ngIf="users$ | async as users; else loading">
     <div class="users_page">
         <div *ngFor="let item of users" class="user-grid">
-            <user-profile  [user]="item">
-            </user-profile>
+<!--            <user-profile  [user]="item"></user-profile>-->
         </div>
     </div>
 <!--    <mat-table [dataSource]="users" >-->

@@ -16,12 +16,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MdModule} from '../shared/md.module';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { SidePostDirComponent } from './side-post-dir/side-post-dir.component';
-import {PostSidenavComponent} from '../shared/components/post-sidenav/post-sidenav.component';
-import {PostListSidenavComponent} from '../shared/components/post-list-sidenav/post-list-sidenav.component';
+import {PostSidenavComponent} from './post-sidenav/post-sidenav.component';
+import {PostListSidenavComponent} from './post-list-sidenav/post-list-sidenav.component';
 import {SharedModule} from '../shared/shared.module';
-import {DetailHeaderComponent} from '../shared/headers/detail-header/detail-header.component';
-import {TopBannerComponent} from '../shared/banners/top-banner/top-banner.component';
+import {DetailHeaderComponent} from './detail-header/detail-header.component';
+import {TopBannerComponent} from './top-banner/top-banner.component';
 import {FooterComponent} from './footer/footer.component';
+import {ProfileHeaderComponent} from './profile-header/profile-header.component';
+import {UserProfileLargeComponent} from './user-profile-large/user-profile-large.component';
 
 
 @NgModule({
@@ -33,8 +35,10 @@ import {FooterComponent} from './footer/footer.component';
     PostListSidenavComponent,
     PostSidenavComponent,
     DetailHeaderComponent,
+    ProfileHeaderComponent,
     TopBannerComponent,
-    FooterComponent
+    FooterComponent,
+    UserProfileLargeComponent
   ],
   exports: [
     NavbarComponent,
@@ -44,8 +48,10 @@ import {FooterComponent} from './footer/footer.component';
       SharedModule,
       PostSidenavComponent,
       DetailHeaderComponent,
+      ProfileHeaderComponent,
       TopBannerComponent,
-      FooterComponent
+      FooterComponent,
+      UserProfileLargeComponent
   ],
   imports: [
     CommonModule,
