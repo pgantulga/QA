@@ -73,8 +73,9 @@ export class AuthService {
         .then(res => {
           console.log('Success, user id: ' + res.user.uid);
           userData.uid = res.user.uid;
+          userData.createdAt = new Date ();
           this.emailVerify(userData.email);
-          return this.updateUserData(userData);
+          return this.createUserData(userData);
         })
         .catch(err => {
           errorSender(err.message);
@@ -108,12 +109,24 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,
-      roles: {
-        guest: true
-      }
     };
     return ref.set(data, {merge: true});
   }
+  createUserData(user: any) {
+    const ref = this.userCollection.doc(user.uid);
+    const data = {
+      uid: user.uid,
+      createdAt: user.createdAt,
+      email: user.email,
+      displayName: user.displayName,
+      roles: {
+        guest: true
+      },
+    };
+    return ref.set(data, {merge: true});
+  }
+
+
   // permission and roles
   checkAuth(user: User, allowedRoles: string[]): boolean {
     if (!user) { return false; }

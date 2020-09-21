@@ -1,14 +1,8 @@
 <div fxLayout="row" class="profile-header-container">
     <div fxFlex></div>
-    <ng-container *ngIf="user$ | async as user">
+    <div class="container profile-header" fxLayout="column" fxLayoutAlign="center left" *ngIf="user$ | async as user">
         <user-profile-large [user]="user"></user-profile-large>
-    </ng-container>
-<!--    <div class="container detail-header" fxLayout="column" fxLayoutAlign="center left" style="position: relative" *ngIf="user$ | async as user">-->
-<!--        <p class="mat-headline">{{user.displayName}}</p>-->
-<!--        <button mat-button color="accent" class="background-button">-->
-<!--            Take tour-->
-<!--        </button>-->
-<!--    </div>-->
+    </div>
     <div fxFlex></div>
 </div>
 
