@@ -118,14 +118,18 @@ export class AuthService {
       uid: user.uid,
       createdAt: user.createdAt,
       email: user.email,
-      displayName: user.displayName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      displayName: this.getDisplayName(user.firstName, user.lastName),
       roles: {
         guest: true
       },
     };
     return ref.set(data, {merge: true});
   }
-
+  getDisplayName(firstName, lastName) {
+    return firstName + ' ' + lastName.charAt(0) + '.';
+  }
 
   // permission and roles
   checkAuth(user: User, allowedRoles: string[]): boolean {

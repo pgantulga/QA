@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AuthService} from '../../services/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'register',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   serviceErrorMessage: string;
 
-  constructor(private af: AngularFireAuth, public authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(private af: AngularFireAuth, public authService: AuthService, private formBuilder: FormBuilder, public router: Router) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
@@ -57,7 +58,7 @@ export class RegisterComponent implements OnInit {
           this.serviceErrorMessage = message;
         })
         .then(res => {
-          console.log(res);
+            return this.router.navigate(['auth/welcome']);
         });
   }
   signOut() {

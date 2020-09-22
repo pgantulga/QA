@@ -7,10 +7,11 @@ import {MdModule} from '../shared/md.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from "./register/register.component";
+import { WelcomeComponent } from './welcome/welcome.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

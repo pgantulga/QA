@@ -56,7 +56,7 @@ export class ShellComponent implements OnInit{
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);
     }
     showSidebar(url) {
-        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts');
+        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts') || url.includes('welcome');
 
     }
 }

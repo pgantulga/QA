@@ -24,7 +24,7 @@ export class RouteService {
     if (url.includes('/home')) {
       return 'home';
     }
-    if (url.includes('login') || url.includes('register')) {
+    if (url.includes('login') || url.includes('register') || url.includes('welcome')) {
       return 'login';
     }
     if (url.includes('/users/')) {

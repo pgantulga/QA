@@ -14,11 +14,11 @@ export class AdminGuard implements CanActivate{
         take(1),
         map(user => !!(user && user.roles.admin)),
         tap(isAdmin => {
-          if(!isAdmin) {
+          if (!isAdmin) {
             console.error('Access denied');
             this.router.navigate(['/']);
           }
         })
-    )
+    );
   }
 }
