@@ -28,12 +28,18 @@ export class PostService {
     return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
         .where('tags', 'array-contains', {id: tag.id, name: tag.name} ).limit(10)).valueChanges();
   }
+  getPostByUser(user) {
+    console.log(user.uid);
+    return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc')
+        .where('uid', '==', user.uid ).limit(10)).valueChanges();
+  }
   createPost(formData, user, tagsArray) {
     return  this.postCollection.add({
       title: formData.title,
       content: formData.content,
       createdAt: new Date(),
       updatedAt: new Date(),
+      uid: user.uid,
       author: {
         displayName: user.displayName,
         uid: user.uid,

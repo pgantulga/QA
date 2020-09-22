@@ -25,9 +25,10 @@
             <div fxFlex ></div>
             <div [class.container]="currentLayoutObj.layout1" class="mat-sidenav-content-container fullWidth" fxLayout="row">
                 <sidebar *ngIf="!(isHandset$ | async) && !isSidebar"></sidebar>
+<!--                <sidebar-profile *ngIf="!(isHandset$ | async) && currentRoute === 'user-detail'"></sidebar-profile>-->
                 <div fxFlex>
                     <ng-content></ng-content>
-            </div>
+                </div>
             </div>
             <div fxFlex ></div>
         </div>

@@ -5,6 +5,6 @@
         <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
         <!--</div>-->
         <p class="mat-headline">{{user.displayName}}</p>
-        <p class="mat-caption">User role</p>
+        <p class="mat-caption">{{user.createdAt | momentPipe}} бүртгүүлсэн</p>
     </div>
 </div>

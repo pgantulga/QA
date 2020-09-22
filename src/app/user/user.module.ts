@@ -5,6 +5,10 @@ import {UsersComponent} from './users/users.component';
 import {MdModule} from '../shared/md.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {UserDetailComponent} from './user-detail/user-detail.component';
+import {PostListComponent} from '../post/post-list/post-list.component';
+import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.component';
+import {HomeModule} from '../home/home.module';
+import {PostModule} from '../post/post.module';
 
 
 @NgModule({
@@ -13,7 +17,9 @@ import {UserDetailComponent} from './user-detail/user-detail.component';
     CommonModule,
     UserRoutingModule,
     MdModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+      HomeModule,
+      PostModule
   ]
 })
 export class UserModule { }

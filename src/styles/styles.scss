@@ -29,6 +29,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   -webkit-text-fill-color: transparent;
 }
 
+.page-title {
+  color: mat-color($QA-accent);
+}
+
 .icon-dark {
   color: rgba(0,0,0,0.56);
 }
@@ -60,7 +64,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: inline-block;
   vertical-align: middle;
   color: #ffffff;
-  margin: 2px 6px 0 0;
+  margin: 2px 12px 0 0;
 }
 
 

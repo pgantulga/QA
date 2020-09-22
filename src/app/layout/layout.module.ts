@@ -24,12 +24,14 @@ import {TopBannerComponent} from './top-banner/top-banner.component';
 import {FooterComponent} from './footer/footer.component';
 import {ProfileHeaderComponent} from './profile-header/profile-header.component';
 import {UserProfileLargeComponent} from './user-profile-large/user-profile-large.component';
+import { SidebarProfileComponent } from './sidebar-profile/sidebar-profile.component';
 
 
 @NgModule({
   declarations: [
       NavbarComponent,
     SidebarComponent,
+    SidebarProfileComponent,
     SidenavComponent,
     SidePostDirComponent,
     PostListSidenavComponent,
@@ -38,14 +40,15 @@ import {UserProfileLargeComponent} from './user-profile-large/user-profile-large
     ProfileHeaderComponent,
     TopBannerComponent,
     FooterComponent,
-    UserProfileLargeComponent
+    UserProfileLargeComponent,
+    SidebarProfileComponent
   ],
   exports: [
     NavbarComponent,
     SidebarComponent,
+    SidebarProfileComponent,
     SidenavComponent,
       SidePostDirComponent,
-      SharedModule,
       PostSidenavComponent,
       DetailHeaderComponent,
       ProfileHeaderComponent,
@@ -57,7 +60,8 @@ import {UserProfileLargeComponent} from './user-profile-large/user-profile-large
     CommonModule,
     RouterModule,
       MdModule,
-      FlexLayoutModule
+      FlexLayoutModule,
+      SharedModule
   ]
 })
 export class LayoutModule { }

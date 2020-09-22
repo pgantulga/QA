@@ -57,5 +57,6 @@ export class ShellComponent implements OnInit{
     }
     showSidebar(url) {
         return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts');
+
     }
 }
