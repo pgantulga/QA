@@ -112,6 +112,11 @@ export class AuthService {
     };
     return ref.set(data, {merge: true});
   }
+  updateUserInstant(data: any, uid) {
+    console.log(uid);
+    const ref = this.userCollection.doc(uid);
+    return ref.set(data, {merge: true});
+  }
   createUserData(user: any) {
     const ref = this.userCollection.doc(user.uid);
     const data = {
@@ -142,7 +147,7 @@ export class AuthService {
   }
   canRead(user: User): boolean {
     const allowed = ['guest', 'subscriber', 'moderator', 'admin'];
-    return this.checkAuth(user, allowed)
+    return this.checkAuth(user, allowed);
   }
   canCreate(user: User): boolean {
     const allowed = ['subscriber', 'moderator', 'admin'];

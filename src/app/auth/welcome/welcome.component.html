@@ -1,17 +1,10 @@
-<mat-card class="login-card" fxLayout="column">
+<mat-card class="welcome-card" fxLayout="column">
     <form (ngSubmit)="onSubmit()">
         <p class="mat-headline mat-primary">Taвтай морил!</p>
-        <ng-container *ngIf="color">
-            <div class="color-grid" [ngStyle]="{'background-color': color.code}"></div>
-        </ng-container>
+        <p>Таны аватар:</p>
         <div fxLayout="row wrap">
-            <div class="color-grid" *ngFor="let color of colorService.allColors"  [ngStyle]="{'background-color': color.code}"></div>
-
+            <div class="avatar" *ngFor="let color of colorService.allColors"  [ngStyle]="{'background-color': color.code}"></div>
         </div>
-        <mat-form-field appearance="outline" color="accent">
-            <mat-label>Өнгө</mat-label>
-            <input matInput placeholder="Өнгө" >
-        </mat-form-field>
         <mat-form-field appearance="outline" color="accent">
             <mat-label>Таны харагдах нэр</mat-label>
             <input matInput placeholder="Овог" [formControl]="displayName">
