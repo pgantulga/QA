@@ -135,7 +135,6 @@ export class AuthService {
   getDisplayName(firstName, lastName) {
     return firstName + ' ' + lastName.charAt(0) + '.';
   }
-
   // permission and roles
   checkAuth(user: User, allowedRoles: string[]): boolean {
     if (!user) { return false; }

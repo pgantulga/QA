@@ -7,7 +7,6 @@ import {PostService} from './post.service';
 })
 export class AnswerService {
   answersRef: AngularFirestoreCollection<any>;
-
   constructor(private db: AngularFirestore, private postService: PostService) { }
   getAllAnswer(postId) {
     console.log(postId);
