@@ -5,15 +5,15 @@
             <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
             <div class="vote-content" [innerHTML]="answer.content"></div>
             <div fxLayout="row" fxLayoutAlign="space-between center">
-                <div fxLayout="row">
-                    <button mat-button (click)="showReplies()">
-                        Хариултууд
-                        <mat-icon>keyboard_arrow_down</mat-icon>
-                    </button>
-                </div>
+<!--                <div fxLayout="row">-->
+<!--                    <button mat-button (click)="showReplies()">-->
+<!--                        Хариултууд-->
+<!--                        <mat-icon>keyboard_arrow_down</mat-icon>-->
+<!--                    </button>-->
+<!--                </div>-->
                 <div fxLayout="row">
                         <user-profile [user]="answer.author"></user-profile>
-                    <button mat-icon-button class="background-button">
+                    <button mat-icon-button class="background-button" (click)="reply()">
                         <mat-icon>reply</mat-icon>
                     </button>
 <!--                    <button mat-flat-button color="primary">-->
@@ -26,6 +26,9 @@
 <!--                        </div>-->
 <!--                    </div>-->
                 </div>
+            </div>
+            <div *ngIf="showReply">
+                <reply-add></reply-add>
             </div>
         </div>
     </div>

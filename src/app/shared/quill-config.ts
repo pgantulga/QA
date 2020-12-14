@@ -14,5 +14,6 @@ export const config = {
         [{ 'align': [] }],
         ['clean'],                                         // remove formatting button
         ['link', 'image']                         // link and image, video
-    ]
+    ],
+    // placeholder:'asdf ...'
 };

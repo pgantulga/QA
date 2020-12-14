@@ -8,11 +8,13 @@ import {VoteService} from '../../services/vote.service';
 })
 export class AnswerListComponent{
   @Input() answer: any;
-  showReply: boolean
+  showReply: boolean;
   constructor() {
-    this.showReply
+    this.showReply = false;
   }
   showReplies() {
-    this.showReply != this.showReply
   }
+  reply() {
+    this.showReply = !this.showReply;
+  };
 }

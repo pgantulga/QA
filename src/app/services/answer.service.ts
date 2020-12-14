@@ -7,6 +7,7 @@ import {PostService} from './post.service';
 })
 export class AnswerService {
   answersRef: AngularFirestoreCollection<any>;
+  repliesRef: AngularFirestoreCollection<any>;
   constructor(private db: AngularFirestore, private postService: PostService) { }
   getAllAnswer(postId) {
     console.log(postId);
@@ -37,5 +38,28 @@ export class AnswerService {
         .catch(err => {
           console.log('Error occurred: ' + err);
         });
+  }
+  addReply(post, answer, reply, user) {
+    this.repliesRef = this.db.collection('posts').doc(post.id)
+        .collection('answers').doc(answer.id)
+        .collection('replies', ref => ref.orderBy('createdAt', 'desc'));
+    return this.repliesRef.add({
+      content: reply.content,
+      createdAt: new Date(),
+      author: {
+        displayName: user.displayName,
+        uid: user.uid,
+        profilePic: ''
+      },
+      parentPost: {
+        id: post.id,
+        title: post.title
+      },
+      parentAnswer: {
+        id: answer.id,
+        content: answer.content
+      },
+      updatedAt: new Date()
+    });
   }
 }

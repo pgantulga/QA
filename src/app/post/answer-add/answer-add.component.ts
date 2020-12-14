@@ -47,6 +47,7 @@ export class AnswerAddComponent {
         this.addAnswer()
             .then(() => {
               this.snackBar.openFromComponent(SnackComponent, {
+
                 data: 'Таны хариулт нэмэгдлээ.',
               });
               // return this.router.navigate(['/home']);

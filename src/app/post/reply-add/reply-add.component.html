@@ -1,8 +1,7 @@
 <div class="answer-add">
-    <form [formGroup]="answerForm" (ngSubmit)="submit()">
+    <form [formGroup]="replyForm" (ngSubmit)="submit()">
         <div class="form-group">
-            <p class="mat-body-2">Таны хариулт</p>
-            <quill-editor class="answer" formControlName="editor" [modules]="config"></quill-editor>
+            <quill-editor class="reply" formControlName="editor" [modules]="config" [placeholder]="'Хариу бичих'"></quill-editor>
         </div>
         <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
             <button mat-flat-button>Цуцлах</button>

@@ -12,9 +12,10 @@ import {UserProfileComponent} from './user-profile/user-profile.component';
 import {AnswerAddComponent} from './answer-add/answer-add.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuillModule} from 'ngx-quill';
+import { ReplyAddComponent } from './reply-add/reply-add.component';
 
 @NgModule({
-  declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent],
+  declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent, ReplyAddComponent],
   imports: [
     CommonModule,
     PostRoutingModule,

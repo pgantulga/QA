@@ -129,11 +129,11 @@ button.mat-icon-button.background-button{
 }
 
 .editor {
-  height: 300px;
+  height: 300px !important;
 }
 
-.ql-editor {
-  height: 300px !important;
+quill-editor.answer .ql-editor {
+  height: 300px;
 }
 
 //********************************************chip*******************************************************
