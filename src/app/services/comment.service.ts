@@ -9,7 +9,7 @@ export class CommentService {
 
   constructor(private db: AngularFirestore) { }
   addComment(postId, comment, user) {
-    this.commentsRef = this.db.collection('posts').doc(postId).collection('comments', ref => ref.orderBy('createdAt', 'desc'));
+    this.commentsRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
     return this.commentsRef.add({
       content: comment.content,
       createdAt: new Date(),

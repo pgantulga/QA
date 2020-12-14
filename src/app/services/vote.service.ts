@@ -12,7 +12,7 @@ import {PostService} from './post.service';
 export class VoteService {
   votesCollection = this.db.collection<any>('votes');
   constructor(private db: AngularFirestore, private authService: AuthService, private postService: PostService) { }
-  async addVote(answerObj) {
+  async addVote(obj) {
       const user = await this.authService.getUser();
       return this.votesCollection.add(
           {
@@ -20,16 +20,16 @@ export class VoteService {
                   uid: user.uid,
                   displayName: user.displayName
               },
-              voteReceiver: answerObj.author.uid,
+              voteReceiver: obj.author.uid,
               createdAt: new Date(),
-              answerId: answerObj.id,
-              answerContent: answerObj.content,
-              postTitle: answerObj.parent.title,
-              postId: answerObj.parent.id,
-              voteId: answerObj.parent.id + '_' + answerObj.id + '_' + user.uid
+              answerId: obj.id,
+              answerContent: obj.content,
+              postTitle: obj.parent.title,
+              postId: obj.parent.id,
+              voteId: obj.parent.id + '_' + obj.id + '_' + user.uid
           })
           .then(res => {
-              this.postService.addLog(user, 'voted', answerObj.parent.id);
+              this.postService.addLog(user, 'voted', obj.parent.id);
               res.update({
                       id: res.id,
                   }

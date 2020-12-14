@@ -72,15 +72,24 @@ button.mat-raised-button{
   border-radius: 300px;
   text-transform: uppercase;
 }
+button.mat-flat-button {
+  border-radius: 300px;
+}
 button.mat-raised-button.mat-accent{
   color: white!important;
   text-transform: uppercase;
 }
-.mat-button .background-button {
+button.mat-button.background-button {
   //border: 2px solid mat-color($QA-accent);
-  background-color: mat-color($QA-accent, 50, 0.7);
+  //background-color: mat-color($QA-accent, 50, 0.7);
+  background-color: mat-color($QA-primary, 500, 0.1);
   border-radius: 300px;
 }
+button.mat-icon-button.background-button{
+  background-color: mat-color($QA-primary, 500, 0.1);
+
+}
+
 .mat-button.google-login {
   border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;

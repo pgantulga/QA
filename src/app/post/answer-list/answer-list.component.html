@@ -4,17 +4,32 @@
         <div fxFlex fxLayout="column">
             <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
             <div class="vote-content" [innerHTML]="answer.content"></div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="row">
+                    <button mat-button (click)="showReplies()">
+                        Хариултууд
+                        <mat-icon>keyboard_arrow_down</mat-icon>
+                    </button>
+                </div>
+                <div fxLayout="row">
+                        <user-profile [user]="answer.author"></user-profile>
+                    <button mat-icon-button class="background-button">
+                        <mat-icon>reply</mat-icon>
+                    </button>
+<!--                    <button mat-flat-button color="primary">-->
+<!--                        <mat-icon>reply</mat-icon>-->
+<!--                        Хариулт нэмэх-->
+<!--                    </button>-->
+<!--                    <div fxLayout="row" fxLayoutAlign="start start">-->
+<!--                        <div fxLayout="row" fxLayoutAlign="start center" class="replies">-->
+<!--                            <mat-icon>reply</mat-icon>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                </div>
+            </div>
         </div>
     </div>
-    <div fxlayout="row" fxLayoutAlign="end center">
-<!--        <div fxLayout="row" fxLayoutAlign="start start">-->
-<!--            <div fxLayout="row" fxLayoutAlign="start center" class="replies">-->
-<!--                <mat-icon>reply</mat-icon>-->
-<!--                <p class="mat-caption">0</p>-->
-<!--            </div>-->
-<!--        </div>-->
-        <user-profile [user]="answer.author"></user-profile>
-    </div>
+
     <ng-content select="[answer-divider]" ></ng-content>
 </div>
 

@@ -23,6 +23,7 @@ export class AnswerService {
       author: {
         displayName: user.displayName,
         uid: user.uid,
+        profilePic: ''
       },
       parent: {
         id: post.id,
