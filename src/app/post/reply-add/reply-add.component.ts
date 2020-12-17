@@ -38,6 +38,12 @@ export class ReplyAddComponent implements OnInit {
       }, this.user);
     }
     submit(): void {
+        if (!this.replyForm.get('editor').value) {
+            this.snackBar.openFromComponent(SnackComponent, {
+                data: 'Бичих талбар хоосон байна'
+            });
+            return null;
+        }
       const dialogRef = this.dialog.open(DialogComponent, {
         data: {
           title: 'Хариулт нэмэх',
@@ -49,9 +55,11 @@ export class ReplyAddComponent implements OnInit {
           this.addReply()
               .then(() => {
                 this.snackBar.openFromComponent(SnackComponent, {
-                  data: 'Таны хариулт нэмэгдлээ.',
+                  data: 'Таны хариулт хадгалагдлаа.',
                 });
-              });
+                this.replyForm.get('editor').setValue(' ');
+              }
+              );
         }
       });
     }

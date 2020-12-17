@@ -4,35 +4,38 @@
         <div fxFlex fxLayout="column">
             <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
             <div class="vote-content" [innerHTML]="answer.content"></div>
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-<!--                <div fxLayout="row">-->
-<!--                    <button mat-button (click)="showReplies()">-->
-<!--                        Хариултууд-->
-<!--                        <mat-icon>keyboard_arrow_down</mat-icon>-->
-<!--                    </button>-->
-<!--                </div>-->
-                <div fxLayout="row">
+            <ng-container *ngIf="authService.user$ | async as user">
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <div></div>
+                    <div fxLayout="row">
                         <user-profile [user]="answer.author"></user-profile>
-                    <button mat-icon-button class="background-button" (click)="reply()">
-                        <mat-icon>reply</mat-icon>
-                    </button>
-<!--                    <button mat-flat-button color="primary">-->
-<!--                        <mat-icon>reply</mat-icon>-->
-<!--                        Хариулт нэмэх-->
-<!--                    </button>-->
-<!--                    <div fxLayout="row" fxLayoutAlign="start start">-->
-<!--                        <div fxLayout="row" fxLayoutAlign="start center" class="replies">-->
-<!--                            <mat-icon>reply</mat-icon>-->
-<!--                        </div>-->
-<!--                    </div>-->
+                        <button mat-icon-button class="background-button" (click)="reply()">
+                            <mat-icon>reply</mat-icon>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div *ngIf="showReply">
-                <reply-add></reply-add>
-            </div>
+                <div *ngIf="showReply" style="margin: 8px 0 0 0">
+                    <reply-add [post]="answer.parent" [answer]="answer" [user]="user"></reply-add>
+                </div>
+                <div fxLayout="row" style="margin-left: -16px" *ngIf="answer.repliesCount">
+                    <button mat-button class="background-button" (click)="showRepliesToggle()">Хариултууд ({{answer.repliesCount}})<mat-icon>{{toggleIcon}}</mat-icon></button>
+                </div>
+                <div *ngIf="showReplies">
+                    <div *ngIf="replies$ | async as replies; else loading" class="replies">
+                        <reply-list *ngFor="let item of replies; last as last" [item]="item">
+                            <mat-divider *ngIf="!last"></mat-divider>
+                        </reply-list>
+                    </div>
+                    <ng-template #loading>
+                        <div style="padding: 8px 22px" >
+                            <p class="mat-caption">Ачааллаж байна. </p>
+                        </div>
+                    </ng-template>
+                </div>
+
+            </ng-container>
         </div>
     </div>
-
-    <ng-content select="[answer-divider]" ></ng-content>
+    <ng-content select="[answer-divider]"></ng-content>
 </div>
 

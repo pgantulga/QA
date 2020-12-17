@@ -1,0 +1,14 @@
+/*@import "../../../styles/custom-theme.scss";*/
+
+/*.answer-list p {*/
+/*    margin: 0;*/
+/*}*/
+.reply-list p {
+    margin: 0 0 4px 0 !important;
+}
+.reply-list{
+    padding: 0 0 0 36px ;
+    margin: 8px 0 8px 0;
+    /*background-color: red;*/
+}
+

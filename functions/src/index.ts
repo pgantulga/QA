@@ -12,6 +12,7 @@ exports.postMeta = postFunctions.postMeta;
 
 const commentFunctions = require('./comments-functions');
 exports.aggregateComments = commentFunctions.aggregateComments;
+exports.repliesUpdate = commentFunctions.repliesUpdate;
 
 const votesFunctions = require('./votes-functions');
 exports.voteAdded = votesFunctions.voteAdded;

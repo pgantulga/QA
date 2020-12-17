@@ -11,7 +11,7 @@
 <mat-sidenav-container [class.sidenav-container]="!currentLayoutObj.layout3" [class.color-background]="currentLayoutObj.layout3">
     <mat-sidenav class="mat-elevation-z3" #drawer [attr.role]="(currentRoute === 'post-detail') ? 'directory' : 'navigation'" [opened]="(currentRoute === 'post-detail') && !(isHandset$ | async)" [mode]="(currentRoute === 'post-detail') ? 'side' : 'over'" style="padding-top: 64px">
         <ng-container [ngSwitch]="currentRoute" >
-            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>
+<!--            <post-sidenav *ngSwitchCase="'post-detail'"></post-sidenav>-->
             <ng-container *ngSwitchDefault>
                 <p>Navigation</p>
             </ng-container>

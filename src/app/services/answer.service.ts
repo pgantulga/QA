@@ -39,6 +39,11 @@ export class AnswerService {
           console.log('Error occurred: ' + err);
         });
   }
+  getReplies(answer) {
+    console.log(answer);
+    return this.db.collection('posts/' + answer.parent.id + '/answers/' + answer.id + '/replies', ref => ref.orderBy('createdAt', 'desc'))
+        .valueChanges();
+  }
   addReply(post, answer, reply, user) {
     this.repliesRef = this.db.collection('posts').doc(post.id)
         .collection('answers').doc(answer.id)
@@ -60,6 +65,11 @@ export class AnswerService {
         content: answer.content
       },
       updatedAt: new Date()
+    }).then(res => {
+      this.postService.addLog(user, 'replied', post.id );
+      return res.update({res: res.id});
+    }).catch(err => {
+      console.log('Error occured:' +  err);
     });
   }
 }
