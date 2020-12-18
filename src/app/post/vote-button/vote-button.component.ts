@@ -44,7 +44,7 @@ export class VoteButtonComponent implements OnInit  {
   }
   addVote() {
     console.log('add');
-    return this.voteService.addVote(this.answer)
+    return this.voteService.addVote(this.answer, 'answer')
         .then(() => {
           this.snackBar.openFromComponent(SnackComponent, {
             data: 'Таны үнэлгээ нэмэгдлээ'

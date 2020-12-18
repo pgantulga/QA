@@ -24,7 +24,7 @@ export class ShellComponent implements OnInit{
         layout2: boolean,
         layout3: boolean
     };
-    isSidebar: boolean
+    isSidebar: boolean;
     posts: any;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
         .pipe(
@@ -57,6 +57,5 @@ export class ShellComponent implements OnInit{
     }
     showSidebar(url) {
         return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts') || url.includes('welcome');
-
     }
 }
