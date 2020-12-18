@@ -1,13 +1,16 @@
 <div class="reply-list" fxLayout="column">
-    <p class="mat-caption">{{item.createdAt | momentPipe}}</p>
-    <div style="text-align: justify; margin: 0" [innerHTML]="item.content"></div>
-    <ng-container *ngIf="authService.user$ | async as user">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div></div>
-            <div fxLayout="row">
-                <user-profile [user]="item.author"></user-profile>
+    <div fxLayout="column" class="content">
+        <p class="mat-caption">{{item.createdAt | momentPipe}}</p>
+        <div style="text-align: justify; margin: 0" [innerHTML]="item.content"></div>
+        <ng-container *ngIf="authService.user$ | async as user">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div></div>
+                <div fxLayout="row">
+                    <user-profile [user]="item.author"></user-profile>
+                </div>
             </div>
-        </div>
-    </ng-container>
+        </ng-container>
+    </div>
+    <ng-content></ng-content>
+
 </div>
-<ng-content></ng-content>

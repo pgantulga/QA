@@ -42,23 +42,26 @@ export class VoteService {
               return false;
           });
   }
- async removeVote(answerObj) {
+ async removeVote(obj, type) {
         const user = await this.authService.getUser();
-        const vote = await this.findVote(answerObj);
+        const vote = await this.findVote(obj, type);
         vote.forEach( doc => {
              doc.ref.delete()
                  .then(() => {
-                     this.postService.addLog(user, 'devoted', answerObj.parent.id);
+                     (type === 'answer') ? this.postService.addLog(user, 'devoted', obj.parent.id)
+                         : this.postService.addLog(user, 'devoted', obj.id);
                  });
         });
   }
-  async findVote(answerObj) {
+  async findVote(obj, type) {
       const user = await this.authService.getUser();
       if (!user ) {
           return null;
       }
-      const voteRef =  this.db.collection('votes',
-          ref => ref.where('voteId', '==', answerObj.parent.id + '_' + answerObj.id + '_' + user.uid));
+      const voteRef =  (type === 'answer') ? this.db.collection('votes',
+          ref => ref.where('voteId', '==', obj.parent.id + '_' + obj.id + '_' + user.uid))
+          : this.db.collection('votes',
+              ref => ref.where('voteId', '==', obj.id + '_' + user.uid));
       return voteRef.get().toPromise();
   }
 }

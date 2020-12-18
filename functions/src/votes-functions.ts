@@ -9,7 +9,8 @@ exports.voteAdded = functions.firestore
         const newValue = snap.data();
         const batch = admin.firestore().batch();
         batch.update(getPostRef(newValue.postId), {totalVotes: increaseBy});
-        batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: increaseBy});
+        (newValue.type === 'answer')  ?  batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: increaseBy})
+            : batch.update(getPostRef(newValue.postId), {votesNumber: increaseBy});
         batch.update(getUserRef(newValue.voteReceiver), {votesReceived: increaseBy});
         return batch.commit()
             .then(() => {
@@ -25,7 +26,8 @@ exports.voteDeleted = functions.firestore
         const newValue = snapshot.data();
         const batch = admin.firestore().batch();
         batch.update(getPostRef(newValue.postId), {totalVotes: decreasedBy});
-        batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: decreasedBy});
+        (newValue.type === 'answer') ?  batch.update(getAnswerRef(newValue.postId, newValue.answerId), {votesNumber: decreasedBy})
+            : batch.update(getPostRef(newValue.postId), {votesNumber: decreasedBy});
         batch.update(getUserRef(newValue.voteReceiver), {votesReceived: decreasedBy});
         batch.commit()
             .then(() => {

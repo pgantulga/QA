@@ -9,13 +9,15 @@ import {SnackComponent} from '../../shared/components/snack/snack.component';
   styleUrls: ['./vote-button.component.scss']
 })
 export class VoteButtonComponent implements OnInit  {
-  @Input() answer: any;
+  @Input() obj: any;
+  @Input() type: string;
   isVoted: boolean;
+  loading = false;
   constructor( public voteService: VoteService,
                public snackBar: MatSnackBar
                ) {}
   ngOnInit(): void {
-    this.voteService.findVote(this.answer).then(data => {
+    this.voteService.findVote(this.obj, this.type).then(data => {
       if (data) {
         data.forEach(doc => {
           this.isVoted = doc.exists;
@@ -26,11 +28,15 @@ export class VoteButtonComponent implements OnInit  {
     });
   }
   onClick() {
+    this.loading = true;
     if (!this.isVoted) {
       this.addVote().then(res => {
+        console.log(res);
         // @ts-ignore
         if (res) {
-          this.answer.votesNumber ++; this.isVoted = !this.isVoted;
+          // until cloud function runs
+          this.obj.votesNumber ++; this.isVoted = !this.isVoted;
+          this.loading = false;
         } else {
           return null;
         }
@@ -38,21 +44,24 @@ export class VoteButtonComponent implements OnInit  {
     } else {
       this.removeVote()
           .then(() => {
-            this.isVoted = !this.isVoted; this.answer.votesNumber --;
+            this.isVoted = !this.isVoted; this.obj.votesNumber --;
+            this.loading = false;
           });
     }
   }
   addVote() {
     console.log('add');
-    return this.voteService.addVote(this.answer, 'answer')
+    return this.voteService.addVote(this.obj, this.type)
         .then(() => {
-          this.snackBar.openFromComponent(SnackComponent, {
+           this.snackBar.openFromComponent(SnackComponent, {
             data: 'Таны үнэлгээ нэмэгдлээ'
           });
-        });
+           return true;
+        })
+        .catch(err => { console.log(err); return false});
   }
   removeVote(){
-    return this.voteService.removeVote(this.answer)
+    return this.voteService.removeVote(this.obj, this.type)
         .then(() => {
           this.snackBar.openFromComponent(SnackComponent, {
             data: 'Таны үнэлгээ хасагдлаа'

@@ -1,3 +1,4 @@
+@import "../../../styles/custom-theme";
 /*typography*/
 .mat-caption {
     margin: 0;
@@ -9,7 +10,7 @@
 }
 .post-detail .view{
     text-align: justify;
-    margin: 0 0 0 74px;
+    margin: 0 0 0 0;
     padding: 16px 0 0 0;
 }
 .post-detail .tags {
@@ -20,6 +21,18 @@
     background-color: rgba(0,0,0,0.1);
     margin: 0 0 0 74px;
     padding: 4px;
+}
+.post-detail .voteArea {
+    padding: 16px 0 0 0;
+}
+.post-detail .actions mat-icon{
+    opacity: 66%;
+}
+.post-detail .metas {
+    background-color: mat-color($QA-primary, 200);
+    //border: 1px solid mat-color($QA-primary, 500);
+    border-radius: 30px;
+    padding: 4px 8px;
 }
 
 .time {

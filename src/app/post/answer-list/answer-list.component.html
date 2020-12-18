@@ -1,6 +1,6 @@
 <div class="answer-list" fxLayout="column">
     <div fxLayout="row">
-        <vote-button [answer]="answer"></vote-button>
+        <vote-button [obj]="answer" [type] = "'answer'"></vote-button>
         <div fxFlex fxLayout="column">
             <p class="mat-caption">{{answer.createdAt | momentPipe}}</p>
             <div class="vote-content" [innerHTML]="answer.content"></div>
@@ -23,7 +23,7 @@
                 <div *ngIf="showReplies">
                     <div *ngIf="replies$ | async as replies; else loading" class="replies">
                         <reply-list *ngFor="let item of replies; last as last" [item]="item">
-                            <mat-divider *ngIf="!last"></mat-divider>
+                            <mat-divider *ngIf="!last" style="margin-top: 12px"></mat-divider>
                         </reply-list>
                     </div>
                     <ng-template #loading>
