@@ -14,6 +14,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuillModule} from 'ngx-quill';
 import { ReplyAddComponent } from './reply-add/reply-add.component';
 import { ReplyListComponent } from './reply-list/reply-list.component';
+import {PostListComponent} from "./post-list/post-list.component";
+import {HomeModule} from '../home/home.module';
 
 @NgModule({
   declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent, ReplyAddComponent, ReplyListComponent],
@@ -25,7 +27,8 @@ import { ReplyListComponent } from './reply-list/reply-list.component';
       SharedModule,
     ReactiveFormsModule,
       QuillModule.forRoot(),
-      FormsModule
+      FormsModule,
+      HomeModule
   ],
   exports: []
 })

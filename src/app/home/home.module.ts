@@ -25,7 +25,7 @@ import {SharedModule} from '../shared/shared.module';
     HomeRoutingModule,
     MdModule,
     FlexLayoutModule,
-      SharedModule
+    SharedModule
   ],
   exports: [
     PostListComponent,

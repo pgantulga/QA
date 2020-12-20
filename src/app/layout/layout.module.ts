@@ -25,6 +25,7 @@ import {FooterComponent} from './footer/footer.component';
 import {ProfileHeaderComponent} from './profile-header/profile-header.component';
 import {UserProfileLargeComponent} from './user-profile-large/user-profile-large.component';
 import { SidebarProfileComponent } from './sidebar-profile/sidebar-profile.component';
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -56,12 +57,13 @@ import { SidebarProfileComponent } from './sidebar-profile/sidebar-profile.compo
       FooterComponent,
       UserProfileLargeComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-      MdModule,
-      FlexLayoutModule,
-      SharedModule
-  ]
+    imports: [
+        CommonModule,
+        RouterModule,
+        MdModule,
+        FlexLayoutModule,
+        SharedModule,
+        MatSlideToggleModule
+    ]
 })
 export class LayoutModule { }

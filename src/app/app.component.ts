@@ -4,6 +4,8 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {PostService} from './services/post.service';
 import {RouteService} from './services/route.service';
+import {ThemeService} from './services/theme.service';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -12,15 +14,10 @@ import {RouteService} from './services/route.service';
 })
 export class AppComponent implements OnInit{
   title = 'QA';
-  currentLayout: any;
-  currentRoute: any;
-  constructor(private breakpointObserver: BreakpointObserver,
-              private router: Router,
-              private postService: PostService,
-              private route: ActivatedRoute,
-              public routeService: RouteService) {
+  isDarkTheme: Observable<boolean>;
+  constructor(private themeService: ThemeService) {
   }
   ngOnInit(): void {
-
+    this.isDarkTheme = this.themeService.isDarkTheme;
   }
 }

@@ -1,5 +1,5 @@
 <ng-container *ngIf="post$ | async as post">
-    <header [pageTitle]="post.title">
+    <post-header [pageTitle]="post.title">
         <div sub-nav fxLayout="column">
             <div  fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
@@ -9,10 +9,9 @@
                 </div>
             </div>
         </div>
-    </header>
-    <div fxLayout="column" class="post-detail" style="position: relative">
-        <button mat-fab color="accent" aria-label="edit" style="position: absolute;right: 30px;top:-28px"
-                (click)="scroll(answer)">
+    </post-header>
+    <div fxLayout="column" class="post-detail">
+        <button mat-fab color="accent" aria-label="edit" class="top-fab-button">
             <mat-icon>share</mat-icon>
         </button>
         <div fxLayout="row">
@@ -27,13 +26,13 @@
                 <div fxLayout="row" fxLayoutAlign="end center" >
                     <user-profile [user]="post.author"></user-profile>
                     <div class="metas" fxLayout="row">
-                        <div class="actions" fxLayout="row">
-                            <button mat-icon-button (click)="scroll(answer)">
+                        <div class="actions" fxLayout="row" fxLayoutGap="2px">
+                            <button mat-icon-button class="background-button" (click)="scroll(answer)">
                                 <mat-icon>reply</mat-icon>
                             </button>
-<!--                            <button mat-icon-button>-->
-<!--                                <mat-icon>edit</mat-icon>-->
-<!--                            </button>-->
+                            <button mat-icon-button class="background-button" [routerLink]="['/posts', post.id, 'edit']">
+                                <mat-icon>edit</mat-icon>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -70,5 +69,11 @@
             <answer-add [post]="post" [user]="user"></answer-add>
         </div>
     </div>
-
+    <mat-divider></mat-divider>
+    <div *ngIf="suggestedPosts$ | async as suggestedPosts; else loading" class="suggested">
+        <p class="mat-body-2">Санал болгох сэдвүүд</p>
+        <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
+            <mat-divider *ngIf="!last"></mat-divider>
+        </post-list>
+    </div>
 </ng-container>

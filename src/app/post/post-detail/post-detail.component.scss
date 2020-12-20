@@ -6,6 +6,7 @@
 
 
 .post-detail {
+    position: relative;
     padding: 12px 30px 12px 22px;
 }
 .post-detail .view{
@@ -25,14 +26,17 @@
 .post-detail .voteArea {
     padding: 16px 0 0 0;
 }
-.post-detail .actions mat-icon{
-    opacity: 66%;
+.post-detail .top-fab-button {
+    position: absolute;right: 30px;top:-28px
 }
+//.post-detail .actions mat-icon{
+//    opacity: 66%;
+//}
 .post-detail .metas {
-    background-color: mat-color($QA-primary, 200);
+    //background-color: mat-color($QA-primary, 200);
     //border: 1px solid mat-color($QA-primary, 500);
-    border-radius: 30px;
-    padding: 4px 8px;
+    //border-radius: 30px;
+    //padding: 4px 8px;
 }
 
 .time {
@@ -56,5 +60,9 @@
 
 .answers {
     padding: 12px 22px ;
+}
+.suggested{
+    padding: 12px 22px ;
+
 }
 

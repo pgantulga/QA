@@ -4,6 +4,7 @@ import {switchMap} from 'rxjs/internal/operators';
 import {PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
 import {AnswerService} from '../../services/answer.service';
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-post-detail',
@@ -14,13 +15,13 @@ export class PostDetailComponent implements OnInit {
     post$: any;
     answers$: any;
     logs$: any;
-
-    // @ViewChild('answer') scrollContainer: ElementRef;
+    suggestedPosts$: Observable<any>;
     constructor(public route: ActivatedRoute, private postService: PostService, public authService: AuthService,
                 public answerService: AnswerService) {
     }
 
     ngOnInit(): void {
+        this.suggestedPosts$ = this.postService.getFirstItemsSync(4, 'createdAt');
         // combine observers
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {

@@ -13,7 +13,7 @@
 }
 
 .active {
-    background-color: mat-color($QA-accent, 50);
+    //background-color: map-get()
     color:  mat-color($QA-accent, 800) !important;
 }
 

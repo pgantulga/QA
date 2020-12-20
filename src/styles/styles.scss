@@ -90,7 +90,9 @@ button.mat-button.background-button {
 }
 button.mat-icon-button.background-button{
   background-color: mat-color($QA-primary, 500, 0.1);
-
+}
+button.mat-icon-button mat-icon{
+  opacity: 66%;
 }
 
 .mat-button.google-login {
@@ -136,7 +138,7 @@ button.mat-icon-button.background-button{
 }
 
 quill-editor.answer .ql-editor {
-  height: 300px;
+  height: 150px;
 }
 
 //********************************************chip*******************************************************

@@ -1,8 +1,12 @@
 <div class="sidebar_container" fxLayout="column">
-    <button mat-raised-button color="accent" routerLink="ask" >
+    <button mat-flat-button color="accent" routerLink="ask" >
         <mat-icon>edit</mat-icon>
         Хэлэлцүүлэг нэмэх
     </button>
+    <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
+<!--    <button mat-button (click)="changeTheme()">-->
+<!--        change theme-->
+<!--    </button>-->
     <mat-action-list class="navigation-list">
         <mat-list-item class="navigation-list-item" style="border-radius: 30px" [routerLink]="['/home']" role="navigation" routerLinkActive="active">
             <mat-icon matListIcon>forum</mat-icon>
