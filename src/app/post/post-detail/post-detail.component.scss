@@ -8,6 +8,7 @@
 .post-detail {
     position: relative;
     padding: 12px 30px 12px 22px;
+    margin: 8px 0 8px 0;
 }
 .post-detail .view{
     text-align: justify;
@@ -18,11 +19,6 @@
     padding: 0 15px;
 }
 
-.post-detail .log-section {
-    background-color: rgba(0,0,0,0.1);
-    margin: 0 0 0 74px;
-    padding: 4px;
-}
 .post-detail .voteArea {
     padding: 16px 0 0 0;
 }
@@ -38,6 +34,7 @@
     //border-radius: 30px;
     //padding: 4px 8px;
 }
+
 
 .time {
     margin: 0 0 0 56px;
@@ -59,10 +56,11 @@
 
 
 .answers {
-    padding: 12px 22px ;
+    margin: 8px 0 8px 0;
+    padding: 12px 30px 12px 22px;
 }
 .suggested{
-    padding: 12px 22px ;
+    //padding: 12px 22px ;
 
 }
 

@@ -12,40 +12,15 @@ import { MdModule} from './shared/md.module';
 import { ShellComponent } from './shell/shell.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LayoutModule} from './layout/layout.module';
-import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 @NgModule({
     declarations: [
         AppComponent,
         DialogComponent,
-        // AdminComponent,
-        // HeaderComponent,
-        // PostAddComponent,
         SnackComponent,
-        // PostDetailComponent,
-        // CommentAddComponent,
-        // AnswerAddComponent,
-        // AnswerListComponent,
-        // VoteButtonComponent,
-        // UserProfileComponent,
         ShellComponent,
-        // TagAddComponent,
-        // TagsComponent,
-        // PostListSidenavComponent,
-        // TagItemComponent,
-        // TopBannerComponent,
-        // FooterComponent,
-        // TagSelectComponent,
-        // TagDetailComponent,
-        // DetailHeaderComponent,
-        // PostListGhostComponent,
-        // TagUpdateComponent,
-        // RegisterComponent,
-        // LayoutOneComponent,
-        // LayoutTwoComponent,
-        // LayoutThreeComponent,
-        // ProfileHeaderComponent,
-        // UserDetailComponent,
+
     ],
     imports: [
         BrowserModule,
@@ -57,14 +32,6 @@ import {MatSidenavModule} from '@angular/material/sidenav';
         MatSidenavModule,
         MdModule,
         FlexLayoutModule,
-        // ReactiveFormsModule,
-        // QuillModule.forRoot(),
-        // MatTableModule,
-        // MatSelectModule,
-        // MatGridListModule,
-        // MatPaginatorModule,
-        // MatProgressSpinnerModule,
-        // MatAutocompleteModule,
     ],
     providers: [AdminGuard],
     exports: [

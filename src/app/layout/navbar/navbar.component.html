@@ -1,24 +1,24 @@
-<mat-toolbar style="border-bottom: 1px solid rgba(0,0,0,0.2); background-color: transparent" class="top-toolbar">
+<mat-toolbar class="top-toolbar">
     <mat-toolbar-row>
         <div fxFlex></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button color="accent" type="button" aria-label="back" mat-icon-button *ngIf="layout ==='layout-2'" [routerLink]="['home']">
+                <button type="button" aria-label="back" mat-icon-button *ngIf="layout ==='layout-2'" [routerLink]="['home']">
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
                 <ng-content></ng-content>
                 <button mat-icon-button class="homeButton" [routerLink]="['/home']">
-                    <img src="../../../assets/logo_noTitle.png" alt="Logo" class="toolbarLogo">
+                    <img src="../../../assets/logo_white.png" alt="Logo" class="toolbarLogo">
                 </button>
             </div>
             <div class="example-spacer"></div>
-            <mat-form-field appearance="outline"  color="accent" [floatLabel]="'never'">
+            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">
                 <input matInput placeholder="Хайх" label="search">
                 <mat-label>Хайх</mat-label>
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <div *ngIf="authService.user$ | async as user; else login">
-                <button mat-icon-button class="example-icon " aria-label="Icon button" color="accent" [matMenuTriggerFor]="dropMenu">
+                <button mat-icon-button class="example-icon " aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>
                 <mat-menu #dropMenu="matMenu">
@@ -28,7 +28,7 @@
                 </mat-menu>
             </div>
             <ng-template #login>
-                <button mat-button color="accent" [routerLink]="['/auth/login']" class="login">Нэвтрэх</button>
+                <button mat-button color="primary" [routerLink]="['/auth/login']" class="login">Нэвтрэх</button>
             </ng-template>
         </div>
         <div fxFlex></div>

@@ -25,7 +25,7 @@ mat-toolbar-row {
     padding: 12px 0;
     background-color: transparent;
     //height: 200px;
-    border-bottom: 1px solid mat-color($QA-primary, A400);
+    //border-bottom: 1px solid mat-color($my-grey, 700);
     //border-left: 2px solid mat-color($QA-accent, 700);
 }
 .header .title {
@@ -47,7 +47,7 @@ mat-toolbar-row {
 }
 .mat-chip.mat-standard-chip.mat-chip-selected {
     /*background-color: red !important;*/
-    background-color: mat-color($QA-accent,500);
+    background-color: mat-color($accent,500);
 }
 //
 //.mat-chip.nav.mat-chip-selected {

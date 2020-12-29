@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'user-profile-large',
@@ -7,11 +9,13 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class UserProfileLargeComponent implements OnInit {
   @Input() user: any;
+  userData$: Observable<any>;
   avatar: string;
-  constructor() {
+  constructor(private userService: UserService) {
   }
   ngOnInit(): void {
     this.avatar = this.user.displayName.charAt(0);
+    this.userData$ = this.userService.getUserDetail(this.user.uid);
   }
 
 }

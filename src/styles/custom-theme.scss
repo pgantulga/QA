@@ -1,68 +1,29 @@
 @import '../../node_modules/@angular/material/theming';
-
+//@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 @include mat-core();
-$QA-primary: mat-palette($mat-grey, A100);
-$QA-accent: mat-palette($mat-cyan, 800);
-$QA-warn: mat-palette($mat-red);
-$QA-theme: mat-light-theme($QA-primary, $QA-accent, $QA-warn);
+  //$primary: mat-palette($mat-grey, A100);
+  //$accent: mat-palette($mat-cyan, 800);
+  //$warn: mat-palette($mat-red);
+  //$light-theme: mat-light-theme($primary, $accent, $warn);
+  //@include angular-material-theme($light-theme);
 
+//dark theme
 
-.dark-theme {
-  $dark-primary: mat-palette($mat-blue-gray, 900);
-  $dark-accent: mat-palette($mat-amber, 500);
-  $dark-warn: mat-palette($mat-red);
-  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $QA-warn);
-        @include angular-material-theme($dark-theme);
-}
-
-$mat-cyan: (
-        50: #eeffff,
-        100: #b2ebf2,
-        200: #80deea,
-        300: #4dd0e1,
-        400: #26c6da,
-        500: #00bcd4,
-  //500: #00bcd4,
-        600: #00acc1,
-        700: #0097a7,
-        800: #00838f,
-        900: #006064,
-        A100: #84ffff,
-        A200: #18ffff,
-        A400: #00e5ff,
-        A700: #00b8d4,
-        contrast: (
-                50: $dark-primary-text,
-                100: $dark-primary-text,
-                200: $dark-primary-text,
-                300: $dark-primary-text,
-                400: $dark-primary-text,
-                500: $light-primary-text,
-                600: $light-primary-text,
-                700: $light-primary-text,
-                800: $light-primary-text,
-                900: $light-primary-text,
-                A100: $dark-primary-text,
-                A200: $dark-primary-text,
-                A400: $dark-primary-text,
-                A700: $dark-primary-text,
-        )
-);
-$mat-amber: (
-        50: #fff8e1,
-        100: #ffecb3,
-        200: #ffe082,
-        300: #ffd54f,
-        400: #ffca28,
-        500: #ffc107,
-        600: #ffb300,
-        700: #ffa000,
-        800: #ff8f00,
-        900: #ff6f00,
-        A100: #ffe57f,
-        A200: #ffd740,
-        A400: #ffc400,
-        A700: #ffab00,
+$my-grey: (
+        50: #fafafa,
+        100: #f5f5f5,
+        200: #eeeeee,
+        300: #e0e0e0,
+        400: #bdbdbd,
+        500: #9e9e9e,
+        600: #757575,
+        700: #35373f,
+        800: #1E2029,
+        900: #12141d,
+        A100: #ffffff,
+        A200: #eeeeee,
+        A400: #bdbdbd,
+        A700: #616161,
         contrast: (
                 50: $dark-primary-text,
                 100: $dark-primary-text,
@@ -70,18 +31,73 @@ $mat-amber: (
                 300: $dark-primary-text,
                 400: $dark-primary-text,
                 500: $dark-primary-text,
-                600: $dark-primary-text,
-                700: $dark-primary-text,
-                800: $dark-primary-text,
-                900: $dark-primary-text,
+                600: $light-primary-text,
+                700: $light-primary-text,
+                800: $light-primary-text,
+                900: $light-primary-text,
                 A100: $dark-primary-text,
                 A200: $dark-primary-text,
                 A400: $dark-primary-text,
-                A700: $dark-primary-text,
+                A700: $light-primary-text,
         )
 );
+$primary: mat-palette($mat-amber, 300);
+$accent: mat-palette($mat-amber, 200);
+$warn: mat-palette($mat-red, 300);
+$my-dark-theme-background: (
+        status-bar: black,
+        app-bar:    map_get($my-grey, 900),
+        background: #12141d,
+        hover:      rgba(white, 0.04), // TODO(kara): check style with Material Design UX
+        card:       map_get($my-grey, 800),
+        dialog:     map_get($my-grey, 800),
+        disabled-button: rgba(white, 0.12),
+        raised-button: map-get($my-grey, 800),
+        focused-button: $light-focused,
+        selected-button: map_get($my-grey, 900),
+        selected-disabled-button: map_get($my-grey, 800),
+        disabled-button-toggle: black,
+        unselected-chip: map_get($my-grey, 700),
+        disabled-list-option: black,
+        tooltip: map_get($my-grey, 700),
+);
+$my-dark-theme-foreground: (
+        base:              white,
+        divider:           $light-dividers,
+        dividers:          $light-dividers,
+        disabled:          $light-disabled-text,
+        disabled-button:   rgba(white, 0.3),
+        disabled-text:     $light-disabled-text,
+        elevation:         black,
+        hint-text:         $light-disabled-text,
+        secondary-text:    $light-secondary-text,
+        icon:              white,
+        icons:             white,
+        text:              white,
+        slider-min:        white,
+        slider-off:        rgba(white, 0.3),
+        slider-off-active: rgba(white, 0.3),
+);
+@function create-dark-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+          primary: $primary,
+          accent: $accent,
+          warn: $warn,
+          is-dark: true,
+          background: $my-dark-theme-background,
+          foreground: $my-dark-theme-foreground
+  );
+}
+$dark-theme: create-dark-theme($primary, $accent, $warn);
+//$dark-background-color: #12141d ;
+//$background: map-get($dark-theme, background);
+//$background: map_merge($background, (background: $dark-background-color));
+//$dark-theme: map_merge($dark-theme, (background: $background));
+@include angular-material-theme($dark-theme);
+
 $QA-typography: mat-typography-config(
-        $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+        $font-family: 'Roboto, sans-serif',
+        //$font-family: 'Roboto, "Helvetica Neue", sans-serif',
         $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
         $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
         $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
@@ -90,15 +106,22 @@ $QA-typography: mat-typography-config(
         $title: mat-typography-level(20px, 32px, 400),
         $subheading-2: mat-typography-level(16px, 28px, 500),
         $subheading-1: mat-typography-level(15px, 24px, 400),
-        $body-2: mat-typography-level(14px, 24px, 500),
+        $body-2: mat-typography-level(14px, 24px, 400),
         $body-1: mat-typography-level(14px, 20px, 400),
-        $caption: mat-typography-level(12px, 20px, 400),
+        $caption: mat-typography-level(12px, 20px, 500),
         $button: mat-typography-level(14px, 14px, 500),
           // Line-height must be unit-less fraction of the font-size.
         $input: mat-typography-level(inherit, 1.125, 400)
 );
+@mixin mat-chips-typography($config) {
+        .mat-chip {
+                font-size: mat-font-size($config, body-1);
+                //font-weight: mat-font-weight($config, body-2);
+        }
+}
+//@include mat-chips-typography($QA-typography);
 @include mat-base-typography($QA-typography);
 @include angular-material-typography($QA-typography);
 
-@include angular-material-theme($QA-theme);
+//@include angular-material-theme($QA-theme);
 

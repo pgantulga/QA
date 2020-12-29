@@ -2,17 +2,20 @@
 
 
 p.question {
-  background-color: rgba(0,0,0,0.1);
+  background-color: mat-color($my-grey, 700);
+  //background-color: rgba(0,0,0,0.1);
   width: 100%;
-  border-radius: 4px;
+  border-radius: 16px;
+  //-webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
 }
 p.meta {
-  background-color: rgba(0,0,0,0.1);
+  background-color: mat-color($my-grey, 700);
   width: 350px;
-  border-radius: 4px;
+  border-radius: 16px;
 }
 .time {
- margin-top: 4px;
+  //col
+  margin-top: 4px;
 }
 .tag {
  width: 100px;

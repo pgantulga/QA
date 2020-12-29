@@ -9,9 +9,8 @@ export class AnswerService {
   answersRef: AngularFirestoreCollection<any>;
   repliesRef: AngularFirestoreCollection<any>;
   constructor(private db: AngularFirestore, private postService: PostService) { }
-  getAllAnswer(postId) {
-    console.log(postId);
-    this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
+  getAllAnswer(postId, sort) {
+    this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy(sort.sort, 'desc'));
     return this.answersRef.valueChanges();
   }
   addAnswer(post, answer, user) {

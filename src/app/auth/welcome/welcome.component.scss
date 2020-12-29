@@ -2,8 +2,10 @@
 .welcome-card {
   min-width: 360px;
   max-height: 800px;
-  background-color: mat-color($QA-primary, A100);
   padding: 20px 32px 20px 32px;
+  .welcome-field {
+    padding: 8px 0;
+  }
   .logo-container {
     padding: 16px 0 16px 0;
   }
@@ -12,10 +14,10 @@
     width: auto;
   }
   .formIcon {
-    color: mat-color($QA-primary, 600 );
+    color: mat-color($primary, 600 );
   }
   .register-link {
-    color: mat-color($QA-accent, 800 );
+    color: mat-color($accent, 800 );
     font-weight: bold;
   }
   .register-link:hover {
@@ -24,4 +26,15 @@
   mat-form-field {
     width: 100%;
   }
+  .avatar-button {
+    mat-icon {
+      opacity: 100% !important;
+    }
+    transform: scale(1.5);
+    margin: 0 8px 0 0;
+  }
+  .active {
+    background-color: mat-color($my-grey, 100, 0.2  );
+  }
+
 }

@@ -4,6 +4,8 @@
 @import "../../node_modules/quill/dist/quill.bubble.css";
 @import "../../node_modules/quill/dist/quill.core.css";
 @import "../../node_modules/quill/dist/quill.snow.css";
+$dark-foreground: map-get($dark-theme, foreground);
+
 //@import "font-awesome-4.7.0/css/font-awesome.css";
 html {
   height: 100%;
@@ -19,11 +21,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //  color: red;
 //}
 //typography
-.mat-list-base {
-  .mat-list-item {
-    color: rgba(0,0,0,0.60) !important;
-  }
-}
+
 .fa-google {
   background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
   -webkit-background-clip: text;
@@ -33,12 +31,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .page-title {
-  color: mat-color($QA-accent);
+  //color: mat-color($QA-accent);
 }
 
-.icon-dark {
-  color: rgba(0,0,0,0.56);
-}
 .icon-small {
   transform: scale(0.7);
   //font-size: 16px;
@@ -48,6 +43,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   height: 36px;
   border-radius: 36px;
   font-size: 18px;
+  font-weight: bold;
   line-height: 36px;
   text-align: center;
   display: inline-block;
@@ -56,11 +52,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin: 2px 6px 0 0;
 }
 .avatar-large {
-  width: 96px;
-  height: 96px;
-  border-radius: 96px;
+  width: 72px;
+  height: 72px;
+  border-radius: 72px;
   font-size: 48px;
-  line-height: 96px;
+  line-height: 72px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
@@ -71,6 +67,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 //Buttons
+.top-fab-button {
+  position: absolute;
+  right: 0;
+  top:-28px
+}
 button.mat-raised-button{
   border-radius: 300px;
   text-transform: uppercase;
@@ -79,24 +80,23 @@ button.mat-flat-button {
   border-radius: 300px;
 }
 button.mat-raised-button.mat-accent{
-  color: white!important;
   text-transform: uppercase;
 }
 button.mat-button.background-button {
   //border: 2px solid mat-color($QA-accent);
   //background-color: mat-color($QA-accent, 50, 0.7);
-  background-color: mat-color($QA-primary, 500, 0.1);
+  //background-color: mat-color($QA-primary, 500, 0.1);
   border-radius: 300px;
 }
 button.mat-icon-button.background-button{
-  background-color: mat-color($QA-primary, 500, 0.1);
+  //background-color: mat-color($QA-primary, 500, 0.1);
 }
 button.mat-icon-button mat-icon{
   opacity: 66%;
 }
 
 .mat-button.google-login {
-  border: 1px solid mat-color($QA-primary, 500);
+  //border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;
 }
 
@@ -141,17 +141,42 @@ quill-editor.answer .ql-editor {
   height: 150px;
 }
 
+.background-card {
+  margin: 8px 0;
+  background-color: mat-color($my-grey, 800);
+  border-radius: 16px;
+  padding: 12px;
+}
+.background-card-small {
+  background-color: mat-color($my-grey, 800);
+  border-radius: 8px;
+  padding: 12px;
+}
 //********************************************chip*******************************************************
 .mat-standard-chip.tag {
   min-height: 24px !important;
   margin-bottom: 8px;
+
+  //font-size: mat-font-size(caption);
+  //background-color: transparent !important;
+  //border: 1px solid rgba(255,255,255, 0.2);
+}
+.mat-standard-chip.transparent {
+  min-height: 24px !important;
+  margin-bottom: 8px;
+  background-color: transparent !important;
+  mat-icon {
+    margin: 0 4px 0 0;
+  }
+}
+
+.default-snack {
+  background-color: mat-color($primary);
 }
 //*******************************************divider*******************************************************
 .answer-divider.mat-divider.mat-divider-inset {
   margin-left: 102px;
 }
-
-
 
 //******************************************line clamps*****************************************************
 
@@ -167,4 +192,25 @@ quill-editor.answer .ql-editor {
   width: 60px;
   display: block;
   margin: 0 4px 0 0;
+}
+.ql-toolbar .ql-stroke {
+  fill: none !important;
+  stroke: #fff !important;
+}
+
+.ql-toolbar .ql-fill {
+  fill: #fff !important;
+  stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+  color: #fff !important;
+}
+.ql-toolbar .ql-blockquote {
+  fill: #fff !important;
+  stroke: none !important;
+
+}
+.ql-editor.ql-blank::before {
+  color: rgba(255,255,255,0.6);
 }

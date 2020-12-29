@@ -7,8 +7,12 @@
     margin: 0;
 }
 
+button.mat-icon-button mat-icon{
+    opacity: 100%;
+}
 .active-button {
-    background-color: #e0f7fa;
+    //background-color: mat-color($primary, 500, 0.1);
+    //background-color: #e0f7fa;
 }
 .vote .mat-icon-button {
     width: 48px;
@@ -23,7 +27,7 @@
     //color: rgba(0,0,0,0.56);
 }
 .vote-icon-color {
-    color: mat-color($QA-accent,800);
+    color: mat-color($primary);
 
 }
 

@@ -16,6 +16,7 @@ export class WelcomeComponent implements OnInit {
   user: any;
   color: any;
   avatar: string;
+  selectedColor: any;
   displayName = new FormControl('', [
     Validators.minLength(5)
   ]);
@@ -47,7 +48,8 @@ export class WelcomeComponent implements OnInit {
           {
               displayName: this.displayName.value,
               company: this.company.value,
-              position: this.position.value
+              position: this.position.value,
+              color: this.selectedColor
           }, this.user.uid
       ).then(res => {
           this.router.navigate(['home']);
@@ -58,6 +60,13 @@ export class WelcomeComponent implements OnInit {
           });
   }
     openSnack(data) {
-        this.snackbar.openFromComponent(SnackComponent, {data});
+        // @ts-ignore
+        this.snackbar.openFromComponent(SnackComponent, {data, panelClass: ['default-snack']});
+    }
+    selectColor(color) {
+      this.selectedColor = color;
+    }
+    isSelected(color): boolean {
+      return  (color === this.selectedColor);
     }
 }

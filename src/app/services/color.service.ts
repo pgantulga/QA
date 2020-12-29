@@ -7,19 +7,19 @@ export class ColorService {
   allColors = [
     {
       color: 'red',
-      code: '#ffcdd2'
+      code: '#ef9a9a'
     },
     {
       color: 'purple',
-      code: '#e1bee7'
+      code: '#ce93d8'
     },
     {
       color: 'indigo',
-      code: '#c5cae9'
+      code: '#9fa8da'
     },
     {
       color: 'blue',
-      code: '#eeffff'
+      code: '#90caf9'
     },
     {
       color: 'cyan',
@@ -31,8 +31,17 @@ export class ColorService {
     },
     {
       color: 'yellow',
-      code: 'fff9c4'
+      code: '#fff59d'
+    },
+    {
+      color: 'orange',
+      code: '#ffcc80'
+    },
+    {
+      color: 'pink',
+      code: '#f48fb1'
     }
+
 
   ];
   constructor() { }

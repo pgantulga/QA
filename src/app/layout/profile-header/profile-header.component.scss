@@ -1,12 +1,18 @@
 @import "../../../styles/custom-theme";
 
-.profile-header-container {
-    height: 200px;
+.header {
     position: relative;
-    background-color: mat-color($QA-accent,50);
-    margin-bottom: 8px;
-}
+    padding: 12px 0;
+    background-color: transparent;
+    .title {
+        height: auto;
+        //margin-bottom: 12px;
+    }
+    p {
+        margin: 0;
+    }
 
-.profile-header {
-    padding: 40px 15px 30px;
+    //height: 200px;
+    //border-bottom: 1px solid mat-color($my-grey, 700);
+    //border-left: 2px solid mat-color($QA-accent, 700);
 }

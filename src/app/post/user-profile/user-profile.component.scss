@@ -1,17 +1,25 @@
+@import "../../../styles/custom-theme";
 .user-profile-container {
   //background-color: rgba(0,0,0,0.1);
   padding: 0 8px;
   //border: 1px solid rgba(0,0,0,0.12);
   //border-radius: 4px;
-
+  .profile-name {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .profile-name:hover {
+    cursor: pointer;
+    color: mat-color($primary)
+  }
 }
 .user-profile-container p {
   margin: 0;
 }
-
 .user-profile-container mat-icon{
   transform: scale(2);
   color: rgba(0,0,0,0.56);
 
 }
+
 

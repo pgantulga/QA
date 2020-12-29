@@ -10,6 +10,8 @@
     position: fixed;
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
+    background-color: transparent;
+    //border-bottom: 1px solid mat-color($my-grey, 700);
 }
 
 img::selection {
@@ -43,7 +45,7 @@ mat-form-field.mat-focused.mat-focused.mat-form-field-label {
 
 //buttons
 .login {
-    border: 2px solid mat-color($QA-accent);
+    border: 1px solid mat-color($primary);
     border-radius: 30px;
     margin-left: 16px;
 }
@@ -62,7 +64,7 @@ mat-form-field .mat-form-field-wrapper {
     padding: 0 !important;
 }
 .active-list-item {
-    border-bottom: 1.5px solid mat-color($QA-accent,500);
+    border-bottom: 1.5px solid mat-color($accent,500);
 }
 
 .postPage_container {

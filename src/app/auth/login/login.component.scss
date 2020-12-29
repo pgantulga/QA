@@ -7,7 +7,7 @@
 .login-card {
     width: 360px;
     max-height: 800px;
-    background-color: mat-color($QA-primary, A100);
+    //background-color: mat-color($primary, A100);
     padding: 20px 32px 20px 32px;
     .logo-container {
         padding: 16px 0 16px 0;
@@ -17,10 +17,10 @@
         width: auto;
     }
     .formIcon {
-        color: mat-color($QA-primary, 600 );
+        color: mat-color($primary );
     }
     .register-link {
-        color: mat-color($QA-accent, 800 );
+        color: mat-color($primary);
         font-weight: bold;
     }
     .register-link:hover {

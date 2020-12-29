@@ -1,11 +1,14 @@
-<div fxLayout="row" class="user-profile-container">
-    <div class="avatar">{{avatar}}</div>
-    <!--<mat-icon>account_circle</mat-icon>-->
-    <div fxLayout="column" fxLayoutAlign="center start" >
-        <!--<div class="avatar-image">-->
-        <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
-        <!--</div>-->
-        <p class="mat-caption" style="font-weight: bold;text-transform: uppercase" [routerLink]="['/users', user.uid]">{{user.displayName}}</p>
-        <p class="mat-caption">User role</p>
+<ng-container *ngIf="userData$ | async as userData">
+    <div fxLayout="row" class="user-profile-container">
+        <div class="avatar" [ngStyle]="{'background-color': userData.color?.code}">{{avatar}}</div>
+        <!--<mat-icon>account_circle</mat-icon>-->
+        <div fxLayout="column" fxLayoutAlign="center start" >
+            <!--<div class="avatar-image">-->
+            <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
+            <!--</div>-->
+            <p class="mat-caption profile-name" [routerLink]="['/users', userData.uid]">{{userData.displayName}}</p>
+            <p class="mat-caption">User role</p>
+        </div>
     </div>
-</div>
+</ng-container>
+

@@ -4,6 +4,7 @@ import {AuthService} from '../../services/auth.service';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -13,14 +14,18 @@ import {SnackComponent} from '../../shared/components/snack/snack.component';
 export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
-  constructor(private af: AngularFireAuth, public authService: AuthService, public snackbar: MatSnackBar) { }
+  constructor(private af: AngularFireAuth, public authService: AuthService, public snackbar: MatSnackBar, public router: Router) { }
 
   ngOnInit(): void {
   }
 
   loginWithGoogle() {
     this.authService.googleLogin()
-        .then(() => console.log('Google login successfully'))
+        .then((res) => {
+          if (res.firstTime) {
+            this.router.navigate(['auth/welcome']);
+          }
+        })
         .catch(err => {console.log('Login error: ' + err); });
   }
   getEmailError() {

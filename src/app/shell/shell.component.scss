@@ -1,3 +1,5 @@
+@import "../../styles/custom-theme";
+
 //.main-content {
 //    padding-bottom: 24px;
 //    margin-top: 8px;
@@ -6,7 +8,7 @@
 //    width: 100% ;
 //}
 .color-background {
-    background-color: #006064;
+    background-color: mat-color($my-grey, 900);
     padding-top: 0 ;
     height: 100%;
     /*min-height: 1200px ;*/

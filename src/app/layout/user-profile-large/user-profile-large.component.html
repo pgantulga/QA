@@ -1,10 +1,14 @@
-<div fxLayout="row" class="user-profile-container">
-    <div class="avatar-large">{{avatar}}</div>
-    <div fxLayout="column" fxLayoutAlign="center start" >
-        <!--<div class="avatar-image">-->
-        <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
-        <!--</div>-->
-        <p class="mat-headline">{{user.displayName}}</p>
-        <p class="mat-caption">{{user.createdAt | momentPipe}} бүртгүүлсэн</p>
+<ng-container *ngIf="userData$ | async as userData">
+    <div fxLayout="row" class="user-profile-container-large">
+        <div class="avatar-large" [ngStyle]="{'background-color': userData.color?.code}">{{avatar}}</div>
+        <div fxLayout="column" fxLayoutAlign="center start" >
+            <!--<div class="avatar-image">-->
+            <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
+            <!--</div>-->
+            <p class="mat-headline">{{userData.displayName}}</p>
+            <p class="mat-subheading-1">{{userData.company}}</p>
+<!--            <p class="mat-caption">{{userData.createdAt | momentPipe}} бүртгүүлсэн</p>-->
+<!--            <p class="mat-caption">Авсан үнэлгээ: {{userData.votesReceived}}</p>-->
+        </div>
     </div>
-</div>
+</ng-container>

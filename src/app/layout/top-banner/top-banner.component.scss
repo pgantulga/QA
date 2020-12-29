@@ -2,12 +2,11 @@
 @import "../../../styles/custom-theme";
 .top-banner-container {
     position: relative;
-    background-color: mat-color($QA-accent,50);
+    background-color: mat-color($accent,50);
     margin-bottom: 8px;
-
 }
 p {
-    color: mat-color($QA-accent,900);
+    //color: mat-color($QA-accent,900);
 }
 .top-banner {
     height: 200px;

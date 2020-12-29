@@ -9,17 +9,19 @@ import {PostListComponent} from '../post/post-list/post-list.component';
 import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.component';
 import {HomeModule} from '../home/home.module';
 import {PostModule} from '../post/post.module';
+import {LayoutModule} from "../layout/layout.module";
 
 
 @NgModule({
   declarations: [UsersComponent, UserDetailComponent],
-  imports: [
-    CommonModule,
-    UserRoutingModule,
-    MdModule,
-    FlexLayoutModule,
-      HomeModule,
-      PostModule
-  ]
+    imports: [
+        CommonModule,
+        UserRoutingModule,
+        MdModule,
+        FlexLayoutModule,
+        HomeModule,
+        PostModule,
+        LayoutModule
+    ]
 })
 export class UserModule { }

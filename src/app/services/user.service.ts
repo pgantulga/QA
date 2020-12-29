@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
+import {User} from "./auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class UserService {
   }
   getUserDetail(uid) {
     return this.userCollection.doc(uid).valueChanges();
+  }
+  getUserData(user): Observable<User> {
+    return this.userCollection.doc<User>(user.uid).valueChanges();
   }
 }

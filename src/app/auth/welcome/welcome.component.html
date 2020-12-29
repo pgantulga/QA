@@ -1,24 +1,35 @@
-<mat-card class="welcome-card" fxLayout="column">
+<mat-card class="welcome-card background-card" fxLayout="column" style="border-radius: 16px">
+<!--    <button type="button" aria-label="back" mat-icon-button [routerLink]="['/home']">-->
+<!--        <mat-icon>keyboard_arrow_left</mat-icon>-->
+<!--    </button>-->
     <form (ngSubmit)="onSubmit()">
-        <p class="mat-headline mat-primary">Taвтай морил!</p>
-        <p>Таны аватар:</p>
-        <div fxLayout="row wrap">
-            <div class="avatar" *ngFor="let color of colorService.allColors"  [ngStyle]="{'background-color': color.code}"></div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">
+            <img src="../../../assets/logo_white.png" alt="Logo" class="logo">
         </div>
-        <mat-form-field appearance="outline" color="accent">
+        <p class="mat-headline mat-primary" style="text-align: center">Taвтай морил!</p>
+        <div fxLayout="column" class="welcome-field">
+            <p>Таны аватар (сонгох):</p>
+            <div fxLayout="row wrap">
+                <button mat-icon-button *ngFor="let color of colorService.allColors" class="avatar-button" (click)="selectColor(color)" type="button" [ngClass]="{'active': isSelected(color)}">
+                    <mat-icon [ngStyle] = "{'color': color.code}">account_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+        {{selectedColor?.color}}
+        <mat-form-field appearance="outline" color="primary">
             <mat-label>Таны харагдах нэр</mat-label>
-            <input matInput placeholder="Овог" [formControl]="displayName">
+            <input matInput placeholder="Овог" [formControl]="displayName" required>
         </mat-form-field>
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="primary">
             <mat-label>Байгууллага</mat-label>
-            <input matInput placeholder="Овог" [formControl]="company">
+            <input matInput placeholder="Овог" [formControl]="company" required>
         </mat-form-field>
-        <mat-form-field appearance="outline" color="accent">
+        <mat-form-field appearance="outline" color="primary">
             <mat-label>Ажил эрхлэлт</mat-label>
-            <input matInput placeholder="Овог" [formControl]="position">
+            <input matInput placeholder="Овог" [formControl]="position" required>
         </mat-form-field>
         <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-            <button mat-raised-button color="accent" type="submit" fxFlex="">
+            <button mat-raised-button color="primary" type="submit" fxFlex="" [disabled]="!((displayName.valid) && (position.valid) && (company.valid) && (selectedColor)) ">
                 Батлах
             </button>
         </mat-card-actions>

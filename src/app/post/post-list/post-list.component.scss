@@ -1,6 +1,7 @@
 @import "../../../styles/custom-theme.scss";
 .post-list {
-  padding: 12px 8px;
+  padding: 12px 30px 12px 22px;
+  margin: 4px 0;
 }
 
 .post-list p {
@@ -17,7 +18,7 @@
 
 }
 .post-list .question:hover {
-  color: mat-color($QA-accent,800)
+  //color: mat-color($QA-accent,800)
 }
 .post-list .question:focus {
   outline:0;
@@ -30,11 +31,19 @@
 .post-list .score {
   padding: 6px; margin: 0 8px 0 8px; width: 56px
 }
-//chip style
-
+.post-list .score.best {
+  background-color: mat-color($primary,500);
+  border-radius: 8px;
+  p {
+    color: mat-color($my-grey, 900);
+  }
+  mat-icon {
+    color: mat-color($my-grey, 900);
+  }
+}
 .post-list .post-list-edited {
   transform: scale(0.8);
-  color: rgba(0,0,0,0.6);
+  //color: rgba(0,0,0,0.6);
 }
 .post-list .metaData {
   margin-top: 4px;

@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
 
   loginWithGoogle() {
     this.authService.googleLogin()
-        .then(() => console.log('Google login successfully'))
+        .then((res) => {console.log(res); })
         .catch(err => {console.log('Login error: ' + err); });
   }
   getEmailError() {

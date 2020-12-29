@@ -14,7 +14,7 @@
 
 .active {
     //background-color: map-get()
-    color:  mat-color($QA-accent, 800) !important;
+    color:  mat-color($primary) !important;
 }
 
 .navigation-list {
@@ -22,4 +22,13 @@
 }
 .navigation-list-item {
     margin: 0 0 8px 0;
+}
+.mat-chip.mat-standard-chip.chip-nav {
+    background-color: transparent;
+    //color: mat-color($primary);
+}
+.mat-chip.mat-standard-chip.chip-nav-ghost {
+    background-color: mat-color($my-grey, 700);
+    width: 200px;
+    height: 14px;
 }

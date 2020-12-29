@@ -1,7 +1,8 @@
 @import "../../../styles/custom-theme.scss";
 .tag-item {
-  border-radius: 10px;
-  border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 16px;
+  //border: 1px solid rgba(0,0,0,0.2);
+  background-color: mat-color($my-grey, 800);
   width: 260px;
   height: 200px;
   padding: 12px;
@@ -13,7 +14,7 @@
 
 }
 .tag-item .tag-link:hover {
-  color: mat-color($QA-accent,800)
+  color: mat-color($accent,800)
 }
 .tag-item .tag-link:focus {
   outline:0;
