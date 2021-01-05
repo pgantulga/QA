@@ -1,12 +1,21 @@
-<div fxLayout="row" class="detail-header-container" fxFlex="">
+<div fxLayout="row" class="detail-header-container">
     <div fxFlex></div>
-<!--    <p>sdfaf</p>-->
-    <div class="container detail-header" fxLayout="column" fxLayoutAlign="center left" style="position: relative" *ngIf="detail | async as detail">
-        <p class="mat-headline">{{detail.name}}</p>
-        <p>{{detail.description}}</p>
-        <button mat-button color="accent" class="background-button">
-            Take tour
-        </button>
+    <div class="container" fxLayout="column"  *ngIf="detail | async as detail">
+        <mat-toolbar class="header" fxLayout="column" role="heading">
+            <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
+                <div fxLayout="column">
+                    <p class="mat-display-1">{{detail.name}}</p>
+                    <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
+                        <p class="mat-caption">Хэрэглэгдсэн ({{detail.totalUsed}})</p>
+                        <button mat-icon-button class="background-button" style="margin-left: 16px">
+                            <mat-icon>notifications</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <div class="background-card">
+        </div>
     </div>
     <div fxFlex></div>
 </div>

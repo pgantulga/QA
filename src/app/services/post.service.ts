@@ -31,7 +31,11 @@ export class PostService {
   getPostByUser(user) {
     console.log(user.uid);
     return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc')
-        .where('uid', '==', user.uid ).limit(10)).valueChanges();
+        .where('uid', '==', user.uid )).valueChanges();
+  }
+  getAnswersByUser(user) {
+    return this.db.collectionGroup('answers', ref => ref.orderBy('votesNumber', 'desc')
+        .where('author.id ', '==', user.uid)).valueChanges();
   }
   createPost(formData, user, tagsArray) {
     return  this.postCollection.add({

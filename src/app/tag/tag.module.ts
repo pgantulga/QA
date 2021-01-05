@@ -12,6 +12,7 @@ import {TagDetailComponent} from './tag-detail/tag-detail.component';
 import {TagUpdateComponent} from './tag-update/tag-update.component';
 import {PostModule} from '../post/post.module';
 import {HomeModule} from '../home/home.module';
+import {LayoutModule} from "../layout/layout.module";
 // import {PostListComponent} from '../post/post-list/post-list.component';
 // import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.component';
 
@@ -26,7 +27,8 @@ import {HomeModule} from '../home/home.module';
     PostModule,
     FormsModule,
     HomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LayoutModule,
   ]
 })
 export class TagModule { }

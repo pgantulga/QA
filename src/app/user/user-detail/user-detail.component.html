@@ -5,19 +5,23 @@
             <mat-icon>share</mat-icon>
         </button>
         <div class="view" fxFlex="" fxLayout="column">
-<!--            <div [innerHTML]="post.content"></div>-->
-                    <div fxLayout="row" fxLayoutAlign="start start" class="scores-container">
-                        <mat-chip-list>
-                            <mat-chip class="transparent chip-click" [routerLink]="[]" ><mat-icon>done</mat-icon>Votes: {{user.votesReceived}}</mat-chip>
-                            <mat-chip class="transparent chip-click" [routerLink]="[]" ><mat-icon>reply</mat-icon>Хариулт: {{user.votesReceived}}</mat-chip>
-                            <mat-chip class="transparent chip-click" [routerLink]="[]" ><mat-icon>reply</mat-icon>Хэлэлцүүлэг: {{user.votesReceived}}</mat-chip>
-                        </mat-chip-list>
-                    </div>
-
+            <div fxLayout="row" fxLayoutAlign="start start" class="scores-container">
+                <mat-chip-list>
+                    <mat-chip class="transparent votes" [routerLink]="[]" disableRipple>
+                        <mat-icon>done</mat-icon>
+                        Votes: {{user.votesReceived}}</mat-chip>
+                    <mat-chip class="transparent nav-chip" (click)="getPosts()">
+                        <mat-icon>forum</mat-icon>
+                        Хэлэлцүүлгүүд</mat-chip>
+                    <mat-chip class="transparent nav-chip" (click)="getAnswersByUser()">
+                        <mat-icon>reply</mat-icon>
+                        Хариултууд</mat-chip>
+                </mat-chip-list>
+            </div>
         </div>
     </div>
-    <p class="mat-body-2 page-title">Хэрэглэгчийн нэмсэн хэлэлцүүлгүүд</p>
     <div *ngIf="filteredPosts$ | async as posts; else loading" style="position: relative">
+        <p class="mat-body-2 page-title">Хэрэглэгчийн нэмсэн хэлэлцүүлгүүд ({{posts.length}})</p>
         <div *ngIf="posts.length else empty">
             <post-list *ngFor="let item of posts; last as last" [post]="item">
                 <mat-divider *ngIf="!last"></mat-divider>

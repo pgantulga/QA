@@ -37,7 +37,6 @@ export class ShellComponent implements OnInit{
                 private route: ActivatedRoute,
                 public routeService: RouteService) {
         this.getLayoutType(this.currentRoute);
-
     }
     ngOnInit(): void {
         this.router.events.pipe(
@@ -56,6 +55,7 @@ export class ShellComponent implements OnInit{
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);
     }
     showSidebar(url) {
-        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts') || url.includes('welcome') || url.includes('users');
+        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts')
+            || url.includes('welcome') || url.includes('users') || url.includes('admin') || url.includes('profile-settings');
     }
 }

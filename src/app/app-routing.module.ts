@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 // import { CommonModule } from '@angular/common';
 // import {MdComponentsComponent} from './admin/md-components/md-components.component';
 // import {HomeComponent} from './home/home.component';
@@ -19,54 +19,59 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
-  },
-  {
-    path: 'posts/:id',
-    loadChildren: () => import('./post/post.' +
-    'module').then(m => m.PostModule)
-  },
-  {
-    path: 'ask',
-    loadChildren: () => import('./create/create.module').then(m => m.CreateModule)
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  },
-  {
-    path: 'tags',
-    loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)
-  },
+    {path: '', redirectTo: '/home', pathMatch: 'full'},
+    {
+        path: 'home',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+    },
+    {
+        path: 'posts/:id',
+        loadChildren: () => import('./post/post.' +
+        'module').then(m => m.PostModule)
+    },
+    {
+        path: 'ask',
+        loadChildren: () => import('./create/create.module').then(m => m.CreateModule)
+    },
+    {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    },
+    {
+        path: 'tags',
+        loadChildren: () => import('./tag/tag.module').then(m => m.TagModule)
+    },
     {
         path: 'users',
         loadChildren: () => import('./user/user.module').then(m => m.UserModule)
+    },
+    {
+      path: 'admin',
+      loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
     }
-  // {
-  //   path: 'users',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     { path: '', component: UsersComponent}
-  //   ]
-  // },
-  // {
-  //   path: 'users/:uid',
-  //   component: LayoutOneComponent,
-  //   children: [
-  //     {path: '', component: UserDetailComponent}
-  //   ]
-  // },
+    // {
+    //   path: 'users',
+    //   component: LayoutOneComponent,
+    //   children: [
+    //     { path: '', component: UsersComponent}
+    //   ]
+    // },
+    // {
+    //   path: 'users/:uid',
+    //   component: LayoutOneComponent,
+    //   children: [
+    //     {path: '', component: UserDetailComponent}
+    //   ]
+    // },
 
 ];
+
 @NgModule({
-  declarations: [
-  ],
-  imports: [
-      RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+    declarations: [],
+    imports: [
+        RouterModule.forRoot(routes)
+    ],
+    exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

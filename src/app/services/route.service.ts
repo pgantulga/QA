@@ -27,6 +27,9 @@ export class RouteService {
     if (url.includes('login') || url.includes('register') || url.includes('welcome')) {
       return 'login';
     }
+    if (url.includes('profile-settings')) {
+      return 'settings';
+    }
     if (url.includes('/users/')) {
       return 'user-detail';
     }
@@ -41,7 +44,7 @@ export class RouteService {
     }
   }
   getLayout(route) {
-    if (route === 'post-detail' || route === 'post-edit') {
+    if (route === 'post-detail' || route === 'post-edit' || route === 'settings') {
       return {
         layout1: false,
         layout2: true,

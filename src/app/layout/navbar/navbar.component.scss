@@ -11,7 +11,7 @@
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
     background-color: transparent;
-    //border-bottom: 1px solid mat-color($my-grey, 700);
+    border-bottom: 1px solid mat-color($my-grey, 700);
 }
 
 img::selection {

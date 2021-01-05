@@ -1,13 +1,26 @@
 @import "../../../styles/custom-theme";
 .detail-header-container {
-  height: 200px;
+  p {
+    margin: 0;
+    .mat-display-1 {
+      //color: mat-color($accent,900);
+      margin-bottom: 16px;
+    }
+  }
+}
+.header {
+  //position: relative;
+  padding: 32px 0 8px 0;
+  background-color: transparent;
+}
+.header .title {
+  height: auto;
+  //margin-bottom: 12px;
+}
+.header .mat-caption {
+  margin: 0;
+}
+.background-card {
   position: relative;
-  background-color: mat-color($accent,50);
-  margin-bottom: 8px;
-}
-p {
-  color: mat-color($accent,900);
-}
-.detail-header {
-  padding: 40px 15px 30px;
+  padding: 12px 22px 12px 28px;
 }

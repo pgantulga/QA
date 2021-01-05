@@ -3,6 +3,9 @@
   position: relative;
   padding: 12px 30px 12px 22px;
   margin: 8px 0 8px 0;
+  .votes {
+    color: mat-color($primary);
+  }
 }
 .user-detail .top-fab-button {
   position: absolute;right: 30px;top:-28px

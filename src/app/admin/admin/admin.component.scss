@@ -1,0 +1,12 @@
+@import "./src/styles/custom-theme";
+
+mat-toolbar {
+  background-color: mat-color($my-grey, 800) !important;
+  border-radius: 16px;
+  .mat-list-base {
+    padding: 0 !important;
+    .nav-link {
+      border-radius: 300px;
+    }
+  }
+}

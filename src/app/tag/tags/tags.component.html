@@ -6,9 +6,9 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
     </mat-menu>
-    <button mat-raised-button color="accent" (click)="openDialog()">
-        Tag нэмэх
-    </button>
+<!--    <button mat-raised-button color="accent" (click)="openDialog()">-->
+<!--        Tag нэмэх-->
+<!--    </button>-->
 </div>
 <div fxLayout="row wrap" fxLayoutGap="8px" style="margin: 8px 0 0 0" *ngIf="tags | async as tags; else loading">
     <tag-item *ngFor="let item of tags" [item]="item"></tag-item>

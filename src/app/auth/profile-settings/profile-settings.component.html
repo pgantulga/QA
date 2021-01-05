@@ -1,0 +1,36 @@
+<div *ngIf="user" fxLayout="column" style="padding: 0 0 16px 0">
+    <user-profile-large [user]="user"></user-profile-large>
+</div>
+<div class="background-card" fxLayout="column">
+    <form (ngSubmit)="onSubmit()" fxLayout="column">
+        <div fxLayout="column" class="welcome-field">
+            <p>Таны аватар (сонгох):</p>
+            <div fxLayout="row wrap">
+                <button mat-icon-button *ngFor="let color of colorService.allColors" class="avatar-button" (click)="selectColor(color)" type="button" [ngClass]="{'active': isSelected(color)}">
+                    <mat-icon [ngStyle] = "{'color': color.code}">account_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Таны харагдах нэр</mat-label>
+            <input matInput placeholder="Овог" [formControl]="displayName" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Байгууллага</mat-label>
+            <input matInput placeholder="Овог" [formControl]="company" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+            <mat-label>Ажил эрхлэлт</mat-label>
+            <input matInput placeholder="Овог" [formControl]="position" required>
+        </mat-form-field>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button color="primary" type="submit" fxFlex="" [disabled]="!((displayName.valid) && (position.valid) && (company.valid) && (selectedColor)) ">
+                Батлах
+            </button>
+        </mat-card-actions>
+
+<!--        change password-->
+        <div fxLayout="row" fxLayoutAlign="center center">
+        </div>
+    </form>
+</div>

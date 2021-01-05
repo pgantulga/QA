@@ -72,6 +72,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   right: 0;
   top:-28px
 }
+button.mat-button {
+  border-radius: 300px;
+}
 button.mat-raised-button{
   border-radius: 300px;
   text-transform: uppercase;
@@ -168,6 +171,9 @@ quill-editor.answer .ql-editor {
   mat-icon {
     margin: 0 4px 0 0;
   }
+}
+.mat-standard-chip.nav-chip {
+  cursor: pointer;
 }
 
 .default-snack {

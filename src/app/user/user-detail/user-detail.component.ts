@@ -24,8 +24,16 @@ export class UserDetailComponent implements OnInit {
             return this.userService.getUserDetail(params.get('uid'));
         })
     );
-    this.user$.subscribe(user => {
-        this.filteredPosts$ = this.postService.getPostByUser({uid: user.uid});
-    });
+    this.getPosts();
+  }
+  getPosts() {
+      this.user$.subscribe(user => {
+          this.filteredPosts$ = this.postService.getPostByUser({uid: user.uid});
+      });
+  }
+  getAnswersByUser() {
+      this.user$.subscribe(user => {
+          this.filteredPosts$ = this.postService.getAnswersByUser({uid: user.uid});
+      });
   }
 }

@@ -8,17 +8,20 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RegisterComponent} from "./register/register.component";
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import {LayoutModule} from "../layout/layout.module";
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, WelcomeComponent],
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
     MdModule,
     FlexLayoutModule,
-      ReactiveFormsModule,
-      FormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    LayoutModule
   ]
 })
 export class AuthModule { }
