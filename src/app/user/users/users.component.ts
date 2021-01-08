@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Observable} from 'rxjs';
+import {UserService} from "../../services/user.service";
 const ELEMENT_DATA = [
   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -22,8 +23,8 @@ export class UsersComponent implements OnInit {
   users$: Observable<any>;
   displayedColumns: string[] = ['name', 'email', 'votes'];
   dataSource = ELEMENT_DATA;
-  constructor(private authService: AuthService) { }
+  constructor(private userService: UserService) { }
   ngOnInit(): void {
-    this.users$ = this.authService.getAllUser();
+    this.users$ = this.userService.getAll();
   }
 }

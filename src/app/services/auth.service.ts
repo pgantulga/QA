@@ -23,7 +23,7 @@ export interface Roles {
     subscriber?: boolean;
     moderator?: boolean;
     admin?: boolean;
-    phone: string;
+    member?: boolean;
 }
 
 const actionCodeSettings = {
@@ -47,8 +47,6 @@ const actionCodeSettings = {
     providedIn: 'root'
 })
 export class AuthService {
-    userCollection = this.db.collection<any>('users');
-    user$: Observable<User>;
 
     constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore, public snackBar: MatSnackBar) {
         this.user$ = this.af.authState.pipe(
@@ -61,15 +59,16 @@ export class AuthService {
             })
         );
     }
+    private userCollection = this.db.collection<any>('users');
+    user$: Observable<User>;
+
+    private static getDisplayName(user): any {
+      return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
+    }
 
     getUser(): Promise<any> {
         return this.user$.pipe(first()).toPromise();
     }
-
-    getAllUser() {
-        return this.userCollection.valueChanges();
-    }
-
     async googleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
         const credential = await this.af.signInWithPopup(provider);
@@ -88,7 +87,7 @@ export class AuthService {
             });
     }
 
-    checkUserExist(user) {
+    private checkUserExist(user) {
         const userRef = this.userCollection.doc(user.uid);
         return userRef.get().toPromise()
             .then(doc => {
@@ -109,7 +108,11 @@ export class AuthService {
             });
     }
 
-    emailVerify(email) {
+    signIn(userData) {
+        return this.af.signInWithEmailAndPassword(userData.email, userData.password);
+    }
+
+    private emailVerify(email) {
         this.af.sendSignInLinkToEmail(email, actionCodeSettings)
             .then(() => {
                 window.localStorage.setItem('emailForSignIn', email);
@@ -117,10 +120,6 @@ export class AuthService {
             .catch(err => {
                 console.log(err.message);
             });
-    }
-
-    signIn(userData) {
-        return this.af.signInWithEmailAndPassword(userData.email, userData.password);
     }
 
     async signOut() {
@@ -149,7 +148,7 @@ export class AuthService {
         return ref.set(data, {merge: true});
     }
 
-    createUserData(user: any) {
+    private createUserData(user: any) {
         const ref = this.userCollection.doc(user.uid);
         const data = {
             uid: user.uid,
@@ -157,58 +156,12 @@ export class AuthService {
             email: user.email,
             firstName: (user.firstName) ? user.firstName : null,
             lastName: (user.lastName) ? user.lastName : null,
-            displayName: (user.displayName) ?  user.displayName : this.getDisplayName(user) ,
+            displayName: (user.displayName) ?  user.displayName : AuthService.getDisplayName(user) ,
             roles: {
                 guest: true
             },
         };
         return ref.set(data, {merge: true});
-    }
-
-    getDisplayName(user) {
-      return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
-    }
-
-    // permission and roles
-    checkAuth(user: User, allowedRoles: string[]): boolean {
-        if (!user) {
-            return false;
-        }
-        for (const role of allowedRoles) {
-            if (user.roles[role]) {
-                return true;
-            }
-        }
-    }
-
-    canRead(user: User): boolean {
-        const allowed = ['guest', 'subscriber', 'moderator', 'admin'];
-        return this.checkAuth(user, allowed);
-    }
-
-    canCreate(user: User): boolean {
-        const allowed = ['subscriber', 'moderator', 'admin'];
-        return this.checkAuth(user, allowed);
-    }
-
-    canEdit(user: User): boolean {
-        const allowed = ['moderator', 'admin'];
-        return this.checkAuth(user, allowed);
-    }
-
-    canDelete(user: User): boolean {
-        const allowed = ['admin'];
-        return this.checkAuth(user, allowed);
-    }
-
-    canVote(user: User): boolean {
-        const allowed = ['subscriber', 'moderator', 'admin'];
-        return this.checkAuth(user, allowed);
-    }
-
-    canRecommend(user: User): boolean {
-        const allowed = ['subscriber', 'moderator', 'admin'];
-        return this.checkAuth(user, allowed);
     }
 }
 

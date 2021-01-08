@@ -1,0 +1,12 @@
+<div class="article-list" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="column">
+        <p class="mat-caption" >Updated: {{item.updatedAt | momentPipe}}</p>
+        <p class="mat-headline" [routerLink]="['/admin/articles', item.id]">{{item.title}}</p>
+    </div>
+    <div>
+        <button mat-icon-button color="accent" >
+            <mat-icon>edit</mat-icon>
+        </button>
+    </div>
+</div>
+<ng-content></ng-content>

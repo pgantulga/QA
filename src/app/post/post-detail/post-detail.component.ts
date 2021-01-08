@@ -5,6 +5,8 @@ import {PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
 import {AnswerService} from '../../services/answer.service';
 import {Observable} from 'rxjs';
+import {ViewportScroller} from "@angular/common";
+import {PermissionService} from "../../services/permission.service";
 const DropdownMenu = [
     {
         name: 'Сүүлд нэмэгдсэн хариултууд',
@@ -28,7 +30,7 @@ export class PostDetailComponent implements OnInit {
     dropDownMenu: any;
     selectedSort: any;
     constructor(public route: ActivatedRoute, private postService: PostService, public authService: AuthService,
-                public answerService: AnswerService) {
+                public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService) {
     }
 
     ngOnInit(): void {
@@ -58,6 +60,9 @@ export class PostDetailComponent implements OnInit {
                 return this.answerService.getAllAnswer(params.get('id'), sort);
             })
         );
+    }
+    isPostAuthor(user1, user2): boolean {
+        return (user1.uid === user2.uid);
     }
 
 

@@ -17,6 +17,7 @@ import {NgModule} from '@angular/core';
 // import {LayoutTwoComponent} from './shared/templates/layout-two/layout-two.component';
 // import {LayoutThreeComponent} from './shared/templates/layout-three/layout-three.component';
 import {RouterModule, Routes} from '@angular/router';
+import {ModeratorModule} from "./moderator/moderator.module";
 
 const routes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -48,6 +49,10 @@ const routes: Routes = [
     {
       path: 'admin',
       loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    },
+    {
+        path: 'moderator',
+        loadChildren: () => import('./moderator/moderator.module').then(m => ModeratorModule)
     }
     // {
     //   path: 'users',
@@ -69,7 +74,7 @@ const routes: Routes = [
 @NgModule({
     declarations: [],
     imports: [
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes, {anchorScrolling: 'enabled'  })
     ],
     exports: [RouterModule]
 })

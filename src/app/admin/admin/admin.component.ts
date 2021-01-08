@@ -27,6 +27,4 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.topMenu = AdminMenu;
   }
-
-
 }

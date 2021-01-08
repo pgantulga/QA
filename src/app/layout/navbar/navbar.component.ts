@@ -7,6 +7,7 @@ import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {filter} from 'rxjs/operators';
 import {NavigationEnd, Router} from '@angular/router';
 import {RouteService} from '../../services/route.service';
+import {PermissionService} from "../../services/permission.service";
 
 @Component({
   selector: 'app-navbar',
@@ -20,6 +21,7 @@ export class NavbarComponent implements OnInit{
   topMenu: Menu[];
   constructor( public menu: MenuService,
                public authService: AuthService,
+               public permissionService: PermissionService,
                public dialog: MatDialog,
                public router: Router,
                public routeService: RouteService) {}

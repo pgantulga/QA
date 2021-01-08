@@ -1,0 +1,12 @@
+<mat-toolbar>
+    <mat-toolbar-row>
+        <div fxLayout="row" fxLayoutAlign.xs="space-between center">
+            <mat-nav-list fxLayout="row">
+                <a class="mat-body-1 nav-link" *ngFor="let menu of topMenu" mat-list-item routerLink="{{menu.link}}" routerLinkActive="active-list-item"  role="navigation">
+                    {{menu.name }}
+                </a>
+            </mat-nav-list>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<router-outlet></router-outlet>

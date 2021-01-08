@@ -2,13 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {switchMap} from 'rxjs/internal/operators';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
-import {MatSidenav} from '@angular/material/sidenav';
 import {PostService} from '../services/post.service';
 import {RouteService} from '../services/route.service';
-// import {MatSidenav} from '@angular/material/sidenav';
+import {MenuService} from '../services/menu.service';
 
 
 @Component({
@@ -22,20 +20,24 @@ export class ShellComponent implements OnInit{
     currentLayoutObj: {
         layout1: boolean,
         layout2: boolean,
-        layout3: boolean
+        layout3: boolean,
+        layout4: boolean
     };
-    isSidebar: boolean;
+    sideMenu: Array<any>;
     posts: any;
     isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
         .pipe(
             map( result => result.matches),
             shareReplay()
             );
+     isTopBar: boolean;
+     isSidebar: boolean;
     constructor(private breakpointObserver: BreakpointObserver,
                 private router: Router,
                 private postService: PostService,
                 private route: ActivatedRoute,
-                public routeService: RouteService) {
+                public routeService: RouteService,
+                private menuService: MenuService) {
         this.getLayoutType(this.currentRoute);
     }
     ngOnInit(): void {
@@ -45,17 +47,21 @@ export class ShellComponent implements OnInit{
                 // @ts-ignore
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
+                // console.log(JSON.stringify(this.currentLayoutObj))
                 // @ts-ignore
                 this.isSidebar = this.showSidebar(e.url);
-                this.showTopBanner = (this.currentRoute === 'home');
+                this.sideMenu = (this.currentRoute === 'admin') ? this.menuService.adminMenu : null;
+                this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
+                this.showTopBanner = this.currentRoute === 'home';
             });
         console.log(this.route.snapshot);
     }
     getLayoutType(currentRoute) {
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);
     }
-    showSidebar(url) {
-        return url.includes('posts') || url.includes('login') || url.includes('register') || url.includes('posts')
-            || url.includes('welcome') || url.includes('users') || url.includes('admin') || url.includes('profile-settings');
+    showSidebar(url): boolean {
+        return url.includes('posts') || url.includes('login') || url.includes('register')
+            || url.includes('posts') || url.includes('welcome') || url.includes('users')
+            || url.includes('admin') || url.includes('profile-settings') || url.includes('moderator');
     }
 }

@@ -24,7 +24,8 @@
                 <mat-menu #dropMenu="matMenu">
                     <button mat-menu-item [routerLink]="['users', user.uid]">{{user.displayName}}</button>
                     <button mat-menu-item [routerLink]="['/auth/profile-settings']">Хэрэглэгчийн тохиргоо</button>
-                    <button mat-menu-item *ngIf="authService.canDelete(user)" [routerLink]="['/admin']">Админ</button>
+                    <button mat-menu-item *ngIf="permissionService.canEdit(user)" [routerLink]="['/moderator']">Модератор</button>
+                    <button mat-menu-item *ngIf="permissionService.canDelete(user)" [routerLink]="['/admin']"> Админ</button>
                     <button mat-menu-item (click)="signOut()">Системээс гарах</button>
                 </mat-menu>
             </div>

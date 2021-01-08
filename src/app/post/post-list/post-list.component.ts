@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
+import {ViewportScroller} from "@angular/common";
+import {element} from "protractor";
 
 @Component({
   selector: 'post-list',
@@ -8,7 +11,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class PostListComponent implements OnInit {
   @Input() post: any;
 
-  constructor() { }
+  constructor(private router: Router, private viewportScroller: ViewportScroller) { }
 
   ngOnInit(): void {
 
@@ -27,5 +30,16 @@ export class PostListComponent implements OnInit {
         return 'update';
     }
   }
+  gotoPost(post) {
+    this.router.navigate(['/posts', post.id]);
+    this.scrollTop();
+    // this.viewportScroller.scrollToPosition([0, 0]);
+  }
 
+  private scrollTop() {
+    // tslint:disable-next-line:no-shadowed-variable
+    const element = document.querySelector('#postheader');
+    if (element) {element.scrollIntoView()}
+
+  }
 }

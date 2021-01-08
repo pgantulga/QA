@@ -1,0 +1,13 @@
+    <mat-toolbar style="background-color: red;width: 100%">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            Articles
+            <button mat-flat-button class="mat-accent" [routerLink]="['/admin/create-article']">
+                Add article
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="article-list-container" *ngIf="articles | async as articles">
+        <article-list *ngFor="let item of articles; last as last" [item]="item">
+            <mat-divider *ngIf="!last"></mat-divider>
+        </article-list>
+    </div>

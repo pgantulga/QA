@@ -1,0 +1,19 @@
+@import "./src/styles/custom-theme";
+table td{
+  p {
+    margin: 0 !important;
+  }
+  button.mat-button {
+    transform: scale(0.8);
+
+  }
+}
+.mat-standard-chip.role-chip {
+  transform: scale(1);
+  //font: mat-font-size();
+}
+.mat-standard-chip.activeRole {
+  background-color: green ;
+  //margin: 0 2px;
+}
+

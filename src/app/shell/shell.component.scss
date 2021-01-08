@@ -19,7 +19,7 @@
     padding-top: 64px;
 }
 ::ng-deep mat-sidenav {
-    padding-top: 64px;
+    padding-top: 16px;
     width: 380px !important;
 }
 //.mat-sidenav-content-container {
@@ -43,4 +43,19 @@
     .mat-sidenav-content-container {
         padding-top: 8px;
     }
+}
+.layout-four {
+    .fullWidth {
+        width: 100% ;
+    }
+    .mat-sidenav-content-container {
+    }
+}
+mat-sidenav {
+    width: 250px !important;
+    position: absolute;
+    top: 0
+}
+.sideBarLogo {
+    height: 42px;
 }

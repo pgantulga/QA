@@ -1,0 +1,18 @@
+@import "src/styles/custom-theme";
+.warn-section {
+  margin: 0 0 8px 0;
+  border-radius: 6px;
+  border: 1px solid white;
+  padding: 16px;
+  background-color: #212121 !important;
+  //background-color: mat-color($DM-warn,700);
+  p{
+    margin: 0;
+    //color: mat-color($DM-ewarn, 700) !important;
+  }
+  .alert-icon {
+    margin: 0 8px 0 0;
+    //padding: 4px;
+    width: 64px;
+  }
+}

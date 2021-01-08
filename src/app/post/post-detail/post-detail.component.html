@@ -1,5 +1,5 @@
 <ng-container *ngIf="post$ | async as post">
-    <post-header [pageTitle]="post.title">
+    <post-header [pageTitle]="post.title" id="postheader">
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
@@ -10,10 +10,11 @@
             </div>
         </div>
     </post-header>
+
     <div fxLayout="column" class="post-detail background-card">
-        <button mat-fab color="primary" aria-label="edit" class="top-fab-button">
-            <mat-icon>share</mat-icon>
-        </button>
+<!--        <button mat-fab color="primary" aria-label="edit" class="top-fab-button">-->
+<!--            <mat-icon>share</mat-icon>-->
+<!--        </button>-->
         <div fxLayout="row">
             <div fxLayout="column" fxLayoutAlign='start center' class="voteArea">
                 <vote-button [obj]="post" [type]="'post'"></vote-button>
@@ -21,53 +22,65 @@
             <div class="view" fxFlex="" fxLayout="column">
                 <div [innerHTML]="post.content"></div>
                 <mat-chip-list>
-                    <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tagDetail', tag.id]">{{tag?.name}}</mat-chip>
+                    <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</mat-chip>
                 </mat-chip-list>
                 <div fxLayout="row" fxLayoutAlign="end center">
                     <user-profile [user]="post.author"></user-profile>
-                    <div class="metas" fxLayout="row">
+                    <div class="metas" fxLayout="row" *ngIf="authService.user$ | async as user">
                         <div class="actions" fxLayout="row" fxLayoutGap="2px">
                             <button mat-icon-button class="background-button" (click)="scroll(answer)">
                                 <mat-icon>reply</mat-icon>
                             </button>
-                            <button mat-icon-button class="background-button"
+                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author)"
                                     [routerLink]="['/posts', post.id, 'edit']">
                                 <mat-icon>edit</mat-icon>
                             </button>
                         </div>
                     </div>
                 </div>
-            </div>
+        </div>
         </div>
     </div>
+
     <div fxLayout="row" fxLayoutAlign="start start">
         <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
-            {{selectedSort.name}}
+            {{selectedSort.name}} ({{post.answersCount}})
             <mat-icon>keyboard_arrow_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
         </mat-menu>
     </div>
-    <div *ngIf="answers$ | async as answers; else loading" class="answers background-card">
-        <ng-container *ngIf="answers.length; else noItems">
-            <answer-list *ngFor="let item of answers; last as last" [answer]="item">
-                <mat-divider *ngIf="!last" answer-divider style="margin-top: 12px"></mat-divider>
-            </answer-list>
-        </ng-container>
-        <ng-template #noItems>Хариулт олдсонгүй</ng-template>
+    <ng-container *ngIf="authService.user$ | async as user; else loginWarning">
+        <div *ngIf="answers$ | async as answers; else loading" class="answers background-card">
+            <ng-container *ngIf="answers.length; else noItems">
+                <answer-list *ngFor="let item of answers; last as last" [answer]="item">
+                    <mat-divider *ngIf="!last" answer-divider style="margin-top: 12px"></mat-divider>
+                </answer-list>
+            </ng-container>
+            <ng-template #noItems>Хариулт олдсонгүй</ng-template>
+        </div>
+        <ng-template #loading>
+            <div style="padding: 8px 22px">
+                <p class="mat-caption">Ачааллаж байна. </p>
+            </div>
+        </ng-template>
+
+    </ng-container>
+    <div #answer >
+        <div *ngIf="authService.user$ | async as user">
+            <div *ngIf="permissionService.canRead(user)">
+                <answer-add [post]="post" [user]="user"></answer-add>
+            </div>
+        </div>
     </div>
-    <ng-template #loading>
-        <div style="padding: 8px 22px">
-            <p class="mat-caption">Ачааллаж байна. </p>
+    <ng-template #loginWarning>
+        <div class="">
+            <p style="color: red">Та системд нэвтэрч орсноор үзэх боломжтой.</p>
         </div>
     </ng-template>
-    <div #answer>
-        <div *ngIf="authService.user$ | async as user">
-            <answer-add [post]="post" [user]="user"></answer-add>
-        </div>
-    </div>
-    <div *ngIf="suggestedPosts$ | async as suggestedPosts; else loading" class="suggested">
+
+    <div *ngIf="suggestedPosts$ | async as suggestedPosts" class="suggested">
         <p class="mat-body-2">Санал болгох сэдвүүд</p>
         <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>
