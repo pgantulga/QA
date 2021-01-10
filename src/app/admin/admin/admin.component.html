@@ -1,4 +1,19 @@
-<mat-toolbar fxFlex="" style="width: 100%">
-    Page name
-</mat-toolbar>
-<router-outlet></router-outlet>
+<div fxLayout="column">
+    <mat-toolbar>
+        <mat-toolbar-row>
+            <button mat-icon-button (click)="back()"
+                    *ngIf="!((currentRoute == '/admin') ||
+                    (currentRoute == '/admin/posts') ||
+            (currentRoute == '/admin/articles') ||
+            (currentRoute == '/admin/users') ||
+            (currentRoute == '/admin/tags') ||
+            (currentRoute == '/admin/logs'))">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            {{currentRoute}}
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="admin-container">
+        <router-outlet></router-outlet>
+    </div>
+</div>

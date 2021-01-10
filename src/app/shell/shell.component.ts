@@ -54,7 +54,7 @@ export class ShellComponent implements OnInit{
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
                 this.showTopBanner = this.currentRoute === 'home';
             });
-        console.log(this.route.snapshot);
+        console.log(this.route.children);
     }
     getLayoutType(currentRoute) {
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);

@@ -10,3 +10,9 @@ mat-toolbar {
     }
   }
 }
+.admin-container {
+  padding: 16px;
+}
+mat-toolbar mat-toolbar-row {
+  padding: 0 16px 0 16px !important;
+}

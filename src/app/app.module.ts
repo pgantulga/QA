@@ -22,7 +22,6 @@ import {ModeratorGuard} from "./moderator/moderator-guard.service";
         DialogComponent,
         SnackComponent,
         ShellComponent,
-
     ],
     imports: [
         BrowserModule,

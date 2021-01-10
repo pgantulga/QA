@@ -19,11 +19,14 @@ const routes: Routes = [
     children: [
       {
         path: 'posts',
-        component: AdminPostComponent
+        component: AdminPostComponent,
+        data: {
+          name: 'Posts'
+        }
       },
       {
         path: 'users',
-        component: AdminUserComponent
+        component: AdminUserComponent,
       },
       {
         path: 'tags',
@@ -35,11 +38,19 @@ const routes: Routes = [
       },
       {
         path: 'articles/:id',
-        component: ArticleViewComponent,
+        component: ArticleAddComponent,
+        data: {
+          name: 'Article view',
+          child: true
+        }
       },
       {
         path: 'create-article',
         component: ArticleAddComponent,
+        data: {
+          name: 'Article create',
+          child: true
+        }
       },
     ]
   }

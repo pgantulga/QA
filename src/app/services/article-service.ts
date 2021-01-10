@@ -14,7 +14,7 @@ export class ArticleService {
   getArticle(id): Observable<any> {
     return this.articleCollection.doc(id).valueChanges();
   }
-  private createArticle(article, author): any {
+  createArticle(article, author): any {
     return this.articleCollection.add(
         {
           author: {
@@ -31,7 +31,10 @@ export class ArticleService {
       });
     });
   }
-  private updateArticle(article, updatedBy): any {
+  deleteArticle(article): any {
+    return this.articleCollection.doc(article.id).delete();
+  }
+  updateArticle(article, updatedBy): any {
     return this.articleCollection.doc(article.id).set({
       content: article.content,
       title: article.title,
@@ -42,5 +45,4 @@ export class ArticleService {
       }
     }, {merge: true});
   }
-  private deleteArticle(article): any {}
 }

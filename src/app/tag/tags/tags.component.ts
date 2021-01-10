@@ -3,6 +3,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {TagAddComponent} from '../tag-add/tag-add.component';
 import {TagService} from '../../services/tag.service';
 import {AuthService} from '../../services/auth.service';
+import {PermissionService} from "../../services/permission.service";
 
 @Component({
   selector: 'tags',
@@ -16,7 +17,7 @@ export class TagsComponent implements OnInit {
   description: string;
   currentUser: any;
   tags: any;
-  constructor(public dialog: MatDialog, public tagService: TagService, public authService: AuthService) { }
+  constructor(public dialog: MatDialog, public tagService: TagService, public authService: AuthService, public permissionService: PermissionService) { }
   ngOnInit(): void {
     this.dropDownMenu = [{
       name: 'Сүүлийн',

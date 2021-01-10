@@ -1,13 +1,13 @@
 @import "src/styles/custom-theme";
 .article-list {
   padding: 8px 8px 8px 8px;
+  margin: 8px 0 8px 0;
   .mat-headline:hover {
     cursor: pointer;
-    //color: mat-color($DM-accent-dark);
     outline:0;
-
+  }
+  p {
+    margin: 0;
   }
 }
-p {
-  margin: 0;
-}
+

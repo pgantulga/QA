@@ -1,1 +1,20 @@
-<p>article-add works!</p>
+<div class="container_content">
+    <div class="post-add">
+        <form (ngSubmit)="onSubmit()" >
+            <div class="form-group">
+                <p class="mat-subheading-2">Title</p>
+                <mat-form-field style="width:100%" appearance="outline"  color="accent" [floatLabel]="'never'">
+                    <mat-label>Title</mat-label>
+                    <input matInput placeholder="Гарчиг" [formControl]="title" required maxlength="150">
+                </mat-form-field>
+                <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{getErrorMessage()}}</mat-error>
+                <p class="mat-subheading-2" style="margin-top: 16px">Content</p>
+                <quill-editor [formControl]="content" [modules]="config" required></quill-editor>
+            </div>
+            <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
+                <button mat-flat-button>Cancel</button>
+                    <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

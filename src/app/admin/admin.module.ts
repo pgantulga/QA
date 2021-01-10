@@ -12,6 +12,8 @@ import { AdminArticlesComponent } from './admin-articles/admin-articles.componen
 import {LayoutModule} from "../layout/layout.module";
 import { ArticleViewComponent } from './article-view/article-view.component';
 import { ArticleAddComponent } from './article-add/article-add.component';
+import {QuillModule} from "ngx-quill";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [AdminComponent, AdminPostComponent, AdminUserComponent, AdminTagComponent, AdminArticlesComponent, ArticleViewComponent, ArticleAddComponent],
@@ -20,7 +22,10 @@ import { ArticleAddComponent } from './article-add/article-add.component';
         AdminRoutingModule,
         MdModule,
         FlexLayoutModule,
-        LayoutModule
+        LayoutModule,
+        QuillModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule
     ]
 })
 export class AdminModule {

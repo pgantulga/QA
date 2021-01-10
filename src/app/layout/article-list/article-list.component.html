@@ -1,11 +1,15 @@
-<div class="article-list" fxLayout="row" fxLayoutAlign="space-between center">
+<div class="article-list background-card-small" fxLayout="row" fxLayoutAlign="space-between center">
     <div fxLayout="column">
-        <p class="mat-caption" >Updated: {{item.updatedAt | momentPipe}}</p>
+        <p class="mat-caption" *ngIf="item.updatedAt" >Updated: {{item.updatedAt | momentPipe}}</p>
+        <p class="mat-caption" *ngIf="!item.updatedAt" >Created: {{item.createdAt | momentPipe}}</p>
         <p class="mat-headline" [routerLink]="['/admin/articles', item.id]">{{item.title}}</p>
     </div>
     <div>
-        <button mat-icon-button color="accent" >
+        <button mat-icon-button color="accent" (click)="editArticle()">
             <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="accent" (click)="delete()">
+            <mat-icon>delete</mat-icon>
         </button>
     </div>
 </div>
