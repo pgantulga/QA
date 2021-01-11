@@ -12,19 +12,19 @@ export class PermissionService {
     this.authService.updateUserInstant(
         {
           roles: {
-            guest: true,
-            subscriber: true,
+            guest: false,
+            subscriber: false,
             member: false,
             moderator: false,
             admin: false
           }
         }
         , uid).then(() => {
-      console.log('User role reset');
     });
   }
   changeRole(role, uid) {
     role.value = !role.value;
+    this.reset(uid);
     this.authService.updateUserInstant(
         {
           roles: {
@@ -46,7 +46,13 @@ export class PermissionService {
       }
     }
   }
-
+  onlyGuest(user: User): boolean {
+    return user.roles.guest
+  }
+  canSee(user: User): boolean {
+    const allowed = ['guest', 'subscriber', 'member', 'moderator', 'admin'];
+    return this.checkAuth(user, allowed);
+  }
   canRead(user: User): boolean {
     const allowed = ['subscriber', 'member', 'moderator', 'admin'];
     return this.checkAuth(user, allowed);

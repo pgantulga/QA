@@ -102,11 +102,11 @@ $QA-typography: mat-typography-config(
         $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
         $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
         $display-1: mat-typography-level(34px, 40px, 400),
-        $headline: mat-typography-level(24px, 32px, 400),
+        $headline: mat-typography-level(24px, 32px, 500),
         $title: mat-typography-level(20px, 32px, 400),
         $subheading-2: mat-typography-level(16px, 28px, 500),
         $subheading-1: mat-typography-level(15px, 24px, 400),
-        $body-2: mat-typography-level(14px, 24px, 400),
+        $body-2: mat-typography-level(14px, 24px, 500),
         $body-1: mat-typography-level(14px, 20px, 400),
         $caption: mat-typography-level(12px, 20px, 400),
         $button: mat-typography-level(14px, 14px, 500),
@@ -118,6 +118,12 @@ $QA-typography: mat-typography-config(
                 font-size: mat-font-size($config, body-1);
                 //font-weight: mat-font-weight($config, body-2);
         }
+}
+@mixin md-icon-size($size: 24px) {
+        font-size: $size;
+        height: $size;
+        width: $size;
+        line-height: $size;
 }
 //@include mat-chips-typography($QA-typography);
 @include mat-base-typography($QA-typography);

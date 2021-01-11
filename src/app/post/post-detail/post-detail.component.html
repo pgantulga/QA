@@ -3,10 +3,10 @@
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
-                <div fxLayout="row" fxLayoutAlign="start center" class="time">
-                    <mat-icon style="opacity: 0.7">visibility</mat-icon>
-                    <p class="mat-caption"> 12</p>
-                </div>
+<!--                <div fxLayout="row" fxLayoutAlign="start center" class="time">-->
+<!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
+<!--                    <p class="mat-caption"> 12</p>-->
+<!--                </div>-->
             </div>
         </div>
     </post-header>
@@ -31,7 +31,15 @@
                             <button mat-icon-button class="background-button" (click)="scroll(answer)">
                                 <mat-icon>reply</mat-icon>
                             </button>
-                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author)"
+                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
+                                    [routerLink]="['/posts', post.id, 'edit']">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
+                                    [routerLink]="['/posts', post.id, 'edit']">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
                                     [routerLink]="['/posts', post.id, 'edit']">
                                 <mat-icon>edit</mat-icon>
                             </button>

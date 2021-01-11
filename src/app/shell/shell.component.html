@@ -33,8 +33,8 @@
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content fxLayout="column" [fxLayoutAlign]="currentLayoutObj.layout3 ? 'center center' : ''">
+        <top-wrapper></top-wrapper>
         <detail-header *ngIf="currentRoute === 'tag-detail'" ></detail-header>
-        <top-banner *ngIf="showTopBanner"></top-banner>
         <div fxLayout="row" [class.layout-one]="currentLayoutObj.layout1" [class.layout-two]="currentLayoutObj.layout2" [class.layout-three]="currentLayoutObj.layout3" [class.layout-four]="currentLayoutObj.layout4">
             <div fxFlex></div>
             <div [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2" class="mat-sidenav-content-container fullWidth" fxLayout="row">

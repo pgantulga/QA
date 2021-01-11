@@ -1,0 +1,25 @@
+@import "../../../styles/custom-theme";
+.top-wrapper-container {
+  position: relative;
+  background-image: linear-gradient(90deg, #ffd54f 0%, #c68400 100%);
+  margin-bottom: 8px;
+    .mat-display-1 {
+      margin: 0 !important;
+    }
+    .mat-headline{
+      margin: 0 !important;
+    }
+  .mat-body-2{
+    margin: 0;
+  }
+    //color: mat-color($my-grey,900);
+  .top-wrapper {
+    height: 80px;
+    //padding: 40px 15px 30px;
+  }
+
+}
+.top-wrapper-container.warning {
+  background-image: linear-gradient(90deg, #ef5350 0%, #ef5350 100%);
+}
+

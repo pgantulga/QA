@@ -1,0 +1,16 @@
+<ng-container *ngIf="showWrapper">
+    <div fxLayout="row" class="top-wrapper-container" [class.warning]="content.name === 'regFinish'">
+        <div fxFlex></div>
+        <div class="container top-wrapper" fxLayout="row" fxLayoutAlign="space-between center" style="position: relative">
+            <div fxLayout="column">
+                <p class="mat-body-2">{{getGreetings()}}</p>
+                <p class="mat-headline">{{content.title}}</p>
+            </div>
+            <button mat-button (click)="action(content.link)">
+                {{content.button}}
+                <mat-icon>{{content.icon}}</mat-icon>
+            </button>
+        </div>
+        <div fxFlex></div>
+    </div>
+</ng-container>

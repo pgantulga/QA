@@ -28,6 +28,7 @@ import {SidebarProfileComponent} from './sidebar-profile/sidebar-profile.compone
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {WarnComponent} from './warn/warn.component';
 import {ArticleListComponent} from './article-list/article-list.component';
+import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
 
 
 @NgModule({
@@ -46,22 +47,24 @@ import {ArticleListComponent} from './article-list/article-list.component';
         UserProfileLargeComponent,
         SidebarProfileComponent,
         WarnComponent,
-        ArticleListComponent
+        ArticleListComponent,
+        TopWrapperComponent
     ],
-  exports: [
-    NavbarComponent,
-    SidebarComponent,
-    SidebarProfileComponent,
-    SidenavComponent,
-    SidePostDirComponent,
-    PostSidenavComponent,
-    DetailHeaderComponent,
-    ProfileHeaderComponent,
-    TopBannerComponent,
-    FooterComponent,
-    UserProfileLargeComponent,
-    ArticleListComponent
-  ],
+    exports: [
+        NavbarComponent,
+        SidebarComponent,
+        SidebarProfileComponent,
+        SidenavComponent,
+        SidePostDirComponent,
+        PostSidenavComponent,
+        DetailHeaderComponent,
+        ProfileHeaderComponent,
+        TopBannerComponent,
+        FooterComponent,
+        UserProfileLargeComponent,
+        ArticleListComponent,
+        TopWrapperComponent
+    ],
     imports: [
         CommonModule,
         RouterModule,

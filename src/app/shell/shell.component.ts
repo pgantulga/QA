@@ -43,16 +43,18 @@ export class ShellComponent implements OnInit{
     ngOnInit(): void {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))
-            .subscribe(e => {
-                // @ts-ignore
+            .subscribe((e: any) => {
+                if (!e.url) {
+                    this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
+                }
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
+                this.routeService.setCurrentRoute(this.currentRoute);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
                 // console.log(JSON.stringify(this.currentLayoutObj))
                 // @ts-ignore
                 this.isSidebar = this.showSidebar(e.url);
                 this.sideMenu = (this.currentRoute === 'admin') ? this.menuService.adminMenu : null;
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
-                this.showTopBanner = this.currentRoute === 'home';
             });
         console.log(this.route.children);
     }

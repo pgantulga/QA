@@ -33,6 +33,11 @@ export class PostService {
     return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc')
         .where('uid', '==', user.uid )).valueChanges();
   }
+  async getUserPostNumber(user) {
+    const posts = await this.getPostByUser(user).toPromise();
+    console.log(posts);
+    return posts.length;
+  }
   getAnswersByUser(user) {
     return this.db.collectionGroup('answers', ref => ref.orderBy('votesNumber', 'desc')
         .where('author.id ', '==', user.uid)).valueChanges();

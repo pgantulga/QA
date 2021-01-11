@@ -61,7 +61,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: inline-block;
   vertical-align: middle;
   color: #ffffff;
-  margin: 2px 12px 0 0;
+  margin: 2px;
 }
 
 
@@ -74,6 +74,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 button.mat-button {
   border-radius: 300px;
+}
+button.mat-button.border-white {
+  border: 2px solid white;
+  //border-radius: 30px;
+  //margin-left: 16px;
 }
 button.mat-raised-button{
   border-radius: 300px;
@@ -97,6 +102,7 @@ button.mat-icon-button.background-button{
 button.mat-icon-button mat-icon{
   opacity: 66%;
 }
+
 
 .mat-button.google-login {
   //border: 1px solid mat-color($QA-primary, 500);

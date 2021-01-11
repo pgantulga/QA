@@ -12,7 +12,6 @@ exports.lastLog = functions.firestore
             lastLog: snap.data()
         });
     });
-
 // to count answers number and last update time in post document
 exports.postUpdate = functions.firestore
     .document('posts/{postId}')
@@ -24,6 +23,8 @@ exports.postUpdate = functions.firestore
 exports.postMeta = functions.firestore
     .document('posts/{postId}')
     .onWrite((change: any, context: any) => {
+        const metaRef = admin.firestore().collection('metas').doc('post');
+        const postRef = admin.firestore().collection('posts');
         // if ( change.after.exists && change.before.exists) {
         //     console.log('update method');
         //     decreaseTagNumber(change.before.data());
@@ -33,15 +34,19 @@ exports.postMeta = functions.firestore
         //     // }
         //     return null;
         // }
-        console.log('create or delete methods');
+
         if (change.before.exists && !change.after.exists ) {
+            console.log('delete method');
             decreaseTagNumber(change.before.data());
+            updateUserPostNumber(change.before.data());
         }
         if (!change.before.exists && change.after.exists) {
+            console.log('create method');
             increaseTagNumber(change.after.data());
+            updateUserPostNumber(change.after.data());
+
         }
-        const metaRef = admin.firestore().collection('metas').doc('post');
-        const postRef = admin.firestore().collection('posts');
+
         return postRef.orderBy('createdAt', 'desc')
             .get()
             .then((snapshot: any) => {
@@ -54,6 +59,18 @@ exports.postMeta = functions.firestore
             });
     });
 
+
+function updateUserPostNumber(post: any): any {
+    const userRef = admin.firestore().collection('users').doc(post.uid);
+    return admin.firestore().collection('posts').where('uid', '==', post.uid)
+        .get()
+        .then((snapshot: any) => {
+            return userRef.update({postNumber : snapshot.size});
+        })
+        .catch(err => {
+            console.log(err);
+        });
+}
 function decreaseTagNumber(post: any) {
     const decreasedBy = admin.firestore.FieldValue.increment(-1);
     const tagsRef = admin.firestore().collection('tags');
@@ -77,3 +94,4 @@ function increaseTagNumber(post: any) {
         });
     }
 }
+

@@ -6,12 +6,13 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class RouteService {
     private routeSource = new BehaviorSubject('default');
-    currentRoute = this.routeSource.asObservable();
+    currentRoute$ = this.routeSource.asObservable();
 
     constructor() {
     }
 
     setCurrentRoute(route) {
+        console.log(route);
         this.routeSource.next(route);
     }
 
@@ -25,8 +26,11 @@ export class RouteService {
         if (url.includes('/tagDetail/')) {
             return 'tag-detail';
         }
-        if (url.includes('/home')) {
+        if (url.includes('/home') || url === '/') {
             return 'home';
+        }
+        if (url.includes('/tags')) {
+            return 'tags';
         }
         if (url.includes('login') || url.includes('register') || url.includes('welcome')) {
             return 'login';
@@ -39,6 +43,9 @@ export class RouteService {
         }
         if (url.includes('/admin')) {
             return 'admin';
+        }
+        if(url.includes('/moderator')) {
+            return 'moderator';
         }
     }
 
