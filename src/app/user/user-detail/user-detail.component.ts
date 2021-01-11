@@ -13,6 +13,7 @@ import {PostService} from '../../services/post.service';
 export class UserDetailComponent implements OnInit {
   user$: Observable<any>;
   filteredPosts$: Observable<any>;
+  scores: any;
   constructor(private userService: UserService, private route: ActivatedRoute, private postService: PostService) { }
 
   ngOnInit(): void {
@@ -20,15 +21,18 @@ export class UserDetailComponent implements OnInit {
         switchMap( params => {
             console.log(params.get('uid'));
             this.userService.setSelectedUser(params.get('uid'));
+            this.scores = this.userService.getUserScores(params.get('uid'));
+
             // this.filteredPosts$ = this.postService.getPostByUser({uid: params.get('uid')})
             return this.userService.getUserDetail(params.get('uid'));
         })
     );
-    this.getPosts();
+    this.getDetails();
   }
-  getPosts() {
+  getDetails() {
       this.user$.subscribe(user => {
           this.filteredPosts$ = this.postService.getPostByUser({uid: user.uid});
+          this.scores = this.userService.getUserScores(user);
       });
   }
   getAnswersByUser() {

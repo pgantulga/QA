@@ -10,10 +10,11 @@ import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.co
 import {HomeModule} from '../home/home.module';
 import {PostModule} from '../post/post.module';
 import {LayoutModule} from "../layout/layout.module";
+import { ScoreCardComponent } from './score-card/score-card.component';
 
 
 @NgModule({
-  declarations: [UsersComponent, UserDetailComponent],
+  declarations: [UsersComponent, UserDetailComponent, ScoreCardComponent],
     imports: [
         CommonModule,
         UserRoutingModule,

@@ -2,15 +2,7 @@
     <mat-toolbar class="header" fxLayout="column" role="heading">
         <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
             <user-profile-large [user]="user"></user-profile-large>
-            <div fxLayout="column">
-                <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
-                    <p class="mat-caption">Бүртгүүлсэн:  {{user.createdAt | momentPipe}}</p>
-<!--                    <div fxLayout="row" fxLayoutAlign="start center" class="scores">-->
-<!--                        <mat-icon color="primary">done</mat-icon>-->
-<!--                        <p class="mat-body-2">{{user.votesReceived}}</p>-->
-<!--                    </div>-->
-                </div>
-            </div>
+<!--            <p class="mat-caption">Бүртгүүлсэн:  {{user.createdAt | momentPipe}}</p>-->
         </mat-toolbar-row>
     </mat-toolbar>
 </ng-container>
