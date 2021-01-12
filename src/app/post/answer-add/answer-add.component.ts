@@ -16,6 +16,7 @@ import {config} from '../../shared/quill-config';
 export class AnswerAddComponent {
   @Input() user: any;
   @Input() post: any;
+  @Input() text: any;
   config: any;
   answerForm: FormGroup;
   constructor(public answerService: AnswerService,
@@ -25,6 +26,13 @@ export class AnswerAddComponent {
               public router: Router
   ) {
     this.config = config;
+    this.answerService.highlightedText$.subscribe( value => {
+      this.answerForm.patchValue(
+          {
+            editor: '<blockquote>' + value + '</blockquote>' + '<br/>' + '<p> </p>'
+          }
+      );
+    });
     this.answerForm = this.formBuilder.group({
       editor: '',
     });
@@ -46,8 +54,9 @@ export class AnswerAddComponent {
       if (result) {
         this.addAnswer()
             .then(() => {
+              this.answerForm.patchValue({editor: null}
+              );
               this.snackBar.openFromComponent(SnackComponent, {
-
                 data: 'Таны хариулт нэмэгдлээ.',
               });
               // return this.router.navigate(['/home']);

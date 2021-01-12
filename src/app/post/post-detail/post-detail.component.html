@@ -20,7 +20,14 @@
                 <vote-button [obj]="post" [type]="'post'"></vote-button>
             </div>
             <div class="view" fxFlex="" fxLayout="column">
-                <div [innerHTML]="post.content"></div>
+                <div [innerHTML]="post.content" [sttSelectedTextTooltip]="selectedTextTooltipTemplate" (sttSelectedText)="selectedText = $event"></div>
+                <ng-template #selectedTextTooltipTemplate >
+                    <div class="selected-text-tooltip-bar" (mousedown)="$event.preventDefault()" style="padding: 0" *ngIf="authService.user$ | async as user">
+                        <button mat-icon-button (click)="scroll(answer)">
+                            <mat-icon>reply</mat-icon>
+                        </button>
+                    </div>
+                </ng-template>
                 <mat-chip-list>
                     <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</mat-chip>
                 </mat-chip-list>
@@ -28,20 +35,19 @@
                     <user-profile [user]="post.author"></user-profile>
                     <div class="metas" fxLayout="row" *ngIf="authService.user$ | async as user">
                         <div class="actions" fxLayout="row" fxLayoutGap="2px">
-                            <button mat-icon-button class="background-button" (click)="scroll(answer)">
+                            <button mat-icon-button class="background-button" *ngIf="permissionService.canRead(user)" (click)="scroll(answer)">
                                 <mat-icon>reply</mat-icon>
                             </button>
                             <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
                                     [routerLink]="['/posts', post.id, 'edit']">
                                 <mat-icon>edit</mat-icon>
                             </button>
-                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
-                                    [routerLink]="['/posts', post.id, 'edit']">
-                                <mat-icon>edit</mat-icon>
+                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canDelete(user)"
+                                    (click)="deletePost(post)">
+                                <mat-icon>delete</mat-icon>
                             </button>
-                            <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
-                                    [routerLink]="['/posts', post.id, 'edit']">
-                                <mat-icon>edit</mat-icon>
+                            <button mat-icon-button class="background-button" *ngIf="permissionService.canDelete(user)" (click)="pinPost(post)">
+                                <mat-icon [class.pinned]="post.pinned">push_pin</mat-icon>
                             </button>
                         </div>
                     </div>
@@ -78,7 +84,7 @@
     <div #answer >
         <div *ngIf="authService.user$ | async as user">
             <div *ngIf="permissionService.canRead(user)">
-                <answer-add [post]="post" [user]="user"></answer-add>
+                <answer-add [post]="post" [user]="user" [text]="this.selectedText"></answer-add>
             </div>
         </div>
     </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {AngularFirestore} from "@angular/fire/firestore";
 import {TagService} from './tag.service';
 import {switchMap} from 'rxjs/operators';
+import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
@@ -78,6 +79,18 @@ export class PostService {
       updatedAt: new Date(),
       tags: tagsArray
     }, {merge: true});
+  }
+  deletePost(postId) {
+    return this.postCollection.doc(postId).delete();
+  }
+  getPinnedPost(): Observable<any> {
+    return this.db.collection('posts', ref => ref.where('pinned', "==", true)).valueChanges();
+  }
+  pinPost(postId) {
+    return this.postCollection.doc(postId).set({pinned: true}, {merge: true});
+  }
+  unpinPost(postId) {
+    return this.postCollection.doc(postId).set({pinned: false}, {merge: true});
   }
   addLog(user, action: string, postId) {
     const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];

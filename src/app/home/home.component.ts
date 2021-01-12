@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {PostService} from '../services/post.service';
 import {AuthService} from '../services/auth.service';
 import {PageEvent} from '@angular/material/paginator';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   firstItem: any;
   lastItem: any;
   postMetas: any;
+  pinnedPosts$: Observable<any>;
   constructor( private postService: PostService, public authService: AuthService) { }
   ngOnInit(): void {
     this.dropDownMenu = [{
@@ -45,6 +47,7 @@ export class HomeComponent implements OnInit {
           this.firstItem = data.docs[0];
           this.lastItem = data.docs[data.docs.length - 1];
         });
+    this.pinnedPosts$ = this.postService.getPinnedPost();
   }
   getItem(ev) {
     this.posts = [];

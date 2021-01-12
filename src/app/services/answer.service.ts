@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {PostService} from './post.service';
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,12 @@ import {PostService} from './post.service';
 export class AnswerService {
   answersRef: AngularFirestoreCollection<any>;
   repliesRef: AngularFirestoreCollection<any>;
+  private highlightedTextSource: Subject<any> = new Subject<any>();
+  highlightedText$ = this.highlightedTextSource.asObservable();
   constructor(private db: AngularFirestore, private postService: PostService) { }
+  setHighlightedText(value) {
+    this.highlightedTextSource.next(value);
+  }
   getAllAnswer(postId, sort) {
     this.answersRef = this.db.collection('posts').doc(postId).collection('answers', ref => ref.orderBy(sort.sort, 'desc'));
     return this.answersRef.valueChanges();

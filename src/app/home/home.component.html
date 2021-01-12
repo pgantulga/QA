@@ -1,3 +1,6 @@
+<div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
+    <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
+</div>
 <div fxLayout="row" fxLayoutAlign="space-between center">
     <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
         {{selectedSort.name}}

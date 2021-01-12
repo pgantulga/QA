@@ -33,6 +33,9 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         this.subscription.subscribe(results => {
             this.showWrapper = wrapperRoutes.includes(results[1]);
             this.content = this.getWrapperContent(results[0]);
+            if (this.content.name === 'regFinish') {
+                this.showWrapper = true;
+            }
         });
         console.log(this.getGreetings());
     }
@@ -44,13 +47,12 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
     close() {
         this.closed = !this.closed;
     }
-
     getWrapperContent(user): any {
         if (!user) {
             return {
               name: 'start',
               title: 'Тавтай морил!',
-              button: 'Эхлээд унших',
+              button: 'Эхлэх',
               icon: 'star',
               link: 'auth/profile-settings'
             };
@@ -67,8 +69,8 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
           return {
             name: 'hi',
             title: user.displayName + ',',
-            button: 'Эхлээд унших',
-            icon: 'star',
+            button: 'Эхлэх',
+            icon: 'forward',
             link: 'auth/profile-settings'
           };
         }

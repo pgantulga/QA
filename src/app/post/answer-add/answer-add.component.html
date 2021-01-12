@@ -2,7 +2,7 @@
 <div class="answer-add background-card">
     <form [formGroup]="answerForm" (ngSubmit)="submit()">
         <div class="form-group">
-            <quill-editor class="answer" formControlName="editor" [modules]="config" [placeholder]="'Хариулт бичих ...'"></quill-editor>
+            <quill-editor class="answer" formControlName="editor" [modules]="config" [placeholder]="'Хариулт бичих ...'" #answer></quill-editor>
         </div>
         <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
 <!--            <button mat-flat-button class="background-button">Цуцлах</button>-->

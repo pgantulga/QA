@@ -5,9 +5,11 @@
   margin: 4px;
   padding: 16px 8px 16px 8px;
   mat-icon {
-    @include md-icon-size(48px);
+    @include md-icon-size(36px);
     margin: 0 0 8px 0;
-    color: mat-color($primary) !important;
+    //color: mat-color($primary) !important;
+    //border-radius: 50px;
+    //border: 1px solid mat-color($primary);
   }
   p {
     margin: 4px 0 4px 0;

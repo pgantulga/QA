@@ -7,6 +7,10 @@ import {AnswerService} from '../../services/answer.service';
 import {Observable} from 'rxjs';
 import {ViewportScroller} from "@angular/common";
 import {PermissionService} from "../../services/permission.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SnackComponent} from "../../shared/components/snack/snack.component";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../shared/dialog/dialog.component";
 const DropdownMenu = [
     {
         name: 'Сүүлд нэмэгдсэн хариултууд',
@@ -29,8 +33,9 @@ export class PostDetailComponent implements OnInit {
     suggestedPosts$: Observable<any>;
     dropDownMenu: any;
     selectedSort: any;
-    constructor(public route: ActivatedRoute, private postService: PostService, public authService: AuthService,
-                public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService) {
+    selectedText: string;
+    constructor(public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
+                public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService, private snack: MatSnackBar, private dialogRef: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -47,6 +52,11 @@ export class PostDetailComponent implements OnInit {
 
     scroll(el: HTMLElement) {
         el.scrollIntoView();
+        if (this.selectedText) {
+            this.answerService.setHighlightedText(this.selectedText);
+        }
+        document.getSelection().removeAllRanges();
+
     }
 
     changeSort(sort) {
@@ -63,6 +73,31 @@ export class PostDetailComponent implements OnInit {
     }
     isPostAuthor(user1, user2): boolean {
         return (user1.uid === user2.uid);
+    }
+    deletePost(post) {
+        return this.dialogRef.open(DialogComponent, {
+            data: {
+                title: 'Устгах үйлдэл',
+                content: 'Та энэ хэлэлцүүлгийг устгахдаа итгэлтэй байна уу?'
+            }
+        }).afterClosed().subscribe( res => {
+            if (res) {
+                return this.postService.deletePost(post.id)
+                    .then(() => {
+                        this.router.navigate(['/home']);
+                        return this.snack.openFromComponent(SnackComponent, {
+                            data: 'Хэлэлцүүлэг устгагдлаа'
+                        });
+                    });
+            }
+        } );
+    }
+    pinPost(post) {
+        if (post.pinned) {
+            return this.postService.unpinPost(post.id);
+        } else {
+            return this.postService.pinPost(post.id);
+        }
     }
 
 

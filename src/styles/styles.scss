@@ -16,11 +16,16 @@ body {
   //position: relative;
 }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-//
-//p .mat-display-1 {
-//  color: red;
-//}
-//typography
+
+blockquote {
+  font-style: italic;
+  border-left: 4px solid mat-color($primary,300);
+  padding: 0 0 0 16px;
+}
+
+a{
+  color: mat-color($primary, 300);
+}
 
 .fa-google {
   background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
@@ -100,7 +105,7 @@ button.mat-icon-button.background-button{
   //background-color: mat-color($QA-primary, 500, 0.1);
 }
 button.mat-icon-button mat-icon{
-  opacity: 66%;
+  //opacity: 66%;
 }
 
 
@@ -218,13 +223,20 @@ quill-editor.answer .ql-editor {
 }
 
 .ql-toolbar .ql-picker {
-  color: #fff !important;
+  //color: #fff !important;
 }
 .ql-toolbar .ql-blockquote {
-  fill: #fff !important;
+  fill: mat-color($primary) !important;
   stroke: none !important;
 
 }
 .ql-editor.ql-blank::before {
   color: rgba(255,255,255,0.6);
+}
+
+.ql-snow .ql-editor blockquote {
+  border-left: 4px solid mat-color($primary, 300);
+  margin-bottom: 5px;
+  margin-top: 5px;
+  padding-left: 16px;
 }

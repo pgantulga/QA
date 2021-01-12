@@ -23,6 +23,7 @@ export class PermissionService {
     });
   }
   changeRole(role, uid) {
+    console.log(role);
     role.value = !role.value;
     this.reset(uid);
     this.authService.updateUserInstant(

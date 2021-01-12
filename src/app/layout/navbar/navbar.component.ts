@@ -8,6 +8,7 @@ import {filter} from 'rxjs/operators';
 import {NavigationEnd, Router} from '@angular/router';
 import {RouteService} from '../../services/route.service';
 import {PermissionService} from "../../services/permission.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +16,10 @@ import {PermissionService} from "../../services/permission.service";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit{
-  // @Input() layout: any;
   layout: any;
   currentRoute: any;
   topMenu: Menu[];
+  routerEvent$: Observable<any>
   constructor( public menu: MenuService,
                public authService: AuthService,
                public permissionService: PermissionService,
@@ -26,9 +27,9 @@ export class NavbarComponent implements OnInit{
                public router: Router,
                public routeService: RouteService) {}
   ngOnInit(): void {
-    this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd))
-        .subscribe(e => {
+    this.routerEvent$ = this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd));
+    this.routerEvent$.subscribe(e => {
           // @ts-ignore
           this.currentRoute = this.routeService.getCurrentRoute(e.url);
           this.layout = this.routeService.currentLayout(this.currentRoute);

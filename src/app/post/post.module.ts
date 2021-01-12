@@ -16,11 +16,14 @@ import { ReplyAddComponent } from './reply-add/reply-add.component';
 import { ReplyListComponent } from './reply-list/reply-list.component';
 import {PostListComponent} from "./post-list/post-list.component";
 import {HomeModule} from '../home/home.module';
+import { NgSelectedTextTooltipModule } from 'ng-selected-text-tooltip';
+
 
 @NgModule({
   declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent, ReplyAddComponent, ReplyListComponent],
   imports: [
     CommonModule,
+    NgSelectedTextTooltipModule,
     PostRoutingModule,
       MdModule,
       FlexLayoutModule,

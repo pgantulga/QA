@@ -12,12 +12,17 @@
                 </button>
             </div>
             <div class="example-spacer"></div>
-            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">
-                <input matInput placeholder="Хайх" label="search">
-                <mat-label>Хайх</mat-label>
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
+
+<!--            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">-->
+<!--                <input matInput placeholder="Хайх" label="search">-->
+<!--                <mat-label>Хайх</mat-label>-->
+<!--                <mat-icon matSuffix>search</mat-icon>-->
+<!--            </mat-form-field>-->
             <div *ngIf="authService.user$ | async as user; else login">
+                <button mat-flat-button color="primary" routerLink="ask" *ngIf="permissionService.canRead(user)">
+                    <mat-icon>edit</mat-icon>
+                    Хэлэлцүүлэг нэмэх
+                </button>
                 <button mat-icon-button class="example-icon " aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>

@@ -16,13 +16,13 @@ export class SidebarComponent implements OnInit {
     this.tags$ = this.tagService.getPopularTags();
     this.isDarkTheme = this.themeService.isDarkTheme;
   }
-  changeTheme() {
-    this.isDarkTheme.subscribe(value => {
-      console.log(value);
-      (value) ? this.themeService.setDarkTheme(true) : this.themeService.setDarkTheme(false);
-    });
-  }
-  toggleDarkTheme(checked: boolean) {
-    this.themeService.setDarkTheme(checked);
-  }
+  // changeTheme() {
+  //   this.isDarkTheme.subscribe(value => {
+  //     console.log(value);
+  //     (value) ? this.themeService.setDarkTheme(true) : this.themeService.setDarkTheme(false);
+  //   });
+  // }
+  // toggleDarkTheme(checked: boolean) {
+  //   this.themeService.setDarkTheme(checked);
+  // }
 }

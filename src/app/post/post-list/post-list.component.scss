@@ -7,6 +7,10 @@
 .post-list p {
   margin: 0;
 }
+.post-list .pin-icon {
+  //@include md-icon-size(16px);
+
+}
 .post-list .author {
   font-weight: bold;
   cursor: pointer;
