@@ -7,10 +7,12 @@
                 <div></div>
                 <div fxLayout="row">
                     <user-profile [user]="item.author"></user-profile>
+                    <button mat-icon-button (click)="deleteReply()" *ngIf="permissionService.canEdit(user) || (item.author.uid == user.uid)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </div>
             </div>
         </ng-container>
     </div>
     <ng-content></ng-content>
-
 </div>

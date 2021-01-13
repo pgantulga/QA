@@ -44,10 +44,17 @@ export class AnswerService {
           console.log('Error occurred: ' + err);
         });
   }
+  deleteAnswer(answer) {
+    return this.db.collection('posts/' + answer.parent.id + '/answers').doc(answer.id).delete();
+  }
   getReplies(answer) {
     console.log(answer);
     return this.db.collection('posts/' + answer.parent.id + '/answers/' + answer.id + '/replies', ref => ref.orderBy('createdAt', 'desc'))
         .valueChanges();
+  }
+  deleteReply(reply) {
+    console.log(this.db.collection('posts/'));
+    // return this.db.collection('posts/' + reply.parentPost.id + '/answers/' + reply.parentAnswer.id + '/replies').doc(reply.id).delete();
   }
   addReply(post, answer, reply, user) {
     this.repliesRef = this.db.collection('posts').doc(post.id)
@@ -72,9 +79,11 @@ export class AnswerService {
       updatedAt: new Date()
     }).then(res => {
       this.postService.addLog(user, 'replied', post.id );
-      return res.update({res: res.id});
+      return res.update({id: res.id});
     }).catch(err => {
       console.log('Error occured:' +  err);
     });
   }
+
+
 }

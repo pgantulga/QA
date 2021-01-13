@@ -1,10 +1,10 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {switchMap} from 'rxjs/internal/operators';
+import {first, switchMap, take} from 'rxjs/internal/operators';
 import {PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
 import {AnswerService} from '../../services/answer.service';
-import {Observable} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {ViewportScroller} from "@angular/common";
 import {PermissionService} from "../../services/permission.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -27,20 +27,19 @@ const DropdownMenu = [
     templateUrl: './post-detail.component.html',
     styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit {
-    post$: any;
+export class PostDetailComponent implements OnInit, OnDestroy {
+    post$: Observable<any>;
     answers$: any;
     suggestedPosts$: Observable<any>;
     dropDownMenu: any;
     selectedSort: any;
     selectedText: string;
+    suggestedPosts: Array<any> = [];
+
     constructor(public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
                 public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService, private snack: MatSnackBar, private dialogRef: MatDialog) {
     }
-
     ngOnInit(): void {
-        this.suggestedPosts$ = this.postService.getFirstItemsSync(4, 'createdAt');
-        // combine observers
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
                 return this.postService.getPost(params.get('id'));
@@ -48,6 +47,12 @@ export class PostDetailComponent implements OnInit {
         this.dropDownMenu = DropdownMenu;
         this.selectedSort = this.dropDownMenu[0];
         this.answers$ = this.getAnswers(this.selectedSort);
+        this.post$.pipe(first()).subscribe(post => {
+            this.getSuggestedPosts(post.tags, post.id);
+        })
+    }
+    ngOnDestroy(): void {
+        this.post$.subscribe();
     }
 
     scroll(el: HTMLElement) {
@@ -97,7 +102,23 @@ export class PostDetailComponent implements OnInit {
             return this.postService.unpinPost(post.id);
         } else {
             return this.postService.pinPost(post.id);
+
         }
+    }
+    getSuggestedPosts(tags: Array<any>, id) {
+        const obs: Array<Observable<any>> = [];
+        for (const tag of tags) {
+            obs.push(this.postService.getPostByTag(tag));
+        }
+        combineLatest(obs).subscribe( results => {
+            for (const item of results) {
+                for(const j of item) {
+                    if (j.id !== id && !this.suggestedPosts.includes(j)) {
+                        this.suggestedPosts = this.suggestedPosts.concat(j);
+                    }
+                }
+            }
+        });
     }
 
 

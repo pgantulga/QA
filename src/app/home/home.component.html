@@ -15,9 +15,9 @@
 </div>
 <div class="post-list_container">
     <div *ngIf="posts.length; else loading">
-        <post-list *ngFor="let item of posts; last as last" [post]="item">
-            <mat-divider *ngIf="!last"></mat-divider>
-        </post-list>
+        <div *ngFor="let item of posts; last as last"  >
+            <post-list [post]="item" *ngIf="!item.pinned"></post-list>
+        </div>
     </div>
     <div *ngIf="this.postMetas | async as meta">
         <mat-paginator [length]="meta.size" [pageSize]="10" (page)="pageEvent = getItem($event)" style="background-color: transparent"></mat-paginator>

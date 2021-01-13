@@ -94,7 +94,7 @@
         </div>
     </ng-template>
 
-    <div *ngIf="suggestedPosts$ | async as suggestedPosts" class="suggested">
+    <div class="suggested">
         <p class="mat-body-2">Санал болгох сэдвүүд</p>
         <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>

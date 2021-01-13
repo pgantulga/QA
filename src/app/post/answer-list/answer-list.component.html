@@ -12,12 +12,18 @@
                         <button mat-icon-button class="background-button" (click)="reply()">
                             <mat-icon>reply</mat-icon>
                         </button>
+<!--                        <button mat-icon-button class="background-button" (click)="edit()">-->
+<!--                            <mat-icon>edit</mat-icon>-->
+<!--                        </button>-->
+                        <button mat-icon-button class="background-button" (click)="delete()" *ngIf="permissionService.canEdit(user) || (answer.author.uid === user.uid) ">
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </div>
                 </div>
                 <div *ngIf="showReply" style="margin: 8px 0 0 0">
                     <reply-add [post]="answer.parent" [answer]="answer" [user]="user"></reply-add>
                 </div>
-                <div fxLayout="row" style="margin-left: -16px" *ngIf="answer.repliesCount">
+                <div fxLayout="row" style="margin-left: -16px" *ngIf="answer.repliesCount">e
                     <button mat-button class="background-button" (click)="showRepliesToggle()">Хариултууд ({{answer.repliesCount}})<mat-icon>{{toggleIcon}}</mat-icon></button>
                 </div>
                 <div *ngIf="showReplies">
