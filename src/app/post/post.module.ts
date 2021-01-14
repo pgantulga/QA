@@ -17,22 +17,24 @@ import { ReplyListComponent } from './reply-list/reply-list.component';
 import {PostListComponent} from "./post-list/post-list.component";
 import {HomeModule} from '../home/home.module';
 import { NgSelectedTextTooltipModule } from 'ng-selected-text-tooltip';
+import {LayoutModule} from '../layout/layout.module';
 
 
 @NgModule({
   declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent, ReplyAddComponent, ReplyListComponent],
-  imports: [
-    CommonModule,
-    NgSelectedTextTooltipModule,
-    PostRoutingModule,
-      MdModule,
-      FlexLayoutModule,
-      SharedModule,
-    ReactiveFormsModule,
-      QuillModule.forRoot(),
-      FormsModule,
-      HomeModule
-  ],
+    imports: [
+        CommonModule,
+        NgSelectedTextTooltipModule,
+        PostRoutingModule,
+        MdModule,
+        FlexLayoutModule,
+        SharedModule,
+        ReactiveFormsModule,
+        QuillModule.forRoot(),
+        FormsModule,
+        HomeModule,
+        LayoutModule
+    ],
   exports: []
 })
 export class PostModule { }

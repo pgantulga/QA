@@ -1,4 +1,4 @@
-import {Component, Input, OnInit,} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
 import {VoteService} from '../../services/vote.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
     templateUrl: './vote-button.component.html',
     styleUrls: ['./vote-button.component.scss']
 })
-export class VoteButtonComponent implements OnInit {
+export class VoteButtonComponent implements OnInit, OnDestroy {
     @Input() obj: any;
     @Input() type: string;
     isVoted: boolean;
@@ -36,6 +36,9 @@ export class VoteButtonComponent implements OnInit {
                 console.log('No user');
             }
         });
+    }
+    ngOnDestroy() {
+        this.isVoted = false;
     }
 
     onClick() {

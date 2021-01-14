@@ -78,7 +78,12 @@ export class PostService {
       content: formData.content,
       updatedAt: new Date(),
       tags: tagsArray
-    }, {merge: true});
+    }, {merge: true}).then(
+        () => {
+          console.log('save log')
+          return this.addLog(user, 'edited', oldValue.id);
+        }
+    )
   }
   deletePost(postId) {
     return this.postCollection.doc(postId).delete();

@@ -20,7 +20,7 @@
                 <vote-button [obj]="post" [type]="'post'"></vote-button>
             </div>
             <div class="view" fxFlex="" fxLayout="column">
-                <div [innerHTML]="post.content" [sttSelectedTextTooltip]="selectedTextTooltipTemplate" (sttSelectedText)="selectedText = $event"></div>
+                <div [innerHTML]="htmlContent" [sttSelectedTextTooltip]="selectedTextTooltipTemplate" (sttSelectedText)="selectedText = $event"></div>
                 <ng-template #selectedTextTooltipTemplate >
                     <div class="selected-text-tooltip-bar" (mousedown)="$event.preventDefault()" style="padding: 0" *ngIf="authService.user$ | async as user">
                         <button mat-icon-button (click)="scroll(answer)">
@@ -56,30 +56,32 @@
         </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="start start">
-        <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
-            {{selectedSort.name}} ({{post.answersCount}})
-            <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
-        </mat-menu>
-    </div>
-    <ng-container *ngIf="authService.user$ | async as user; else loginWarning">
-        <div *ngIf="answers$ | async as answers; else loading" class="answers background-card">
-            <ng-container *ngIf="answers.length; else noItems">
-                <answer-list *ngFor="let item of answers; last as last" [answer]="item">
-                    <mat-divider *ngIf="!last" answer-divider style="margin-top: 12px"></mat-divider>
-                </answer-list>
-            </ng-container>
-            <ng-template #noItems>Хариулт олдсонгүй</ng-template>
-        </div>
-        <ng-template #loading>
-            <div style="padding: 8px 22px">
-                <p class="mat-caption">Ачааллаж байна. </p>
-            </div>
-        </ng-template>
 
+    <ng-container *ngIf="authService.user$ | async as user;">
+        <div *ngIf="permissionService.canRead(user); else loginWarning">
+            <div fxLayout="row" fxLayoutAlign="start start">
+                <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
+                    {{selectedSort.name}} ({{post.answersCount}})
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
+                </mat-menu>
+            </div>
+            <div *ngIf="answers$ | async as answers; else loading" class="answers background-card">
+                <ng-container *ngIf="answers.length; else noItems">
+                    <answer-list *ngFor="let item of answers; last as last" [answer]="item">
+                        <mat-divider *ngIf="!last" answer-divider style="margin-top: 12px"></mat-divider>
+                    </answer-list>
+                </ng-container>
+                <ng-template #noItems>Хариулт олдсонгүй</ng-template>
+            </div>
+            <ng-template #loading>
+                <div style="padding: 8px 22px">
+                    <p class="mat-caption">Ачааллаж байна. </p>
+                </div>
+            </ng-template>
+        </div>
     </ng-container>
     <div #answer >
         <div *ngIf="authService.user$ | async as user">
@@ -89,9 +91,7 @@
         </div>
     </div>
     <ng-template #loginWarning>
-        <div class="">
-            <p style="color: red">Та системд нэвтэрч орсноор үзэх боломжтой.</p>
-        </div>
+        <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'"></warn>
     </ng-template>
 
     <div class="suggested">

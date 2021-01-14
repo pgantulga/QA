@@ -12,14 +12,14 @@
                 <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint>
                 <p class="mat-subheading-2" style="margin-top: 16px">Агуулга</p>
                 <p class="mat-body-1">Include all the information someone would need to answer your question</p>
-                <quill-editor [formControl]="content" [modules]="config" required></quill-editor>
+                <quill-editor [formControl]="content" [modules]="config" [styles]="{height: '300px'}" required></quill-editor>
                 <mat-hint align="end" class="mat-caption">Агуулгын доод урт 300 тэмдэгт</mat-hint>
                 <p class="mat-subheading-2" style="margin-top: 16px">Таг</p>
                 <p class="mat-body-1">Add up to 3 tags to describe what your question is about</p>
                 <tag-select (emittingTags)="getTag($event)" required=""></tag-select>
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
-                <button mat-flat-button>Цуцлах</button>
+                <button mat-flat-button (click)="cancel()" type="button">Цуцлах</button>
                 <ng-container *ngIf="editing else add">
                     <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Сануулах</button>
                 </ng-container>

@@ -5,12 +5,14 @@ import {PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
 import {AnswerService} from '../../services/answer.service';
 import {combineLatest, Observable} from 'rxjs';
-import {ViewportScroller} from "@angular/common";
-import {PermissionService} from "../../services/permission.service";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SnackComponent} from "../../shared/components/snack/snack.component";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from "../../shared/dialog/dialog.component";
+import {ViewportScroller} from '@angular/common';
+import {PermissionService} from '../../services/permission.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {SnackComponent} from '../../shared/components/snack/snack.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogComponent} from '../../shared/dialog/dialog.component';
+import {DomSanitizer} from '@angular/platform-browser';
+
 const DropdownMenu = [
     {
         name: 'Сүүлд нэмэгдсэн хариултууд',
@@ -35,10 +37,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     selectedSort: any;
     selectedText: string;
     suggestedPosts: Array<any> = [];
+    htmlContent: any;
 
-    constructor(public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
-                public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService, private snack: MatSnackBar, private dialogRef: MatDialog) {
+    constructor(
+        public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
+        public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService,
+        private snack: MatSnackBar, private dialogRef: MatDialog, private sanitizer: DomSanitizer) {
     }
+
     ngOnInit(): void {
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
@@ -48,9 +54,11 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         this.selectedSort = this.dropDownMenu[0];
         this.answers$ = this.getAnswers(this.selectedSort);
         this.post$.pipe(first()).subscribe(post => {
+            this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(post.content);
             this.getSuggestedPosts(post.tags, post.id);
-        })
+        });
     }
+
     ngOnDestroy(): void {
         this.post$.subscribe();
     }
@@ -76,16 +84,18 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             })
         );
     }
+
     isPostAuthor(user1, user2): boolean {
         return (user1.uid === user2.uid);
     }
+
     deletePost(post) {
         return this.dialogRef.open(DialogComponent, {
             data: {
                 title: 'Устгах үйлдэл',
                 content: 'Та энэ хэлэлцүүлгийг устгахдаа итгэлтэй байна уу?'
             }
-        }).afterClosed().subscribe( res => {
+        }).afterClosed().subscribe(res => {
             if (res) {
                 return this.postService.deletePost(post.id)
                     .then(() => {
@@ -95,8 +105,9 @@ export class PostDetailComponent implements OnInit, OnDestroy {
                         });
                     });
             }
-        } );
+        });
     }
+
     pinPost(post) {
         if (post.pinned) {
             return this.postService.unpinPost(post.id);
@@ -105,14 +116,15 @@ export class PostDetailComponent implements OnInit, OnDestroy {
 
         }
     }
+
     getSuggestedPosts(tags: Array<any>, id) {
         const obs: Array<Observable<any>> = [];
         for (const tag of tags) {
             obs.push(this.postService.getPostByTag(tag));
         }
-        combineLatest(obs).subscribe( results => {
+        combineLatest(obs).subscribe(results => {
             for (const item of results) {
-                for(const j of item) {
+                for (const j of item) {
                     if (j.id !== id && !this.suggestedPosts.includes(j)) {
                         this.suggestedPosts = this.suggestedPosts.concat(j);
                     }

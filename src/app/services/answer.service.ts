@@ -53,8 +53,8 @@ export class AnswerService {
         .valueChanges();
   }
   deleteReply(reply) {
-    console.log(this.db.collection('posts/'));
-    // return this.db.collection('posts/' + reply.parentPost.id + '/answers/' + reply.parentAnswer.id + '/replies').doc(reply.id).delete();
+    // console.log(this.db.collection('posts/'));
+    return this.db.collection('posts/' + reply.parentPost.id + '/answers/' + reply.parentAnswer.id + '/replies').doc(reply.id).delete();
   }
   addReply(post, answer, reply, user) {
     this.repliesRef = this.db.collection('posts').doc(post.id)

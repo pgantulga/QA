@@ -31,7 +31,10 @@ export class PostListComponent implements OnInit {
     }
   }
   gotoPost(post) {
-    this.router.navigate(['/posts', post.id]);
+    // refreshing component
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/posts', post.id]);
+    });
     this.scrollTop();
     // this.viewportScroller.scrollToPosition([0, 0]);
   }

@@ -50,13 +50,11 @@ export class ShellComponent implements OnInit{
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.routeService.setCurrentRoute(this.currentRoute);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
-                // console.log(JSON.stringify(this.currentLayoutObj))
                 // @ts-ignore
                 this.isSidebar = this.showSidebar(e.url);
                 this.sideMenu = (this.currentRoute === 'admin') ? this.menuService.adminMenu : null;
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
             });
-        console.log(this.route.children);
     }
     getLayoutType(currentRoute) {
         this.currentLayoutObj = this.routeService.getLayout(currentRoute);

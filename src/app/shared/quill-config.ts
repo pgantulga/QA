@@ -1,3 +1,8 @@
+
+import ImageCompress from 'quill-image-compress';
+import * as Quill from 'quill';
+Quill.register('modules/imageCompress', ImageCompress);
+
 export const config = {
     toolbar: [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -13,10 +18,17 @@ export const config = {
         // [{ 'font': [] }],
         [{ 'align': [] }],
         ['clean'],                                         // remove formatting button
-        ['link', 'image']                         // link and image, video
+        ['link', 'image', 'video']                         // link and image, video
     ],
     clipboard: {
         matchVisual: false // https://quilljs.com/docs/modules/clipboard/#matchvisual
+    },
+    imageCompress: {
+        quality: 0.7, // default
+        maxWidth: 1000, // default
+        maxHeight: 1000, // default
+        imageType: 'image/jpeg', // default
+        debug: true, // default
     }
     // placeholder:'asdf ...'
 };

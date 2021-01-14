@@ -63,7 +63,8 @@ import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
         FooterComponent,
         UserProfileLargeComponent,
         ArticleListComponent,
-        TopWrapperComponent
+        TopWrapperComponent,
+        WarnComponent
     ],
     imports: [
         CommonModule,

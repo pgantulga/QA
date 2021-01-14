@@ -12,7 +12,6 @@ export class RouteService {
     }
 
     setCurrentRoute(route) {
-        console.log(route);
         this.routeSource.next(route);
     }
 

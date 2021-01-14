@@ -44,28 +44,23 @@ export class AnswerListComponent {
     reply() {
         this.showReply = !this.showReply;
     }
+    edit() {
 
+    }
     delete() {
-        this.layoutService.deleteConfirmation(
-            {
-                title: 'Хариултыг устгах',
-                content: 'Хариултыг устгахдаа итгэлтэй байна уу?'
-            },
-            'Хариулт устгагдлаа',
-            this.answer, this.deleter );
-        // return this.dialog.open(DialogComponent, {
-        //     data: {
-        //         title: 'Хариулт устгах',
-        //         content: 'Та энэ хариултыг устгахдаа итгэлтэй байнаа уу?'
-        //     }
-        // }).afterClosed().subscribe(res => {
-        //     if (res) {
-        //         return this.answerService.deleteAnswer(this.answer)
-        //             .then(() => {
-        //                 return this.snack.openFromComponent(SnackComponent, {data: 'Хариулт устгагдлаа'});
-        //             });
-        //     }
-        // });
+        return this.dialog.open(DialogComponent, {
+            data: {
+                title: 'Хариулт устгах',
+                content: 'Та энэ хариултыг устгахдаа итгэлтэй байнаа уу?'
+            }
+        }).afterClosed().subscribe(res => {
+            if (res) {
+                return this.answerService.deleteAnswer(this.answer)
+                    .then(() => {
+                        return this.snack.openFromComponent(SnackComponent, {data: 'Хариулт устгагдлаа'});
+                    });
+            }
+        });
     }
 
 

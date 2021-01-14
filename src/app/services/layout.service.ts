@@ -14,14 +14,14 @@ export class LayoutService {
     }
 
     deleteConfirmation(dialogData: any, snackData: string, item, method) {
-      console.log(method(item));
+        console.log(method(item));
         return this.dialog.open(DialogComponent, {data: dialogData})
             .afterClosed().subscribe(res => {
                 if (res) {
-                  return method(item)
-                      .then( () => {
-                        return this.snack.openFromComponent(SnackComponent, {data: snackData});
-                      });
+                    return method(item)
+                        .then(() => {
+                            return this.snack.openFromComponent(SnackComponent, {data: snackData});
+                        });
                 }
             });
     }

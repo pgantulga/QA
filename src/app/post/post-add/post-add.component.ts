@@ -57,7 +57,6 @@ export class PostAddComponent implements OnInit {
             })
         ).subscribe((data: any) => {
             if (data) {
-                console.log(data);
                 this.oldValue = data;
                 this.title.setValue(data.title);
                 this.content.setValue(data.content);
@@ -130,6 +129,20 @@ export class PostAddComponent implements OnInit {
                         })
                         return this.router.navigate(['/home'])
                     });
+            }
+        });
+    }
+    cancel() {
+        this.dialog.open(DialogComponent, {
+            data: {
+                title: 'Цуцлах үйлдэл',
+                content: ' Таны бичсэн агуулга хадгалагдахгүй.',
+            }
+        }).afterClosed().subscribe(result => {
+            if (result) {
+                this.title.setValue(null);
+                this.content.setValue(null);
+                return this.router.navigate(['/home']);
             }
         });
     }
