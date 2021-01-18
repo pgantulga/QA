@@ -23,6 +23,7 @@ const DropdownMenu = [
         sort: 'votesNumber'
     }
 ];
+const LogTypes = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];
 
 @Component({
     selector: 'app-post-detail',
@@ -32,13 +33,13 @@ const DropdownMenu = [
 export class PostDetailComponent implements OnInit, OnDestroy {
     post$: Observable<any>;
     answers$: any;
+    logs$: any;
     suggestedPosts$: Observable<any>;
     dropDownMenu: any;
     selectedSort: any;
     selectedText: string;
     suggestedPosts: Array<any> = [];
     htmlContent: any;
-
     constructor(
         public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
         public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService,
@@ -48,6 +49,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
+                this.logs$ = this.postService.getLogs(params.get('id'))
                 return this.postService.getPost(params.get('id'));
             }));
         this.dropDownMenu = DropdownMenu;
@@ -131,6 +133,9 @@ export class PostDetailComponent implements OnInit, OnDestroy {
                 }
             }
         });
+    }
+    getLogs(post) {
+        return this.postService.getLogs(post);
     }
 
 

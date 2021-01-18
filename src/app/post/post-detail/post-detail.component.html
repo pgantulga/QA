@@ -3,63 +3,79 @@
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
-<!--                <div fxLayout="row" fxLayoutAlign="start center" class="time">-->
-<!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
-<!--                    <p class="mat-caption"> 12</p>-->
-<!--                </div>-->
+                <!--                <div fxLayout="row" fxLayoutAlign="start center" class="time">-->
+                <!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
+                <!--                    <p class="mat-caption"> 12</p>-->
+                <!--                </div>-->
             </div>
         </div>
     </post-header>
-    <ng-container *ngIf="authService.user$ | async as user;">
-        <div fxLayout="row">
-            <div fxLayout="column" class="post-detail background-card" fxFlex="">
-                <!--        <button mat-fab color="primary" aria-label="edit" class="top-fab-button">-->
-                <!--            <mat-icon>share</mat-icon>-->
-                <!--        </button>-->
-                <div fxLayout="row">
-                    <div fxLayout="column" fxLayoutAlign='start center' class="voteArea">
-                        <vote-button [obj]="post" [type]="'post'"></vote-button>
-                    </div>
-                    <div class="view" fxFlex="" fxLayout="column">
-                        <div [innerHTML]="htmlContent" [sttSelectedTextTooltip]="selectedTextTooltipTemplate" (sttSelectedText)="selectedText = $event"></div>
-                        <ng-template #selectedTextTooltipTemplate >
-                            <div class="selected-text-tooltip-bar" (mousedown)="$event.preventDefault()" style="padding: 0" *ngIf="authService.user$ | async as user">
-                                <button mat-icon-button (click)="scroll(answer)">
+    <div fxLayout="row">
+        <div fxLayout="column" class="post-detail background-card" fxFlex="">
+            <!--        <button mat-fab color="primary" aria-label="edit" class="top-fab-button">-->
+            <!--            <mat-icon>share</mat-icon>-->
+            <!--        </button>-->
+            <div fxLayout="row">
+                <div fxLayout="column" fxLayoutAlign='start center' class="voteArea">
+                    <vote-button [obj]="post" [type]="'post'"></vote-button>
+                </div>
+                <div class="view" fxFlex="" fxLayout="column">
+                    <div [innerHTML]="htmlContent" [sttSelectedTextTooltip]="selectedTextTooltipTemplate"
+                         (sttSelectedText)="selectedText = $event"></div>
+                    <ng-template #selectedTextTooltipTemplate>
+                        <div class="selected-text-tooltip-bar" (mousedown)="$event.preventDefault()" style="padding: 0"
+                             *ngIf="authService.user$ | async as user">
+                            <button mat-icon-button (click)="scroll(answer)">
+                                <mat-icon>reply</mat-icon>
+                            </button>
+                        </div>
+                    </ng-template>
+                    <mat-chip-list>
+                        <mat-chip class="tag chip-click" *ngFor="let tag of post.tags"
+                                  [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</mat-chip>
+                    </mat-chip-list>
+                    <div fxLayout="row" fxLayoutAlign="end center">
+                        <user-profile [user]="post.author"></user-profile>
+                        <div class="metas" fxLayout="row" *ngIf="authService.user$ | async as user">
+                            <div class="actions" fxLayout="row" fxLayoutGap="2px">
+                                <button mat-icon-button class="background-button"
+                                        *ngIf="permissionService.canRead(user)" (click)="scroll(answer)">
                                     <mat-icon>reply</mat-icon>
                                 </button>
-                            </div>
-                        </ng-template>
-                        <mat-chip-list>
-                            <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</mat-chip>
-                        </mat-chip-list>
-                        <div fxLayout="row" fxLayoutAlign="end center">
-                            <user-profile [user]="post.author"></user-profile>
-                            <div class="metas" fxLayout="row" *ngIf="authService.user$ | async as user">
-                                <div class="actions" fxLayout="row" fxLayoutGap="2px">
-                                    <button mat-icon-button class="background-button" *ngIf="permissionService.canRead(user)" (click)="scroll(answer)">
-                                        <mat-icon>reply</mat-icon>
-                                    </button>
-                                    <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
-                                            [routerLink]="['/posts', post.id, 'edit']">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                    <button mat-icon-button class="background-button" *ngIf="isPostAuthor(user, post.author) || permissionService.canDelete(user)"
-                                            (click)="deletePost(post)">
-                                        <mat-icon>delete</mat-icon>
-                                    </button>
-                                    <button mat-icon-button class="background-button" *ngIf="permissionService.canDelete(user)" (click)="pinPost(post)">
-                                        <mat-icon [class.pinned]="post.pinned">push_pin</mat-icon>
-                                    </button>
-                                </div>
+                                <button mat-icon-button class="background-button"
+                                        *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
+                                        [routerLink]="['/posts', post.id, 'edit']">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-icon-button class="background-button"
+                                        *ngIf="isPostAuthor(user, post.author) || permissionService.canDelete(user)"
+                                        (click)="deletePost(post)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                                <button mat-icon-button class="background-button"
+                                        *ngIf="permissionService.canDelete(user)" (click)="pinPost(post)">
+                                    <mat-icon [class.pinned]="post.pinned">push_pin</mat-icon>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="post-logs background-card" *ngIf="permissionService.canEdit(user)">
-                <div></div>
-            </div>
         </div>
+        <ng-container *ngIf="authService.user$ | async as user">
+            <div class="post-logs background-card" *ngIf="permissionService.canEdit(user)">
+                <div *ngIf="logs$ | async as logs">
+                    <p class="mat-body-2">Logs</p>
+                    <div *ngFor="let log of logs">
+                        <p class="mat-caption">
+                            {{log.timestamp | momentPipe}} - {{log.user.displayName}} - {{log.type}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ng-container *ngIf="authService.user$ | async as user">
         <div *ngIf="permissionService.canRead(user); else loginWarning">
             <div fxLayout="row" fxLayoutAlign="start start">
                 <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
@@ -85,8 +101,7 @@
             </ng-template>
         </div>
     </ng-container>
-
-    <div #answer >
+    <div #answer>
         <div *ngIf="authService.user$ | async as user">
             <div *ngIf="permissionService.canRead(user)">
                 <answer-add [post]="post" [user]="user" [text]="this.selectedText"></answer-add>
@@ -96,7 +111,6 @@
     <ng-template #loginWarning>
         <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'"></warn>
     </ng-template>
-
     <div class="suggested">
         <p class="mat-body-2">Санал болгох сэдвүүд</p>
         <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">

@@ -6,6 +6,7 @@ import {ColorService} from "../../services/color.service";
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
 import {Router} from '@angular/router';
+import {PermissionService} from '../../services/permission.service';
 
 @Component({
   selector: 'app-welcome',
@@ -26,7 +27,7 @@ export class WelcomeComponent implements OnInit {
   position = new FormControl('', [
     Validators.maxLength(50)
   ]);
-  constructor(public authService: AuthService, public colorService: ColorService, public snackbar: MatSnackBar, public router: Router) { }
+  constructor(public authService: AuthService, public colorService: ColorService, public snackbar: MatSnackBar, public router: Router, private permissionService: PermissionService) { }
 
   ngOnInit(): void {
     this.authService.getUser()
@@ -52,6 +53,7 @@ export class WelcomeComponent implements OnInit {
               color: this.selectedColor
           }, this.user.uid
       ).then(res => {
+          this.permissionService.changeRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
           this.router.navigate(['home']);
           return this.openSnack('Таны мэдээлэл санагдлаа.');
       })

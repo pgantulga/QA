@@ -33,9 +33,9 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         this.subscription.subscribe(results => {
             this.showWrapper = wrapperRoutes.includes(results[1]);
             this.content = this.getWrapperContent(results[0]);
-            if (this.content.name === 'regFinish') {
-                this.showWrapper = true;
-            }
+            // if (this.content.name === 'regFinish') {
+            //     this.showWrapper = true;
+            // }
         });
         console.log(this.getGreetings());
     }
