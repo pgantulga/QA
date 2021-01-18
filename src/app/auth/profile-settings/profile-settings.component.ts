@@ -17,6 +17,7 @@ export class ProfileSettingsComponent implements OnInit {
     color: any;
     avatar: string;
     selectedColor: any;
+    changePasswordButton = false;
     displayName = new FormControl('', [
         Validators.minLength(5)
     ]);
@@ -83,5 +84,13 @@ export class ProfileSettingsComponent implements OnInit {
             return (color.color === this.selectedColor.color);
         }
 
+    }
+    changePassword() {
+        this.changePasswordButton = true;
+        this.authService.passwordReset(this.user.email).then(() => {
+            return this.snackbar.openFromComponent(SnackComponent, {
+                data: 'Имэйл илгээгдлээ'
+            });
+        })
     }
 }

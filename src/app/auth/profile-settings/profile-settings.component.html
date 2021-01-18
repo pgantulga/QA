@@ -28,9 +28,10 @@
                 Батлах
             </button>
         </mat-card-actions>
-
-<!--        change password-->
-        <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="column" fxLayoutAlign="center center" style="margin: 8px 0">
+            <button mat-flat-button (click)="changePassword()" type="button" [disabled]="changePasswordButton">Нууц үг солих</button>
+            <p *ngIf="changePasswordButton">Та имэйл хаягаа шалгана уу</p>
         </div>
+
     </form>
 </div>

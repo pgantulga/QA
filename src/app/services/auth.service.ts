@@ -108,6 +108,16 @@ export class AuthService {
             });
     }
 
+    passwordReset(email) {
+        return this.af.sendPasswordResetEmail(email)
+            .then(() => {
+                console.log('email sent');
+            }).catch(err => {
+                console.log(err);
+            });
+
+    }
+
     signIn(userData) {
         return this.af.signInWithEmailAndPassword(userData.email, userData.password);
     }
