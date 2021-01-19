@@ -49,7 +49,6 @@ export class TagsComponent implements OnInit {
         .subscribe(result => {
           if ( result ) {
             this.tagService.createTag(result, this.currentUser);
-            console.log(result);
           }
         });
   }

@@ -17,6 +17,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   exports: [
     CommonModule,
@@ -34,7 +36,7 @@ import {MatTableModule} from '@angular/material/table';
     MatSidenavModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule, MatTableModule
+    MatProgressSpinnerModule, MatTableModule, MatCheckboxModule
   ],
   providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}},
               {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'never'}}, MatSidenav]
