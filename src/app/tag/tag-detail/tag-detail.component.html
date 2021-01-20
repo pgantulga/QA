@@ -1,9 +1,4 @@
 <div *ngIf="filteredPosts$ | async as posts; else loading" style="position: relative">
-<!--    <ng-container *ngIf="tagDetail$ | async as tagDetail">-->
-<!--        <button mat-fab style="position:absolute; top: -44px; right: 0" (click)="openDialog(tagDetail)">-->
-<!--            <mat-icon>edit</mat-icon>-->
-<!--        </button>-->
-<!--    </ng-container>-->
     <div *ngIf="posts.length else empty">
         <post-list *ngFor="let item of posts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>

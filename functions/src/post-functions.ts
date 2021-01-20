@@ -35,7 +35,7 @@ exports.postMeta = functions.firestore
         //     return null;
         // }
 
-        if (change.before.exists && !change.after.exists ) {
+        if (change.before.exists && !change.after.exists) {
             console.log('delete method');
             decreaseTagNumber(change.before.data());
             updateUserPostNumber(change.before.data());
@@ -44,6 +44,7 @@ exports.postMeta = functions.firestore
             console.log('create method');
             increaseTagNumber(change.after.data());
             updateUserPostNumber(change.after.data());
+            getTagFollowers(change.after.data());
 
         }
 
@@ -65,17 +66,18 @@ function updateUserPostNumber(post: any): any {
     return admin.firestore().collection('posts').where('uid', '==', post.uid)
         .get()
         .then((snapshot: any) => {
-            return userRef.update({postNumber : snapshot.size});
+            return userRef.update({postNumber: snapshot.size});
         })
         .catch(err => {
             console.log(err);
         });
 }
+
 function decreaseTagNumber(post: any) {
     const decreasedBy = admin.firestore.FieldValue.increment(-1);
     const tagsRef = admin.firestore().collection('tags');
     if (post.tags.length) {
-        post.tags.forEach( (tag: any) => {
+        post.tags.forEach((tag: any) => {
             tagsRef.doc(tag.id).update({
                 totalUsed: decreasedBy
             });
@@ -95,3 +97,22 @@ function increaseTagNumber(post: any) {
     }
 }
 
+function getTagFollowers(post: any) {
+    const followers: any[] = [];
+    if (post.tags.length) {
+        for (const tag of post.tags) {
+            followers.concat(get(tag));
+        }
+    }
+    return followers;
+}
+
+async function get(tag: any) {
+    const tagsRef = admin.firestore().collection('tags');
+    const tagFollowers: any [] = [];
+    const followers = await tagsRef.doc(tag.id).collection('followers').get();
+    for (const follower of followers.docs) {
+        tagFollowers.push(follower.data());
+    }
+    return tagFollowers;
+}

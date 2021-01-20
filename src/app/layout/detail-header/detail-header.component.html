@@ -5,16 +5,22 @@
             <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
                 <div fxLayout="column">
                     <p class="mat-display-1">{{detail.name}}</p>
-                    <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
-                        <p class="mat-caption">Хэрэглэгдсэн ({{detail.totalUsed}})</p>
-                        <button mat-icon-button class="background-button" style="margin-left: 16px">
-                            <mat-icon>notifications</mat-icon>
-                        </button>
-                    </div>
+                    <ng-container *ngIf="authService.user$ | async as user">
+                        <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
+                            <p class="mat-caption">Хэрэглэгдсэн ({{detail.totalUsed}})</p>
+                            <button mat-icon-button style="margin-left: 16px" [class.followed]="user.tags[detail.id]" (click)="toggleFollow(user, detail)">
+                                <mat-icon>notifications</mat-icon>
+                            </button>
+                            <button mat-icon-button style="margin-left: 4px" (click)="edit(detail)" *ngIf="permissionService.canEdit(user)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                        </div>
+                    </ng-container>
                 </div>
             </mat-toolbar-row>
         </mat-toolbar>
         <div class="background-card">
+            {{detail.description}}
         </div>
     </div>
     <div fxFlex></div>

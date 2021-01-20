@@ -24,6 +24,7 @@ exports.tagChanged = functions.firestore
                 console.log('error gettind doc: ', err);
             });
     });
+
 // to count how many times that tag used, need to change tag/used doc every time when post created/deleted
 function updatePostTagArray( postValue: any, newValue: any) {
     const array = [];
@@ -42,6 +43,12 @@ function updatePostTagArray( postValue: any, newValue: any) {
     }
     return array;
 }
+//
+// function getAllTags() {
+//     const tags = admin.firestore().collection('tags');
+//     tags.get()
+//
+// }
 
 
 // function checkTagUpdate(oldPost: any, newPost: any) {

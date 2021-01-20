@@ -30,21 +30,4 @@ export class TagDetailComponent implements OnInit {
         })
     );
   }
-  openDialog(oldData) {
-      const dialogRef = this.dialog.open(TagUpdateComponent, {
-          width: '500px',
-          data: {
-              name: oldData.name,
-              description: oldData.description
-          }
-      });
-      dialogRef.afterClosed()
-          .subscribe(result => {
-              if ( result ) {
-                  this.tagService.updateTag(result, oldData)
-                      .then(() => {
-                          console.log('tag Updated');
-                      });
-              }
-          });  }
 }

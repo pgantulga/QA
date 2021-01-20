@@ -73,8 +73,27 @@ export class TagService {
             updatedAt: new Date(),
         }, {merge: true});
     }
+    followTag(user, tag) {
+        return this.tagsCollection.doc(tag.id).collection('followers').add({uid: user.uid});
+    }
+    unfollowTag(user, tag) {
+        return this.findFollower(user, tag)
+            .subscribe(followers => {
+                if (followers.size > 0) {
+                   followers.forEach( item => {
+                       return this.tagsCollection.doc(tag.id).collection('followers').doc(item.id).delete();
+                   });
+               }
+            });
+    }
+    getFollowers(tag) {
+        return this.tagsCollection.doc(tag.id).collection('followers').valueChanges();
+    }
+    private findFollower(user, tag) {
+        return this.tagsCollection.doc(tag.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
+    }
 
-    allUsersFollow(tagId) {
+    private allUsersFollow(tagId) {
         const tags = {};
         tags[tagId] = true;
         const users = this.db.collection('users');
@@ -84,7 +103,7 @@ export class TagService {
               snapshot.docs.map(a => {
                 const data = a.data();
                 const id = a.id;
-                items.push({ id, ...data })
+                items.push({ id, ...data });
               })
               return items;
             })
@@ -94,7 +113,7 @@ export class TagService {
                 { tags: {
                   [tagId]: true
                   }}, user.uid);
-          })
+          });
         });
 
 

@@ -59,7 +59,8 @@ export class PostService {
       answersCount: 0,
       totalVotes: 0,
       viewCount: 0,
-      tags: tagsArray
+      tags: tagsArray,
+      followers: this.getTagFollowers(tagsArray)
     }).then((res) => {
       return this.addLog(user, 'created', res.id).then(d => {
             return res.update({
@@ -72,6 +73,7 @@ export class PostService {
           console.log('something happened' + error);
         });
   }
+
   savePost(formData, user, tagsArray, oldValue) {
     return this.postCollection.doc(oldValue.id).set({
       title: formData.title,
@@ -89,7 +91,7 @@ export class PostService {
     return this.postCollection.doc(postId).delete();
   }
   getPinnedPost(): Observable<any> {
-    return this.db.collection('posts', ref => ref.where('pinned', "==", true)).valueChanges();
+    return this.db.collection('posts', ref => ref.where('pinned', '==', true)).valueChanges();
   }
   pinPost(postId) {
     return this.postCollection.doc(postId).set({pinned: true}, {merge: true});

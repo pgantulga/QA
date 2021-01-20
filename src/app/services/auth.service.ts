@@ -7,6 +7,7 @@ import {AngularFirestore} from "@angular/fire/firestore";
 import * as firebase from 'firebase';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackComponent} from '../shared/components/snack/snack.component';
+import {TagService} from "./tag.service";
 
 export interface User {
     firstName: string;
@@ -16,6 +17,7 @@ export interface User {
     displayName: string;
     roles: Roles;
     uid: string;
+    tags: any
 }
 
 export interface Roles {

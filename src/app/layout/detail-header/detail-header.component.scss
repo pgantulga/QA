@@ -7,6 +7,12 @@
       margin-bottom: 16px;
     }
   }
+  button.followed {
+    background-color: mat-color($primary, 200 ,0.1);
+    mat-icon {
+      color: mat-color($primary);
+    }
+  }
 }
 .header {
   //position: relative;
