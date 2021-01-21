@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, EventEmitter, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -21,12 +21,16 @@ export class TagSelectComponent {
   filteredTags: Observable<string[]>;
   tags: any[] = [];
   allTags: any;
-  @Output()   emittingTags = new EventEmitter();
+  @Output()  emittingTags = new EventEmitter();
+  @Input() inputTags: any[];
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   constructor(public tagService: TagService) {
     this.tagService.getAllTags().subscribe(items => {
       this.allTags = items;
+      if (this.inputTags.length) {
+        this.tags = this.tags.concat(this.inputTags);
+      }
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
           map((tag) => tag ? this._filter(tag) : this.allTags.slice()));
     });

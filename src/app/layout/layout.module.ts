@@ -25,7 +25,7 @@ import {FooterComponent} from './footer/footer.component';
 import {ProfileHeaderComponent} from './profile-header/profile-header.component';
 import {UserProfileLargeComponent} from './user-profile-large/user-profile-large.component';
 import {SidebarProfileComponent} from './sidebar-profile/sidebar-profile.component';
-import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {WarnComponent} from './warn/warn.component';
 import {ArticleListComponent} from './article-list/article-list.component';
 import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';

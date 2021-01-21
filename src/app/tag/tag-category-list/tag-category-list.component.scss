@@ -1,0 +1,19 @@
+@import "./src/styles/custom-theme";
+
+.color-card {
+    position: relative;
+    margin: 8px 8px 0 0;
+    background-color: mat-color($my-grey, 800);
+    border-radius: 16px;
+    padding: 12px;
+    width: 260px;
+    height: 200px;
+    .mat-icon-button {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+    p {
+        color: mat-color($my-grey,900) !important;
+    }
+}

@@ -29,7 +29,7 @@ const routes: Routes = [
         component: AdminUserComponent,
       },
       {
-        path: 'tags',
+        path: 'tagCategories',
         component: AdminTagComponent
       },
       {

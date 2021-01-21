@@ -89,6 +89,32 @@ export class TagService {
     getFollowers(tag) {
         return this.tagsCollection.doc(tag.id).collection('followers').valueChanges();
     }
+    createTagCategory(data) {
+        return this.db.collection('tagCategories').add({
+            name: data.name,
+            description: data.description,
+            image: '',
+            tags: data.tags,
+            color: data.color
+        })
+            .then(res => {
+                res.update( {
+                    id: res.id
+                });
+            });
+    }
+    updateTagCategory(formData, oldData) {
+        return this.db.collection('tagCategories').doc(oldData.id)
+            .set( {
+                name: formData.name,
+                description: formData.description,
+                tags: formData.tags,
+                color: formData.color
+            }, {merge : true});
+    }
+    getAllTagCategories() {
+        return this.db.collection('tagCategories').valueChanges();
+    }
     private findFollower(user, tag) {
         return this.tagsCollection.doc(tag.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
     }

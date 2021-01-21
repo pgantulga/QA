@@ -1,1 +1,6 @@
-<p>admin-tag works!</p>
+<button mat-flat-button class="mat-accent" (click)="openDialog()">
+    Add category
+</button>
+<div class="category-list-container" *ngIf="allCategories$ | async as allCategories" fxLayout="row wrap">
+    <tag-category-list *ngFor="let item of allCategories" [item]="item" [color]="item.color"></tag-category-list>
+</div>

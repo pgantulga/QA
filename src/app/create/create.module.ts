@@ -11,16 +11,19 @@ import {TagSelectComponent} from '../tag/tag-select/tag-select.component';
 
 
 @NgModule({
-  declarations: [PostAddComponent, TagSelectComponent],
-  imports: [
-    CommonModule,
-    CreateRoutingModule,
-    MdModule,
-    FlexLayoutModule,
-    SharedModule,
-    FormsModule,
-    ReactiveFormsModule,
-    QuillModule.forRoot()
-  ]
+    declarations: [PostAddComponent, TagSelectComponent],
+    exports: [
+        TagSelectComponent
+    ],
+    imports: [
+        CommonModule,
+        CreateRoutingModule,
+        MdModule,
+        FlexLayoutModule,
+        SharedModule,
+        FormsModule,
+        ReactiveFormsModule,
+        QuillModule.forRoot()
+    ]
 })
 export class CreateModule { }

@@ -15,7 +15,7 @@ const AdminMenu = [
         name: 'Хэрэглэгчид'
     },
     {
-        link: 'tags',
+        link: 'tagCategories',
         name: 'Tags'
     }
 ];

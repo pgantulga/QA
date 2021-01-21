@@ -16,7 +16,13 @@
                 <mat-hint align="end" class="mat-caption">Агуулгын доод урт 300 тэмдэгт</mat-hint>
                 <p class="mat-subheading-2" style="margin-top: 16px">Таг</p>
                 <p class="mat-body-1">Add up to 3 tags to describe what your question is about</p>
-                <tag-select (emittingTags)="getTag($event)" required=""></tag-select>
+                <ng-container *ngIf="this.oldValue else new">
+                    <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="this.oldValue.tags"></tag-select>
+                </ng-container>
+                <ng-template #new>
+                    <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="[]"></tag-select>
+                </ng-template>
+
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
                 <button mat-flat-button (click)="cancel()" type="button">Цуцлах</button>

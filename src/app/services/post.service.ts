@@ -60,7 +60,7 @@ export class PostService {
       totalVotes: 0,
       viewCount: 0,
       tags: tagsArray,
-      followers: this.getTagFollowers(tagsArray)
+      // followers: this.getTagFollowers(tagsArray)
     }).then((res) => {
       return this.addLog(user, 'created', res.id).then(d => {
             return res.update({

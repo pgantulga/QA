@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map, shareReplay} from 'rxjs/operators';
@@ -9,6 +9,7 @@ import {map, shareReplay} from 'rxjs/operators';
   styleUrls: ['./sidenav.component.css']
 })
 export class SidenavComponent implements OnInit {
+  @Input() currentRoute: any
   isHandset$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])
       .pipe(
           map( result => result.matches),

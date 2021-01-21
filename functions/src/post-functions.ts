@@ -25,16 +25,6 @@ exports.postMeta = functions.firestore
     .onWrite((change: any, context: any) => {
         const metaRef = admin.firestore().collection('metas').doc('post');
         const postRef = admin.firestore().collection('posts');
-        // if ( change.after.exists && change.before.exists) {
-        //     console.log('update method');
-        //     decreaseTagNumber(change.before.data());
-        //     increaseTagNumber(change.after.data());
-        //     // if (checkTagUpdate(change.before.data(), change.after.data())) {
-        //     //
-        //     // }
-        //     return null;
-        // }
-
         if (change.before.exists && !change.after.exists) {
             console.log('delete method');
             decreaseTagNumber(change.before.data());

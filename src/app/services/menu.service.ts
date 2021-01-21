@@ -35,7 +35,7 @@ export class MenuService {
     },
     {
       name: 'Tags',
-      link: '/admin/tags'
+      link: '/admin/tagCategories'
     },
     {
       name: 'Logs',

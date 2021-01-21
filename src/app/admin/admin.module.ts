@@ -14,9 +14,12 @@ import { ArticleViewComponent } from './article-view/article-view.component';
 import { ArticleAddComponent } from './article-add/article-add.component';
 import {QuillModule} from "ngx-quill";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { AdminCategoryAddComponent } from './admin-category-add/admin-category-add.component';
+import {CreateModule} from '../create/create.module';
+import {TagModule} from '../tag/tag.module';
 
 @NgModule({
-    declarations: [AdminComponent, AdminPostComponent, AdminUserComponent, AdminTagComponent, AdminArticlesComponent, ArticleViewComponent, ArticleAddComponent],
+    declarations: [AdminComponent, AdminPostComponent, AdminUserComponent, AdminTagComponent, AdminArticlesComponent, ArticleViewComponent, ArticleAddComponent, AdminCategoryAddComponent],
     imports: [
         CommonModule,
         AdminRoutingModule,
@@ -25,7 +28,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
         LayoutModule,
         QuillModule.forRoot(),
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        TagModule,
+        CreateModule
     ]
 })
 export class AdminModule {
