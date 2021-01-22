@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Sanitizer} from '@angular/core';
 import {ColorService} from '../../services/color.service';
 import {AdminCategoryAddComponent} from '../../admin/admin-category-add/admin-category-add.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
 import {MatDialog} from '@angular/material/dialog';
 import {TagService} from '../../services/tag.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {DomSanitizer} from '@angular/platform-browser';
+import {url} from 'inspector';
 
 @Component({
     selector: 'tag-category-list',
@@ -14,13 +16,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class TagCategoryListComponent implements OnInit {
     @Input() item: any;
     @Input() color: any;
+    image: any;
+    style: any;
 
-    constructor(private colorService: ColorService, private dialog: MatDialog, private tagService: TagService, private snack: MatSnackBar) {
+    constructor(private colorService: ColorService, private dialog: MatDialog, private tagService: TagService, private snack: MatSnackBar, private sanitization: DomSanitizer) {
+        if (this.item) {
+            console.log(typeof this.item.image);
+            // {'background-image': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(0,0, 0, 0.73)),url(' + this.item.image + ')'}
+            this.style = this.sanitization.bypassSecurityTrustStyle(`linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(0,0, 0, 0.73)),url(${this.item.image})`);
+        }
     }
+
 
     ngOnInit(): void {
 
     }
+
     edit() {
         return this.dialog.open(AdminCategoryAddComponent, {
             width: '500px',
@@ -29,7 +40,7 @@ export class TagCategoryListComponent implements OnInit {
                 description: this.item.description,
                 tags: this.item.tags
             },
-        }).afterClosed().subscribe( res => {
+        }).afterClosed().subscribe(res => {
             if (res) {
                 this.tagService.updateTagCategory(res, this.item)
                     .then(() => {

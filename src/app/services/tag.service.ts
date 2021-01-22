@@ -93,7 +93,7 @@ export class TagService {
         return this.db.collection('tagCategories').add({
             name: data.name,
             description: data.description,
-            image: '',
+            image: data.image,
             tags: data.tags,
             color: data.color
         })
@@ -109,7 +109,8 @@ export class TagService {
                 name: formData.name,
                 description: formData.description,
                 tags: formData.tags,
-                color: formData.color
+                color: formData.color,
+                image: formData.image
             }, {merge : true});
     }
     getAllTagCategories() {

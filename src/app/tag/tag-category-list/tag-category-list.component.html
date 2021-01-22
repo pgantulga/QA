@@ -1,4 +1,5 @@
-<div fxLayout="column" class="category-list color-card" [ngStyle]="{'background-color': color}">
+<div fxLayout="column" class="category-list color-card"     [ngStyle]="{'background-image': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0,0, 0, 0.73)),url('+ item.image+')'}">
+<!--    linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(0,0, 0, 0.73)),-->
     <button mat-icon-button (click)="edit()">
         <mat-icon>edit</mat-icon>
     </button>

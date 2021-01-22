@@ -9,6 +9,19 @@
         <textarea matInput [(ngModel)]="data.description"  maxlength="256" #description style="height: 100px !important;"></textarea>
         <mat-hint align="end">{{description.value.length}} /200</mat-hint>
     </mat-form-field>
+    <div style="padding: 8px 0">
+        <p>Background image</p>
+        <input type="file" (change)="onFileSelected($event.target.files)" id="file">
+        <button mat-button (click)="upload()">Upload</button>
+        <div *ngIf="snapshot | async as snap">
+            {{snap.bytesTransferred}} of {{snap.totalBytes}}
+        </div>
+        <div *ngIf="percentage | async as pct">
+            <progress [value]="pct" max="100"></progress>
+            {{pct | number}} %
+        </div>
+    </div>
+
     <mat-form-field appearance="fill">
         <mat-label>Color of card</mat-label>
         <mat-select [(ngModel)]="data.color" name="color">
@@ -17,8 +30,12 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
-    <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="data.tags"></tag-select>
+    <ng-container *ngIf="data.tags else newTag">
+        <tag-select (emittingTags)="getTag($event)" [inputTags]="data.tags"></tag-select>
+    </ng-container>
+    <ng-template #newTag>
+        <tag-select (emittingTags)="getTag($event)"></tag-select>
+    </ng-template>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Cancel</button>

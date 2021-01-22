@@ -28,7 +28,7 @@ export class TagSelectComponent {
   constructor(public tagService: TagService) {
     this.tagService.getAllTags().subscribe(items => {
       this.allTags = items;
-      if (this.inputTags.length) {
+      if (this.inputTags) {
         this.tags = this.tags.concat(this.inputTags);
       }
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
