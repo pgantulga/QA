@@ -62,6 +62,6 @@ export class ShellComponent implements OnInit{
     showSidebar(url): boolean {
         return url.includes('posts') || url.includes('login') || url.includes('register')
             || url.includes('posts') || url.includes('welcome') || url.includes('users')
-            || url.includes('admin') || url.includes('profile-settings') || url.includes('moderator');
+            || url.includes('admin') || url.includes('profile-settings') || url.includes('moderator') || url.includes('select-category');
     }
 }

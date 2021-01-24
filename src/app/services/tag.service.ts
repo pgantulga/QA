@@ -56,7 +56,7 @@ export class TagService {
             totalUsed: 0,
         }).then(res => {
             if (formData.allUserFollowed) {
-              this.allUsersFollow(res.id)
+              // this.allUsersFollow(res.id)
             }
             return res.update({
                     id: res.id
@@ -104,45 +104,66 @@ export class TagService {
             });
     }
     updateTagCategory(formData, oldData) {
+        console.log(formData.tags);
         return this.db.collection('tagCategories').doc(oldData.id)
             .set( {
+                id: oldData.id,
                 name: formData.name,
                 description: formData.description,
                 tags: formData.tags,
-                color: formData.color,
-                image: formData.image
-            }, {merge : true});
+                color: (formData.color) ? formData.color : oldData.color,
+                image: (formData.image) ? formData.image : oldData.image
+            },{merge: true});
     }
     getAllTagCategories() {
         return this.db.collection('tagCategories').valueChanges();
+    }
+    followCategoryTags(categories, user) {
+        //1. Add user.tags -> tag.id = true,
+        //2. Tags.follower + = user.uid = true
+
+        const obj = {};
+        const tagsArray = [];
+        for (const item of categories) {
+            for ( const tag of item.tags) {
+                obj[tag.id] = true;
+                if (!tagsArray.includes(tag.id)) {
+                    tagsArray.push(tag.id);
+                }
+            }
+        }
+        return this.authService.updateUserInstant(
+            {tags: obj}, user.uid
+        )
+            .then()
     }
     private findFollower(user, tag) {
         return this.tagsCollection.doc(tag.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
     }
 
-    private allUsersFollow(tagId) {
-        const tags = {};
-        tags[tagId] = true;
-        const users = this.db.collection('users');
-        users.get().pipe(
-            map(snapshot => {
-              const items = [];
-              snapshot.docs.map(a => {
-                const data = a.data();
-                const id = a.id;
-                items.push({ id, ...data });
-              })
-              return items;
-            })
-        ).subscribe(items => {
-          items.forEach(user => {
-            this.authService.updateUserInstant(
-                { tags: {
-                  [tagId]: true
-                  }}, user.uid);
-          });
-        });
-
-
-    }
+    // private allUsersFollow(tagId) {
+    //     const tags = {};
+    //     tags[tagId] = true;
+    //     const users = this.db.collection('users');
+    //     users.get().pipe(
+    //         map(snapshot => {
+    //           const items = [];
+    //           snapshot.docs.map(a => {
+    //             const data = a.data();
+    //             const id = a.id;
+    //             items.push({ id, ...data });
+    //           });
+    //           return items;
+    //         })
+    //     ).subscribe(items => {
+    //       items.forEach(user => {
+    //         this.authService.updateUserInstant(
+    //             { tags: {
+    //               [tagId]: true
+    //               }}, user.uid);
+    //       });
+    //     });
+    //
+    //
+    // }
 }

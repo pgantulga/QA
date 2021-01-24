@@ -54,7 +54,7 @@ export class WelcomeComponent implements OnInit {
           }, this.user.uid
       ).then(res => {
           this.permissionService.changeRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
-          this.router.navigate(['home']);
+          this.router.navigate(['auth/select-category']);
           return this.openSnack('Таны мэдээлэл санагдлаа.');
       })
           .catch(err => {

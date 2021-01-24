@@ -21,7 +21,7 @@ exports.voteDeleted = votesFunctions.voteDeleted;
 const tagFunctions = require('./tags-functions');
 exports.tagChanged = tagFunctions.tagChanged;
 
-const userFunctions = require('./user-functions');
-exports.userCreated = userFunctions.userCreated;
+// const userFunctions = require('./user-functions');
+// exports.userCreated = userFunctions.userCreated;
 
 

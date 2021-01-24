@@ -33,9 +33,7 @@ export class AdminCategoryAddComponent {
     this.dialogRef.close();
   }
   getTag(tag) {
-    if (!this.data.tags) {
-      this.data.tags = [];
-    }
+    this.data.tags = [];
     tag.forEach(item => {
       this.data.tags.push(item);
     });

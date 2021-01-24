@@ -4,6 +4,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {WelcomeComponent} from "./welcome/welcome.component";
 import {ProfileSettingsComponent} from "./profile-settings/profile-settings.component";
+import {SelectCategoryComponent} from "./select-category/select-category.component";
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'welcome',
     component: WelcomeComponent
+  },
+  {
+    path: 'select-category',
+    component: SelectCategoryComponent
   },
   {
     path: 'profile-settings',

@@ -10,18 +10,21 @@ import {RegisterComponent} from "./register/register.component";
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
 import {LayoutModule} from "../layout/layout.module";
+import { SelectCategoryComponent } from './select-category/select-category.component';
+import {TagModule} from "../tag/tag.module";
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    MdModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    FormsModule,
-    LayoutModule
-  ]
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        MdModule,
+        FlexLayoutModule,
+        ReactiveFormsModule,
+        FormsModule,
+        LayoutModule,
+        TagModule
+    ]
 })
 export class AuthModule { }

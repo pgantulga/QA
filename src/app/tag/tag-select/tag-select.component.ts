@@ -5,7 +5,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import {TagService} from '../../services/tag.service';
+import {Tag, TagService} from '../../services/tag.service';
 
 
 @Component({
@@ -18,10 +18,10 @@ export class TagSelectComponent {
   removable = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagCtrl = new FormControl();
-  filteredTags: Observable<string[]>;
+  filteredTags: Observable<any[]>;
   tags: any[] = [];
   allTags: any;
-  @Output()  emittingTags = new EventEmitter();
+  @Output() emittingTags = new EventEmitter();
   @Input() inputTags: any[];
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -32,12 +32,11 @@ export class TagSelectComponent {
         this.tags = this.tags.concat(this.inputTags);
       }
       this.filteredTags = this.tagCtrl.valueChanges.pipe(
-          map((tag) => tag ? this._filter(tag) : this.allTags.slice()));
+          map((tag: Tag) => tag ? this._filter(tag) : this.allTags.slice()));
     });
   }
 
   add(event: MatChipInputEvent): void {
-    console.log(event);
     const input = event.input;
     const value = event.value;
     if ((value || '').trim()) {
@@ -54,15 +53,15 @@ export class TagSelectComponent {
     if (index >= 0) {
       this.tags.splice(index, 1);
     }
+    this.emittingTags.emit(this.tags);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
-    console.log(event);
-    this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.tagCtrl.setValue(null);
-    this.emittingTags.emit(event.option.viewValue);
-  }
+  // selected(event: MatAutocompleteSelectedEvent): void {
+  //   this.tags.push(event.option.viewValue);
+  //   this.tagInput.nativeElement.value = '';
+  //   this.tagCtrl.setValue(null);
+  //   this.emittingTags.emit(event.option.viewValue);
+  // }
   getTagId(tag) {
     if (this.tags.length) {
       for (const item of this.tags) {
@@ -78,11 +77,12 @@ export class TagSelectComponent {
       name: tag.name,
       id: tag.id
     });
+    this.tagInput.nativeElement.value = '';
+    this.tagCtrl.setValue(null);
     this.emittingTags.emit(this.tags);
   }
 
   private _filter(value) {
-    console.log(value);
     const filterValue = value.toLowerCase();
     return this.allTags.filter(tag => tag.name.toLowerCase().indexOf(filterValue) === 0);
   }
