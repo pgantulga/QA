@@ -58,6 +58,7 @@ export class PostAddComponent implements OnInit {
         ).subscribe((data: any) => {
             if (data) {
                 this.oldValue = data;
+                this.tags = data.tags;
                 this.title.setValue(data.title);
                 this.content.setValue(data.content);
                 this.editing = true;
@@ -95,6 +96,7 @@ export class PostAddComponent implements OnInit {
     }
 
     onSubmit() {
+        // this.createPost();
         if (!this.editing) {
             const dialogRef = this.dialog.open(DialogComponent, {
                 data: {
@@ -145,5 +147,9 @@ export class PostAddComponent implements OnInit {
                 return this.router.navigate(['/home']);
             }
         });
+    }
+    getFollowers() {
+        console.log(this.tags);
+        this.postService.combineFollowers(this.tags);
     }
 }

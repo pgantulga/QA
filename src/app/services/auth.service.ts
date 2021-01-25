@@ -49,7 +49,6 @@ const actionCodeSettings = {
     providedIn: 'root'
 })
 export class AuthService {
-
     constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore, public snackBar: MatSnackBar) {
         this.user$ = this.af.authState.pipe(
             switchMap(user => {

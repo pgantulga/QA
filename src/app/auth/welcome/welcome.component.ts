@@ -19,7 +19,7 @@ export class WelcomeComponent implements OnInit {
   avatar: string;
   selectedColor: any;
   displayName = new FormControl('', [
-    Validators.minLength(5)
+    Validators.minLength(4)
   ]);
   company = new FormControl('', [
     Validators.maxLength(50)
@@ -41,7 +41,6 @@ export class WelcomeComponent implements OnInit {
   }
   getRandomColor() {
    const randomIndex =  Math.floor(Math.random() * Math.floor(this.colorService.allColors.length));
-   console.log(randomIndex);
    return this.colorService.allColors[randomIndex];
   }
   onSubmit() {
@@ -53,7 +52,7 @@ export class WelcomeComponent implements OnInit {
               color: this.selectedColor
           }, this.user.uid
       ).then(res => {
-          this.permissionService.changeRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
+          this.permissionService.setRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
           this.router.navigate(['auth/select-category']);
           return this.openSnack('Таны мэдээлэл санагдлаа.');
       })

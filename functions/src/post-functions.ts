@@ -34,7 +34,7 @@ exports.postMeta = functions.firestore
             console.log('create method');
             increaseTagNumber(change.after.data());
             updateUserPostNumber(change.after.data());
-            getTagFollowers(change.after.data());
+            // getTagFollowers(change.after.data());
 
         }
 
@@ -87,22 +87,38 @@ function increaseTagNumber(post: any) {
     }
 }
 
-function getTagFollowers(post: any) {
-    const followers: any[] = [];
-    if (post.tags.length) {
-        for (const tag of post.tags) {
-            followers.concat(get(tag));
-        }
-    }
-    return followers;
-}
+// function getTagFollowers(post: any) {
+//     const followers: any[] = [];
+//     const postRef = admin.firestore().collection('posts');
+//     if (post.tags.length) {
+//         for (const tag of post.tags) {
+//             followers.concat(get(tag, followers));
+//         }
+//     }
+//     console.log('Followers:', followers.length);
+//     console.log('follower-detail:', followers);
+//     for (const item of followers) {
+//         postRef.doc(post.id).collection('followers').add(item)
+//             .then((res) => {
+//                 console.log('follower added: ', res.id);
+//             })
+//             .catch(err => {
+//                 console.log(err);
+//             });
+//     }
+// }
 
-async function get(tag: any) {
-    const tagsRef = admin.firestore().collection('tags');
-    const tagFollowers: any [] = [];
-    const followers = await tagsRef.doc(tag.id).collection('followers').get();
-    for (const follower of followers.docs) {
-        tagFollowers.push(follower.data());
-    }
-    return tagFollowers;
-}
+// async function get(tag: any, followersArray: any) {
+//     const tagsRef = admin.firestore().collection('tags');
+//     const tagFollowers: any [] = [];
+//     const followers = await tagsRef.doc(tag.id).collection('followers').get();
+//     console.log('get functions followers : ', followers.docs.length);
+//     console.log('get functions followers detail : ', followers.docs)
+//     for (const follower of followers.docs) {
+//         console.log('follower data: ', follower);
+//         if (!followersArray.includes(follower.data())) {
+//             tagFollowers.push(follower.data());
+//         }
+//     }
+//     return tagFollowers;
+// }

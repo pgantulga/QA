@@ -6,7 +6,7 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
     </mat-menu>
-    <button mat-button color="accent" class="background-button" (click)="openDialog()" *ngIf="permissionService.canDelete(this.currentUser)">
+    <button mat-button color="accent" class="background-button" (click)="openDialog()" *ngIf="permissionService.canEdit(this.currentUser)">
         Шинэ таг нэмэх
     </button>
 </div>

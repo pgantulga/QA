@@ -9,7 +9,7 @@ export class PermissionService {
 
   constructor(private authService: AuthService, private db: AngularFirestore) { }
   reset(uid) {
-    this.authService.updateUserInstant(
+    return this.authService.updateUserInstant(
         {
           roles: {
             guest: false,
@@ -23,7 +23,7 @@ export class PermissionService {
     });
   }
   changeRole(role, uid) {
-    console.log(role);
+    // toggles roll
     role.value = !role.value;
     this.reset(uid);
     this.authService.updateUserInstant(
@@ -32,9 +32,19 @@ export class PermissionService {
             [role.key]: role.value
           }
         }
-        , uid).then(() => {
-      console.log('User role reset');
-    });
+        , uid).then(() => {});
+  }
+  setRole(role, uid) {
+    // setting only this role to be true
+    this.reset(uid)
+        .then(() => {
+          return this.authService.updateUserInstant(
+              {
+                roles: {
+                  [role.key]: true
+                }
+              }, uid);
+        });
   }
 
   private checkAuth = (user: User, allowedRoles: string[]): boolean => {
@@ -48,7 +58,7 @@ export class PermissionService {
     }
   }
   onlyGuest(user: User): boolean {
-    return user.roles.guest
+    return user.roles.guest;
   }
   canSee(user: User): boolean {
     const allowed = ['guest', 'subscriber', 'member', 'moderator', 'admin'];
