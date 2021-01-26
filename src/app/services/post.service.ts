@@ -4,6 +4,7 @@ import {TagService} from './tag.service';
 import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {query} from '@angular/animations';
+import {NotificationService} from "./notification.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class PostService {
     postCollection = this.db.collection<any>('posts', ref => ref.orderBy('createdAt', 'desc'));
     postMetaDoc = this.db.doc('metas/post');
 
-    constructor(private db: AngularFirestore, public tagService: TagService) {
+    constructor(private db: AngularFirestore, public tagService: TagService, private notificationService: NotificationService) {
     }
 
     nextPage(doc, sort) {
@@ -58,7 +59,6 @@ export class PostService {
     }
 
     createPost(formData, user, tagsArray) {
-        // this.getFollowers(tagsArray);
         return this.postCollection.add({
             title: formData.title,
             content: formData.content,
@@ -78,6 +78,7 @@ export class PostService {
         }).then((res) => {
             return this.addFollowers(tagsArray, res.id)
                 .then(() => {
+                    this.notificationService.createNotificationObject(res.id, user, 1, 'post');
                     return res.update({
                         id: res.id,
                     });
@@ -109,43 +110,20 @@ export class PostService {
                 }
             });
         }
+        const addPromises = [];
         followers.forEach(item => {
-            return this.postCollection.doc(postId).collection('followers')
-                .add({uid: item.uid});
+            addPromises.push(this.postCollection.doc(postId).collection('followers')
+                .add({uid: item.uid}));
         });
+        console.log(addPromises);
+        return Promise.all(addPromises);
     }
 
-    followPost(post, user) {
-        return this.checkFollower(user, post)
-            .then(value => {
-                    if (!value) {
-                        return this.postCollection.doc(post.id).collection('followers')
-                            .add({uid: user.uid})
-                            .catch(err => {
-                                console.log(err);
-                            });
-                    }
-                }
-            );
+    getFollowers(postId) {
+        return this.postCollection.doc(postId).collection('followers').ref.get();
     }
 
-    async unfollowPost(user, post) {
-        const querySnapshot = await this.findFollower(user, post).toPromise();
-        if (querySnapshot.docs.length) {
-            querySnapshot.forEach(item => {
-                return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
-            });
-        }
-    }
 
-    async checkFollower(user, post) {
-        const querySnapshot = await this.findFollower(user, post).toPromise();
-        return !!querySnapshot.docs.length;
-    }
-
-    private findFollower(user, post) {
-        return this.postCollection.doc(post.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
-    }
 
     savePost(formData, user, tagsArray, oldValue) {
         return this.postCollection.doc(oldValue.id).set({
@@ -209,5 +187,37 @@ export class PostService {
 
     onlyUnique(value, index, self) {
         return index === self.findIndex(t => t.uid === value.uid);
+    }
+
+    followPost(post, user) {
+        return this.checkFollower(user, post)
+            .then(value => {
+                    if (!value) {
+                        return this.postCollection.doc(post.id).collection('followers')
+                            .add({uid: user.uid})
+                            .catch(err => {
+                                console.log(err);
+                            });
+                    }
+                }
+            );
+    }
+
+    async unfollowPost(user, post) {
+        const querySnapshot = await this.findFollower(user, post).toPromise();
+        if (querySnapshot.docs.length) {
+            querySnapshot.forEach(item => {
+                return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
+            });
+        }
+    }
+
+    async checkFollower(user, post) {
+        const querySnapshot = await this.findFollower(user, post).toPromise();
+        return !!querySnapshot.docs.length;
+    }
+
+    private findFollower(user, post) {
+        return this.postCollection.doc(post.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
     }
 }

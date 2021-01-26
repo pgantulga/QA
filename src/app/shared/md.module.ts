@@ -20,6 +20,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   exports: [
@@ -38,7 +39,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSidenavModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule, MatTableModule, MatCheckboxModule, MatSelectModule, MatTooltipModule
+    MatProgressSpinnerModule, MatTableModule, MatCheckboxModule, MatSelectModule, MatTooltipModule, MatBadgeModule
   ],
   providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}},
               {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'never'}}, MatSidenav]

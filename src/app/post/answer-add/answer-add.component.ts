@@ -38,7 +38,6 @@ export class AnswerAddComponent {
     });
   }
   addAnswer() {
-    console.log(this.post, this.user);
     return this.answerService.addAnswer( this.post, {
       content: this.answerForm.get('editor').value,
     }, this.user);

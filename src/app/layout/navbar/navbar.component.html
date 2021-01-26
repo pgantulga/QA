@@ -19,11 +19,30 @@
 <!--                <mat-icon matSuffix>search</mat-icon>-->
 <!--            </mat-form-field>-->
             <div *ngIf="authService.user$ | async as user; else login">
-                <button mat-flat-button color="primary" routerLink="ask" *ngIf="permissionService.canRead(user)">
+                <button mat-flat-button color="primary" routerLink="ask" *ngIf="permissionService.canRead(user)" >
                     <mat-icon>edit</mat-icon>
                     Хэлэлцүүлэг нэмэх
                 </button>
-                <button mat-icon-button class="example-icon " aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
+                <ng-container *ngIf="notifications$ | async as notifications">
+                    <button mat-icon-button (click)="showNotifications(user)" [matMenuTriggerFor]="notificationMenu" >
+                        <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn">notifications</mat-icon>
+                    </button>
+                    <mat-menu #notificationMenu="matMenu">
+                        <mat-list>
+                            <mat-list-item *ngFor="let item of notifications">
+                                <mat-icon mat-list-icon>{{getNotificationIcon(item.entity_type)}}</mat-icon>
+                                <div mat-line>{{item.message}}</div>
+                                <div mat-line> {{item.message}} </div>
+                                <div mat-line> {{item.message}} </div>
+                            </mat-list-item>
+                        </mat-list>
+<!--                        <button mat-menu-item *ngFor="let item of notifications">-->
+<!--                            <mat-icon>{{getNotificationIcon(item.entity_type)}}</mat-icon>-->
+<!--                            <span class="mat-caption">{{item.message}}</span>-->
+<!--                        </button>-->
+                    </mat-menu>
+                </ng-container>
+                <button mat-icon-button style="margin-left: 8px" aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>
                 <mat-menu #dropMenu="matMenu">

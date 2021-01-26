@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {PostService} from './post.service';
 import {Subject} from 'rxjs';
+import {NotificationService} from "./notification.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class AnswerService {
     private highlightedTextSource: Subject<any> = new Subject<any>();
     highlightedText$ = this.highlightedTextSource.asObservable();
 
-    constructor(private db: AngularFirestore, private postService: PostService) {
+    constructor(private db: AngularFirestore, private postService: PostService, private notificationService: NotificationService) {
     }
 
     setHighlightedText(value) {
@@ -42,6 +43,7 @@ export class AnswerService {
             },
         })
             .then(res => {
+                this.notificationService.createNotificationObject(res.id, user, 4, 'answer', post.id);
                 this.postService.addLog(user, 'answered', post.id);
                 return res.update({id: res.id});
             })
@@ -59,7 +61,8 @@ export class AnswerService {
 
     getReplies(answer) {
         console.log(answer);
-        return this.db.collection('posts/' + answer.parent.id + '/answers/' + answer.id + '/replies', ref => ref.orderBy('createdAt', 'desc'))
+        return this.db.collection('posts/' + answer.parent.id + '/answers/' + answer.id + '/replies', ref => ref
+            .orderBy('createdAt', 'desc'))
             .valueChanges();
     }
 
