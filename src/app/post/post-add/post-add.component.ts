@@ -148,8 +148,4 @@ export class PostAddComponent implements OnInit {
             }
         });
     }
-    getFollowers() {
-        console.log(this.tags);
-        this.postService.combineFollowers(this.tags);
-    }
 }

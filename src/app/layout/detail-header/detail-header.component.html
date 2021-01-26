@@ -8,8 +8,11 @@
                     <ng-container *ngIf="authService.user$ | async as user">
                         <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                             <p class="mat-caption">Хэрэглэгдсэн ({{detail.totalUsed}})</p>
-                            <button mat-icon-button style="margin-left: 16px" [class.followed]="user.tags[detail.id]" (click)="toggleFollow(user, detail)">
-                                <mat-icon>notifications</mat-icon>
+                            <button mat-icon-button style="margin-left: 16px" *ngIf="user.tags[detail.id]" [class.followed]="user.tags[detail.id]" (click)="toggleFollow(user, detail)">
+                                <mat-icon>notifications_active</mat-icon>
+                            </button>
+                            <button mat-icon-button style="margin-left: 16px" *ngIf="!user.tags[detail.id]"  (click)="toggleFollow(user, detail)">
+                                <mat-icon>notifications_off</mat-icon>
                             </button>
                             <button mat-icon-button style="margin-left: 4px" (click)="edit(detail)" *ngIf="permissionService.canEdit(user)">
                                 <mat-icon>edit</mat-icon>

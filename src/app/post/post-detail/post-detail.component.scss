@@ -37,7 +37,7 @@
 
 
 .time {
-    margin: 0 0 0 56px;
+    margin: 0 0 0 16px;
     /*color: #dadada;*/
 }
 .votes {
@@ -83,4 +83,11 @@
 .post-logs {
     width: 233px;
     margin: 8px 0  8px 8px;
+}
+
+button.followed {
+    background-color: mat-color($primary, 200 ,0.1);
+    mat-icon {
+        color: mat-color($primary);
+    }
 }

@@ -84,6 +84,9 @@ export class PostService {
                 })
                 .then(() => {
                     return this.addLog(user, 'created', res.id);
+                })
+                .then(() => {
+                    return this.followPost({id: res.id}, user);
                 });
         })
             .catch(error => {
@@ -92,16 +95,17 @@ export class PostService {
     }
 
     async addFollowers(tags, postId) {
+        // get followers from tags
         const promises = [];
         const followers = [];
         for (const tag of tags) {
             promises.push(this.tagService.tagsCollection.doc(tag.id).collection('followers').ref.get());
         }
-        const allFollowers =  await Promise.all(promises);
+        const allFollowers = await Promise.all(promises);
         for (const follower of allFollowers) {
             follower.forEach(doc => {
                 if (!(!!followers.find(t => t.uid === doc.data().uid))) {
-                        followers.push(doc.data());
+                    followers.push(doc.data());
                 }
             });
         }
@@ -109,6 +113,38 @@ export class PostService {
             return this.postCollection.doc(postId).collection('followers')
                 .add({uid: item.uid});
         });
+    }
+
+    followPost(post, user) {
+        return this.checkFollower(user, post)
+            .then(value => {
+                    if (!value) {
+                        return this.postCollection.doc(post.id).collection('followers')
+                            .add({uid: user.uid})
+                            .catch(err => {
+                                console.log(err);
+                            });
+                    }
+                }
+            );
+    }
+
+    async unfollowPost(user, post) {
+        const querySnapshot = await this.findFollower(user, post).toPromise();
+        if (querySnapshot.docs.length) {
+            querySnapshot.forEach(item => {
+                return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
+            });
+        }
+    }
+
+    async checkFollower(user, post) {
+        const querySnapshot = await this.findFollower(user, post).toPromise();
+        return !!querySnapshot.docs.length;
+    }
+
+    private findFollower(user, post) {
+        return this.postCollection.doc(post.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
     }
 
     savePost(formData, user, tagsArray, oldValue) {
@@ -170,6 +206,7 @@ export class PostService {
                 return this.db.collection<any>('posts', ref => ref.orderBy('answersCount', 'desc'));
         }
     }
+
     onlyUnique(value, index, self) {
         return index === self.findIndex(t => t.uid === value.uid);
     }

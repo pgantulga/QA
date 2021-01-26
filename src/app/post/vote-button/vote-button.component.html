@@ -1,5 +1,5 @@
     <div class="vote" fxLayout="column" fxLayoutAlign="center center">
-        <button mat-icon-button aria-label="Vote button" (click)="onClick()" [class.active-button]="isVoted" [disabled]="loading">
+        <button mat-icon-button aria-label="Vote button" (click)="onClick()" [class.active-button]="isVoted" [disabled]="loading" matTooltip="Үнэлгээ өгөх" matTooltipClass="tooltip">
             <mat-icon [class.vote-icon-color]="isVoted"  [class.vote-icon-dark]="!isVoted">done</mat-icon>
         </button>
         <mat-spinner color="accent" *ngIf="loading" diameter="24"></mat-spinner>

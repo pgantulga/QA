@@ -40,6 +40,8 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     selectedText: string;
     suggestedPosts: Array<any> = [];
     htmlContent: any;
+    isFollowed: boolean;
+
     constructor(
         public route: ActivatedRoute, private router: Router, private postService: PostService, public authService: AuthService,
         public answerService: AnswerService, private scroller: ViewportScroller, public permissionService: PermissionService,
@@ -49,7 +51,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
-                this.logs$ = this.postService.getLogs(params.get('id'))
+                this.logs$ = this.postService.getLogs(params.get('id'));
                 return this.postService.getPost(params.get('id'));
             }));
         this.dropDownMenu = DropdownMenu;
@@ -58,11 +60,19 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         this.post$.pipe(first()).subscribe(post => {
             this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(post.content);
             this.getSuggestedPosts(post.tags, post.id);
+            this.authService.getUser()
+                .then(user => {
+                    return this.postService.checkFollower(user, post);
+                })
+                .then(value => {
+                    this.isFollowed = value;
+                });
+
         });
     }
 
     ngOnDestroy(): void {
-        this.post$.subscribe();
+        // this.post$.unsubscribe();
     }
 
     scroll(el: HTMLElement) {
@@ -120,22 +130,27 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     }
 
     getSuggestedPosts(tags: Array<any>, id) {
-        const obs: Array<Observable<any>> = [];
-        for (const tag of tags) {
-            obs.push(this.postService.getPostByTag(tag));
+        if (tags.length) {
+            this.suggestedPosts$ = this.postService.getPostByTag(tags[0]);
         }
-        combineLatest(obs).subscribe(results => {
-            for (const item of results) {
-                for (const j of item) {
-                    if (j.id !== id && !this.suggestedPosts.includes(j)) {
-                        this.suggestedPosts = this.suggestedPosts.concat(j);
-                    }
-                }
-            }
-        });
     }
+
     getLogs(post) {
         return this.postService.getLogs(post);
+    }
+
+    toggleFollow(post, user) {
+        if (this.isFollowed) {
+            this.postService.unfollowPost(user, post)
+                .then(() => {
+                    this.isFollowed = false;
+                })
+        } else {
+            this.postService.followPost(post, user)
+                .then(() => {
+                    this.isFollowed = true;
+                });
+        }
     }
 
 

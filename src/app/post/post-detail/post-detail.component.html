@@ -3,10 +3,16 @@
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
-                <!--                <div fxLayout="row" fxLayoutAlign="start center" class="time">-->
-                <!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
-                <!--                    <p class="mat-caption"> 12</p>-->
-                <!--                </div>-->
+                <div fxLayout="row" fxLayoutAlign="start center" class="time" *ngIf="authService.user$ | async as user">
+                    <button mat-icon-button style="margin: 0 0 0 0" *ngIf="isFollowed"  [class.followed]="isFollowed" (click)="toggleFollow(post, user)" matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирнэ." matTooltipClass="tooltip">
+                        <mat-icon>notifications_active</mat-icon>
+                    </button>
+                    <button mat-icon-button style="margin: 0 0 0 0" *ngIf="!isFollowed" (click)="toggleFollow(post, user)" matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирэхгүй." matTooltipClass="tooltip">
+                        <mat-icon>notifications_off</mat-icon>
+                    </button>
+<!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
+<!--                    <p class="mat-caption"> 12</p>-->
+                </div>
             </div>
         </div>
     </post-header>
@@ -25,7 +31,7 @@
                     <ng-template #selectedTextTooltipTemplate>
                         <div class="selected-text-tooltip-bar" (mousedown)="$event.preventDefault()" style="padding: 0"
                              *ngIf="authService.user$ | async as user">
-                            <button mat-icon-button (click)="scroll(answer)">
+                            <button mat-icon-button (click)="scroll(answer)" matTooltip="Хариулт нэмэх" matTooltipClass="tooltip">
                                 <mat-icon>reply</mat-icon>
                             </button>
                         </div>
@@ -39,7 +45,7 @@
                         <div class="metas" fxLayout="row" *ngIf="authService.user$ | async as user">
                             <div class="actions" fxLayout="row" fxLayoutGap="2px">
                                 <button mat-icon-button class="background-button"
-                                        *ngIf="permissionService.canRead(user)" (click)="scroll(answer)">
+                                        *ngIf="permissionService.canRead(user)" (click)="scroll(answer)" matTooltip="Хариулт нэмэх" matTooltipClass="tooltip">
                                     <mat-icon>reply</mat-icon>
                                 </button>
                                 <button mat-icon-button class="background-button"
@@ -111,7 +117,7 @@
     <ng-template #loginWarning>
         <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'"></warn>
     </ng-template>
-    <div class="suggested">
+    <div class="suggested" *ngIf="suggestedPosts$ | async as suggestedPosts">
         <p class="mat-body-2">Санал болгох сэдвүүд</p>
         <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
             <mat-divider *ngIf="!last"></mat-divider>
