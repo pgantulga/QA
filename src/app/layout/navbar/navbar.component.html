@@ -3,7 +3,7 @@
         <div fxFlex></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button type="button" aria-label="back" mat-icon-button *ngIf="layout ==='layout-2'" [routerLink]="['home']">
+                <button type="button" aria-label="back" mat-icon-button *ngIf="layout.layout2" [routerLink]="['home']">
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
                 <ng-content></ng-content>
@@ -23,30 +23,17 @@
                     <mat-icon>edit</mat-icon>
                     Хэлэлцүүлэг нэмэх
                 </button>
-                <ng-container *ngIf="notifications$ | async as notifications">
-                    <button mat-icon-button (click)="showNotifications(user)" [matMenuTriggerFor]="notificationMenu" >
-                        <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn">notifications</mat-icon>
+                <ng-container *ngIf="notifications">
+                    <button mat-icon-button [routerLink]="['/auth/notifications']">
+                        <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn" [matBadgeHidden]="!(!!notifications.length) ">notifications</mat-icon>
                     </button>
-                    <mat-menu #notificationMenu="matMenu">
-                        <mat-list>
-                            <mat-list-item *ngFor="let item of notifications">
-                                <mat-icon mat-list-icon>{{getNotificationIcon(item.entity_type)}}</mat-icon>
-                                <div mat-line>{{item.message}}</div>
-                                <div mat-line> {{item.message}} </div>
-                                <div mat-line> {{item.message}} </div>
-                            </mat-list-item>
-                        </mat-list>
-<!--                        <button mat-menu-item *ngFor="let item of notifications">-->
-<!--                            <mat-icon>{{getNotificationIcon(item.entity_type)}}</mat-icon>-->
-<!--                            <span class="mat-caption">{{item.message}}</span>-->
-<!--                        </button>-->
-                    </mat-menu>
                 </ng-container>
                 <button mat-icon-button style="margin-left: 8px" aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
                     <mat-icon>account_circle</mat-icon>
                 </button>
                 <mat-menu #dropMenu="matMenu">
-                    <button mat-menu-item [routerLink]="['users', user.uid]">{{user.displayName}}</button>
+                    <button mat-menu-item [routerLink]="['users', user.uid]"><mat-icon>account_circle</mat-icon>{{user.displayName}}</button>
+                    <mat-divider></mat-divider>
                     <button mat-menu-item [routerLink]="['/auth/profile-settings']">Хэрэглэгчийн тохиргоо</button>
                     <button mat-menu-item *ngIf="permissionService.canEdit(user)" [routerLink]="['/moderator']">Модератор</button>
                     <button mat-menu-item *ngIf="permissionService.canDelete(user)" [routerLink]="['/admin']"> Админ</button>

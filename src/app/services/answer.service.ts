@@ -93,6 +93,7 @@ export class AnswerService {
             },
             updatedAt: new Date()
         }).then(res => {
+            this.notificationService.createNotificationObject(res.id, user, 5, 'reply', post.id);
             this.postService.addLog(user, 'replied', post.id);
             return res.update({id: res.id});
         })

@@ -12,10 +12,13 @@ import { ProfileSettingsComponent } from './profile-settings/profile-settings.co
 import {LayoutModule} from "../layout/layout.module";
 import { SelectCategoryComponent } from './select-category/select-category.component';
 import {TagModule} from "../tag/tag.module";
+import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationListComponent } from './notification-list/notification-list.component';
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent],
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent, NotificationsComponent, NotificationListComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,
@@ -24,7 +27,8 @@ import {TagModule} from "../tag/tag.module";
         ReactiveFormsModule,
         FormsModule,
         LayoutModule,
-        TagModule
+        TagModule,
+        SharedModule
     ]
 })
 export class AuthModule { }

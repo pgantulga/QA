@@ -1,6 +1,12 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
 
+export interface Layout {
+    layout1: boolean;
+    layout2: boolean;
+    layout3: boolean;
+    layout4: boolean;
+}
 @Injectable({
     providedIn: 'root'
 })
@@ -19,7 +25,7 @@ export class RouteService {
         if (url.includes('/posts/') && !url.includes('/edit')) {
             return 'post-detail';
         }
-        if (url.includes('/posts/') && url.includes('/edit')) {
+        if (url.includes('/posts/') && url.includes('/edit') || url.includes('ask')) {
             return 'post-edit';
         }
         if (url.includes('/tagDetail/')) {
@@ -34,7 +40,7 @@ export class RouteService {
         if (url.includes('login') || url.includes('register') || url.includes('welcome') || url.includes('select-category')) {
             return 'login';
         }
-        if (url.includes('profile-settings')) {
+        if (url.includes('profile-settings') || url.includes('notifications')) {
             return 'settings';
         }
         if (url.includes('/users/')) {
@@ -47,28 +53,15 @@ export class RouteService {
             return 'moderator';
         }
     }
-
-    currentLayout(route) {
-        if (route === 'post-detail' || route === 'post-edit' || route === 'settings') {
-            return 'layout-2';
-        } else if (route === 'login') {
-            return 'layout-3';
-        } else if (route === 'admin') {
-            return 'layout-4';
-        } else {
-            return 'layout-1';
-        }
-    }
-
     getLayout(route) {
-        if (route === 'post-detail' || route === 'post-edit' || route === 'settings') {
+        if (route === 'post-detail' || route === 'post-edit' || route === 'settings' || route === 'user-detail' || route === 'moderator') {
             return {
                 layout1: false,
                 layout2: true,
                 layout3: false,
                 layout4: false
             };
-        } else if (route === 'admin') {
+        } else if (route === 'admin' ) {
             return {
                 layout1: false,
                 layout2: false,

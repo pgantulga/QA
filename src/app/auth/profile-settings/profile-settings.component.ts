@@ -58,7 +58,9 @@ export class ProfileSettingsComponent implements OnInit {
                 color: this.selectedColor,
             }, this.user.uid
         ).then(res => {
-            this.permissionService.setRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
+            if (this.user.roles.guest) {
+                this.permissionService.setRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
+            }
             this.router.navigate(['home'])
                 .then(() => {
                         return this.openSnack('Таны мэдээлэл санагдлаа.');

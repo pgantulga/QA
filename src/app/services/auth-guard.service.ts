@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate{
             this.snackbar.openFromComponent(SnackComponent, {
                 data: 'Зөвхөн бүртгэлтэй хэрэглэгчид нэвтрэх боломжтой.'
             });
-            // this.router.navigate(['/']);
+            this.router.navigate(['/']);
           }
         })
     );

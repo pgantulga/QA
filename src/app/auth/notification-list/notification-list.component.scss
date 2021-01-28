@@ -1,0 +1,23 @@
+@import "./src/styles/custom-theme";
+
+.notification-list {
+    p.mat-body-2 {
+        margin: 0 !important;
+    }
+    p.mat-caption {
+        margin: 0 !important;
+    }
+    .content {
+        margin: 0 0 0 16px;
+    }
+
+
+}
+.notification-list:hover {
+    cursor: pointer;
+}
+.notification-list.active {
+    background-color: mat-color($my-grey, 700);
+}
+
+

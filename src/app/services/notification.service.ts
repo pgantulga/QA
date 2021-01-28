@@ -13,7 +13,16 @@ export class NotificationService {
     constructor(private db: AngularFirestore) {
     }
     getNotifications(user) {
-      return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid).orderBy('createdAt' , 'desc')).valueChanges();
+      return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
+          .orderBy('createdAt' , 'desc')
+          .limit(10)).valueChanges({idField: 'id'});
+    }
+    getAllNotifications(user) {
+        return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
+            .orderBy('createdAt' , 'desc')).valueChanges({idField: 'id'});
+    }
+    removeNotification(notifierId) {
+        return this.notifiersRef.doc(notifierId).delete();
     }
 
     createNotificationObject(entityId, user, entityType, objectType, parentId?): any {
@@ -45,6 +54,14 @@ export class NotificationService {
             .catch(err => {
                 console.log(err.message);
             });
+    }
+    getNotificationObject(objectId) {
+        return this.notificationObjectsRef.doc(objectId).ref.get();
+    }
+    updateNotifier(notifierId, data) {
+        return this.notifiersRef.doc(notifierId).set(
+            data, {merge: true}
+        )
     }
 
     private addNotifiers(notificationId, followers, messageText, entityType, parent?) {
@@ -92,9 +109,9 @@ export class NotificationService {
         } else if (entityType === 2) {
             return `'${messageTitle}' \n хэлэлцүүлэгт засвар нэмэгдлээ.`;
         } else if (entityType === 4) {
-            return `'${messageTitle}' \n${actorName} хэлэлцүүлэгт хариулт нэмлээ.`;
+            return `'${messageTitle}' \n хэлэлцүүлэгт ${actorName}  хариулт нэмлээ.`;
         } else if (entityType === 5) {
-            return `'${messageTitle}' \n${actorName} хэлэлцүүлэгт хариулт нэмлээ.`;
+            return `'${messageTitle}' \n хэлэлцүүлэгт ${actorName}  хариулт нэмлээ.`;
         }
     }
 

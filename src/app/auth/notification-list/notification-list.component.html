@@ -1,0 +1,12 @@
+<div class="notification-list background-card" fxLayout="row" fxLayoutAlign="space-between center" [class.active]="item.status">
+    <div fxLayout="row" fxLayoutAlign="start center" (click)="changeStatus()">
+        <mat-icon>{{icon}}</mat-icon>
+        <div fxLayout="column" class="content">
+            <p class="mat-body-2">{{item.message}}</p>
+            <p class="mat-caption">{{item.createdAt | momentPipe}}</p>
+        </div>
+    </div>
+    <button mat-icon-button (click)="deleteNotification()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>

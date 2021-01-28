@@ -47,13 +47,13 @@ export class UserDetailComponent implements OnInit {
                 name: 'votes',
                 icon: 'done',
                 description: 'Авсан үнэлгээ',
-                value: user.votesReceived
+                value: (user.votesReceived) ? user.votesReceived : 0
             },
             {
                 name: 'posts',
                 icon: 'forum',
                 description: 'Нэмсэн хэлэлцүүлэг',
-                value: user.postNumber
+                value: (user.postNumber) ? user.postNumber : 0
             }
         ];
     }

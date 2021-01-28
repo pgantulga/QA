@@ -1,0 +1,10 @@
+<div fxLayout="column">
+    <p class="mat-headline">Хэрэглэгчийн мэдэгдлүүд</p>
+    <div *ngIf="notifications$ | async as notifications" >
+        <ng-container *ngIf="notifications.length else noNotifications"></ng-container>
+        <notification-list *ngFor="let item of notifications" [item]="item"></notification-list>
+    </div>
+    <ng-template #noNotifications>
+        <p class="mat-body-2">Мэдэгдэл байхгүй байна.</p>
+    </ng-template>
+</div>

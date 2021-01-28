@@ -5,30 +5,6 @@
     <div fxLayout="row layout-wrap" fxLayoutAlign="center center">
         <score-card *ngFor="let item of scores" [item]="item"></score-card>
     </div>
-<!--    <div class="user-detail background-card" f
-xLayout="column">-->
-<!--        &lt;!&ndash;        <button mat-fab color="primary" aria-label="follow" class="top-fab-button">&ndash;&gt;-->
-<!--        &lt;!&ndash;            <mat-icon>share</mat-icon>&ndash;&gt;-->
-<!--        &lt;!&ndash;        </button>&ndash;&gt;-->
-
-<!--        <div class="view" fxFlex="" fxLayout="column">-->
-<!--            <div fxLayout="row" fxLayoutAlign="start start" class="scores-container">-->
-<!--                <mat-chip-list>-->
-<!--                    <mat-chip class="transparent votes" [routerLink]="[]" disableRipple>-->
-<!--                        <mat-icon>done</mat-icon>-->
-<!--                        Votes: {{user.votesReceived}}</mat-chip>-->
-<!--                    <mat-chip class="transparent nav-chip" (click)="getPosts()">-->
-<!--                        <mat-icon>forum</mat-icon>-->
-<!--                        Хэлэлцүүлгүүд-->
-<!--                    </mat-chip>-->
-<!--                    <mat-chip class="transparent nav-chip" (click)="getAnswersByUser()">-->
-<!--                        <mat-icon>reply</mat-icon>-->
-<!--                        Хариултууд-->
-<!--                    </mat-chip>-->
-<!--                </mat-chip-list>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
     <div *ngIf="filteredPosts$ | async as posts; else loading" style="position: relative">
         <p class="mat-body-2 page-title">Хэрэглэгчийн нэмсэн хэлэлцүүлгүүд ({{posts.length}})</p>
         <div *ngIf="posts.length else empty">
