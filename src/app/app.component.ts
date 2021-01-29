@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {filter} from 'rxjs/operators';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {PostService} from './services/post.service';
-import {RouteService} from './services/route.service';
 import {ThemeService} from './services/theme.service';
-import {Observable} from "rxjs";
+import {AngularFireMessaging} from "@angular/fire/messaging";
+import {mergeMapTo} from "rxjs/operators";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +10,16 @@ import {Observable} from "rxjs";
 })
 export class AppComponent implements OnInit{
   title = 'QA';
-  isDarkTheme: Observable<boolean>;
-  constructor(private themeService: ThemeService) {
+  constructor(private themeService: ThemeService, private afMessaging: AngularFireMessaging) {
+
   }
   ngOnInit(): void {
-    this.isDarkTheme = this.themeService.isDarkTheme;
+  }
+  requestPermission() {
+    this.afMessaging.requestToken
+        .subscribe(
+            (token) => { console.log(token); },
+            (error) => { console.error(error); },
+        );
   }
 }

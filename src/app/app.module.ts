@@ -16,6 +16,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {AdminGuard} from './admin/admin-guard.service';
 import {ModeratorGuard} from "./moderator/moderator-guard.service";
+import {AngularFireMessagingModule} from "@angular/fire/messaging";
 @NgModule({
     declarations: [
         AppComponent,
@@ -33,6 +34,7 @@ import {ModeratorGuard} from "./moderator/moderator-guard.service";
         MatSidenavModule,
         MdModule,
         FlexLayoutModule,
+        AngularFireMessagingModule
     ],
     providers: [AdminGuard, AuthGuard, ModeratorGuard],
     exports: [
