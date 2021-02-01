@@ -25,8 +25,7 @@ export class LoginComponent implements OnInit {
           if (res.firstTime) {
             this.router.navigate(['auth/welcome']);
           }
-        })
-        .catch(err => {console.log('Login error: ' + err); });
+        });
   }
   getEmailError() {
     if (this.email.hasError('required')) {
@@ -46,11 +45,8 @@ export class LoginComponent implements OnInit {
     this.authService.signIn({email: this.email.value, password: this.password.value})
         .then(res => {
           this.openSnack('Амжилттай нэвтэрлээ.');
-          // window.location.reload();
         })
-        .catch(err => {
-          this.openSnack(err.message);
-        });
+
   }
   openSnack(data) {
     this.snackbar.openFromComponent(SnackComponent, {data});

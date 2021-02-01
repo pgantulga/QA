@@ -57,18 +57,23 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         this.dropDownMenu = DropdownMenu;
         this.selectedSort = this.dropDownMenu[0];
         this.answers$ = this.getAnswers(this.selectedSort);
-        this.post$.pipe(first()).subscribe(post => {
-            this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(post.content);
-            this.getSuggestedPosts(post.tags, post.id);
-            this.authService.getUser()
-                .then(user => {
-                    return this.postService.checkFollower(user, post);
-                })
-                .then(value => {
-                    this.isFollowed = value;
-                });
+        this.post$.pipe(first()).subscribe(
+            post => {
+                this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(post.content);
+                this.getSuggestedPosts(post.tags, post.id);
+                this.authService.getUser()
+                    .then(user => {
+                        return (user) ? this.postService.checkFollower(user, post): null;
+                    })
+                    .then(value => {
+                        this.isFollowed = value;
+                    });
 
-        });
+            },
+            (error: Response) => {
+                console.log(error.status);
+            })
+
     }
 
     ngOnDestroy(): void {

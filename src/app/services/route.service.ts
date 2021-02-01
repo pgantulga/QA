@@ -37,7 +37,7 @@ export class RouteService {
         if (url.includes('/tags')) {
             return 'tags';
         }
-        if (url.includes('login') || url.includes('register') || url.includes('welcome') || url.includes('select-category')) {
+        if (url.includes('login') || url.includes('register') || url.includes('welcome') || url.includes('select-category') || url.includes('password-reset')) {
             return 'login';
         }
         if (url.includes('profile-settings') || url.includes('notifications')) {

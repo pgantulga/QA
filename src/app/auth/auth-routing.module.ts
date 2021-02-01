@@ -7,6 +7,7 @@ import {ProfileSettingsComponent} from './profile-settings/profile-settings.comp
 import {SelectCategoryComponent} from './select-category/select-category.component';
 import {NotificationsComponent} from './notifications/notifications.component';
 import {AuthGuard} from "../services/auth-guard.service";
+import {PasswordResetComponent} from "./password-reset/password-reset.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'password-reset',
+    component: PasswordResetComponent
   },
   {
     path: 'welcome',

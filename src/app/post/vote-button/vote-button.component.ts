@@ -32,8 +32,6 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
                 data.forEach(doc => {
                     this.isVoted = doc.exists;
                 });
-            } else {
-                console.log('No user');
             }
         });
     }

@@ -4,11 +4,11 @@ import {Menu} from "../../interfaces/Menu";
 import {AuthService} from "../../services/auth.service";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from '../../shared/dialog/dialog.component';
-import {filter} from 'rxjs/operators';
+import {filter, first, switchMap} from 'rxjs/operators';
 import {NavigationEnd, Router} from '@angular/router';
 import {Layout, RouteService} from '../../services/route.service';
 import {PermissionService} from "../../services/permission.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {NotificationService} from "../../services/notification.service";
 
 @Component({
@@ -42,13 +42,20 @@ export class NavbarComponent implements OnInit {
             this.layout = this.routeService.getLayout(this.currentRoute);
         });
         this.topMenu = this.menu.topMenu;
-        this.authService.getUser()
-            .then(user => {
-                this.notificationService.getAllNotifications(user)
-                    .subscribe(items => {
-                        this.notifications = items.filter((item: any) => item.status > 0);
-                    });
-            });
+        this.authService.user$.pipe(
+            first(),
+            switchMap(user => (user) ? this.notificationService.getNotifications(user) : of()
+            )).subscribe(
+                (items: any) => {
+                this.notifications = items.filter((item: any) => item.status > 0); },
+                );
+        // this.authService.getUser()
+        //     .then(user => {
+        //         this.notificationService.getAllNotifications(user)
+        //             .subscribe(items => {
+        //                 this.notifications = items.filter((item: any) => item.status > 0);
+        //             });
+        //     });
     }
 
     signOut() {

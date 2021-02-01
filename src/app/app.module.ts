@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {ErrorHandler, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule} from '@angular/flex-layout';
@@ -17,6 +17,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {AdminGuard} from './admin/admin-guard.service';
 import {ModeratorGuard} from "./moderator/moderator-guard.service";
 import {AngularFireMessagingModule} from "@angular/fire/messaging";
+import {AppErrorHandler} from "./shared/app-error-handler";
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -36,7 +38,12 @@ import {AngularFireMessagingModule} from "@angular/fire/messaging";
         FlexLayoutModule,
         AngularFireMessagingModule
     ],
-    providers: [AdminGuard, AuthGuard, ModeratorGuard],
+    providers: [
+        AdminGuard,
+        AuthGuard,
+        ModeratorGuard,
+        {provide: ErrorHandler, useClass: AppErrorHandler}
+    ],
     exports: [
     ],
     bootstrap: [AppComponent]

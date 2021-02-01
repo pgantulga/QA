@@ -15,10 +15,11 @@ import {TagModule} from "../tag/tag.module";
 import { NotificationsComponent } from './notifications/notifications.component';
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import {SharedModule} from "../shared/shared.module";
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent, NotificationsComponent, NotificationListComponent],
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent, NotificationsComponent, NotificationListComponent, PasswordResetComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,

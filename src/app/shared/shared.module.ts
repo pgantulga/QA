@@ -9,6 +9,6 @@ import {MomentPipe} from './moment.pipe';
   imports: [
     CommonModule
   ],
-  exports: [MomentPipe]
+  exports: [MomentPipe],
 })
 export class SharedModule { }

@@ -96,27 +96,19 @@ export class AuthService {
             });
     }
 
-    emailSignUp(userData, errorSender) {
+    emailSignUp(userData) {
         return this.af.createUserWithEmailAndPassword(userData.email, userData.password)
             .then(res => {
                 userData.uid = res.user.uid;
                 userData.createdAt = new Date();
                 this.emailVerify(userData.email);
                 return this.createUserData(userData);
-            })
-            .catch(err => {
-                errorSender(err.message);
             });
+
     }
 
     passwordReset(email) {
-        return this.af.sendPasswordResetEmail(email)
-            .then(() => {
-                console.log('email sent');
-            }).catch(err => {
-                console.log(err);
-            });
-
+        return this.af.sendPasswordResetEmail(email);
     }
 
     signIn(userData) {

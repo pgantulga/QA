@@ -116,6 +116,9 @@ button.mat-icon-button mat-icon{
 .mat-button.google-login {
   //border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;
+  width: 100%;
+  background-color: white !important;
+  color: #1E2029 !important;
 }
 
 //*****************************Global styles*************************************
@@ -195,6 +198,9 @@ quill-editor.answer .ql-editor {
 
 .default-snack {
   background-color: mat-color($primary);
+}
+.warn-snack {
+  background-color: mat-color($warn);
 }
 //*******************************************divider*******************************************************
 .answer-divider.mat-divider.mat-divider-inset {
