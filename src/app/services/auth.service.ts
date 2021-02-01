@@ -17,7 +17,8 @@ export interface User {
     displayName: string;
     roles: Roles;
     uid: string;
-    tags: any
+    tags: any;
+    notificationTokens: any[]
 }
 
 export interface Roles {
@@ -76,7 +77,12 @@ export class AuthService {
         return this.checkUserExist(credential.user)
             .then(res => {
               if (res) {
-                return this.updateUserData(credential.user);
+                return this.updateUserData(credential.user)
+                    .then(() => {
+                        return new Promise(resolve => {
+                            resolve({firstTime: false});
+                        });
+                    });
               } else {
                 return this.createUserData(credential.user)
                     .then(() => {

@@ -1,4 +1,4 @@
-<ng-container *ngIf="showWrapper">
+<ng-container *ngIf="showWrapper && !showNotificationWarn">
     <div fxLayout="row" class="top-wrapper-container" [class.warning]="content.name === 'regFinish'">
         <div fxFlex></div>
         <div class="container top-wrapper" fxLayout="row" fxLayoutAlign="space-between center" style="position: relative">
@@ -14,3 +14,15 @@
         <div fxFlex></div>
     </div>
 </ng-container>
+<mat-toolbar color="warn" *ngIf="showNotificationWarn">
+        <mat-toolbar-row  fxLayout="row" >
+            <div fxFlex></div>
+            <div fxLayout="row" class="container" fxLayoutAlign="space-between center" >
+                <p class="mat-body-2" style="margin-bottom: 0">Та сайтын мэдэгдлийн тохиргоог зөвшөөрснөөр шинэ хэлэлцүүлэг болон хариултуудыг мэдэгдлээр авах боломжтой.</p>
+                <button mat-button (click)="askNotificationPermission()">
+                    Зөвшөөрөх
+                </button>
+            </div>
+            <div fxFlex></div>
+        </mat-toolbar-row>
+</mat-toolbar>

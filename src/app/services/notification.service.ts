@@ -1,5 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
+import {MatDialog} from '@angular/material/dialog';
+import {AuthService} from './auth.service';
+import {first} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -7,20 +10,24 @@ import {AngularFirestore} from '@angular/fire/firestore';
 export class NotificationService {
     notificationObjectsRef = this.db.collection('notificationObjects');
     notifiersRef = this.db.collection('notifiers');
+    tokenRef = this.db.collection('notificationTokens');
     postRef = this.db.collection('posts');
     userRef = this.db.collection('users');
 
-    constructor(private db: AngularFirestore) {
+    constructor(private db: AngularFirestore, private dialog: MatDialog, private authService: AuthService) {
     }
+
     getNotifications(user) {
-      return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
-          .orderBy('createdAt' , 'desc')
-          .limit(10)).valueChanges({idField: 'id'});
+        return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
+            .orderBy('createdAt', 'desc')
+            .limit(10)).valueChanges({idField: 'id'});
     }
+
     getAllNotifications(user) {
         return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
-            .orderBy('createdAt' , 'desc')).valueChanges({idField: 'id'});
+            .orderBy('createdAt', 'desc')).valueChanges({idField: 'id'});
     }
+
     removeNotification(notifierId) {
         return this.notifiersRef.doc(notifierId).delete();
     }
@@ -55,14 +62,6 @@ export class NotificationService {
                 console.log(err.message);
             });
     }
-    getNotificationObject(objectId) {
-        return this.notificationObjectsRef.doc(objectId).ref.get();
-    }
-    updateNotifier(notifierId, data) {
-        return this.notifiersRef.doc(notifierId).set(
-            data, {merge: true}
-        )
-    }
 
     private addNotifiers(notificationId, followers, messageText, entityType, parent?) {
         const promises = [];
@@ -75,11 +74,11 @@ export class NotificationService {
                 promises.push(this.createNotifier(notificationId, follower.data().uid, messageText, entityType));
             });
         }
-        console.log(promises)
         return Promise.all(promises);
     }
 
     private createNotifier(notificationId, uid, messageText, entityType, parent?) {
+        console.log('createNotifier');
         return this.notifiersRef.add(
             {
                 notificationObjectId: notificationId,
@@ -94,8 +93,50 @@ export class NotificationService {
         )
             .catch(err => {
                 console.log(err);
-            })
+            });
     }
+
+    getNotificationObject(objectId) {
+        return this.notificationObjectsRef.doc(objectId).ref.get();
+    }
+
+    updateNotifier(notifierId, data) {
+        return this.notifiersRef.doc(notifierId).set(
+            data, {merge: true}
+        );
+    }
+
+    async checkNotificationToken(user) {
+        const userData = await this.userRef.doc(user.uid).ref.get();
+        return !!userData.data().notificationTokens;
+    }
+
+    async savePushNotificationsToUser(token, user) {
+        const userData = await this.userRef.doc(user.uid).ref.get();
+        let tokens = [];
+        if (userData.data().notificationTokens) {
+            tokens = tokens.concat(userData.data().notificationTokens);
+            tokens.push(token);
+        } else {
+            tokens.push(token);
+        }
+        return this.userRef.doc(user.uid)
+            .set({
+                notificationTokens: tokens
+            }, {merge: true})
+            .then(() => {
+                return this.saveNotificationToken(token, user);
+            });
+    }
+
+    saveNotificationToken(tokenId, user) {
+        return this.tokenRef.add({
+            token: tokenId,
+            uid: user.uid
+        });
+    }
+
+
 
     private getFollowers(postId) {
         return this.db.collection('posts').doc(postId).collection('followers').ref.get();

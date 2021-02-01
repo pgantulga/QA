@@ -22,7 +22,7 @@ const tagFunctions = require('./tags-functions');
 exports.tagChanged = tagFunctions.tagChanged;
 
 const notificationFunctions = require('./notification-functions');
-exports.notificationPostCreated = notificationFunctions.notificationPostCreated;
+exports.notificationCreated = notificationFunctions.notificationCreated;
 
 // const userFunctions = require('./user-functions');
 // exports.userCreated = userFunctions.userCreated;

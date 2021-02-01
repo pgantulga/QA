@@ -3,6 +3,7 @@ import {PostService} from '../services/post.service';
 import {AuthService} from '../services/auth.service';
 import {PageEvent} from '@angular/material/paginator';
 import {Observable} from "rxjs";
+import {NotificationService} from '../services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   lastItem: any;
   postMetas: any;
   pinnedPosts$: Observable<any>;
-  constructor( private postService: PostService, public authService: AuthService) { }
+  constructor( private postService: PostService, public authService: AuthService, public notificationService: NotificationService) { }
   ngOnInit(): void {
     this.dropDownMenu = [{
       name: 'Сүүлд шинэчлэгдсэн',

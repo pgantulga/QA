@@ -1,100 +1,51 @@
-// const functions = require('firebase-functions');
+const functions = require('firebase-functions');
 // @ts-ignore
 import * as admin from 'firebase-admin';
-const notificationObjectsRef = admin.firestore().collection('notificationObjects');
-// const notificationActorsRef = admin.firestore().collection('notificationActors');
-const notificationNotifiersRef = admin.firestore().collection('notificationNotifiers');
 
-
-
-// exports.notificationPostCreated = functions.firestore
-//     .document('posts/{postId}')
-//     .onWrite((change: any, context: any) => {
-//             if (change.before.exists && !change.after.exists) {
-//                 console.log('notification:post delete method');
-//             }
-//             if (!change.before.exists && change.after.exist) {
-//                 console.log('notification:post create method');
-//                 createNotificationObject(change.after.exist)
-//                     .then( res => {
-//                         addNotificationNotifiers(res.id, change.after.exist)
-//                             .then((respond: any) => {
-//                                 console.log('Notififcation notifier created: ', respond);
-//                             });
-//                         addNotificationActor(res.id, change.after.exist)
-//                             .then((response: any) => {
-//                                 console.log('Notification actor created: ', response);
-//                             });
-//                     });
-//             }
-//             console.log('post update method');
-//
-//
-//     });
-exports.createNotificationObject = createNotificationObject;
-exports.addNotificationNotifiers = addNotificationNotifiers;
-exports.createNotificationNotifier = createNotificationNotifier;
-function createNotificationObject(postData: any): Promise<any> {
-    return notificationObjectsRef.add(
-        {
-            entity: postData.id,
-            entity_type: 1,
-            type: 'post',
-            createdAt: admin.firestore.FieldValue.serverTimestamp(),
-            status: 1
-        }
-    )
-        .then(res => {
-            res.update({
-                id: res.id
+exports.notificationCreated = functions.firestore
+    .document('notifiers/{notifierId}')
+    .onCreate((snap: any, context: any) => {
+        const notifierData = snap.data();
+        const message = {
+            tokens: [],
+            notification: {
+                title: getMessageTitle(notifierData),
+                body: notifierData.message
+            },
+            webpush: {
+                fcmOptions: {
+                    link: (notifierData.parent) ? 'http://localhost:4200/posts/' + notifierData.parent : 'http://localhost:4200/'
+                }
+            }
+        };
+        getUserData(notifierData.notifier)
+            .then((data: any) => {
+                if (!data.notificationTokens) {
+                    console.log('no token');
+                    return null;
+                }
+                message.tokens = message.tokens.concat(data.notificationTokens);
+                console.log(message.tokens.length);
+                return admin.messaging().sendMulticast(message)
+                    .then((res) => {
+                        console.log(res.successCount + ' messages sent');
+                    });
             });
-            return res;
-        })
-        .catch(err => {
-            console.log(err);
-        })
-}
-function addNotificationNotifiers(id: any, postData: any): Promise<any> {
-    const followers = admin.firestore().collection('posts').doc(postData.id).collection('followers');
-    return followers.get()
-        .then((querySnapshot: any) => {
-            querySnapshot.forEach((item: any) => {
-                 return createNotificationNotifier(id, item.data().uid);
-            });
-        })
-        .catch(err => {
-            console.log(err);
-        });
-}
-function createNotificationNotifier(id: any, uid: any): Promise<any> {
-     return notificationNotifiersRef.add(
-         {
-             notificationObjectId: id,
-             notifier: uid,
-             status: 1
-         })
-         .then(res => {
-             return res.update({
-                 id: res.id
-             });
-         })
-         .catch(err => {
-             console.log(err);
-         })
-}
 
-export function addNotificationActor(id: any, postData: any) {
-    return notificationNotifiersRef.add(
-        {
-            notificationObjectId: id,
-            actor: postData.uid,
-            status: 1
-        }
-    )
-        .then(res => {
-            return res.update({
-                id: res.id
-            });
-        });
+
+    });
+async function getUserData(uid: string) {
+    const userRef = admin.firestore().collection('users').doc(uid);
+    const userData = await userRef.get();
+    return userData.data();
+}
+function getMessageTitle(obj: any) {
+    if (obj.entity_type === 1) {return 'Шинэ хэлэлцүүлэг';}
+    if (obj.entity_type === 2) {return 'Хэлэлцүүлэгт засвар орлоо';}
+    if (obj.entity_type === 3) {return 'Хэлэлцүүлэг устгагдлаа';}
+    if (obj.entity_type === 4) {return 'Хариулт нэмэгдлээ';}
+    if (obj.entity_type === 5) {return 'Хариулт нэмэгдлээ';}
+    return 'Шинэ мэдэгдэл';
+
 }
 

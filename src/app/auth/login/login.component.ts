@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   loginWithGoogle() {
     this.authService.googleLogin()
         .then((res) => {
-          if (res.firstTime) {
+          if (res.firstime) {
             this.router.navigate(['auth/welcome']);
           }
         });
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.authService.signIn({email: this.email.value, password: this.password.value})
         .then(res => {
           this.openSnack('Амжилттай нэвтэрлээ.');
-        })
+        });
 
   }
   openSnack(data) {
