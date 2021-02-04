@@ -16,17 +16,20 @@ import {PostListGhostComponent} from '../post/post-list-ghost/post-list-ghost.co
 // import {SidebarComponent} from '../layout/sidebar/sidebar.component';
 import {MomentPipe} from '../shared/moment.pipe';
 import {SharedModule} from '../shared/shared.module';
+import {TagModule} from '../tag/tag.module';
+import {LayoutModule} from '../layout/layout.module';
 
 
 @NgModule({
   declarations: [HomeComponent, PostListComponent, PostListGhostComponent],
-  imports: [
-    CommonModule,
-    HomeRoutingModule,
-    MdModule,
-    FlexLayoutModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        HomeRoutingModule,
+        MdModule,
+        FlexLayoutModule,
+        SharedModule,
+        LayoutModule,
+    ],
   exports: [
     PostListComponent,
     PostListGhostComponent,

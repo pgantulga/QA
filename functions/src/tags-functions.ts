@@ -21,11 +21,10 @@ exports.tagChanged = functions.firestore
                 });
             })
             .catch((err: any) => {
-                console.log('error gettind doc: ', err);
+                console.log('error getting doc: ', err);
             });
     });
 
-// to count how many times that tag used, need to change tag/used doc every time when post created/deleted
 function updatePostTagArray( postValue: any, newValue: any) {
     const array = [];
     for ( const item of postValue.tags) {

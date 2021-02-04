@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {query} from '@angular/animations';
-import {first, map, take} from 'rxjs/operators';
-import {snapshotChanges} from '@angular/fire/database';
+import {BehaviorSubject} from 'rxjs';
 import {AuthService} from './auth.service';
 
 export interface Tag {
@@ -37,6 +34,17 @@ export class TagService {
 
     getPopularTags() {
         return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(10)).valueChanges();
+    }
+    async getUserTags(user) {
+        const userData = await this.db.collection('users').doc(user.uid).ref.get();
+        const promises = [];
+        const tagsRef = this.db.collection('tags', ref => ref.orderBy('updatedAt', 'desc'));
+        for (const p in userData.data().tags) {
+            if (userData.data().tags[p]) {
+                promises.push(tagsRef.doc(p).ref.get());
+            }
+        }
+        return await Promise.all(promises);
     }
 
     getTagInfo(id) {

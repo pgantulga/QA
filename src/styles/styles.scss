@@ -174,14 +174,17 @@ quill-editor.answer .ql-editor {
   padding: 12px;
 }
 //********************************************chip*******************************************************
+mat-chip-list:focus {
+  outline: 0;
+}
 .mat-standard-chip.tag {
   min-height: 24px !important;
   margin-bottom: 8px;
   cursor: pointer;
 
   //font-size: mat-font-size(caption);
-  //background-color: transparent !important;
-  //border: 1px solid rgba(255,255,255, 0.2);
+  background-color: transparent !important;
+  border: 1px solid rgba(255,255,255, 0.2);
 }
 
 .mat-standard-chip.transparent {

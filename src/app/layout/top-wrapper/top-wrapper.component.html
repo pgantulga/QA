@@ -14,15 +14,3 @@
         <div fxFlex></div>
     </div>
 </ng-container>
-<mat-toolbar color="warn" *ngIf="showNotificationWarn">
-        <mat-toolbar-row  fxLayout="row" >
-            <div fxFlex></div>
-            <div fxLayout="row" class="container" fxLayoutAlign="space-between center" >
-                <p class="mat-body-2" style="margin-bottom: 0">Та сайтын мэдэгдлийн тохиргоог зөвшөөрснөөр шинэ хэлэлцүүлэг болон хариултуудыг мэдэгдлээр авах боломжтой.</p>
-                <button mat-button (click)="askNotificationPermission()">
-                    Зөвшөөрөх
-                </button>
-            </div>
-            <div fxFlex></div>
-        </mat-toolbar-row>
-</mat-toolbar>

@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {ViewportScroller} from "@angular/common";
 import {element} from "protractor";
+import {AuthService} from '../../services/auth.service';
+import {Observable} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'post-list',
@@ -10,11 +13,11 @@ import {element} from "protractor";
 })
 export class PostListComponent implements OnInit {
   @Input() post: any;
+  tag: string;
 
-  constructor(private router: Router, private viewportScroller: ViewportScroller) { }
+  constructor(private router: Router, private viewportScroller: ViewportScroller, private authService: AuthService) { }
 
   ngOnInit(): void {
-
   }
   getIcon(type) {
     switch (type) {
@@ -45,4 +48,5 @@ export class PostListComponent implements OnInit {
     if (element) {element.scrollIntoView()}
 
   }
+
 }

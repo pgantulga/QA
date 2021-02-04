@@ -1,3 +1,9 @@
+<div style="margin: 8px 0" *ngIf="userTags">
+    <mat-chip-list>
+        <tag-chip  *ngFor="let item of userTags" [item]="item" ></tag-chip>
+    </mat-chip-list>
+</div>
+<p class="mat-body-2">Онцлох хэлэлцүүлгүүд</p>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
     <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
@@ -13,6 +19,21 @@
         <mat-icon>refresh</mat-icon>
     </button>
 </div>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+    <mat-button-toggle>
+        <mat-icon>whatshot</mat-icon>
+        Эрэлттэй
+    </mat-button-toggle>
+    <mat-button-toggle>
+        <mat-icon>update</mat-icon>
+        Шинэчлэгдсэн
+    </mat-button-toggle>
+    <mat-button-toggle>
+        <mat-icon>new</mat-icon>
+        Шинэ
+    </mat-button-toggle>
+</mat-button-toggle-group>
+
 <div class="post-list_container">
     <div *ngIf="posts.length; else loading">
         <div *ngFor="let item of posts; last as last"  >

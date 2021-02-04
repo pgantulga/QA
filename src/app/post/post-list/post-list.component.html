@@ -4,7 +4,7 @@
         <div fxLayout="row">
             <mat-icon *ngIf="post.pinned" class="pin-icon">push_pin</mat-icon>
             <mat-chip-list>
-                <mat-chip class="tag chip-click" *ngFor="let tag of post.tags" [routerLink]="['/tags/tagDetail', tag.id]" >{{tag?.name}}</mat-chip>
+                <tag-chip *ngFor="let item of post.tags" [item]="item"></tag-chip>
             </mat-chip-list>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="post.lastLog" class="metaData">
@@ -15,6 +15,7 @@
     <div fxLayout="row" fxLayoutAlign="start start">
         <div class="score " fxLayout="column" fxLayoutAlign="center center">
             <p class="mat-body-2">{{post.answersCount}}</p>
+
             <p class="mat-caption" >Хариулт</p>
             <mat-icon>reply</mat-icon>
         </div>

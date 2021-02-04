@@ -93,7 +93,8 @@ function increaseTagNumber(post: any) {
     if (post.tags.length) {
         post.tags.forEach((item: any) => {
             tagsRef.doc(item.id).update({
-                totalUsed: increasedBy
+                totalUsed: increasedBy,
+                updatedAt: admin.firestore.FieldValue.serverTimestamp()
             });
         });
     }

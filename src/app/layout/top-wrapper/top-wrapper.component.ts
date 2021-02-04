@@ -40,13 +40,13 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         this.subscription.subscribe(results => {
             this.showWrapper = wrapperRoutes.includes(results[1]);
             this.content = this.getWrapperContent(results[0]);
-            this.user = results[0];
-            if (results[0]) {
-                this.notificationService.checkNotificationToken(results[0])
-                    .then(res => {
-                        this.showNotificationWarn = !res;
-                    });
-            }
+            // this.user = results[0];
+            // if (results[0]) {
+            //     this.notificationService.checkNotificationToken(results[0])
+            //         .then(res => {
+            //             this.showNotificationWarn = !res;
+            //         });
+            // }
         });
     }
 
@@ -98,16 +98,16 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         return 'Өдрийн мэнд!';
       } else { return 'Оройн мэнд!';}
     }
-    askNotificationPermission() {
-        this.afMessaging.requestToken
-            .subscribe(
-                (token) => { this.notificationService.savePushNotificationsToUser(token, this.user)
-                    .then(() => {
-                        this.showNotificationWarn = false;
-                    });
-                },
-                (error) => { console.error(error); },
-            );
-    }
+    // askNotificationPermission() {
+    //     this.afMessaging.requestToken
+    //         .subscribe(
+    //             (token) => { this.notificationService.savePushNotificationsToUser(token, this.user)
+    //                 .then(() => {
+    //                     this.showNotificationWarn = false;
+    //                 });
+    //             },
+    //             (error) => { console.error(error); },
+    //         );
+    // }
 
 }

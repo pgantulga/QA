@@ -29,6 +29,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {WarnComponent} from './warn/warn.component';
 import {ArticleListComponent} from './article-list/article-list.component';
 import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
+import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
         SidebarProfileComponent,
         WarnComponent,
         ArticleListComponent,
-        TopWrapperComponent
+        TopWrapperComponent,
+        TagChipComponent
     ],
     exports: [
         NavbarComponent,
@@ -64,7 +66,8 @@ import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
         UserProfileLargeComponent,
         ArticleListComponent,
         TopWrapperComponent,
-        WarnComponent
+        WarnComponent,
+        TagChipComponent
     ],
     imports: [
         CommonModule,

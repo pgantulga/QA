@@ -1,12 +1,28 @@
 import { Injectable } from '@angular/core';
 import {Menu} from "../interfaces/Menu";
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class MenuService {
   constructor() { }
-  public topMenu: Menu[] =[
+  public dropMenu = [
+    {
+      name: 'Сүүлд шинэчлэгдсэн',
+      sort: 'updatedAt'
+    },
+    {
+      name: 'Идэвхтэй',
+      sort: 'answersCount'
+    },
+    {
+      name: 'Сүүлд нэмэгдсэн',
+      sort: 'createdAt'
+    }
+  ];
+  public topMenu: Menu[] = [
     {
       name: 'Асуултууд',
       link: 'home'
