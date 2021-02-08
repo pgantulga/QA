@@ -23,9 +23,10 @@ export class NotificationService {
             .limit(10)).valueChanges({idField: 'id'});
     }
 
-    getAllNotifications(user) {
-        return this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
-            .orderBy('createdAt', 'desc')).valueChanges({idField: 'id'});
+    async getAllNotificationsNumber(user) {
+         const notifications = await this.db.collection('notifiers', ref => ref.where('notifier', '==', user.uid)
+            .orderBy('createdAt', 'desc')).ref.get();
+         return notifications.size;
     }
 
     removeNotification(notifierId) {

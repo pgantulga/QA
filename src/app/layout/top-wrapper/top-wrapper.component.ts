@@ -3,12 +3,9 @@ import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {RouteService} from "../../services/route.service";
 import {Observable, combineLatest} from "rxjs";
-import {ArticleService} from "../../services/article-service";
-import {PermissionService} from "../../services/permission.service";
-import {NotificationService} from '../../services/notification.service';
-import {AngularFireMessaging} from '@angular/fire/messaging';
 
-const wrapperRoutes = ['home', 'tags'];
+
+const wrapperRoutes = ['home'];
 
 @Component({
     selector: 'top-wrapper',
@@ -22,16 +19,11 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
     subscription: Observable<any>;
     title: string;
     content: any;
-    showNotificationWarn: boolean;
     user: any;
 
     constructor(public authService: AuthService,
                 private router: Router,
                 public routerService: RouteService,
-                private articleService: ArticleService,
-                private permissionService: PermissionService,
-                private notificationService: NotificationService,
-                private afMessaging: AngularFireMessaging
                 ) {
     }
 
@@ -40,13 +32,6 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         this.subscription.subscribe(results => {
             this.showWrapper = wrapperRoutes.includes(results[1]);
             this.content = this.getWrapperContent(results[0]);
-            // this.user = results[0];
-            // if (results[0]) {
-            //     this.notificationService.checkNotificationToken(results[0])
-            //         .then(res => {
-            //             this.showNotificationWarn = !res;
-            //         });
-            // }
         });
     }
 
@@ -98,16 +83,4 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         return 'Өдрийн мэнд!';
       } else { return 'Оройн мэнд!';}
     }
-    // askNotificationPermission() {
-    //     this.afMessaging.requestToken
-    //         .subscribe(
-    //             (token) => { this.notificationService.savePushNotificationsToUser(token, this.user)
-    //                 .then(() => {
-    //                     this.showNotificationWarn = false;
-    //                 });
-    //             },
-    //             (error) => { console.error(error); },
-    //         );
-    // }
-
 }

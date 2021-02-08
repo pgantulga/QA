@@ -1,12 +1,15 @@
 @import "../../../styles/custom-theme.scss";
+@import "src/app/post/post-list/post-list.component";
 .tag-item {
-  border-radius: 16px;
-  //border: 1px solid rgba(0,0,0,0.2);
+  border-radius: 12px;
   background-color: mat-color($my-grey, 800);
-  width: 260px;
-  height: 200px;
+  width: 269px;
+  height: 170px;
   padding: 12px;
   margin-bottom: 8px;
+  .mat-subheading-2 {
+    margin: 0 0 16px 0;
+  }
 }
 
 .tag-item .tag-link {
@@ -14,8 +17,29 @@
 
 }
 .tag-item .tag-link:hover {
-  color: mat-color($accent,800)
+  color: mat-color($primary)
 }
 .tag-item .tag-link:focus {
   outline:0;
+}
+.type-indicator {
+  width: 5px !important;
+  margin: 0 12px 0 0;
+}
+
+@media only screen and (max-width: 1280px ) and ( min-width: 960px) {
+  .tag-item {
+    width: 305px;
+  }
+}
+
+@media only screen and (max-width: 960px) and ( min-width: 660px){
+  .tag-item {
+    width: 305px;
+  }
+}
+@media only screen and (max-width: 660px){
+  .tag-item {
+    width: 100%;
+  }
 }

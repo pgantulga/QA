@@ -22,6 +22,23 @@ export class MenuService {
       sort: 'createdAt'
     }
   ];
+  public toggleMenu = [
+    {
+      name: 'Сүүлд шинэчлэгдсэн',
+      sort: 'updatedAt',
+      icon: 'update'
+    },
+    {
+      name: 'Идэвхтэй',
+      sort: 'answersCount',
+      icon: 'whatshot'
+    },
+    {
+      name: 'Дахин ачааллах',
+      sort: 'updatedAt',
+      icon: 'refresh'
+    }
+  ];
   public topMenu: Menu[] = [
     {
       name: 'Асуултууд',

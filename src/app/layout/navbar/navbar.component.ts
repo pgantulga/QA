@@ -1,15 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MenuService} from "../../services/menu.service";
-import {Menu} from "../../interfaces/Menu";
-import {AuthService} from "../../services/auth.service";
-import {MatDialog} from "@angular/material/dialog";
+import {Component, NgZone, OnInit} from '@angular/core';
+import {MenuService} from '../../services/menu.service';
+import {Menu} from '../../interfaces/Menu';
+import {AuthService} from '../../services/auth.service';
+import {MatDialog} from '@angular/material/dialog';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {filter, first, switchMap} from 'rxjs/operators';
 import {NavigationEnd, Router} from '@angular/router';
 import {Layout, RouteService} from '../../services/route.service';
-import {PermissionService} from "../../services/permission.service";
-import {Observable, of} from "rxjs";
-import {NotificationService} from "../../services/notification.service";
+import {PermissionService} from '../../services/permission.service';
+import {Observable, of} from 'rxjs';
+import {NotificationService} from '../../services/notification.service';
+import {CdkScrollable, ScrollDispatcher} from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-navbar',
@@ -20,9 +21,9 @@ export class NavbarComponent implements OnInit {
     currentRoute: any;
     topMenu: Menu[];
     routerEvent$: Observable<any>;
-    notifications$: Observable<any>;
     notifications: any[];
     layout: Layout;
+    isOnTop = true;
 
     constructor(public menu: MenuService,
                 public authService: AuthService,
@@ -30,8 +31,12 @@ export class NavbarComponent implements OnInit {
                 public dialog: MatDialog,
                 public router: Router,
                 public routeService: RouteService,
-                public notificationService: NotificationService) {
+                public notificationService: NotificationService,
+                private scrollDispatcher: ScrollDispatcher,
+                private zone: NgZone
+    ) {
         this.layout = this.routeService.getLayout(this.currentRoute);
+        this.topMenu = this.menu.topMenu;
     }
 
     ngOnInit(): void {
@@ -41,21 +46,16 @@ export class NavbarComponent implements OnInit {
             this.currentRoute = this.routeService.getCurrentRoute(e.url);
             this.layout = this.routeService.getLayout(this.currentRoute);
         });
-        this.topMenu = this.menu.topMenu;
         this.authService.user$.pipe(
             first(),
             switchMap(user => (user) ? this.notificationService.getNotifications(user) : of()
-            )).subscribe(
-                (items: any) => {
-                this.notifications = items.filter((item: any) => item.status > 0); },
-                );
-        // this.authService.getUser()
-        //     .then(user => {
-        //         this.notificationService.getAllNotifications(user)
-        //             .subscribe(items => {
-        //                 this.notifications = items.filter((item: any) => item.status > 0);
-        //             });
-        //     });
+            )).subscribe((items: any) => {
+                this.notifications = items.filter((item: any) => item.status > 0);
+            },
+        );
+        this.scrollDispatcher.scrolled().subscribe((event: CdkScrollable) => {
+            this.scrollable(event);
+        });
     }
 
     signOut() {
@@ -70,4 +70,14 @@ export class NavbarComponent implements OnInit {
         });
     }
 
+    scrollable(ev) {
+        const scroll = ev.measureScrollOffset('top');
+        let newIsOnTop: boolean = this.isOnTop;
+        newIsOnTop = !(scroll > 0);
+        if (newIsOnTop !== this.isOnTop) {
+            this.zone.run(() => {
+                this.isOnTop = newIsOnTop;
+            });
+        }
+    }
 }

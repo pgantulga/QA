@@ -1,52 +1,44 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {ViewportScroller} from "@angular/common";
-import {element} from "protractor";
+import {Router} from '@angular/router';
+import {ViewportScroller} from '@angular/common';
 import {AuthService} from '../../services/auth.service';
-import {Observable} from 'rxjs';
-import {first} from 'rxjs/operators';
+import {PostService} from '../../services/post.service';
 
 @Component({
-  selector: 'post-list',
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+    selector: 'post-list',
+    templateUrl: './post-list.component.html',
+    styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  @Input() post: any;
-  tag: string;
+    @Input() post: any;
+    tag: string;
+    isUserPost: boolean;
 
-  constructor(private router: Router, private viewportScroller: ViewportScroller, private authService: AuthService) { }
-
-  ngOnInit(): void {
-  }
-  getIcon(type) {
-    switch (type) {
-      case 'voted':
-        return 'done';
-      case 'created':
-        return 'edit';
-      case 'devoted':
-        return 'done';
-      case 'answered':
-        return 'reply';
-      default:
-        return 'update';
+    constructor(private router: Router,
+                private viewportScroller: ViewportScroller,
+                private authService: AuthService,
+                public postService: PostService) {
     }
-  }
-  gotoPost(post) {
-    // refreshing component
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/posts', post.id]);
-    });
-    this.scrollTop();
-    // this.viewportScroller.scrollToPosition([0, 0]);
-  }
 
-  private scrollTop() {
-    // tslint:disable-next-line:no-shadowed-variable
-    const element = document.querySelector('#postheader');
-    if (element) {element.scrollIntoView()}
+    ngOnInit(): void {
+        this.checkUserPost();
+    }
 
-  }
+    gotoPost(post) {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            return this.router.navigate(['/posts', post.id]);
+        });
 
+    }
+    async checkUserPost() {
+      const followers = await this.postService.getFollowers(this.post.id);
+      const user = await this.authService.getUser();
+      if (user) {
+          followers.forEach(fol => {
+              if (fol.data().uid === user.uid) {
+                  this.isUserPost = true;
+              }
+          });
+      }
+   }
 }

@@ -1,38 +1,35 @@
-<div style="margin: 8px 0" *ngIf="userTags">
+<div style="margin: 8px 0" *ngIf="userTags" id="tags">
     <mat-chip-list>
+        <mat-chip class="tag" [routerLink]="['/tags']">
+            Бүгд
+        </mat-chip>
         <tag-chip  *ngFor="let item of userTags" [item]="item" ></tag-chip>
+        <button mat-button color="primary" style="height: 24px; line-height: 24px" [routerLink]="['/tags']">
+            Бүх сэдвүүд
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
     </mat-chip-list>
 </div>
-<p class="mat-body-2">Онцлох хэлэлцүүлгүүд</p>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
+    <p class="mat-subheading-2">Oнцлох хэлэлцүүлгүүд</p>
+    <ng-container *ngIf="authService.user$ | async as user">
+        <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)" >
+            <mat-icon>edit</mat-icon>
+            Хэлэлцүүлэг нэмэх
+        </button>
+    </ng-container>
+</div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
     <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-button color="primary" class="background-button" [matMenuTriggerFor]="menu">
-        {{selectedSort.name}}
-        <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
-    </mat-menu>
-    <button mat-icon-button color="primary" (click)="refresh()">
-        <mat-icon>refresh</mat-icon>
-    </button>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
+    <p class="mat-subheading-2">Бүх хэлэлцүүлгүүд</p>
+    <mat-button-toggle-group name="posts" aria-label="sort">
+        <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
+            <mat-icon>{{item.icon}}</mat-icon>
+        </mat-button-toggle>
+    </mat-button-toggle-group>
 </div>
-<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-    <mat-button-toggle>
-        <mat-icon>whatshot</mat-icon>
-        Эрэлттэй
-    </mat-button-toggle>
-    <mat-button-toggle>
-        <mat-icon>update</mat-icon>
-        Шинэчлэгдсэн
-    </mat-button-toggle>
-    <mat-button-toggle>
-        <mat-icon>new</mat-icon>
-        Шинэ
-    </mat-button-toggle>
-</mat-button-toggle-group>
 
 <div class="post-list_container">
     <div *ngIf="posts.length; else loading">
@@ -44,11 +41,7 @@
         <mat-paginator [length]="meta.size" [pageSize]="10" (page)="pageEvent = getItem($event)" style="background-color: transparent"></mat-paginator>
     </div>
     <ng-template #loading>
-        <!--    ghost elemnts-->
         <post-list-ghost *ngFor="let item of [1,2,3,4,5,6]"></post-list-ghost>
-<!--        <div style="padding: 8px 22px;" fxLayout="row" fxLayoutAlign="center center">-->
-<!--            <mat-spinner color="accent" [diameter]="24"></mat-spinner>-->
-<!--        </div>-->
     </ng-template>
 </div>
 

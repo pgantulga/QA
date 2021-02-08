@@ -1,7 +1,10 @@
 @import "../../../styles/custom-theme";
+@import "src/app/post/post-list/post-list.component";
 .top-wrapper-container {
   position: relative;
-  background-image: linear-gradient(90deg, #c68400 0%, #ffd54f 100%);
+  align-items: center;
+
+  //background-image: url("src/assets/wrapper_background.png");
   margin-bottom: 8px;
     .mat-display-1 {
       margin: 0 !important;
@@ -12,14 +15,27 @@
   .mat-body-2{
     margin: 0;
   }
-    //color: mat-color($my-grey,900);
   .top-wrapper {
-    height: 80px;
-    //padding: 40px 15px 30px;
-  }
+    background-image: url("../../../assets/wrapper_background.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    .wrapper-content {
+      z-index: 10;
+    }
 
+  }
+  height: 261px;
+
+}
+@media only screen and (max-width: 400px) {
+  .top-wrapper-container {
+    .top-wrapper {
+      background-position: right center;
+
+    }
+  }
 }
 .top-wrapper-container.warning {
   background-image: linear-gradient(90deg, #ef5350 0%, #ef5350 100%);
 }
-

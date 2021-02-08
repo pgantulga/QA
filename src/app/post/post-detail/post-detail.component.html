@@ -1,4 +1,4 @@
-<ng-container *ngIf="post$ | async as post">
+<div class="detail-page-container" *ngIf="post$ | async as post">
     <post-header [pageTitle]="post.title" id="postheader">
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
@@ -10,17 +10,12 @@
                     <button mat-icon-button style="margin: 0 0 0 0" *ngIf="!isFollowed" (click)="toggleFollow(post, user)" matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирэхгүй." matTooltipClass="tooltip">
                         <mat-icon>notifications_off</mat-icon>
                     </button>
-<!--                    <mat-icon style="opacity: 0.7">visibility</mat-icon>-->
-<!--                    <p class="mat-caption"> 12</p>-->
                 </div>
             </div>
         </div>
     </post-header>
     <div fxLayout="row">
         <div fxLayout="column" class="post-detail background-card" fxFlex="">
-            <!--        <button mat-fab color="primary" aria-label="edit" class="top-fab-button">-->
-            <!--            <mat-icon>share</mat-icon>-->
-            <!--        </button>-->
             <div fxLayout="row">
                 <div fxLayout="column" fxLayoutAlign='start center' class="voteArea">
                     <vote-button [obj]="post" [type]="'post'"></vote-button>
@@ -123,4 +118,4 @@
             <mat-divider *ngIf="!last"></mat-divider>
         </post-list>
     </div>
-</ng-container>
+</div>

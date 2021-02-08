@@ -1,33 +1,89 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TagService} from '../../services/tag.service';
 import {map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
 import {PostService} from '../../services/post.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-// import {TagAddComponent} from '../tag-add/tag-add.component';
-import {TagUpdateComponent} from '../tag-update/tag-update.component';
+import {MenuService} from "../../services/menu.service";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
-  selector: 'tag-detail',
-  templateUrl: './tag-detail.component.html',
-  styleUrls: ['./tag-detail.component.css']
+    selector: 'tag-detail',
+    templateUrl: './tag-detail.component.html',
+    styleUrls: ['./tag-detail.component.css']
 })
 export class TagDetailComponent implements OnInit {
-  tagDetail$: Observable<any>;
-  filteredPosts$: Observable<any>;
-  constructor( public tagService: TagService, public route: ActivatedRoute, public postService: PostService, public dialog: MatDialog) { }
-  ngOnInit(): void {
-    this.tagDetail$ = this.route.paramMap.pipe(
-        switchMap(params => {
-            this.tagService.setCurrentTag(params.get('tagId'));
-            return this.tagService.getTagInfo(params.get('tagId'));
-        })
-    );
-    this.filteredPosts$ = this.tagDetail$.pipe(
-        switchMap( data => {
-            return this.postService.getPostByTag({id: data.id, name: data.name});
-        })
-    );
-  }
+    tagDetail$: Observable<any>;
+    filteredPosts: any;
+    firstItem: any;
+    lastItem: any;
+    selectedSort: any;
+    toggleMenu: any;
+    pageEvent: PageEvent;
+    filterObj: any;
+
+    constructor(public tagService: TagService,
+                public route: ActivatedRoute,
+                public postService: PostService,
+                public dialog: MatDialog,
+                private menu: MenuService
+                ) {
+        this.toggleMenu = this.menu.toggleMenu;
+        this.selectedSort = this.toggleMenu[0];
+    }
+
+    ngOnInit(): void {
+        this.tagDetail$ = this.route.paramMap.pipe(
+            switchMap(params => {
+                this.tagService.setCurrentTag(params.get('tagId'));
+                return this.tagService.getTagInfo(params.get('tagId'));
+            })
+        );
+        this.tagDetail$.subscribe(tag => {
+            this.filterObj = {
+                field: 'tags',
+                condition: 'array-contains',
+                value: {
+                    id: tag.id,
+                    name: tag.name
+                }
+            };
+            this.getStarted();
+        });
+    }
+
+    getStarted() {
+        this.filteredPosts = null;
+        this.postService.getFirstItems(10, this.selectedSort.sort, this.filterObj).toPromise().then(data => this.copyItems(data));
+    }
+    getItem(ev) {
+        this.goToTop();
+        this.filteredPosts = null;
+        const subscription = ev.pageIndex > ev.previousPageIndex
+            ? this.postService.nextPage(this.lastItem, this.selectedSort.sort, this.filterObj)
+            : this.postService.prevPage(this.firstItem, this.selectedSort.sort, this.filterObj);
+        subscription.subscribe(data => {
+            this.copyItems(data);
+        });
+        return ev;
+    }
+
+    goToTop() {
+        const element = document.getElementById('header');
+        element.scrollIntoView(true);
+    }
+
+    copyItems(data) {
+        this.filteredPosts = [];
+        for (const a of data.docs) {
+            this.filteredPosts.push(a.data());
+        }
+        this.firstItem = data.docs[0];
+        this.lastItem = data.docs[data.docs.length - 1];
+    }
+    changeSort(sort) {
+        this.selectedSort = sort;
+        this.getStarted();
+    }
 }

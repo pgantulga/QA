@@ -1,4 +1,5 @@
 <div class="post-list background-card" fxLayout="row">
+    <div class="type-indicator " [class.system]="post?.pinned" [class.user]="isUserPost"></div>
     <div fxLayout="column" fxFlex="">
         <p class="mat-body-2 question" (click)="gotoPost(post)" >{{post.title}}</p>
         <div fxLayout="row">
@@ -8,14 +9,13 @@
             </mat-chip-list>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center" *ngIf="post.lastLog" class="metaData">
-            <mat-icon class="post-list-edited">{{getIcon(post.lastLog.type)}}</mat-icon>
-            <p class="mat-caption">{{post.lastLog.user.displayName}} {{post.lastLog.type}} {{post.lastLog.timestamp | momentPipe}} </p>
+                <mat-icon class="post-list-edited" *ngIf="post.lastLog.icon">{{post.lastLog.icon}}</mat-icon>
+                <p class="mat-caption">{{post.lastLog.timestamp | momentPipe}} <span *ngIf="post.lastLog.message">{{post.lastLog.message}}</span></p>
         </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="start start">
         <div class="score " fxLayout="column" fxLayoutAlign="center center">
             <p class="mat-body-2">{{post.answersCount}}</p>
-
             <p class="mat-caption" >Хариулт</p>
             <mat-icon>reply</mat-icon>
         </div>
@@ -26,5 +26,4 @@
         </div>
     </div>
 </div>
-<!--<ng-content></ng-content>-->
 

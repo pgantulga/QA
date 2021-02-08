@@ -71,6 +71,9 @@ export class AuthService {
     getUser(): Promise<any> {
         return this.user$.pipe(first()).toPromise();
     }
+    getUserById(user): Observable<any> {
+        return this.userCollection.doc(user.uid).valueChanges();
+    }
     async googleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
         const credential = await this.af.signInWithPopup(provider);

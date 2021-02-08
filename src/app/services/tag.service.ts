@@ -20,6 +20,7 @@ export class TagService {
     tagsCollection = this.db.collection('tags', ref => ref.orderBy('createdAt', 'desc'));
     tagSource = new BehaviorSubject('default');
     currentTag = this.tagSource.asObservable();
+    tagMetaDoc = this.db.doc('metas/tag');
 
     constructor(private db: AngularFirestore, private authService: AuthService) {
     }
@@ -29,11 +30,11 @@ export class TagService {
     }
 
     getAllTags() {
-        return this.tagsCollection.valueChanges();
+        return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc')).valueChanges();
     }
 
     getPopularTags() {
-        return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(10)).valueChanges();
+        return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(8)).valueChanges();
     }
     async getUserTags(user) {
         const userData = await this.db.collection('users').doc(user.uid).ref.get();
@@ -52,7 +53,7 @@ export class TagService {
     }
 
     createTag(formData, user) {
-        return this.tagsCollection.add({
+        const data = {
             name: formData.name,
             createdBy: {
                 displayName: user.displayName,
@@ -62,14 +63,11 @@ export class TagService {
             createdAt: new Date(),
             updatedAt: new Date(),
             totalUsed: 0,
-        }).then(res => {
-            if (formData.allUserFollowed) {
-                // this.allUsersFollow(res.id)
-            }
+        };
+        return this.tagsCollection.add(data).then(res => {
             return res.update({
                     id: res.id
                 }
-                // log
             );
         });
     }
@@ -100,17 +98,37 @@ export class TagService {
     getFollowers(tag) {
         return this.tagsCollection.doc(tag.id).collection('followers').valueChanges();
     }
+    private getFollowersAsPromise(tag) {
+        return this.tagsCollection.doc(tag.id).collection('followers').ref.get();
+    }
+    async getMultipleTagsFollowers(tags): Promise<any> {
+        const promises = [];
+        const followers = [];
+        for (const tag of tags) {
+            promises.push(this.getFollowersAsPromise(tag));
+        }
+        const allFollowers = await Promise.all(promises);
+        for (const follower of allFollowers) {
+            follower.forEach(doc => {
+                if (!(!!followers.find(t => t.uid === doc.data().uid))) {
+                    followers.push(doc.data());
+                }
+            });
+        }
+        return followers;
+    }
 
-    createTagCategory(data) {
-        return this.db.collection('tagCategories').add({
-            name: data.name,
-            description: data.description,
-            image: data.image,
-            tags: data.tags,
-            color: data.color
-        })
+    createTagCategory(categoryObj) {
+        const data = {
+            name: categoryObj.name,
+            description: categoryObj.description,
+            image: categoryObj.image,
+            tags: categoryObj.tags,
+            color: categoryObj.color
+        };
+        return this.db.collection('tagCategories').add(data)
             .then(res => {
-                res.update({
+                return res.update({
                     id: res.id
                 });
             });
@@ -135,7 +153,6 @@ export class TagService {
     followCategoryTags(categories, user) {
         //1. Add user.tags -> tag.id = true,
         //2. Tags.followes + = user.uid = true
-
         const obj = {};
         const tagsArray = [];
         for (const item of categories) {

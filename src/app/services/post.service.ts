@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {TagService} from './tag.service';
-import {map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {query} from '@angular/animations';
-import {NotificationService} from "./notification.service";
+import {NotificationService} from './notification.service';
 
 @Injectable({
     providedIn: 'root'
@@ -16,15 +14,34 @@ export class PostService {
     constructor(private db: AngularFirestore, public tagService: TagService, private notificationService: NotificationService) {
     }
 
-    nextPage(doc, sort) {
+    nextPage(doc, sort, filter?) {
+        if (filter) {
+            return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc')
+                .where(filter.field, filter.condition, filter.value)
+                .startAfter(doc).limit(10)).get();
+        }
         return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc').startAfter(doc).limit(10)).get();
+
     }
 
-    prevPage(doc, sort) {
+    prevPage(doc, sort, filter?) {
+        if (filter) {
+            return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc')
+                .where(filter.field, filter.condition, filter.value)
+                .endBefore(doc).limitToLast(10)).get();
+        }
         return this.db.collection<any>('posts', ref => ref.orderBy(sort, 'desc').endBefore(doc).limitToLast(10)).get();
     }
 
-    getFirstItems(num, sort) {
+    getFirstItems(num, sort, filter?) {
+        if (filter) {
+            return this.db.collection('posts', ref => ref
+                .orderBy(sort, 'desc')
+                .where(filter.field, filter.condition, filter.value)
+                .limit(num))
+                .get();
+
+        }
         return this.db.collection('posts', ref => ref.limit(num).orderBy(sort, 'desc')).get();
     }
 
@@ -42,14 +59,12 @@ export class PostService {
     }
 
     getPostByUser(user) {
-        console.log(user.uid);
         return this.db.collection('posts', ref => ref.orderBy('createdAt', 'desc')
             .where('uid', '==', user.uid)).valueChanges();
     }
 
     async getUserPostNumber(user) {
         const posts = await this.getPostByUser(user).toPromise();
-        console.log(posts);
         return posts.length;
     }
 
@@ -59,7 +74,7 @@ export class PostService {
     }
 
     createPost(formData, user, tagsArray) {
-        return this.postCollection.add({
+        const data = {
             title: formData.title,
             content: formData.content,
             createdAt: new Date(),
@@ -75,13 +90,15 @@ export class PostService {
             totalVotes: 0,
             viewCount: 0,
             tags: tagsArray,
-        }).then((res) => {
+        };
+        return this.postCollection.add(data).then((res) => {
             return this.addFollowers(tagsArray, res.id)
                 .then(() => {
                     this.notificationService.createNotificationObject(res.id, user, 1, 'post');
                     return res.update({
                         id: res.id,
-                    });
+                        updatedAt: new Date()
+                    })
                 })
                 .then(() => {
                     return this.addLog(user, 'created', res.id);
@@ -97,34 +114,21 @@ export class PostService {
 
     async addFollowers(tags, postId) {
         // get followers from tags
-        const promises = [];
-        const followers = [];
-        for (const tag of tags) {
-            promises.push(this.tagService.tagsCollection.doc(tag.id).collection('followers').ref.get());
+        if (!tags) {
+            return null;
         }
-        const allFollowers = await Promise.all(promises);
-        for (const follower of allFollowers) {
-            follower.forEach(doc => {
-                if (!(!!followers.find(t => t.uid === doc.data().uid))) {
-                    followers.push(doc.data());
-                }
-            });
-        }
+        const followers = await this.tagService.getMultipleTagsFollowers(tags);
         const addPromises = [];
         followers.forEach(item => {
             addPromises.push(this.postCollection.doc(postId).collection('followers')
                 .add({uid: item.uid}));
         });
-        console.log(addPromises);
         return Promise.all(addPromises);
     }
 
     getFollowers(postId) {
         return this.postCollection.doc(postId).collection('followers').ref.get();
     }
-
-
-
     savePost(formData, user, tagsArray, oldValue) {
         return this.postCollection.doc(oldValue.id).set({
             title: formData.title,
@@ -133,7 +137,6 @@ export class PostService {
             tags: tagsArray
         }, {merge: true}).then(
             () => {
-                console.log('save log');
                 return this.addLog(user, 'edited', oldValue.id);
             }
         );
@@ -154,28 +157,6 @@ export class PostService {
     unpinPost(postId) {
         return this.postCollection.doc(postId).set({pinned: false}, {merge: true});
     }
-
-    addLog(user, action: string, postId) {
-        const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];
-        // const types_mn = ['Нэмсэн', 'Зассан', 'Санал өгсөн', 'Саналаа буцаасан', 'Хариулт өгсөн', 'Хариулсан' ]
-        const ref = this.postCollection.doc(postId).collection('logs');
-        if (!types.includes(action)) {
-            return null;
-        }
-        return ref.add({
-            user: {
-                displayName: user.displayName,
-                uid: user.uid
-            },
-            type: action,
-            timestamp: new Date()
-        });
-    }
-
-    getLogs(postId) {
-        return this.postCollection.doc(postId).collection('logs', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
-    }
-
     sort(sort) {
         switch (sort) {
             case 'latest':
@@ -184,11 +165,6 @@ export class PostService {
                 return this.db.collection<any>('posts', ref => ref.orderBy('answersCount', 'desc'));
         }
     }
-
-    onlyUnique(value, index, self) {
-        return index === self.findIndex(t => t.uid === value.uid);
-    }
-
     followPost(post, user) {
         return this.checkFollower(user, post)
             .then(value => {
@@ -211,13 +187,58 @@ export class PostService {
             });
         }
     }
-
-    async checkFollower(user, post) {
+    private findFollower(user, post) {
+        return this.postCollection.doc(post.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
+    }
+    async checkFollower(user, post): Promise<boolean> {
         const querySnapshot = await this.findFollower(user, post).toPromise();
         return !!querySnapshot.docs.length;
     }
+    addLog(user, action: string, postId) {
+        const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];
+        const ref = this.postCollection.doc(postId).collection('logs');
+        if (!types.includes(action)) {
+            return null;
+        }
+        return ref.add({
+            user: {
+                displayName: user.displayName,
+                uid: user.uid
+            },
+            type: action,
+            timestamp: new Date(),
+            message: this.getLogMessage(user, action),
+            icon: this.getLogIcon(action)
+        });
+    }
+    getLogMessage(actor, type) {
+        const typesMN = ['нэмсэн', 'зассан', 'санал өгсөн', 'саналаа буцаасан', 'хариулт өгсөн', 'хариулсан' ];
+        switch (type) {
+            case 'created': return `${actor.displayName} ${typesMN[0]}`;
+            case 'edited': return `${actor.displayName} ${typesMN[1]}`;
+            case 'voted': return `${actor.displayName} ${typesMN[2]}`;
+            case 'devoted': return `${actor.displayName} ${typesMN[3]}`;
+            case 'answered': return `${actor.displayName} ${typesMN[4]}`;
+            case 'replies': return `${actor.displayName} ${typesMN[5]}`;
+            // default: null;
+        }
+    }
+    getLogIcon(type) {
+        switch (type) {
+            case 'voted':
+                return 'done';
+            case 'created':
+                return 'edit';
+            case 'devoted':
+                return 'done';
+            case 'answered':
+                return 'reply';
+            default:
+                return 'update';
+        }
+    }
 
-    private findFollower(user, post) {
-        return this.postCollection.doc(post.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
+    getLogs(postId) {
+        return this.postCollection.doc(postId).collection('logs', ref => ref.orderBy('timestamp', 'desc')).valueChanges();
     }
 }

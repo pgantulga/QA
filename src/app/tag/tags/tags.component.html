@@ -1,17 +1,19 @@
-<div fxLayout="row"  fxLayoutAlign="start center">
-    <button mat-button color="accent" class="background-button" [matMenuTriggerFor]="menu">
-        {{selected.name}}
-        <mat-icon>keyboard_arrow_down</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item *ngFor="let menu of dropDownMenu" (click)="changeSort(menu)">{{menu.name}}</button>
-    </mat-menu>
-    <button mat-button color="accent" class="background-button" (click)="openDialog()" *ngIf="permissionService.canEdit(this.currentUser)">
-        Шинэ таг нэмэх
-    </button>
+<tags-header></tags-header>
+<div class="background-card" *ngIf="aboutTag$ | async as aboutTag">
+    <p [innerHTML]="aboutTag.content"></p>
 </div>
-<div fxLayout="row wrap" fxLayoutGap="8px" style="margin: 8px 0 0 0" *ngIf="tags | async as tags; else loading">
-    <tag-item *ngFor="let item of tags" [item]="item"></tag-item>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
+    <p class="mat-subheading-2">Таны дагаж байгаа</p>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px" style="margin: 8px 0 0 0"
+     *ngIf="authService.user$ | async as user">
+    <tag-item *ngFor="let item of userTags" [item]="item" fxFlex.xs=""></tag-item>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
+    <p class="mat-subheading-2">Бусад сэдвүүд</p>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px" style="margin: 8px 0 0 0">
+    <tag-item *ngFor="let item of otherTags" [item]="item" fxFlex.xs=""></tag-item>
 </div>
 <ng-template #loading>
     <div style="padding: 8px 22px;" fxLayout="row" fxLayoutAlign="center center">

@@ -20,6 +20,7 @@ exports.voteDeleted = votesFunctions.voteDeleted;
 
 const tagFunctions = require('./tags-functions');
 exports.tagChanged = tagFunctions.tagChanged;
+exports.tagCreated = tagFunctions.tagCreated;
 
 const notificationFunctions = require('./notification-functions');
 exports.notificationCreated = notificationFunctions.notificationCreated;

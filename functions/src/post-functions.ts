@@ -36,18 +36,6 @@ exports.postMeta = functions.firestore
             console.log('create method');
             increaseTagNumber(change.after.data());
             updateUserPostNumber(change.after.data());
-            // nf.createNotificationObject(change.after.data())
-            //     .then((res: any) => {
-            //         nf.addNotificationNotifiers(res.id, change.after.data())
-            //             .then((respond: any) => {
-            //                 console.log('Notififcation notifier created: ', respond);
-            //             });
-            //         nf.addNotificationActor(res.id, change.after.data())
-            //             .then((response: any) => {
-            //                 console.log('Notification actor created: ', response);
-            //             });
-            //     });
-
         }
 
         return postRef.orderBy('createdAt', 'desc')

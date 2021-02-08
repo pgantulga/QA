@@ -72,7 +72,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             },
             (error: Response) => {
                 console.log(error.status);
-            })
+            });
 
     }
 

@@ -82,7 +82,6 @@ export class RouteService {
                 layout2: false,
                 layout3: false,
                 layout4: false
-
             };
         }
     }

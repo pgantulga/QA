@@ -1,4 +1,4 @@
-<mat-toolbar class="top-toolbar">
+<mat-toolbar class="top-toolbar" [class.dark]="isOnTop" cdkScrollable>
     <mat-toolbar-row>
         <div fxFlex></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center">
@@ -19,13 +19,12 @@
 <!--                <mat-icon matSuffix>search</mat-icon>-->
 <!--            </mat-form-field>-->
             <div *ngIf="authService.user$ | async as user; else login">
-                <button mat-flat-button color="primary" routerLink="ask" *ngIf="permissionService.canRead(user)" >
-                    <mat-icon>edit</mat-icon>
-                    Хэлэлцүүлэг нэмэх
-                </button>
                 <ng-container *ngIf="notifications">
                     <button mat-icon-button [routerLink]="['/auth/notifications']">
-                        <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn" [matBadgeHidden]="!(!!notifications.length) ">notifications</mat-icon>
+                        <mat-icon matBadge="{{notifications.length}}+" matBadgeColor="warn" *ngIf="(notifications.length > 9) else number" [matBadgeHidden]="!(!!notifications.length)">notifications</mat-icon>
+                        <ng-template #number>
+                            <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn" [matBadgeHidden]="!(!!notifications.length)" >notifications</mat-icon>
+                        </ng-template>
                     </button>
                 </ng-container>
                 <button mat-icon-button style="margin-left: 8px" aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">

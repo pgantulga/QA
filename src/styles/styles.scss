@@ -75,7 +75,7 @@ a{
 
 
 
-//Buttons
+/****************************************Buttons****************************************************/
 .top-fab-button {
   position: absolute;
   right: 0;
@@ -100,16 +100,18 @@ button.mat-raised-button.mat-accent{
   text-transform: uppercase;
 }
 button.mat-button.background-button {
-  //border: 2px solid mat-color($QA-accent);
-  //background-color: mat-color($QA-accent, 50, 0.7);
-  //background-color: mat-color($QA-primary, 500, 0.1);
-  border-radius: 300px;
 }
 button.mat-icon-button.background-button{
-  //background-color: mat-color($QA-primary, 500, 0.1);
 }
 button.mat-icon-button mat-icon{
   //opacity: 66%;
+}
+
+.mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
+  border: solid 1px mat-color($my-grey, 900);
+}
+.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+  border-left: solid 1px mat-color($my-grey, 900);
 }
 
 
@@ -124,7 +126,11 @@ button.mat-icon-button mat-icon{
 //*****************************Global styles*************************************
 
 //Container
-
+@media only screen and (min-width: 1920px) {
+  .container {
+    width: 1110px;
+  }
+}
 @media only screen and (max-width: 1920px ) and ( min-width: 1280px){
   .container {
     width: 1110px;
@@ -134,21 +140,23 @@ button.mat-icon-button mat-icon{
 @media only screen and (max-width: 1280px ) and ( min-width: 960px) {
   .container {
     width: 945px;
+    padding: 0 8px;
   }
 }
 
 @media only screen and (max-width: 960px) {
   .container {
     width: 100%;
+    padding: 0 8px;
     //margin: 0 32px;
   }
 }
-
+.detail-page-container {
+  padding: 80px 0 0 0;
+}
 .mat-toolbar-row {
   padding: 0!important;
 }
-
-
 
 .container_content .list {
   padding: 0 22px;
@@ -156,6 +164,12 @@ button.mat-icon-button mat-icon{
 
 .editor {
   height: 300px !important;
+}
+.section-header {
+  margin: 16px 0;
+  .mat-subheading-2 {
+    margin: 0;
+  }
 }
 
 quill-editor.answer .ql-editor {
@@ -165,7 +179,7 @@ quill-editor.answer .ql-editor {
 .background-card {
   margin: 8px 0;
   background-color: mat-color($my-grey, 800);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 20px 20px 20px 20px;
 }
 .background-card-small {
@@ -215,6 +229,12 @@ mat-chip-list:focus {
 .line-clamp-5 {
   display: -webkit-box;
   -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

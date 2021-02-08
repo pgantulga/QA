@@ -1,51 +1,48 @@
-
-<app-navbar *ngIf="isTopBar">
-    <button color="accent"
-            type="button"
-            aria-label="Toggle sidenav"
-            mat-icon-button
-            (click)="drawer.toggle()"
-            *ngIf="(isHandset$ | async)">
-        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-</app-navbar>
-<mat-sidenav-container [class.sidenav-container]="!(currentLayoutObj.layout3 || currentLayoutObj.layout4)" [class.color-background]="currentLayoutObj.layout3 || currentLayoutObj.layout4">
-    <mat-sidenav #drawer class="mat-elevation-z3"
-                 [attr.role]="(currentRoute === 'admin') ? 'directory' : 'navigation'"
-                 [opened]="(currentRoute === 'admin') && !(isHandset$ | async)"
-                 [mode]="(currentRoute === 'admin') ? 'side' : 'over'">
-        <button mat-icon-button [routerLink]="['/home']">
-            <mat-icon>keyboard_arrow_left</mat-icon>
+    <app-navbar *ngIf="isTopBar" >
+        <button color="accent"
+                type="button"
+                aria-label="Toggle sidenav"
+                mat-icon-button
+                (click)="drawer.toggle()"
+                *ngIf="(isHandset$ | async)">
+            <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <div style="width: 100%; padding: 16px;" fxLayout="column" fxLayoutAlign="center center">
-            <img src="../../assets/logo_white.png" alt="Logo" class="sideBarLogo">
-        </div>
-<!--        <mat-nav-list fxLayout="column" *ngIf="currentRoute !== 'admin'">-->
-<!--            <a mat-list-item *ngFor="let item of sideMenu; last as last" routerLink="{{item.link}}" (click)="drawer.close()">-->
-<!--                {{item.name}}-->
-<!--                <mat-divider *ngIf="!last"></mat-divider>-->
-<!--            </a>-->
-<!--        </mat-nav-list>-->
-        <mat-nav-list fxLayout="column" *ngIf="currentRoute === 'admin'">
-            <a mat-list-item *ngFor="let item of sideMenu; last as last" routerLink="{{item.link}}">
-                {{item.name}}
-                <mat-divider *ngIf="!last"></mat-divider>
-            </a>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content fxLayout="column" >
-        <top-wrapper></top-wrapper>
-        <detail-header *ngIf="currentRoute === 'tag-detail'" ></detail-header>
-        <div fxLayout="row" [class.layout-one]="currentLayoutObj.layout1" [class.layout-two]="currentLayoutObj.layout2" [class.layout-three]="currentLayoutObj.layout3" [class.layout-four]="currentLayoutObj.layout4">
-            <div fxFlex></div>
-            <div [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2" class="mat-sidenav-content-container fullWidth" fxLayout="row">
-<!--                <sidebar *ngIf="!(isHandset$ | async) && currentLayoutObj.layout1"></sidebar>-->
-                <div fxLayout="column" [fxLayoutAlign]="(currentLayoutObj.layout3 && !(isHandset$ | async)) ? 'center center' : ''" fxFlex>
+    </app-navbar>
+    <mat-sidenav-container [class.sidenav-container]="!(currentLayoutObj.layout3 || currentLayoutObj.layout4)" [class.color-background]="currentLayoutObj.layout3 || currentLayoutObj.layout4" >
+        <mat-sidenav #drawer class="mat-elevation-z3"
+                     [attr.role]="(currentRoute === 'admin') ? 'directory' : 'navigation'"
+                     [opened]="(currentRoute === 'admin') && !(isHandset$ | async)"
+                     [mode]="(currentRoute === 'admin') ? 'side' : 'over'">
+            <button mat-icon-button [routerLink]="['/home']">
+                <mat-icon>keyboard_arrow_left</mat-icon>
+            </button>
+            <div style="width: 100%; padding: 16px;" fxLayout="column" fxLayoutAlign="center center">
+                <img src="../../assets/logo_white.png" alt="Logo" class="sideBarLogo">
+            </div>
+                    <mat-nav-list fxLayout="column" *ngIf="currentRoute !== 'admin'">
+                        <a mat-list-item *ngFor="let item of sideMenu; last as last" routerLink="{{item.link}}" (click)="drawer.close()">
+                            {{item.name}}
+                            <mat-divider *ngIf="!last"></mat-divider>
+                        </a>
+                    </mat-nav-list>
+            <mat-nav-list fxLayout="column" *ngIf="currentRoute === 'admin'">
+                <a mat-list-item *ngFor="let item of sideMenu; last as last" routerLink="{{item.link}}">
+                    {{item.name}}
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content fxLayout="column">
+            <top-wrapper *ngIf="currentRoute == 'home'"></top-wrapper>
+            <div fxLayout="row" [class.layout-one]="currentLayoutObj.layout1" [class.layout-two]="currentLayoutObj.layout2" [class.layout-three]="currentLayoutObj.layout3" [class.layout-four]="currentLayoutObj.layout4">
+                <div fxFlex></div>
+                <div [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2" [class.mat-sidenav-content-container]="currentRoute !== 'home'" class="fullWidth">
+                    <!--                <sidebar *ngIf="!(isHandset$ | async) && currentLayoutObj.layout1"></sidebar>-->
                     <ng-content></ng-content>
                 </div>
+                <div fxFlex ></div>
             </div>
-            <div fxFlex ></div>
-        </div>
-<!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
-    </mat-sidenav-content>
-</mat-sidenav-container>
+            <!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+

@@ -1,15 +1,14 @@
-<ng-container *ngIf="showWrapper && !showNotificationWarn">
-    <div fxLayout="row" class="top-wrapper-container" [class.warning]="content.name === 'regFinish'">
+<ng-container>
+    <div fxLayout="row" class="top-wrapper-container">
         <div fxFlex></div>
-        <div class="container top-wrapper" fxLayout="row" fxLayoutAlign="space-between center" style="position: relative">
-            <div fxLayout="column">
-                <p class="mat-body-2">{{getGreetings()}}</p>
-                <p class="mat-headline">{{content.title}}</p>
+        <div class="container top-wrapper" fxLayout="row" fxLayoutAlign="start end" style="position: relative;  height: 100%" >
+            <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
+                <div class="type-indicator system"></div>
+                <div fxLayout="column">
+                    <p class="mat-body-2">{{getGreetings()}}</p>
+                    <p class="mat-headline">{{content.title}}</p>
+                </div>
             </div>
-            <button mat-button (click)="action(content.link)">
-                {{content.button}}
-                <mat-icon>{{content.icon}}</mat-icon>
-            </button>
         </div>
         <div fxFlex></div>
     </div>

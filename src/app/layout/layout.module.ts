@@ -30,6 +30,7 @@ import {WarnComponent} from './warn/warn.component';
 import {ArticleListComponent} from './article-list/article-list.component';
 import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
 import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
         MdModule,
         FlexLayoutModule,
         SharedModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        ScrollingModule
     ]
 })
 export class LayoutModule {

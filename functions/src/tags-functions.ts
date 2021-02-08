@@ -2,6 +2,22 @@ const functions = require('firebase-functions');
 // @ts-ignore
 import * as admin from 'firebase-admin';
 
+
+exports.tagCreated = functions.firestore
+    .document('tags/{tagId}')
+    .onWrite((snapshot: any) => {
+        const metaRef = admin.firestore().collection('metas').doc('tag');
+        const tagsRef = admin.firestore().collection('tags');
+        return tagsRef.orderBy('createdAt', 'desc')
+            .get()
+            .then((tags: any) => {
+                return metaRef.set({
+                    size: tags.size,
+                    updatedAt: admin.firestore.FieldValue.serverTimestamp()
+                },{merge: true});
+            });
+    });
+
 // launches when tag info changed and update posts which contain that tag
 exports.tagChanged = functions.firestore
     .document('tags/{tagId}')
@@ -42,28 +58,3 @@ function updatePostTagArray( postValue: any, newValue: any) {
     }
     return array;
 }
-//
-// function getAllTags() {
-//     const tags = admin.firestore().collection('tags');
-//     tags.get()
-//
-// }
-
-
-// function checkTagUpdate(oldPost: any, newPost: any) {
-//     if (oldPost.tags.length !== newPost.tags.length) {
-//         return true;
-//     }
-//     for (const [i, o] of oldPost.tags) {
-//         for (const [j, n] of newPost.tags) {
-//             console.log(i, o, j, n);
-//             if (o === n) {
-//                 break;
-//             }
-//             if ( j === newPost.tags.length - 1 ) {
-//                 return true;
-//             }
-//         }
-//     }
-//     return false;
-// }
