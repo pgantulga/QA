@@ -3,12 +3,12 @@
         <div fxFlex></div>
         <div class="container" fxLayout="row" fxLayoutAlign="center center">
             <div fxLayout="row" fxLayoutAlign="center center">
-                <button type="button" aria-label="back" mat-icon-button *ngIf="layout.layout2" [routerLink]="['home']">
+                <button type="button" aria-label="back" mat-icon-button *ngIf="layout.layout2" (click)="back()">
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
                 <ng-content></ng-content>
                 <button mat-icon-button class="homeButton" [routerLink]="['/home']">
-                    <img src="../../../assets/logo_white.png" alt="Logo" class="toolbarLogo">
+                    <img src="../../../assets/logo_full.png" alt="Logo" class="toolbarLogo">
                 </button>
             </div>
             <div class="example-spacer"></div>

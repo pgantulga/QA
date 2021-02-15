@@ -14,6 +14,5 @@ export class WarnComponent implements OnInit{
   }
   ngOnInit(): void {
     this.article$ = this.articleService.getArticle(this.articleId);
-
   }
 }

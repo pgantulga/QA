@@ -1,3 +1,5 @@
+import { SharedModule } from './../shared/shared.module';
+import { TagModule } from './../tag/tag.module';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
@@ -16,7 +18,9 @@ import { ModeratorPostsComponent } from './moderator-posts/moderator-posts.compo
         CommonModule,
         ModeratorRoutingModule,
         MdModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        TagModule,
+        SharedModule
     ]
 })
 export class ModeratorModule {

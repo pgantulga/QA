@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {AuthService, User} from './auth.service';
+import { AuthService, User, Roles } from './auth.service';
 import {AngularFirestore} from '@angular/fire/firestore';
 
 @Injectable({
@@ -21,6 +21,16 @@ export class PermissionService {
         }
         , uid).then(() => {
     });
+  }
+  selectRole(role: string , uid: string ) {
+    console.log(role, uid);
+    this.reset(uid);
+    return this.authService.updateUserInstant(
+      {
+        roles: {
+          [role]: true
+        }
+      }, uid);
   }
   changeRole(role, uid) {
     // toggles roll

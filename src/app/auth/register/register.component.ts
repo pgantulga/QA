@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, Validators, FormGroup} from '@angular/forms';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AuthService} from '../../services/auth.service';
-import {Router} from "@angular/router";
+import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../../services/auth.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'register',
@@ -17,20 +17,24 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
-        {
-          firstName: '',
-          lastName: '',
-          email: ['', Validators.email],
-          password: ['', Validators.required],
-          confirmPassword: ['']
-        }, {validator: this.passwordCheck}
+      {
+        firstName: '',
+        lastName: '',
+        email: ['', Validators.email],
+        password: ['', Validators.required],
+        confirmPassword: ['']
+      }, { validator: this.passwordCheck }
     );
   }
 
   loginWithGoogle() {
     this.authService.googleLogin()
-        .then((res) => {console.log(res); })
-        .catch(err => {console.log('Login error: ' + err); });
+      .then((res) => {
+        if (res.firstTime) {
+          this.router.navigate(['auth/welcome']);
+        }
+      })
+      .catch(err => { console.log('Login error: ' + err); });
   }
   getEmailError() {
     return this.registerForm.get('email').hasError('email') ? 'Имэйл байх шаардлагатай!' : '';
@@ -48,16 +52,16 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit() {
     this.authService
-        .emailSignUp({
-            firstName: this.registerForm.get('firstName').value,
-            lastName: this.registerForm.get('lastName').value,
-            displayName: this.registerForm.get('firstName').value,
-            email: this.registerForm.get('email').value,
-            password: this.registerForm.get('password').value
-        })
-        .then(res => {
-            // return this.router.navigate(['auth/welcome']);
-        });
+      .emailSignUp({
+        firstName: this.registerForm.get('firstName').value,
+        lastName: this.registerForm.get('lastName').value,
+        displayName: this.registerForm.get('firstName').value,
+        email: this.registerForm.get('email').value,
+        password: this.registerForm.get('password').value
+      })
+      .then(res => {
+        // return this.router.navigate(['auth/welcome']);
+      });
   }
   signOut() {
     this.authService.signOut();

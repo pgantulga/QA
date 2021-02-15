@@ -7,10 +7,6 @@
 .post-list p {
   margin: 0;
 }
-.post-list .pin-icon {
-  //@include md-icon-size(16px);
-
-}
 .post-list .author {
   font-weight: bold;
   cursor: pointer;
@@ -20,9 +16,6 @@
   margin: 0 0 6px 0;
   cursor: pointer;
 
-}
-.post-list .question:hover {
-  //color: mat-color($QA-accent,800)
 }
 .post-list .question:focus {
   outline:0;
@@ -55,9 +48,6 @@
 
 .post-list .chip-click {
   cursor: pointer;
-}
-.post-list .chip-click:hover {
-  //background-colorcolor: mat-color($QA-accent,800);
 }
 .post-list .chip-click:focus {
   outline:0;

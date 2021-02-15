@@ -13,10 +13,9 @@
             <ng-container *ngIf="authService.user$ | async as user">
                 <button mat-flat-button color="primary" (click)="openDialog(user)" *ngIf="permissionService.canRead(user)">
                     <mat-icon>add</mat-icon>
-                    Сэдэв нэмэх
+                    Сэдэв санал болгох
                 </button>
             </ng-container>
         </mat-toolbar-row>
     </mat-toolbar>
-
 </div>

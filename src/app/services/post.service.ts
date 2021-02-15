@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {TagService} from './tag.service';
-import {Observable} from 'rxjs';
-import {NotificationService} from './notification.service';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { TagService } from './tag.service';
+import { Observable } from 'rxjs';
+import { NotificationService } from './notification.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +12,9 @@ export class PostService {
     postMetaDoc = this.db.doc('metas/post');
 
     constructor(private db: AngularFirestore, public tagService: TagService, private notificationService: NotificationService) {
+    }
+    getPostMeta() {
+        return this.db.doc('metas/post').valueChanges();
     }
 
     nextPage(doc, sort, filter?) {
@@ -55,7 +58,7 @@ export class PostService {
 
     getPostByTag(tag) {
         return this.db.collection('posts', ref => ref.orderBy('totalVotes', 'desc')
-            .where('tags', 'array-contains', {id: tag.id, name: tag.name}).limit(10)).valueChanges();
+            .where('tags', 'array-contains', { id: tag.id, name: tag.name }).limit(10)).valueChanges();
     }
 
     getPostByUser(user) {
@@ -98,13 +101,13 @@ export class PostService {
                     return res.update({
                         id: res.id,
                         updatedAt: new Date()
-                    })
+                    });
                 })
                 .then(() => {
                     return this.addLog(user, 'created', res.id);
                 })
                 .then(() => {
-                    return this.followPost({id: res.id}, user);
+                    return this.followPost({ id: res.id }, user);
                 });
         })
             .catch(error => {
@@ -121,7 +124,7 @@ export class PostService {
         const addPromises = [];
         followers.forEach(item => {
             addPromises.push(this.postCollection.doc(postId).collection('followers')
-                .add({uid: item.uid}));
+                .add({ uid: item.uid }));
         });
         return Promise.all(addPromises);
     }
@@ -135,7 +138,7 @@ export class PostService {
             content: formData.content,
             updatedAt: new Date(),
             tags: tagsArray
-        }, {merge: true}).then(
+        }, { merge: true }).then(
             () => {
                 return this.addLog(user, 'edited', oldValue.id);
             }
@@ -151,11 +154,11 @@ export class PostService {
     }
 
     pinPost(postId) {
-        return this.postCollection.doc(postId).set({pinned: true}, {merge: true});
+        return this.postCollection.doc(postId).set({ pinned: true }, { merge: true });
     }
 
     unpinPost(postId) {
-        return this.postCollection.doc(postId).set({pinned: false}, {merge: true});
+        return this.postCollection.doc(postId).set({ pinned: false }, { merge: true });
     }
     sort(sort) {
         switch (sort) {
@@ -168,14 +171,14 @@ export class PostService {
     followPost(post, user) {
         return this.checkFollower(user, post)
             .then(value => {
-                    if (!value) {
-                        return this.postCollection.doc(post.id).collection('followers')
-                            .add({uid: user.uid})
-                            .catch(err => {
-                                console.log(err);
-                            });
-                    }
+                if (!value) {
+                    return this.postCollection.doc(post.id).collection('followers')
+                        .add({ uid: user.uid })
+                        .catch(err => {
+                            console.log(err);
+                        });
                 }
+            }
             );
     }
 
@@ -212,14 +215,14 @@ export class PostService {
         });
     }
     getLogMessage(actor, type) {
-        const typesMN = ['нэмсэн', 'зассан', 'санал өгсөн', 'саналаа буцаасан', 'хариулт өгсөн', 'хариулсан' ];
+        const typesMN = ['нэмсэн', 'зассан', 'санал өгсөн', 'саналаа буцаасан', 'хариулт өгсөн', 'хариулсан'];
         switch (type) {
             case 'created': return `${actor.displayName} ${typesMN[0]}`;
             case 'edited': return `${actor.displayName} ${typesMN[1]}`;
             case 'voted': return `${actor.displayName} ${typesMN[2]}`;
             case 'devoted': return `${actor.displayName} ${typesMN[3]}`;
             case 'answered': return `${actor.displayName} ${typesMN[4]}`;
-            case 'replies': return `${actor.displayName} ${typesMN[5]}`;
+            case 'replied': return `${actor.displayName} ${typesMN[5]}`;
             // default: null;
         }
     }

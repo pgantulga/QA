@@ -1,16 +1,17 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {MenuService} from '../../services/menu.service';
-import {Menu} from '../../interfaces/Menu';
-import {AuthService} from '../../services/auth.service';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogComponent} from '../../shared/dialog/dialog.component';
-import {filter, first, switchMap} from 'rxjs/operators';
-import {NavigationEnd, Router} from '@angular/router';
-import {Layout, RouteService} from '../../services/route.service';
-import {PermissionService} from '../../services/permission.service';
-import {Observable, of} from 'rxjs';
-import {NotificationService} from '../../services/notification.service';
-import {CdkScrollable, ScrollDispatcher} from '@angular/cdk/scrolling';
+import { Location } from '@angular/common';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { MenuService } from '../../services/menu.service';
+import { Menu } from '../../interfaces/Menu';
+import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { filter, first, switchMap } from 'rxjs/operators';
+import { NavigationEnd, Router } from '@angular/router';
+import { Layout, RouteService } from '../../services/route.service';
+import { PermissionService } from '../../services/permission.service';
+import { Observable, of } from 'rxjs';
+import { NotificationService } from '../../services/notification.service';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 
 @Component({
     selector: 'app-navbar',
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
     notifications: any[];
     layout: Layout;
     isOnTop = true;
+    previousUrl: any;
 
     constructor(public menu: MenuService,
                 public authService: AuthService,
@@ -33,7 +35,8 @@ export class NavbarComponent implements OnInit {
                 public routeService: RouteService,
                 public notificationService: NotificationService,
                 private scrollDispatcher: ScrollDispatcher,
-                private zone: NgZone
+                private zone: NgZone,
+                private location: Location
     ) {
         this.layout = this.routeService.getLayout(this.currentRoute);
         this.topMenu = this.menu.topMenu;
@@ -42,9 +45,10 @@ export class NavbarComponent implements OnInit {
     ngOnInit(): void {
         this.routerEvent$ = this.router.events.pipe(
             filter(event => event instanceof NavigationEnd));
-        this.routerEvent$.subscribe((e: any) => {
+        this.routerEvent$.subscribe((e: NavigationEnd) => {
             this.currentRoute = this.routeService.getCurrentRoute(e.url);
             this.layout = this.routeService.getLayout(this.currentRoute);
+            this.previousUrl = e.url;
         });
         this.authService.user$.pipe(
             first(),
@@ -52,7 +56,7 @@ export class NavbarComponent implements OnInit {
             )).subscribe((items: any) => {
                 this.notifications = items.filter((item: any) => item.status > 0);
             },
-        );
+            );
         this.scrollDispatcher.scrolled().subscribe((event: CdkScrollable) => {
             this.scrollable(event);
         });
@@ -60,7 +64,7 @@ export class NavbarComponent implements OnInit {
 
     signOut() {
         const dialogRef = this.dialog.open(DialogComponent, {
-            data: {title: 'Системээс гарах', content: 'Та системээс гарахдаа итгэлтэй байна уу?'}
+            data: { title: 'Системээс гарах', content: 'Та системээс гарахдаа итгэлтэй байна уу?' }
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -79,5 +83,10 @@ export class NavbarComponent implements OnInit {
                 this.isOnTop = newIsOnTop;
             });
         }
+    }
+    back() {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+            return this.location.back();
+        });
     }
 }

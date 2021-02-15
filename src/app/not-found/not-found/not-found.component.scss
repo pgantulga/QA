@@ -1,0 +1,12 @@
+@import 'custom-theme';
+.notFoundContainer {
+    height: 100%;
+    text-align: center;
+    .mat-display-2 {
+        margin: 0;
+    }
+}
+.bigLogo {
+    align-self: center;
+    width: 80px;
+}

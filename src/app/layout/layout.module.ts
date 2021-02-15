@@ -51,7 +51,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         WarnComponent,
         ArticleListComponent,
         TopWrapperComponent,
-        TagChipComponent
+        TagChipComponent,
     ],
     exports: [
         NavbarComponent,

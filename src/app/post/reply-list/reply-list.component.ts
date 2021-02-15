@@ -40,10 +40,7 @@ export class ReplyListComponent implements OnInit {
                     return this.answerService.deleteReply(this.item)
                         .then(() => {
                             return this.snack.openFromComponent(SnackComponent, {
-                                data: {
-                                    title: 'Хариултыг устгах',
-                                    content: 'Хариултыг устгахдаа итгэлтэй байна уу?'
-                                },
+                                data: 'Хариулт устгагдлаа'
                             });
                         });
                 }

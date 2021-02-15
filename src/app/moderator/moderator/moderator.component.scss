@@ -1,0 +1,9 @@
+@import 'custom-theme';
+@import './src/app/layout/detail-header/detail-header.component.scss';
+
+.active-list-item {
+    //background-color: map-get()
+    color:  mat-color($primary) !important;
+    background-color: mat-color($primary,500, 0.1);
+    border-radius: 8px;
+}

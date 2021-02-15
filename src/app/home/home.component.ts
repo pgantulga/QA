@@ -1,3 +1,4 @@
+import { MetaObj } from './../services/tag.service';
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../services/post.service';
 import {AuthService} from '../services/auth.service';
@@ -5,7 +6,7 @@ import {PageEvent} from '@angular/material/paginator';
 import {Observable} from 'rxjs';
 import {MenuService} from '../services/menu.service';
 import {TagService} from '../services/tag.service';
-import {PermissionService} from "../services/permission.service";
+import {PermissionService} from '../services/permission.service';
 
 @Component({
     selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
     pageEvent: PageEvent;
     firstItem: any;
     lastItem: any;
-    postMetas: any;
+    postMetas: Observable<any>;
     pinnedPosts$: Observable<any>;
     userTags = [];
 
@@ -27,13 +28,13 @@ export class HomeComponent implements OnInit {
                 public authService: AuthService,
                 private tagService: TagService,
                 private menu: MenuService,
-                public permissionService: PermissionService,) {
+                public permissionService: PermissionService) {
     }
 
     ngOnInit(): void {
         this.toggleMenu = this.menu.toggleMenu;
         this.selectedSort = this.toggleMenu[0];
-        this.postMetas = this.postService.postMetaDoc.valueChanges();
+        this.postMetas = this.postService.getPostMeta();
         this.getStarted();
         this.getTagsMenu();
 

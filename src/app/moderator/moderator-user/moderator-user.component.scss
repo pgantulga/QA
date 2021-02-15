@@ -1,4 +1,5 @@
-@import "./src/styles/custom-theme";
+@import 'custom-theme';
+
 table td{
   p {
     margin: 0 !important;
@@ -8,12 +9,20 @@ table td{
 
   }
 }
+table .select:hover {
+  cursor: pointer;
+  color: mat-color($primary);
+}
 .mat-standard-chip.role-chip {
   transform: scale(1);
   //font: mat-font-size();
 }
 .mat-standard-chip.activeRole {
-  background-color: green ;
+  background-color: green !important ;
   //margin: 0 2px;
 }
-
+.mat-table::ng-deep.mat-form-field-infix {
+  padding: 4px 0 4px 0 !important;
+  width: 100px !important;
+  border-top: 4px solid transparent !important;
+}

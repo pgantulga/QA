@@ -37,7 +37,7 @@ export class RouteService {
         if (url.includes('/tags')) {
             return 'tags';
         }
-        if (url.includes('login') || url.includes('register') || url.includes('welcome') || url.includes('select-category') || url.includes('password-reset')) {
+        if (url.includes('login') || url.includes('register') || url.includes('welcome') || url.includes('select-category') || url.includes('password-reset') || url.includes('not-found')) {
             return 'login';
         }
         if (url.includes('profile-settings') || url.includes('notifications')) {
@@ -49,12 +49,13 @@ export class RouteService {
         if (url.includes('/admin')) {
             return 'admin';
         }
-        if(url.includes('/moderator')) {
+        if (url.includes('/moderator')) {
             return 'moderator';
         }
+        return 'not-found';
     }
     getLayout(route) {
-        if (route === 'post-detail' || route === 'post-edit' || route === 'settings' || route === 'user-detail' || route === 'moderator') {
+        if (route === 'post-detail' || route === 'post-edit' || route === 'settings' || route === 'user-detail' || route === 'moderator' || route === 'tag-detail') {
             return {
                 layout1: false,
                 layout2: true,
@@ -68,7 +69,7 @@ export class RouteService {
                 layout3: false,
                 layout4: true
             };
-        } else if (route === 'login') {
+        } else if (route === 'login' || route === 'not-found') {
             return {
                 layout1: false,
                 layout2: false,

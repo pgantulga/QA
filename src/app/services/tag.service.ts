@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthService} from './auth.service';
 
 export interface Tag {
@@ -12,17 +12,24 @@ export interface Tag {
     createdBy: string;
     description: string;
 }
+export interface MetaObj {
+    size: number;
+    createdAt: string;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class TagService {
     tagsCollection = this.db.collection('tags', ref => ref.orderBy('createdAt', 'desc'));
+    tagsRecommendations = this.db.collection('tagsRecommends', ref => ref.orderBy('createdAt', 'desc'));
     tagSource = new BehaviorSubject('default');
     currentTag = this.tagSource.asObservable();
-    tagMetaDoc = this.db.doc('metas/tag');
 
     constructor(private db: AngularFirestore, private authService: AuthService) {
+    }
+    getMeta(): Observable<any> {
+        return this.db.doc('metas/tag').valueChanges();
     }
 
     setCurrentTag(tagId) {
@@ -31,6 +38,9 @@ export class TagService {
 
     getAllTags() {
         return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc')).valueChanges();
+    }
+    getAllTagRecommends() {
+        return this.db.collection('tagsRecommends', ref => ref.orderBy('createdAt', 'desc')).valueChanges();
     }
 
     getPopularTags() {
@@ -63,6 +73,7 @@ export class TagService {
             createdAt: new Date(),
             updatedAt: new Date(),
             totalUsed: 0,
+            active: false
         };
         return this.tagsCollection.add(data).then(res => {
             return res.update({
@@ -71,6 +82,31 @@ export class TagService {
             );
         });
     }
+    recommendTag(formData, user) {
+        const data = {
+            name: formData.name,
+            recommendBy: {
+                displayName: user.displayName,
+                uid: user.uid
+            },
+            description: formData.description,
+            createdAt: new Date(),
+            status: false
+        };
+        return this.tagsRecommendations.add(data)
+        .then(res => {
+            return res.update({
+                id: res.id
+            });
+        });
+    }
+    commitRecommend(tag) {
+        return this.tagsRecommendations.doc(tag.id).set({
+            status: true,
+            updatedAt: new Date()
+        }, {merge: true});
+    }
+
 
     updateTag(formData, oldData) {
         return this.tagsCollection.doc(oldData.id).set({
@@ -151,8 +187,8 @@ export class TagService {
     }
 
     followCategoryTags(categories, user) {
-        //1. Add user.tags -> tag.id = true,
-        //2. Tags.followes + = user.uid = true
+        // 1. Add user.tags -> tag.id = true,
+        // 2. Tags.followes + = user.uid = true
         const obj = {};
         const tagsArray = [];
         for (const item of categories) {

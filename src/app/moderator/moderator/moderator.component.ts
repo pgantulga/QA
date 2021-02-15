@@ -1,22 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 const ModeratorMenu = [
-  {
-    link: 'posts',
-    name: 'Хэлэлцүүлгүүд'
-  },
+
   {
     link: 'users',
     name: 'Хэрэглэгчид'
   },
   {
     link: 'tags',
-    name: 'Tags'
+    name: 'Сэдвүүд'
   }
 ];
 @Component({
   selector: 'app-moderator',
   templateUrl: './moderator.component.html',
-  styleUrls: ['./moderator.component.css']
+  styleUrls: ['./moderator.component.scss']
 })
 export class ModeratorComponent implements OnInit {
   public topMenu = ModeratorMenu;

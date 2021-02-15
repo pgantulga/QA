@@ -1,12 +1,36 @@
-<mat-toolbar>
-    <mat-toolbar-row>
-        <div fxLayout="row" fxLayoutAlign.xs="space-between center">
-            <mat-nav-list fxLayout="row">
-                <a class="mat-body-1 nav-link" *ngFor="let menu of topMenu" mat-list-item routerLink="{{menu.link}}" routerLinkActive="active-list-item"  role="navigation">
-                    {{menu.name }}
-                </a>
-            </mat-nav-list>
+<div fxLayout="column">
+  <mat-toolbar class="header" fxLayout="column" role="heading">
+    <mat-toolbar-row
+      fxFlex
+      fxLayout="row"
+      fxLayoutAlign="space-between start"
+      class="title"
+    >
+      <div fxLayout="column">
+        <p class="mat-headline" fxHide.gt-xs="">Модератор</p>
+        <p class="mat-display-1" fxHide.xs="">Модератор</p>
+        <div class="actions">
+          <p class="mat-body-1">Тохиргоо</p>
         </div>
+      </div>
     </mat-toolbar-row>
+  </mat-toolbar>
+</div>
+<mat-toolbar style="background-color: transparent;">
+  <mat-toolbar-row>
+    <div fxLayout="row" fxLayoutAlign.xs="space-between center">
+      <mat-nav-list fxLayout="row">
+        <a
+          class="mat-body-1 nav-link"
+          *ngFor="let menu of topMenu"
+          mat-list-item
+          routerLink="{{ menu.link }}"
+          routerLinkActive="active-list-item"
+          role="navigation">
+          {{ menu.name }}
+        </a>
+      </mat-nav-list>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

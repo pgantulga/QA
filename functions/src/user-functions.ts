@@ -4,24 +4,17 @@ import * as admin from 'firebase-admin';
 
 exports.userCreated = functions.firestore
     .document('users/{uid}')
-    .onCreate(((snapshot: any, context: any) => {
+    .onCreate(((snapshot: any) => {
+        const metaRef = admin.firestore().collection('metas').doc('user');
         const userRef = admin.firestore().collection('users');
-        const tagsRef = admin.firestore().collection('tags');
-        return tagsRef.get()
-            .then((query: any) => {
-                const tagsArray = {};
-                query.forEach((item: any) => {
-                    // @ts-ignore
-                    tagsArray[item.data().id] = true;
-                    return addToTagsFollowers(context.params.uid, item.id);
-                });
-                return userRef.doc(context.params.uid).set({
-                    tags: tagsArray
-                }, {merge: true});
-            });
+        return userRef.orderBy('createdAt', 'desc')
+            .get()
+            .then(snapshot => {
+                const size = snapshot.size;
+                const updatedAt = admin.firestore.FieldValue.serverTimestamp();
+                return metaRef.update({
+                    size, updatedAt
+                })
+            })
     } ));
 
-function addToTagsFollowers(userId: any, tagId: any) {
-    const tagsRef = admin.firestore().collection('tags');
-    return tagsRef.doc(tagId).collection('followers').add({uid: userId});
-}

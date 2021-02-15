@@ -3,26 +3,25 @@
         <form (ngSubmit)="onSubmit()" >
             <div class="form-group">
                 <p class="mat-subheading-2">Хэлэлцүүлгийн гарчиг</p>
-                <p class="mat-body-1">Be specific and imagine you’re asking a question to another person</p>
+                <p class="mat-body-1">Хэн нэгнээс асуусан маягтай тухайн асуудлыг оновчтой тодорхойлохоор бичнэ үү.</p>
                 <mat-form-field style="width:100%" appearance="outline"  color="accent" [floatLabel]="'never'">
                     <mat-label>Гарчиг</mat-label>
                     <input matInput placeholder="Гарчиг" [formControl]="title" required maxlength="150">
                 </mat-form-field>
                 <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{getErrorMessage()}}</mat-error>
-                <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint>
+                <!-- <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint> -->
                 <p class="mat-subheading-2" style="margin-top: 16px">Агуулга</p>
-                <p class="mat-body-1">Include all the information someone would need to answer your question</p>
-                <quill-editor [formControl]="content" [modules]="config" [styles]="{height: '300px'}" required></quill-editor>
+                <p class="mat-body-1">Таны асуудалд хариулт өгөхөд шаардлагатай бүх мэдээллийг багтаахыг зорино уу</p>
+                <quill-editor [formControl]="content" [modules]="config" [styles]="{height: '300px'}" required [placeholder]="'Агуулга бичих ...'"></quill-editor>
                 <mat-hint align="end" class="mat-caption">Агуулгын доод урт 300 тэмдэгт</mat-hint>
                 <p class="mat-subheading-2" style="margin-top: 16px">Таг</p>
-                <p class="mat-body-1">Add up to 3 tags to describe what your question is about</p>
+                <p class="mat-body-1">Таны асуудлыг тодорхойлж чадах 3 хүртэлх сэдэв сонгоно уу. Хэрэв тохиромжтой сэдэв байхгүй бол <a [routerLink]="['/tags']" style="text-decoration: none" >сэдвүүд хуудаснаас</a> дэлгэрэнгүй жагсаалтыг харах боломжтой.</p>
                 <ng-container *ngIf="this.oldValue else new">
                     <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="this.oldValue.tags"></tag-select>
                 </ng-container>
                 <ng-template #new>
                     <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="[]"></tag-select>
                 </ng-template>
-
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
                 <button mat-flat-button (click)="cancel()" type="button">Цуцлах</button>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {PermissionService} from '../../services/permission.service';
-import {TagService} from "../../services/tag.service";
-import {TagAddComponent} from "../tag-add/tag-add.component";
-import {MatDialog} from "@angular/material/dialog";
+import {MetaObj, TagService} from '../../services/tag.service';
+import {TagAddComponent} from '../tag-add/tag-add.component';
+import {MatDialog} from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'tags-header',
@@ -11,7 +12,7 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./tags-header.component.scss']
 })
 export class TagsHeaderComponent implements OnInit {
-  metaData$: any;
+  metaData$: Observable<MetaObj>;
   name: string;
   description: string;
   constructor(public authService: AuthService,
@@ -20,7 +21,7 @@ export class TagsHeaderComponent implements OnInit {
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.metaData$ = this.tagService.tagMetaDoc.valueChanges();
+    this.metaData$ = this.tagService.getMeta();
   }
   openDialog(user) {
     const dialogRef = this.dialog.open(TagAddComponent, {
@@ -33,7 +34,7 @@ export class TagsHeaderComponent implements OnInit {
     dialogRef.afterClosed()
         .subscribe(result => {
           if (result) {
-            this.tagService.createTag(result, user);
+            this.tagService.recommendTag(result, user);
           }
         });
   }

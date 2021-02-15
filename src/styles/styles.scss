@@ -39,10 +39,6 @@ a{
   -webkit-text-fill-color: transparent;
 }
 
-.page-title {
-  //color: mat-color($QA-accent);
-}
-
 .icon-small {
   transform: scale(0.7);
   //font-size: 16px;
@@ -99,14 +95,6 @@ button.mat-flat-button {
 button.mat-raised-button.mat-accent{
   text-transform: uppercase;
 }
-button.mat-button.background-button {
-}
-button.mat-icon-button.background-button{
-}
-button.mat-icon-button mat-icon{
-  //opacity: 66%;
-}
-
 .mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
   border: solid 1px mat-color($my-grey, 900);
 }
@@ -255,9 +243,6 @@ mat-chip-list:focus {
   stroke: none !important;
 }
 
-.ql-toolbar .ql-picker {
-  //color: #fff !important;
-}
 .ql-toolbar .ql-blockquote {
   fill: mat-color($primary) !important;
   stroke: none !important;
@@ -272,8 +257,4 @@ mat-chip-list:focus {
   margin-bottom: 5px;
   margin-top: 5px;
   padding-left: 16px;
-}
-.ql-video {
-  //width: 100%;
-  //height: auto;
 }

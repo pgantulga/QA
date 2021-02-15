@@ -5,8 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {PostService} from '../../services/post.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
-import {MenuService} from "../../services/menu.service";
-import {PageEvent} from "@angular/material/paginator";
+import {MenuService} from '../../services/menu.service';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
     selector: 'tag-detail',
