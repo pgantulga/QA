@@ -48,11 +48,11 @@ export class NotificationService {
                 if (entityType >= 4) {
                     const followers = await this.getFollowers(parentId);
                     messageText = await this.generateMessage(user.uid, entityType, entityId, parentId);
-                    this.addNotifiers(res.id, followers, messageText, entityType, parentId);
+                    this.addNotifiers(res.id, followers, messageText, entityType, user.uid, parentId);
                 } else {
                     const followers = await this.getFollowers(entityId);
                     messageText = await this.generateMessage(user.uid, entityType, entityId);
-                    this.addNotifiers(res.id, followers, messageText, entityType);
+                    this.addNotifiers(res.id, followers, messageText, entityType, user.uid);
                 }
                 return res.update({
                     id: res.id,
@@ -64,21 +64,21 @@ export class NotificationService {
             });
     }
 
-    private addNotifiers(notificationId, followers, messageText, entityType, parent?) {
+    private addNotifiers(notificationId, followers, messageText, entityType, actor, parent?) {
         const promises = [];
         if (parent) {
             followers.forEach(follower => {
-                promises.push(this.createNotifier(notificationId, follower.data().uid, messageText, entityType, parent));
+                promises.push(this.createNotifier(notificationId, follower.data().uid, messageText, entityType, actor, parent));
             });
         } else {
             followers.forEach(follower => {
-                promises.push(this.createNotifier(notificationId, follower.data().uid, messageText, entityType));
+                promises.push(this.createNotifier(notificationId, follower.data().uid, messageText, actor, entityType));
             });
         }
         return Promise.all(promises);
     }
 
-    private createNotifier(notificationId, uid, messageText, entityType, parent?) {
+    private createNotifier(notificationId, uid, messageText, entityType, actorId, parent?) {
         console.log('createNotifier');
         return this.notifiersRef.add(
             {
@@ -89,6 +89,7 @@ export class NotificationService {
                 entity_type: entityType,
                 parent: (parent) ? parent : null,
                 createdAt: new Date(),
+                actor: actorId
 
             }
         )
@@ -130,7 +131,7 @@ export class NotificationService {
             });
     }
 
-    saveNotificationToken(tokenId, user) {
+    private saveNotificationToken(tokenId, user) {
         return this.tokenRef.add({
             token: tokenId,
             uid: user.uid

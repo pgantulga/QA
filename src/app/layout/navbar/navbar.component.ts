@@ -89,4 +89,8 @@ export class NavbarComponent implements OnInit {
             return this.location.back();
         });
     }
+    goToLogin() {
+        const routerStateSnapshot = this.router.routerState.snapshot;
+        this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
+    }
 }

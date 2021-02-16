@@ -1,0 +1,15 @@
+@import 'custom-theme';
+
+.bottomSheetContainer {
+    padding: 8px 0;
+    .mat-body-2 {
+        color: mat-color($my-grey, 900);
+        margin: 0;
+    }
+    .mat-body-1 {
+        color: mat-color($my-grey, 900)
+    }
+}
+.bottomSheetContainer:hover{
+    cursor: pointer;
+}

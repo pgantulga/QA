@@ -1,8 +1,12 @@
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from './../../services/notification.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../../services/auth.service';
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from '@angular/router';
+import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 
 @Component({
   selector: 'register',
@@ -13,7 +17,14 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   serviceErrorMessage: string;
 
-  constructor(private af: AngularFireAuth, public authService: AuthService, private formBuilder: FormBuilder, public router: Router) { }
+  constructor(public authService: AuthService,
+    private formBuilder: FormBuilder,
+    public router: Router,
+    private notificationService: NotificationService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private afMessaging: AngularFireMessaging
+  ) { }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group(
@@ -33,6 +44,12 @@ export class RegisterComponent implements OnInit {
         if (res.firstTime) {
           this.router.navigate(['auth/welcome']);
         }
+        this.notificationService.checkNotificationToken(res)
+          .then(isToken => {
+            return !isToken ? this.tokenDialog(res) : null;
+          });
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+        this.router.navigate([returnUrl || '/']);
       })
       .catch(err => { console.log('Login error: ' + err); });
   }
@@ -65,5 +82,23 @@ export class RegisterComponent implements OnInit {
   }
   signOut() {
     this.authService.signOut();
+  }
+
+  tokenDialog(user) {
+    const dialogData = {
+      title: 'Вебсайтын мэдэгдлийг зөвшөөрөх',
+      content: 'Та веб хөтөчийн мэдэгдийн тохиргоог зөвшөөрснөөр мэдээллүүдийг цаг тухайд нь авах боломжтой.'
+    };
+    const dialogRef = this.dialog.open(DialogComponent, { data: dialogData });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('request token');
+        this.afMessaging.requestToken
+          .subscribe(
+            (token) => this.notificationService.savePushNotificationsToUser(token, user),
+            (error) => { console.log(error); }
+          );
+      }
+    });
   }
 }

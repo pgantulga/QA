@@ -10,7 +10,11 @@ exports.notificationCreated = functions.firestore
             tokens: [],
             notification: {
                 title: getMessageTitle(notifierData),
-                body: notifierData.message
+                body: notifierData.message,
+                image: 'https://firebasestorage.googleapis.com/v0/b/qaproject-23417.appspot.com/o/FCMImages%2Fnotif_image.jpg?alt=media&token=c74eeb3f-d39d-4399-9a96-f32447fdbfd4'
+            },
+            data: {
+                actor: notifierData.actor
             },
             webpush: {
                 fcmOptions: {
@@ -20,6 +24,9 @@ exports.notificationCreated = functions.firestore
         };
         getUserData(notifierData.notifier)
             .then((data: any) => {
+                if (!data) {
+                    return null;
+                }
                 if (!data.notificationTokens) {
                     console.log('no token');
                     return null;
@@ -31,8 +38,6 @@ exports.notificationCreated = functions.firestore
                         console.log(res.successCount + ' messages sent');
                     });
             });
-
-
     });
 async function getUserData(uid: string) {
     const userRef = admin.firestore().collection('users').doc(uid);

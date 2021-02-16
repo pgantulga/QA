@@ -1,10 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AuthService} from '../../services/auth.service';
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {Router} from '@angular/router';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { DialogComponent } from './../../shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { NotificationService } from './../../services/notification.service';
+import { PermissionService } from './../../services/permission.service';
+import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-login',
@@ -15,7 +20,14 @@ export class LoginComponent implements OnInit {
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
 
-    constructor(private af: AngularFireAuth, public authService: AuthService, public snackbar: MatSnackBar, public router: Router) {
+    constructor(private af: AngularFireAuth,
+                private afMessaging: AngularFireMessaging,
+                public authService: AuthService,
+                public snackbar: MatSnackBar,
+                public router: Router,
+                private route: ActivatedRoute,
+                private notificationService: NotificationService,
+                private dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -27,6 +39,13 @@ export class LoginComponent implements OnInit {
                 if (res.firstTime) {
                     this.router.navigate(['auth/welcome']);
                 }
+                this.notificationService.checkNotificationToken(res)
+                    .then(isToken => {
+                        return !isToken ? this.tokenDialog(res) : null;
+                    });
+                const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                this.router.navigate([returnUrl || '/']);
+                
             });
     }
 
@@ -48,14 +67,33 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        this.authService.signIn({email: this.email.value, password: this.password.value})
+        this.authService.signIn({ email: this.email.value, password: this.password.value })
             .then(res => {
+                const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                this.router.navigate([returnUrl || '/']);
                 this.openSnack('Амжилттай нэвтэрлээ.');
             });
 
     }
 
     openSnack(data) {
-        this.snackbar.openFromComponent(SnackComponent, {data});
+        this.snackbar.openFromComponent(SnackComponent, { data });
     }
+    tokenDialog(user) {
+        const dialogData = {
+            title: 'Вебсайтын мэдэгдлийг зөвшөөрөх',
+            content: 'Та веб хөтөчийн мэдэгдийн тохиргоог зөвшөөрснөөр мэдээллүүдийг цаг тухайд нь авах боломжтой.'
+        };
+        const dialogRef = this.dialog.open(DialogComponent, { data: dialogData });
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                console.log('request token');
+                this.afMessaging.requestToken
+                    .subscribe(
+                        (token) => this.notificationService.savePushNotificationsToUser(token, user),
+                        (error) => {console.log(error); }
+                        );
+            }
+    });
+}
 }

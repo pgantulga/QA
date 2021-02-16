@@ -8,6 +8,7 @@ import { environment} from '../environments/environment';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { AuthGuard} from './services/auth-guard.service';
 import { SnackComponent } from './shared/components/snack/snack.component';
+import { BottomSheetComponent } from './shared/bottom-sheet/bottom-sheet.component';
 import { MdModule} from './shared/md.module';
 import { ShellComponent } from './shell/shell.component';
 import {AppRoutingModule} from './app-routing.module';
@@ -15,9 +16,10 @@ import {LayoutModule} from './layout/layout.module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {AdminGuard} from './admin/admin-guard.service';
-import {ModeratorGuard} from "./moderator/moderator-guard.service";
-import {AngularFireMessagingModule} from "@angular/fire/messaging";
-import {AppErrorHandler} from "./shared/app-error-handler";
+import {ModeratorGuard} from './moderator/moderator-guard.service';
+import {AngularFireMessagingModule} from '@angular/fire/messaging';
+import {AppErrorHandler} from './shared/app-error-handler';
+import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,7 @@ import {AppErrorHandler} from "./shared/app-error-handler";
         DialogComponent,
         SnackComponent,
         ShellComponent,
+        BottomSheetComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +45,8 @@ import {AppErrorHandler} from "./shared/app-error-handler";
         AdminGuard,
         AuthGuard,
         ModeratorGuard,
-        {provide: ErrorHandler, useClass: AppErrorHandler}
+        {provide: ErrorHandler, useClass: AppErrorHandler},
+        // {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
     exports: [
     ],

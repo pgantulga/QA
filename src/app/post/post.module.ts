@@ -14,14 +14,22 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { QuillModule} from 'ngx-quill';
 import { ReplyAddComponent } from './reply-add/reply-add.component';
 import { ReplyListComponent } from './reply-list/reply-list.component';
-import {PostListComponent} from "./post-list/post-list.component";
+import {PostListComponent} from './post-list/post-list.component';
 import {HomeModule} from '../home/home.module';
 import { NgSelectedTextTooltipModule } from 'ng-selected-text-tooltip';
 import {LayoutModule} from '../layout/layout.module';
 
 
 @NgModule({
-  declarations: [PostDetailComponent, HeaderComponent, AnswerListComponent, VoteButtonComponent, UserProfileComponent, AnswerAddComponent, ReplyAddComponent, ReplyListComponent],
+  declarations: [
+    PostDetailComponent,
+    HeaderComponent,
+    AnswerListComponent,
+    VoteButtonComponent,
+    UserProfileComponent,
+    AnswerAddComponent,
+    ReplyAddComponent,
+    ReplyListComponent],
     imports: [
         CommonModule,
         NgSelectedTextTooltipModule,

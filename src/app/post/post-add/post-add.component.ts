@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import Quill from 'quill';
-import {FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm} from '@angular/forms';
-import {AuthService} from "../../services/auth.service";
-import {PostService} from "../../services/post.service";
-import {MatDialog} from "@angular/material/dialog";
-import {DialogComponent} from "../../shared/dialog/dialog.component";
-import {ActivatedRoute, Router} from '@angular/router';
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {SnackComponent} from "../../shared/components/snack/snack.component";
-import {TagService} from '../../services/tag.service';
-import {ErrorStateMatcher} from '@angular/material/core';
-import {config} from '../../shared/quill-config';
-import {switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { PostService } from '../../services/post.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { TagService } from '../../services/tag.service';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { config } from '../../shared/quill-config';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -22,9 +22,9 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-post-add',
-  templateUrl: './post-add.component.html',
-  styleUrls: ['./post-add.component.scss']
+    selector: 'app-post-add',
+    templateUrl: './post-add.component.html',
+    styleUrls: ['./post-add.component.scss']
 })
 export class PostAddComponent implements OnInit {
     postForm: FormGroup;
@@ -40,8 +40,7 @@ export class PostAddComponent implements OnInit {
     ]);
     editing = false;
     oldValue: any;
-    constructor(private formBuilder: FormBuilder,
-                public postService: PostService,
+    constructor(public postService: PostService,
                 public authService: AuthService,
                 public route: ActivatedRoute,
                 public router: Router,
@@ -52,7 +51,7 @@ export class PostAddComponent implements OnInit {
             this.author = user;
         });
         this.route.paramMap.pipe(
-            switchMap( params => {
+            switchMap(params => {
                 return params.get('id') ? this.postService.getPost(params.get('id')) : [];
             })
         ).subscribe((data: any) => {
@@ -89,58 +88,35 @@ export class PostAddComponent implements OnInit {
         }, this.author, this.tags);
     }
     savePost() {
-        return this.postService.savePost ( {
+        return this.postService.savePost({
             title: this.title.value,
             content: this.content.value,
         }, this.author, this.tags, this.oldValue);
     }
 
     onSubmit() {
-        // this.createPost();
-        if (!this.editing) {
-            const dialogRef = this.dialog.open(DialogComponent, {
-                data: {
-                    title: 'Асуултыг нэмэх',
-                    content: ' Таны асуултыг системд нэмэх гэж байна',
-                }
-            });
-            return dialogRef.afterClosed().subscribe( result => {
-                if (result) {
-                    this.createPost()
-                        .then(() => {
-                            this.snackBar.openFromComponent(SnackComponent, {
-                                data: 'Шинэ асуулт нэмэгдлээ.',
-                            });
-                            return this.router.navigate(['/home']);
-                        });
-                }
-            });
-        }
-        const dialogRef = this.dialog.open(DialogComponent, {
-            data: {
-                title: 'Сануулах уу',
-                content: 'Таны өөрчлөлтийг сануулах гэж байна'
-            }
-        });
+        const dialogData = (!this.editing) ? { title: 'Асуултыг нэмэх', content: ' Таны асуултыг системд нэмэх гэж байна' }
+            : { title: 'Сануулах уу', content: 'Таны өөрчлөлтийг сануулах гэж байна' };
+        const snackData = (!this.editing) ? 'Шинэ асуулт нэмэгдлээ.' : 'Санагдлаа';
+        const dialogRef = this.dialog.open(DialogComponent, { data: dialogData });
         return dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.savePost()
+                const dialogPromise = (!this.editing) ? this.createPost() : this.savePost();
+                dialogPromise
                     .then(() => {
-                        this.snackBar.openFromComponent(SnackComponent, {
-                            data: 'Санагдлаа',
-                        })
-                        return this.router.navigate(['/home'])
+                        this.snackBar.openFromComponent(SnackComponent, { data: snackData });
+                        return this.router.navigate(['/home']);
                     });
             }
         });
     }
     cancel() {
-        this.dialog.open(DialogComponent, {
-            data: {
-                title: 'Цуцлах үйлдэл',
-                content: ' Таны бичсэн агуулга хадгалагдахгүй.',
-            }
-        }).afterClosed().subscribe(result => {
+        const dialogData = {
+            title: 'Цуцлах үйлдэл',
+            content: ' Таны бичсэн агуулга хадгалагдахгүй.',
+        };
+        this.dialog.open(DialogComponent, {data: dialogData})
+        .afterClosed().subscribe(result => {
             if (result) {
                 this.title.setValue(null);
                 this.content.setValue(null);

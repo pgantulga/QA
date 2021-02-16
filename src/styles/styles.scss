@@ -175,6 +175,11 @@ quill-editor.answer .ql-editor {
   border-radius: 8px;
   padding: 12px;
 }
+
+.custom-bottom-sheet {
+  background-color: mat-color($primary);
+}
+
 //********************************************chip*******************************************************
 mat-chip-list:focus {
   outline: 0;

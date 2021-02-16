@@ -20,8 +20,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatBadgeModule} from "@angular/material/badge";
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 
 @NgModule({
   exports: [
@@ -40,7 +41,14 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatSidenavModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule, MatTableModule, MatCheckboxModule, MatSelectModule, MatTooltipModule, MatBadgeModule, MatButtonToggleModule
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatBadgeModule,
+    MatButtonToggleModule,
+    MatBottomSheetModule
   ],
   providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}},
               {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'never'}}, MatSidenav]

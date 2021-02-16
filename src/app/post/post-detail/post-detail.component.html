@@ -1,4 +1,4 @@
-<div  *ngIf="post$ | async as post">
+<div class="detail-page-container" *ngIf="post$ | async as post">
     <post-header [pageTitle]="post.title" id="postheader">
         <div sub-nav fxLayout="column">
             <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
@@ -110,7 +110,9 @@
         </div>
     </div>
     <ng-template #loginWarning>
-        <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'"></warn>
+        <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'">
+            <button mat-button (click)="goToLogin()">Нэвтрэх</button>
+        </warn>
     </ng-template>
     <div class="suggested" *ngIf="suggestedPosts$ | async as suggestedPosts">
         <p class="mat-body-2">Санал болгох сэдвүүд</p>

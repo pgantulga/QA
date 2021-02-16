@@ -1,6 +1,9 @@
 <div mat-dialog-content>
     <p>{{data.title}}</p>
     <p>{{data.content}}</p>
+    <ng-container *ngIf="data.htmlData">
+        <div [innerHtml]="data.htmlData"></div>
+    </ng-container>
 </div>
 <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Үгүй</button>

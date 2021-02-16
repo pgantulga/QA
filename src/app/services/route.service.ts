@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export interface Layout {
     layout1: boolean;
@@ -55,14 +55,19 @@ export class RouteService {
         return 'not-found';
     }
     getLayout(route) {
-        if (route === 'post-detail' || route === 'post-edit' || route === 'settings' || route === 'user-detail' || route === 'moderator' || route === 'tag-detail') {
+        if (route === 'post-detail'
+            || route === 'post-edit'
+            || route === 'settings'
+            || route === 'user-detail'
+            || route === 'moderator'
+            || route === 'tag-detail') {
             return {
                 layout1: false,
                 layout2: true,
                 layout3: false,
                 layout4: false
             };
-        } else if (route === 'admin' ) {
+        } else if (route === 'admin') {
             return {
                 layout1: false,
                 layout2: false,

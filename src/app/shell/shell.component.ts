@@ -1,12 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
-import {PostService} from '../services/post.service';
-import {Layout, RouteService} from '../services/route.service';
-import {MenuService} from '../services/menu.service';
+import { BottomSheetComponent } from './../shared/bottom-sheet/bottom-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { AngularFireMessaging } from '@angular/fire/messaging';
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { PostService } from '../services/post.service';
+import { Layout, RouteService } from '../services/route.service';
+import { MenuService } from '../services/menu.service';
 
 
 @Component({
@@ -25,16 +28,20 @@ export class ShellComponent implements OnInit {
         );
     isTopBar: boolean;
 
-    constructor(private breakpointObserver: BreakpointObserver,
-                private router: Router,
-                private postService: PostService,
-                private route: ActivatedRoute,
-                public routeService: RouteService,
-                private menuService: MenuService) {
+    constructor(
+        private breakpointObserver: BreakpointObserver,
+        private afMessaging: AngularFireMessaging,
+        private router: Router,
+        private postService: PostService,
+        private route: ActivatedRoute,
+        public routeService: RouteService,
+        private menuService: MenuService,
+        private bottomSheet: MatBottomSheet) {
         this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
     }
 
     ngOnInit(): void {
+        this.listen();
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))
             .subscribe((e: any) => {
@@ -49,6 +56,19 @@ export class ShellComponent implements OnInit {
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
             });
     }
-
-
+    listen() {
+        this.afMessaging.messages
+            .subscribe((message: any) => {
+                console.log(message);
+                const bottomSheetData = {
+                    body: message.notification.body,
+                    title: message.notification.title,
+                    link: message.notification.click_action
+                }
+                this.bottomSheet.open(BottomSheetComponent, {
+                    data: bottomSheetData,
+                    panelClass: 'custom-bottom-sheet'
+                });
+            });
+    }
 }

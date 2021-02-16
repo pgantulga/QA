@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {Router} from "@angular/router";
-import {RouteService} from "../../services/route.service";
-import {Observable, combineLatest} from "rxjs";
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {RouteService} from '../../services/route.service';
+import {Observable, combineLatest} from 'rxjs';
 
 
 const wrapperRoutes = ['home'];
@@ -81,6 +81,6 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
         return 'Өглөөний мэнд!';
       } else if (currentTime < 18) {
         return 'Өдрийн мэнд!';
-      } else { return 'Оройн мэнд!';}
+      } else { return 'Оройн мэнд!'; }
     }
 }

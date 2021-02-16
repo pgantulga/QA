@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Router, RouterStateSnapshot} from '@angular/router';
 import {first, switchMap, take} from 'rxjs/internal/operators';
 import {PostService} from '../../services/post.service';
 import {AuthService} from '../../services/auth.service';
@@ -63,7 +63,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
                 this.getSuggestedPosts(post.tags, post.id);
                 this.authService.getUser()
                     .then(user => {
-                        return (user) ? this.postService.checkFollower(user, post): null;
+                        return (user) ? this.postService.checkFollower(user, post) : null;
                     })
                     .then(value => {
                         this.isFollowed = value;
@@ -149,13 +149,17 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             this.postService.unfollowPost(user, post)
                 .then(() => {
                     this.isFollowed = false;
-                })
+                });
         } else {
             this.postService.followPost(post, user)
                 .then(() => {
                     this.isFollowed = true;
                 });
         }
+    }
+    goToLogin() {
+        const routerStateSnapshot = this.router.routerState.snapshot;
+        this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
     }
 
 

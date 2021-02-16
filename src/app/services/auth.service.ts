@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/auth";
-import {Router} from "@angular/router";
-import {Observable, of} from "rxjs";
-import {first, switchMap} from 'rxjs/operators';
-import {AngularFirestore} from "@angular/fire/firestore";
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { first, switchMap } from 'rxjs/operators';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SnackComponent} from '../shared/components/snack/snack.component';
-import {TagService} from "./tag.service";
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../shared/components/snack/snack.component';
 
 export interface User {
     firstName: string;
@@ -18,7 +17,7 @@ export interface User {
     roles: Roles;
     uid: string;
     tags: any;
-    notificationTokens: any[]
+    notificationTokens: any[];
 }
 
 export interface Roles {
@@ -50,7 +49,11 @@ const actionCodeSettings = {
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(public af: AngularFireAuth, private router: Router, private db: AngularFirestore, public snackBar: MatSnackBar) {
+    constructor(public af: AngularFireAuth,
+                private router: Router,
+                private db: AngularFirestore,
+                public snackBar: MatSnackBar,
+                ) {
         this.user$ = this.af.authState.pipe(
             switchMap(user => {
                 if (user) {
@@ -65,7 +68,7 @@ export class AuthService {
     user$: Observable<User>;
 
     private static getDisplayName(user): any {
-      return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
+        return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
     }
 
     getUser(): Promise<any> {
@@ -79,21 +82,21 @@ export class AuthService {
         const credential = await this.af.signInWithPopup(provider);
         return this.checkUserExist(credential.user)
             .then(res => {
-              if (res) {
-                return this.updateUserData(credential.user)
-                    .then(() => {
-                        return new Promise(resolve => {
-                            resolve({firstTime: false});
+                if (res) {
+                    return this.updateUserData(credential.user)
+                        .then(() => {
+                            return new Promise(resolve => {
+                                resolve({ firstTime: false, uid: credential.user.uid });
+                            });
                         });
-                    });
-              } else {
-                return this.createUserData(credential.user)
-                    .then(() => {
-                      return new Promise(resolve => {
-                        resolve({firstTime: true});
-                      });
-                    });
-              }
+                } else {
+                    return this.createUserData(credential.user)
+                        .then(() => {
+                            return new Promise(resolve => {
+                                resolve({ firstTime: true, uid: credential.user.uid });
+                            });
+                        });
+                }
             });
     }
 
@@ -152,12 +155,12 @@ export class AuthService {
             email: user.email,
             // displayName: user.displayName,
         };
-        return ref.set(data, {merge: true});
+        return ref.set(data, { merge: true });
     }
 
     updateUserInstant(data: any, uid) {
         const ref = this.userCollection.doc(uid);
-        return ref.set(data, {merge: true});
+        return ref.set(data, { merge: true });
     }
 
     private createUserData(user: any) {
@@ -168,12 +171,12 @@ export class AuthService {
             email: user.email,
             firstName: (user.firstName) ? user.firstName : null,
             lastName: (user.lastName) ? user.lastName : null,
-            displayName: (user.displayName) ?  user.displayName : AuthService.getDisplayName(user) ,
+            displayName: (user.displayName) ? user.displayName : AuthService.getDisplayName(user),
             roles: {
                 guest: true
             },
         };
-        return ref.set(data, {merge: true});
+        return ref.set(data, { merge: true });
     }
 }
 
