@@ -31,6 +31,7 @@ import {ArticleListComponent} from './article-list/article-list.component';
 import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
 import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { InfoComponent } from './info/info.component';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         ArticleListComponent,
         TopWrapperComponent,
         TagChipComponent,
+        InfoComponent,
     ],
     exports: [
         NavbarComponent,
@@ -68,6 +70,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
         ArticleListComponent,
         TopWrapperComponent,
         WarnComponent,
+        InfoComponent,
         TagChipComponent
     ],
     imports: [

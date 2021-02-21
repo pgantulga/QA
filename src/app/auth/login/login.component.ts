@@ -3,7 +3,7 @@ import { DialogComponent } from './../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from './../../services/notification.service';
 import { PermissionService } from './../../services/permission.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
@@ -14,20 +14,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
 
-    constructor(private af: AngularFireAuth,
-                private afMessaging: AngularFireMessaging,
-                public authService: AuthService,
-                public snackbar: MatSnackBar,
-                public router: Router,
-                private route: ActivatedRoute,
-                private notificationService: NotificationService,
-                private dialog: MatDialog) {
+    constructor(
+        private af: AngularFireAuth,
+        private afMessaging: AngularFireMessaging,
+        public authService: AuthService,
+        public snackbar: MatSnackBar,
+        public router: Router,
+        private route: ActivatedRoute,
+        private notificationService: NotificationService,
+        private dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -37,15 +38,13 @@ export class LoginComponent implements OnInit {
         this.authService.googleLogin()
             .then((res) => {
                 if (res.firstTime) {
-                    this.router.navigate(['auth/welcome']);
+                    console.log('first time');
+                    this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
+                } else {
+                    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                    this.router.navigate([returnUrl || '/']).then(() => this.checkNotification(res));
                 }
-                this.notificationService.checkNotificationToken(res)
-                    .then(isToken => {
-                        return !isToken ? this.tokenDialog(res) : null;
-                    });
-                const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                this.router.navigate([returnUrl || '/']);
-                
+
             });
     }
 
@@ -70,7 +69,10 @@ export class LoginComponent implements OnInit {
         this.authService.signIn({ email: this.email.value, password: this.password.value })
             .then(res => {
                 const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-                this.router.navigate([returnUrl || '/']);
+                this.router.navigate([returnUrl || '/'])
+                    .then(() => {
+                        this.checkNotification(res);
+                    });
                 this.openSnack('Амжилттай нэвтэрлээ.');
             });
 
@@ -84,6 +86,8 @@ export class LoginComponent implements OnInit {
             title: 'Вебсайтын мэдэгдлийг зөвшөөрөх',
             content: 'Та веб хөтөчийн мэдэгдийн тохиргоог зөвшөөрснөөр мэдээллүүдийг цаг тухайд нь авах боломжтой.'
         };
+        console.log('before roken ask');
+
         const dialogRef = this.dialog.open(DialogComponent, { data: dialogData });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
@@ -91,9 +95,15 @@ export class LoginComponent implements OnInit {
                 this.afMessaging.requestToken
                     .subscribe(
                         (token) => this.notificationService.savePushNotificationsToUser(token, user),
-                        (error) => {console.log(error); }
-                        );
+                        (error) => { console.log(error); }
+                    );
             }
-    });
-}
+        });
+    }
+    checkNotification(res) {
+        this.notificationService.checkNotificationToken(res)
+            .then(isToken => {
+                return !isToken ? this.tokenDialog(res) : null;
+            });
+    }
 }

@@ -8,6 +8,10 @@ const ModeratorMenu = [
   {
     link: 'tags',
     name: 'Сэдвүүд'
+  },
+  {
+    link: 'companies',
+    name: 'Байгууллагууд'
   }
 ];
 @Component({

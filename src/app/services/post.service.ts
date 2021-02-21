@@ -76,7 +76,7 @@ export class PostService {
             .where('author.id ', '==', user.uid)).valueChanges();
     }
 
-    createPost(formData, user, tagsArray) {
+    createPost(formData, user, tagsArray, isSecret?) {
         const data = {
             title: formData.title,
             content: formData.content,
@@ -93,6 +93,7 @@ export class PostService {
             totalVotes: 0,
             viewCount: 0,
             tags: tagsArray,
+            isSecret: isSecret || false
         };
         return this.postCollection.add(data).then((res) => {
             return this.addFollowers(tagsArray, res.id)
@@ -132,12 +133,13 @@ export class PostService {
     getFollowers(postId) {
         return this.postCollection.doc(postId).collection('followers').ref.get();
     }
-    savePost(formData, user, tagsArray, oldValue) {
+    savePost(formData, user, tagsArray, oldValue, isSecret?) {
         return this.postCollection.doc(oldValue.id).set({
             title: formData.title,
             content: formData.content,
             updatedAt: new Date(),
-            tags: tagsArray
+            tags: tagsArray,
+            isSecret: isSecret || false
         }, { merge: true }).then(
             () => {
                 return this.addLog(user, 'edited', oldValue.id);

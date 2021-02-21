@@ -16,6 +16,7 @@ import {LayoutModule} from './layout/layout.module';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {AdminGuard} from './admin/admin-guard.service';
+import {PostGuardService} from './post/post-guard.service';
 import {ModeratorGuard} from './moderator/moderator-guard.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AppErrorHandler} from './shared/app-error-handler';
@@ -45,6 +46,7 @@ import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet
         AdminGuard,
         AuthGuard,
         ModeratorGuard,
+        PostGuardService,
         {provide: ErrorHandler, useClass: AppErrorHandler},
         // {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],

@@ -18,6 +18,7 @@ export interface User {
     uid: string;
     tags: any;
     notificationTokens: any[];
+    verified: boolean;
 }
 
 export interface Roles {
@@ -31,7 +32,7 @@ export interface Roles {
 const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be whitelisted in the Firebase Console.
-    url: 'qaproject-23417.firebaseapp.com',
+    url: 'http://localhost:4200/auth/welcome',
     // This must be true.
     handleCodeInApp: true,
     iOS: {
@@ -50,10 +51,10 @@ const actionCodeSettings = {
 })
 export class AuthService {
     constructor(public af: AngularFireAuth,
-                private router: Router,
-                private db: AngularFirestore,
-                public snackBar: MatSnackBar,
-                ) {
+        private router: Router,
+        private db: AngularFirestore,
+        public snackBar: MatSnackBar,
+    ) {
         this.user$ = this.af.authState.pipe(
             switchMap(user => {
                 if (user) {
@@ -114,7 +115,12 @@ export class AuthService {
                 userData.uid = res.user.uid;
                 userData.createdAt = new Date();
                 this.emailVerify(userData.email);
-                return this.createUserData(userData);
+                return this.createUserData(userData)
+                    .then(() => {
+                        return new Promise(resolve => {
+                            resolve({ firstTime: true, uid: res.user.uid });
+                        });
+                    });
             });
 
     }
@@ -127,10 +133,12 @@ export class AuthService {
         return this.af.signInWithEmailAndPassword(userData.email, userData.password);
     }
 
-    private emailVerify(email) {
+    emailVerify(email) {
+        console.log('email sending..', email);
         this.af.sendSignInLinkToEmail(email, actionCodeSettings)
             .then(() => {
                 window.localStorage.setItem('emailForSignIn', email);
+                console.log('email sent');
             })
             .catch(err => {
                 console.log(err.message);
@@ -153,6 +161,7 @@ export class AuthService {
         const data = {
             uid: user.uid,
             email: user.email,
+            updatedAt: new Date()
             // displayName: user.displayName,
         };
         return ref.set(data, { merge: true });
@@ -177,6 +186,14 @@ export class AuthService {
             },
         };
         return ref.set(data, { merge: true });
+    }
+    verify(user) {
+        return this.userCollection.doc(user.uid)
+            .set({ verified: true }, { merge: true });
+    }
+    notVerify(user) {
+        return this.userCollection.doc(user.uid)
+            .set({ verified: false }, { merge: true });
     }
 }
 

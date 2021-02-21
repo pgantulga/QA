@@ -28,7 +28,13 @@
     }
     mat-form-field {
         width: 100%;
+        // margin: 16px 0;
+        padding-bottom: 8px;
     }
+    mat-error {
+        margin-bottom: 8px;
+    }
+
 }
 .fa-2x {
     font-size: 1.5em !important;

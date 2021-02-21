@@ -11,12 +11,21 @@
     }
     .mat-headline{
       margin: 0 !important;
+      border: none !important;
+      text-decoration: none;
+    }
+    .mat-headline:focus{
+      outline: 0;
+    }
+    .mat-headline:hover {
+      cursor: pointer;
+      color: mat-color($primary);
     }
   .mat-body-2{
     margin: 0;
   }
   .top-wrapper {
-    background-image: url("../../../assets/wrapper_background.png");
+    background-image: url("src/assets/wrapper_background.png");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

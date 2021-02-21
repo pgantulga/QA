@@ -1,37 +1,113 @@
-<div *ngIf="user" fxLayout="column" style="padding: 0 0 16px 0">
+<ng-container *ngIf="authService.user$ | async as user">
+  <div *ngIf="user" fxLayout="column" style="padding: 0 0 16px 0">
     <user-profile-large [user]="user"></user-profile-large>
-</div>
-<div class="background-card" fxLayout="column">
+  </div>
+  <div class="background-card settings-card-container" fxLayout="column">
     <form (ngSubmit)="onSubmit()" fxLayout="column">
-        <div fxLayout="column" class="welcome-field">
-            <p>Таны аватар (сонгох):</p>
-            <div fxLayout="row wrap">
-                <button mat-icon-button *ngFor="let color of colorService.allColors" class="avatar-button" (click)="selectColor(color)" type="button" [ngClass]="{'active': isSelected(color)}">
-                    <mat-icon [ngStyle] = "{'color': color.code}">account_circle</mat-icon>
-                </button>
-            </div>
+      <div fxLayout="column" class="welcome-field">
+        <p>Таны аватар (сонгох):</p>
+        <div fxLayout="row wrap">
+          <button
+            mat-icon-button
+            *ngFor="let color of colorService.allColors"
+            class="avatar-button"
+            (click)="selectColor(color)"
+            type="button"
+            [ngClass]="{ active: isSelected(color) }"
+          >
+            <mat-icon [ngStyle]="{ color: color.code }">account_circle</mat-icon>
+          </button>
         </div>
-        <mat-form-field appearance="outline" color="primary">
-            <mat-label>Таны харагдах нэр</mat-label>
-            <input matInput placeholder="Овог" [formControl]="displayName" required>
-        </mat-form-field>
-        <mat-form-field appearance="outline" color="primary">
-            <mat-label>Байгууллага</mat-label>
-            <input matInput placeholder="Овог" [formControl]="company" required>
-        </mat-form-field>
-        <mat-form-field appearance="outline" color="primary">
-            <mat-label>Ажил эрхлэлт</mat-label>
-            <input matInput placeholder="Овог" [formControl]="position" required>
-        </mat-form-field>
-        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-            <button mat-raised-button color="primary" type="submit" fxFlex="" [disabled]="!((displayName.valid) && (position.valid) && (company.valid) && (selectedColor)) ">
-                Батлах
-            </button>
-        </mat-card-actions>
-        <div fxLayout="column" fxLayoutAlign="center center" style="margin: 8px 0">
-            <button mat-flat-button (click)="changePassword()" type="button" [disabled]="changePasswordButton">Нууц үг солих</button>
-            <p *ngIf="changePasswordButton">Та имэйл хаягаа шалгана уу</p>
-        </div>
+      </div>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Таны харагдах нэр</mat-label>
+        <input matInput placeholder="Овог" [formControl]="displayName" required />
+      </mat-form-field>
+      <mat-hint class="mat-caption"
+          >Хамгийн багадаа 3 тэмдэгт байна.
+        </mat-hint>
 
+      <ng-container *ngIf="verified else notVerified">
+        <div class="verified-info-card" fxLayout="row">
+          <div  fxLayout="row" fxFlex>
+            <mat-icon class="verified-icon">done</mat-icon>
+            <div fxLayout="column" class="content">
+              <p class="mat-body-2">{{user.company.name}}</p>
+            <p class="mat-body-1">{{user.position}}</p>
+            </div>
+          </div>
+          <button mat-flat-button (click)="changeRequest()">
+            <mat-icon class="">edit</mat-icon>
+            Өөрчлөх
+          </button>
+        </div>
+        <mat-hint align="end" class="mat-caption">*Байгууллагын мэдээлэл өөрчлөх хүсэлт явуулснаар таны мэдээлэл баталгаажтал хаалттай хэлэлцүүлэгт орох боломжгүй.</mat-hint>
+      </ng-container>
+
+      <ng-template #notVerified>
+        <ng-container *ngIf="user.company.isConfirmed">
+          <ng-container *ngIf="user.company.isConfirmed.checking">
+            <info [articleId]="'NnA2Ap1YdgX7OhNc1mdn'"></info>
+          </ng-container>
+          <ng-container *ngIf="user.company.isConfirmed.notConfirmed">
+            <warn [articleId]="'kTaMXxHwGrh7l4VrfOTh'"></warn>
+          </ng-container>
+        </ng-container>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Байгууллага</mat-label>
+          <input matInput placeholder="Овог" [formControl]="company" required />
+        </mat-form-field>
+        <mat-hint align="end" class="mat-caption"
+          >Жишээлбэл: Эрдэнэт Үйлдвэр ТӨҮГ
+        </mat-hint>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Албан тушаал</mat-label>
+          <input matInput placeholder="Овог" [formControl]="position" required />
+        </mat-form-field>
+        <mat-hint align="end" class="mat-caption">Жишээлбэл: Геологич </mat-hint>
+        <div class="name-card-container" fxLayout="row">
+          <div class="type-indicator"></div>
+          <div fxLayout="column">
+            <p class="mat-body-2">Нэрийн хуудасны мэдээлэл оруулах</p>
+            <p class="mat-body-1">
+              Та нэрийн хуудасны зургаа оруулснаар таны мэдээлэл
+              баталгаажиж  МУУҮА -ийн гишүүдийн хаалттай хэлэлцүүлэгт орох боломжтой. 
+            </p>
+            <upload-file
+              [path]="storagePath"
+              (fileEmitter)="getImageFile($event)"
+            ></upload-file>
+          </div>
+        </div>
+      </ng-template>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center center" style="margin: 16px 0 0 0">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          fxFlex=""
+          [disabled]="
+            !(
+              displayName.valid &&
+              position.valid &&
+              company.valid &&
+              selectedColor
+            )">
+          Сануулах
+        </button>
+      </mat-card-actions>
+      <div fxLayout="column" fxLayoutAlign="center center" style="margin: 8px 0">
+        <button
+          mat-flat-button
+          (click)="changePassword()"
+          type="button"
+          [disabled]="changePasswordButton"
+        >
+          Нууц үг солих
+        </button>
+        <p *ngIf="changePasswordButton">Та имэйл хаягаа шалгана уу</p>
+      </div>
     </form>
-</div>
+  </div>
+  
+</ng-container>

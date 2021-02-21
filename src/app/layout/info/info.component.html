@@ -1,0 +1,11 @@
+<div class="info-section background-card" *ngIf="article$ | async as article" fxLayout="row" fxLayout.xs="column">
+    <div fxLayout="row" fxFlex.gt-xs>
+        <div fxLayout="column" fxLayoutAlign="center center" class="alert-icon">
+            <mat-icon>info</mat-icon>
+        </div>
+        <div class="text" fxLayout="column" fxLayoutAlign="center center" [innerHTML]="article.content"></div>
+    </div>
+    <div class="actions" fxlayout='row' fxFlexAlign="end">
+        <ng-content></ng-content>
+    </div>  
+</div>

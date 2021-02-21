@@ -11,6 +11,7 @@ describe('AuthService', () => {
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service.emailVerify('pggan2@gmail.com')).toBeTruthy();
   });
 });
+  

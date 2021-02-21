@@ -109,8 +109,10 @@ export class NotificationService {
     }
 
     async checkNotificationToken(user) {
+        console.log(user)
         const userData = await this.userRef.doc(user.uid).ref.get();
-        return !!userData.data().notificationTokens;
+        return (userData.data().notificationTokens) ? true : false;
+        // return !!userData.data().notificationTokens;
     }
 
     async savePushNotificationsToUser(token, user) {

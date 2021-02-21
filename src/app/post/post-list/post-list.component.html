@@ -3,6 +3,7 @@
     <div fxLayout="column" fxFlex="">
         <p class="mat-body-2 question" (click)="gotoPost(post)" >{{post.title}}</p>
         <div fxLayout="row">
+            <mat-icon *ngIf="post.isSecret" class="pin-icon">lock</mat-icon>
             <mat-icon *ngIf="post.pinned" class="pin-icon">push_pin</mat-icon>
             <mat-chip-list>
                 <tag-chip *ngFor="let item of post.tags" [item]="item"></tag-chip>

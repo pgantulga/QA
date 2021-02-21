@@ -17,7 +17,8 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   serviceErrorMessage: string;
 
-  constructor(public authService: AuthService,
+  constructor(
+    public authService: AuthService,
     private formBuilder: FormBuilder,
     public router: Router,
     private notificationService: NotificationService,
@@ -42,14 +43,11 @@ export class RegisterComponent implements OnInit {
     this.authService.googleLogin()
       .then((res) => {
         if (res.firstTime) {
-          this.router.navigate(['auth/welcome']);
+          this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
+        } else {
+          const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigate([returnUrl || '/']);
         }
-        this.notificationService.checkNotificationToken(res)
-          .then(isToken => {
-            return !isToken ? this.tokenDialog(res) : null;
-          });
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
-        this.router.navigate([returnUrl || '/']);
       })
       .catch(err => { console.log('Login error: ' + err); });
   }
@@ -76,14 +74,16 @@ export class RegisterComponent implements OnInit {
         email: this.registerForm.get('email').value,
         password: this.registerForm.get('password').value
       })
-      .then(res => {
-        // return this.router.navigate(['auth/welcome']);
+      .then((res: any) => {
+        console.log(res)
+        if (res.firstTime) {
+          this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
+        }
       });
   }
   signOut() {
     this.authService.signOut();
   }
-
   tokenDialog(user) {
     const dialogData = {
       title: 'Вебсайтын мэдэгдлийг зөвшөөрөх',
@@ -100,5 +100,11 @@ export class RegisterComponent implements OnInit {
           );
       }
     });
+  }
+  checkNotification(res) {
+    this.notificationService.checkNotificationToken(res)
+      .then(isToken => {
+        return !isToken ? this.tokenDialog(res) : null;
+      });
   }
 }

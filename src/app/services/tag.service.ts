@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {AuthService} from './auth.service';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 export interface Tag {
     id: string;
@@ -77,8 +77,8 @@ export class TagService {
         };
         return this.tagsCollection.add(data).then(res => {
             return res.update({
-                    id: res.id
-                }
+                id: res.id
+            }
             );
         });
     }
@@ -94,17 +94,17 @@ export class TagService {
             status: false
         };
         return this.tagsRecommendations.add(data)
-        .then(res => {
-            return res.update({
-                id: res.id
+            .then(res => {
+                return res.update({
+                    id: res.id
+                });
             });
-        });
     }
     commitRecommend(tag) {
         return this.tagsRecommendations.doc(tag.id).set({
             status: true,
             updatedAt: new Date()
-        }, {merge: true});
+        }, { merge: true });
     }
 
 
@@ -113,11 +113,16 @@ export class TagService {
             name: formData.name,
             description: formData.description,
             updatedAt: new Date(),
-        }, {merge: true});
+        }, { merge: true });
     }
 
     followTag(user, tag) {
-        return this.tagsCollection.doc(tag.id).collection('followers').add({uid: user.uid});
+        return this.findFollower(user, tag)
+            .subscribe(followers => {
+                if (followers.size < 1) {
+                    return this.tagsCollection.doc(tag.id).collection('followers').add({ uid: user.uid });
+                }
+            })
     }
 
     unfollowTag(user, tag) {
@@ -179,7 +184,7 @@ export class TagService {
                 tags: formData.tags,
                 color: (formData.color) ? formData.color : oldData.color,
                 image: (formData.image) ? formData.image : oldData.image
-            }, {merge: true});
+            }, { merge: true });
     }
 
     getAllTagCategories() {
@@ -200,12 +205,12 @@ export class TagService {
             }
         }
         return this.authService.updateUserInstant(
-            {tags: obj}, user.uid
+            { tags: obj }, user.uid
         )
             .then(() => {
                 const promiseArray = [];
                 for (const tag of tagsArray) {
-                    promiseArray.push(this.followTag(user, {id: tag}));
+                    promiseArray.push(this.followTag(user, { id: tag }));
                 }
                 return Promise.all(promiseArray);
             });
@@ -214,42 +219,4 @@ export class TagService {
     private findFollower(user, tag) {
         return this.tagsCollection.doc(tag.id).collection('followers', ref => ref.where('uid', '==', user.uid)).get();
     }
-    // getFollowersInstant(tag, add) {
-    //     return this.tagsCollection.doc(tag.id).collection('followers').get().pipe(
-    //         map(snapshot => {
-    //             const items = [];
-    //             snapshot.docs.map(a => {
-    //                 add(a.data());
-    //                 items.push(a.data());
-    //             });
-    //             return items;
-    //         })
-    //     )
-    // }
-
-    // private allUsersFollow(tagId) {
-    //     const tags = {};
-    //     tags[tagId] = true;
-    //     const users = this.db.collection('users');
-    //     users.get().pipe(
-    //         map(snapshot => {
-    //           const items = [];
-    //           snapshot.docs.map(a => {
-    //             const data = a.data();
-    //             const id = a.id;
-    //             items.push({ id, ...data });
-    //           });
-    //           return items;
-    //         })
-    //     ).subscribe(items => {
-    //       items.forEach(user => {
-    //         this.authService.updateUserInstant(
-    //             { tags: {
-    //               [tagId]: true
-    //               }}, user.uid);
-    //       });
-    //     });
-    //
-    //
-    // }
 }

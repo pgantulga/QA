@@ -49,16 +49,16 @@ export class TopWrapperComponent implements OnInit, OnDestroy {
               title: 'Тавтай морил!',
               button: 'Эхлэх',
               icon: 'star',
-              link: 'auth/profile-settings'
+              link: 'auth/login'
             };
         }
         if (user.roles.guest) {
           return {
             name: 'regFinish',
-            title: 'Та бүртгэлээ гүйцээнэ үү',
+            title: 'Та бүртгэлээ гүйцээнэ үү!',
             button: 'Хэрэглэгчийн тохиргоо',
             icon: 'settings',
-            link: 'auth/profile-settings'
+            link: 'auth/welcome'
           };
         } else {
           return {

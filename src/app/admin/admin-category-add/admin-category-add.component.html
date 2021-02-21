@@ -11,7 +11,7 @@
     </mat-form-field>
     <div style="padding: 8px 0">
         <p>Background image</p>
-        <input type="file" (change)="onFileSelected($event.target.files)" id="file">
+            <input type="file" (change)="onFileSelected($event.target.files)" id="file">
         <button mat-button (click)="upload()">Upload</button>
         <div *ngIf="snapshot | async as snap">
             {{snap.bytesTransferred}} of {{snap.totalBytes}}

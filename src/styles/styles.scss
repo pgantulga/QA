@@ -15,15 +15,18 @@ body {
   height: 100%;
   //position: relative;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 blockquote {
   font-style: italic;
-  border-left: 4px solid mat-color($primary,300);
+  border-left: 4px solid mat-color($primary, 300);
   padding: 0 0 0 16px;
 }
 
-a{
+a {
   color: mat-color($primary, 300);
 }
 .tooltip {
@@ -32,7 +35,14 @@ a{
 }
 
 .fa-google {
-  background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+  background: conic-gradient(
+      from -45deg,
+      #ea4335 110deg,
+      #4285f4 90deg 180deg,
+      #34a853 180deg 270deg,
+      #fbbc05 270deg
+    )
+    73% 55%/150% 150% no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -53,7 +63,7 @@ a{
   text-align: center;
   display: inline-block;
   vertical-align: middle;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   margin: 2px 6px 0 0;
 }
 .avatar-large {
@@ -69,13 +79,14 @@ a{
   margin: 2px;
 }
 
+/***************************************typography**************************************************/
 
 
 /****************************************Buttons****************************************************/
 .top-fab-button {
   position: absolute;
   right: 0;
-  top:-28px
+  top: -28px;
 }
 button.mat-button {
   border-radius: 300px;
@@ -85,30 +96,32 @@ button.mat-button.border-white {
   //border-radius: 30px;
   //margin-left: 16px;
 }
-button.mat-raised-button{
+button.mat-raised-button {
   border-radius: 300px;
   text-transform: uppercase;
 }
 button.mat-flat-button {
   border-radius: 300px;
 }
-button.mat-raised-button.mat-accent{
+button.mat-raised-button.mat-accent {
   text-transform: uppercase;
 }
-.mat-button-toggle-standalone.mat-button-toggle-appearance-standard, .mat-button-toggle-group-appearance-standard {
+.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
+.mat-button-toggle-group-appearance-standard {
   border: solid 1px mat-color($my-grey, 900);
 }
-.mat-button-toggle-group-appearance-standard .mat-button-toggle + .mat-button-toggle {
+.mat-button-toggle-group-appearance-standard
+  .mat-button-toggle
+  + .mat-button-toggle {
   border-left: solid 1px mat-color($my-grey, 900);
 }
-
 
 .mat-button.google-login {
   //border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;
   width: 100%;
   background-color: white !important;
-  color: #1E2029 !important;
+  color: #1e2029 !important;
 }
 
 //*****************************Global styles*************************************
@@ -119,13 +132,13 @@ button.mat-raised-button.mat-accent{
     width: 1110px;
   }
 }
-@media only screen and (max-width: 1920px ) and ( min-width: 1280px){
+@media only screen and (max-width: 1920px) and (min-width: 1280px) {
   .container {
     width: 1110px;
   }
 }
 
-@media only screen and (max-width: 1280px ) and ( min-width: 960px) {
+@media only screen and (max-width: 1280px) and (min-width: 960px) {
   .container {
     width: 945px;
     padding: 0 8px;
@@ -143,7 +156,7 @@ button.mat-raised-button.mat-accent{
   padding: 80px 0 0 0;
 }
 .mat-toolbar-row {
-  padding: 0!important;
+  padding: 0 !important;
 }
 
 .container_content .list {
@@ -180,6 +193,20 @@ quill-editor.answer .ql-editor {
   background-color: mat-color($primary);
 }
 
+//******************************************form-field***************************************************
+mat-form-field .mat-form-field-wrapper {
+  margin: 0;
+  padding-bottom: 0;
+}
+
+.userTable {
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 4px 0 4px 0 !important;
+    width: 100px !important;
+    border-top: 4px solid transparent !important;
+  }
+}
+
 //********************************************chip*******************************************************
 mat-chip-list:focus {
   outline: 0;
@@ -191,7 +218,7 @@ mat-chip-list:focus {
 
   //font-size: mat-font-size(caption);
   background-color: transparent !important;
-  border: 1px solid rgba(255,255,255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .mat-standard-chip.transparent {
@@ -251,10 +278,9 @@ mat-chip-list:focus {
 .ql-toolbar .ql-blockquote {
   fill: mat-color($primary) !important;
   stroke: none !important;
-
 }
 .ql-editor.ql-blank::before {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .ql-snow .ql-editor blockquote {

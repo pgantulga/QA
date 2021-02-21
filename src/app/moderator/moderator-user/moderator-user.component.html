@@ -1,10 +1,30 @@
 <div class="background-card" *ngIf="users$ | async as users">
-  <div>
-    <table mat-table [dataSource]="users" style="width: 100%">
+  <div *ngIf="authService.user$ | async as user">
+    <table mat-table [dataSource]="users" style="width: 100%" class="userTable">
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let element" [routerLink]="['/users', element.uid]" class="select">{{ element.email }}</td>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/users', element.uid]"
+          class="select"
+        >
+          {{ element.email }}
+        </td>
       </ng-container>
+
+      <ng-container matColumnDef="verified">
+        <th mat-header-cell *matHeaderCellDef>Verified</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+        >
+        <p class="mat-caption" [class.verified]="element.verified">
+          {{ element.verified }}
+        </p>  
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="displayName">
         <th mat-header-cell *matHeaderCellDef>Display name</th>
         <td mat-cell *matCellDef="let element">
@@ -15,17 +35,73 @@
           </p>
         </td>
       </ng-container>
-      <ng-container matColumnDef="uid">
-        <th mat-header-cell *matHeaderCellDef>UID</th>
-        <td mat-cell *matCellDef="let element">{{ element.uid }}</td>
+
+      <ng-container matColumnDef="company" style="max-width: 200px">
+        <th mat-header-cell *matHeaderCellDef>Company info</th>
+        <td mat-cell *matCellDef="let element">
+          <div fxLayout="column wrap">
+            <ng-container *ngIf="element.company?.isConfirmed">
+              <p class="mat-caption" [class.need-action]="element.company?.isConfirmed.checking" *ngIf="element.company?.isConfirmed.checking">Need action</p>
+              <p class="mat-caption" [class.not-confirmed]="element.company?.isConfirmed.notConfirmed" *ngIf="element.company?.isConfirmed.notConfirmed">Not confirmed</p>
+              <p class="mat-caption" [class.confirmed]="element.company?.isConfirmed.confirmed" *ngIf="element.company?.isConfirmed.confirmed"> Confirmed</p>
+            </ng-container>
+            <mat-form-field appearance="outline">
+              <mat-select placeholder="change confirmation"
+                (selectionChange)="changeUserConfirmation($event.value, element)"
+              >
+                <mat-option>--</mat-option>
+                <mat-option
+                  *ngFor="let option of confirmSelections"
+                  [value]="option"
+                >
+                  {{ option.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <ng-container *ngIf="element.company?.name">
+              <p class="mat-caption">Company: {{element.company?.name}}</p>
+            </ng-container>
+            <ng-container *ngIf="companies.length">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="change company"
+                  (selectionChange)="changeUserCompany($event.value, element)"
+                >
+                  <mat-option>--</mat-option>
+                  <mat-option
+                    *ngFor="let company of companies"
+                    [value]="company"
+                  >
+                    {{ company.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="idCard">
+        <th mat-header-cell *matHeaderCellDef>Id card</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-button
+            *ngIf="element.idCard"
+            (click)="imageShow(element.idCard)"
+          >
+            Харах
+          </button>
+        </td>
       </ng-container>
       <ng-container matColumnDef="roles">
         <th mat-header-cell *matHeaderCellDef>Roles</th>
         <td mat-cell *matCellDef="let element">
           <mat-form-field appearance="outline">
-            <select matNativeControl (change)="changeUserRole($event, element.uid)">
-              <option *ngFor="let role of element.roles | keyvalue" [value]="role.key"
-              [selected]="role.value">{{ role.key }}</option>
+            <select matNativeControl (change)="changeUserRole($event, element)">
+              <ng-container *ngFor="let role of element.roles | keyvalue">
+                <option [value]="role.key" [selected]="role.value">
+                  {{ role.key }}
+                </option>
+              </ng-container>
             </select>
           </mat-form-field>
         </td>

@@ -1,3 +1,4 @@
+import { ModeratorCompanyComponent } from './moderator-company/moderator-company.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {ModeratorComponent} from './moderator/moderator.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
             {
                 path: 'tags',
                 component: ModeratorTagsComponent
+            },
+            {
+                path: 'companies',
+                component: ModeratorCompanyComponent
             }
         ]
     }

@@ -75,15 +75,15 @@ export class HomeComponent implements OnInit {
 
     async getTagsMenu() {
         const userData = await this.authService.getUser();
-        if (userData) {
+        if (userData && userData.tags) {
             const userTagsData = await this.tagService.getUserTags(userData);
             userTagsData.forEach((tag: any) => {
                 if (tag.data()) {
                     this.userTags.push(tag.data());
                     this.userTags.sort((a: any, b: any) => b.updatedAt - a.updatedAt);
                 }
-                this.userTags = this.userTags.slice(0, 11);
             });
+            this.userTags = this.userTags.slice(0, 11);
         } else {
             this.tagService.getPopularTags().subscribe(tags => {
                 this.userTags = this.userTags.concat(tags);

@@ -6,7 +6,7 @@
                 <div class="type-indicator system"></div>
                 <div fxLayout="column">
                     <p class="mat-body-2">{{getGreetings()}}</p>
-                    <p class="mat-headline">{{content.title}}</p>
+                    <p class="mat-headline" [routerLink]="[content.link]" >{{content.title}}</p>
                 </div>
             </div>
         </div>

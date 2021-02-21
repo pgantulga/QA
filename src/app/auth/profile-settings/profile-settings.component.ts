@@ -1,16 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {ColorService} from '../../services/color.service';
-import {FormControl, Validators} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {Router} from '@angular/router';
-import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {PermissionService} from "../../services/permission.service";
+import { Component, OnInit } from '@angular/core';
+import { ColorService } from '../../services/color.service';
+import { FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { PermissionService } from '../../services/permission.service';
+import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
     selector: 'app-profile-settings',
     templateUrl: './profile-settings.component.html',
-    styleUrls: ['./profile-settings.component.scss']
+    styleUrls: ['../welcome/welcome.component.scss', './profile-settings.component.scss']
 })
 export class ProfileSettingsComponent implements OnInit {
     user: any;
@@ -18,65 +19,48 @@ export class ProfileSettingsComponent implements OnInit {
     avatar: string;
     selectedColor: any;
     changePasswordButton = false;
+    idCard: string;
+    storagePath: string;
+    verified: boolean;
     displayName = new FormControl('', [
-        Validators.minLength(5)
+        Validators.required,
+        Validators.minLength(3)
     ]);
     company = new FormControl('', [
+        Validators.required,
         Validators.maxLength(50)
     ]);
     position = new FormControl('', [
+        Validators.required,
         Validators.maxLength(50)
     ]);
 
-    constructor(public authService: AuthService, public colorService: ColorService, public snackbar: MatSnackBar, public router: Router, private permissionService: PermissionService) {
+    constructor(
+        public authService: AuthService,
+        public colorService: ColorService,
+        public snackbar: MatSnackBar,
+        public router: Router,
+        private permissionService: PermissionService,
+        private companyService: CompanyService) {
     }
 
     ngOnInit(): void {
         this.authService.getUser()
             .then(user => {
                 this.user = user;
-                this.displayName.setValue(user.displayName);
-                this.company.setValue(user.company);
-                this.position.setValue(user.position);
+                this.verified = this.user.verified;
+                this.storagePath = `images/idCards/${this.user.uid}`;
                 this.color = this.getRandomColor();
                 this.selectedColor = (user.color) ? user.color : null;
+                this.displayName.setValue(user.displayName);
+                this.position.setValue(user.position);
+                if (user.company) {
+                    this.company.setValue(user.company.name);
+                }
+                this.idCard = (this.user.idCard) ? this.user.idCard : null;
+                this.user.idCard = this.user.idCard || null;
             });
     }
-
-    getRandomColor() {
-        const randomIndex = Math.floor(Math.random() * Math.floor(this.colorService.allColors.length));
-        console.log(randomIndex);
-        return this.colorService.allColors[randomIndex];
-    }
-
-    onSubmit() {
-        this.authService.updateUserInstant(
-            {
-                displayName: this.displayName.value,
-                company: this.company.value,
-                position: this.position.value,
-                color: this.selectedColor,
-            }, this.user.uid
-        ).then(res => {
-            if (this.user.roles.guest) {
-                this.permissionService.setRole({key: 'subscriber', value: this.user.roles.subscriber}, this.user.uid);
-            }
-            this.router.navigate(['home'])
-                .then(() => {
-                        return this.openSnack('Таны мэдээлэл санагдлаа.');
-                    }
-                );
-        })
-            .catch(err => {
-                return this.openSnack(err.message);
-            });
-    }
-
-    openSnack(data) {
-        // @ts-ignore
-        this.snackbar.openFromComponent(SnackComponent, {data, panelClass: ['default-snack']});
-    }
-
     selectColor(color) {
         this.selectedColor = color;
     }
@@ -87,12 +71,56 @@ export class ProfileSettingsComponent implements OnInit {
         }
 
     }
+
     changePassword() {
         this.changePasswordButton = true;
         this.authService.passwordReset(this.user.email).then(() => {
             return this.snackbar.openFromComponent(SnackComponent, {
                 data: 'Имэйл илгээгдлээ'
             });
-        })
+        });
     }
+
+    getImageFile(ev) {
+        this.idCard = ev;
+    }
+
+    onSubmit() {
+        const data = {
+            displayName: this.displayName.value,
+            company: this.companyService.setCompanyValue({ name: this.company.value, idCard: this.idCard }, this.user),
+            position: this.position.value,
+            color: this.selectedColor,
+            idCard: (this.idCard || this.user.idCard),
+            updatedAt: new Date()
+        };
+        console.log(data);
+        this.authService.updateUserInstant(data, this.user.uid)
+        .then(res => {
+            if (!(this.user.roles.moderator || this.user.roles.admin)) {
+                this.permissionService.setRole({ key: 'subscriber', value: this.user.roles.subscriber }, this.user.uid);
+            }
+            this.router.navigate(['home'])
+                .then(() => {
+                    return this.openSnack('Таны мэдээлэл санагдлаа.');
+                }
+                );
+        })
+            .catch(err => {
+                return this.openSnack(err.message);
+            });
+    }
+    changeRequest() {
+        this.verified = false;
+    }
+
+    private getRandomColor() {
+        const randomIndex = Math.floor(Math.random() * Math.floor(this.colorService.allColors.length));
+        return this.colorService.allColors[randomIndex];
+    }
+
+    private openSnack(data) {
+        this.snackbar.openFromComponent(SnackComponent, { data, panelClass: ['default-snack'] });
+    }
+
 }

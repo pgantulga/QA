@@ -1,0 +1,72 @@
+<ng-container *ngIf="authService.user$ | async as user">
+    <button mat-flat-button color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+     Байгууллага нэмэх
+    </button>
+  </ng-container>
+  <div class="background-card" >
+    <div *ngIf="companies$ | async as companies">
+      <table mat-table [dataSource]="companies" style="width: 100%">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="usersNumber">
+          <th mat-header-cell *matHeaderCellDef>Users number</th>
+          <td mat-cell *matCellDef="let element">{{ element.usersNumber }}</td>
+        </ng-container>
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Created at</th>
+          <td mat-cell *matCellDef="let element">{{ element.createdAt | momentPipe}}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="editCompany(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="companiesTable"></tr>
+        <tr mat-row *matRowDef="let row; columns: companiesTable"></tr>
+      </table>
+    </div>
+  
+  
+    <!-- <div *ngIf="tags$ | async as tags">
+      <table mat-table [dataSource]="tags" style="width: 100%">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="totalUsed">
+          <th mat-header-cell *matHeaderCellDef>Total used</th>
+          <td mat-cell *matCellDef="let element">{{ element.totalUsed }}</td>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>Type</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button (click)="changeType(element)">
+              {{ element.type }}
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>Action</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="edit(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div> -->
+  </div>
+  

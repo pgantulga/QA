@@ -1,3 +1,5 @@
+import { async } from '@angular/core/testing';
+import { AuthService } from './../services/auth.service';
 import { BottomSheetComponent } from './../shared/bottom-sheet/bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AngularFireMessaging } from '@angular/fire/messaging';
@@ -32,8 +34,7 @@ export class ShellComponent implements OnInit {
         private breakpointObserver: BreakpointObserver,
         private afMessaging: AngularFireMessaging,
         private router: Router,
-        private postService: PostService,
-        private route: ActivatedRoute,
+        private authService: AuthService,
         public routeService: RouteService,
         private menuService: MenuService,
         private bottomSheet: MatBottomSheet) {
@@ -51,19 +52,21 @@ export class ShellComponent implements OnInit {
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.routeService.setCurrentRoute(this.currentRoute);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
-                // @ts-ignore
                 this.sideMenu = (this.currentRoute === 'admin') ? this.menuService.adminMenu : null;
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
             });
     }
     listen() {
         this.afMessaging.messages
-            .subscribe((message: any) => {
-                console.log(message);
+            .subscribe(async(message: any) => {
+                const user = await this.authService.getUser();
                 const bottomSheetData = {
                     body: message.notification.body,
                     title: message.notification.title,
                     link: message.notification.click_action
+                };
+                if (user.uid === message.data.actor) {
+                    return null;
                 }
                 this.bottomSheet.open(BottomSheetComponent, {
                     data: bottomSheetData,

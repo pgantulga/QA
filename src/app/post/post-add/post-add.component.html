@@ -23,8 +23,11 @@
                     <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="[]"></tag-select>
                 </ng-template>
             </div>
+            <ng-container *ngIf="authService.user$ | async as user">
+                <mat-checkbox *ngIf="permissionService.canEdit(user)" [(ngModel)]="isSecret" [ngModelOptions]="{standalone: true}">Нууц хэлэлцүүлэг</mat-checkbox>
+            </ng-container>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
-                <button mat-flat-button (click)="cancel()" type="button">Цуцлах</button>
+                <button mat-flat-button (click)="cancel()" type="button" style="margin: 0 16px 0 0">Цуцлах</button>
                 <ng-container *ngIf="editing else add">
                     <button mat-flat-button type="submit" color="primary" [disabled]="title.invalid || content.invalid">Сануулах</button>
                 </ng-container>

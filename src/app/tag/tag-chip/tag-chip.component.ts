@@ -14,7 +14,7 @@ export class TagChipComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.user = await this.authService.getUser();
-    if (this.user) {
+    if (this.user && this.user.tags) {
       this.type = this.getTagType(this.item);
     }
   }

@@ -1,0 +1,4 @@
+@import "custom-theme";
+button.active {
+  background-color: mat-color($warn);
+}

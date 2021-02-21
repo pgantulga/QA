@@ -13,6 +13,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { config } from '../../shared/quill-config';
 import { switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { PermissionService } from 'src/app/services/permission.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -40,28 +41,37 @@ export class PostAddComponent implements OnInit {
     ]);
     editing = false;
     oldValue: any;
-    constructor(public postService: PostService,
-                public authService: AuthService,
-                public route: ActivatedRoute,
-                public router: Router,
-                public dialog: MatDialog,
-                public snackBar: MatSnackBar,
-                public tagService: TagService) {
-        this.authService.user$.subscribe(user => {
-            this.author = user;
-        });
+    isSecret: boolean;
+    constructor(
+        public postService: PostService,
+        public authService: AuthService,
+        public route: ActivatedRoute,
+        public router: Router,
+        public dialog: MatDialog,
+        public snackBar: MatSnackBar,
+        public tagService: TagService,
+        public permissionService: PermissionService
+        ) {
+    }
+    ngOnInit(): void {
         this.route.paramMap.pipe(
             switchMap(params => {
                 return params.get('id') ? this.postService.getPost(params.get('id')) : [];
-            })
-        ).subscribe((data: any) => {
-            if (data) {
-                this.oldValue = data;
-                this.tags = data.tags;
-                this.title.setValue(data.title);
-                this.content.setValue(data.content);
-                this.editing = true;
-            }
+                })
+            )
+            .subscribe((data: any) => {
+                if (data) {
+                    this.oldValue = data;
+                    this.tags = data.tags;
+                    this.title.setValue(data.title);
+                    this.content.setValue(data.content);
+                    this.editing = true;
+                    this.isSecret = data.isSecret || false;
+                }
+            });
+        this.config = config;
+        this.authService.user$.subscribe(user => {
+            this.author = user;
         });
     }
     getTag(tag) {
@@ -76,22 +86,19 @@ export class PostAddComponent implements OnInit {
         }
         return this.title.hasError('length') ? '150 тэмдэгтэд багтаана уу' : '';
     }
-    ngOnInit(): void {
-        this.config = config;
-        // this.postForm = this.formBuilder.group({editor: '', title: '',});
-    }
+
 
     createPost() {
         return this.postService.createPost({
             title: this.title.value,
             content: this.content.value,
-        }, this.author, this.tags);
+        }, this.author, this.tags, this.isSecret);
     }
     savePost() {
         return this.postService.savePost({
             title: this.title.value,
             content: this.content.value,
-        }, this.author, this.tags, this.oldValue);
+        }, this.author, this.tags, this.oldValue, this.isSecret);
     }
 
     onSubmit() {
@@ -115,13 +122,13 @@ export class PostAddComponent implements OnInit {
             title: 'Цуцлах үйлдэл',
             content: ' Таны бичсэн агуулга хадгалагдахгүй.',
         };
-        this.dialog.open(DialogComponent, {data: dialogData})
-        .afterClosed().subscribe(result => {
-            if (result) {
-                this.title.setValue(null);
-                this.content.setValue(null);
-                return this.router.navigate(['/home']);
-            }
-        });
+        this.dialog.open(DialogComponent, { data: dialogData })
+            .afterClosed().subscribe(result => {
+                if (result) {
+                    this.title.setValue(null);
+                    this.content.setValue(null);
+                    return this.router.navigate(['/home']);
+                }
+            });
     }
 }

@@ -1,9 +1,9 @@
 @import "./src/styles/custom-theme";
 .score-card {
-  width: 200px;
-  //height: 400px;
+  width: 230px;
+  // height: 100px;
   margin: 4px;
-  padding: 16px 8px 16px 8px;
+  padding: 12px 12px;
   mat-icon {
     @include md-icon-size(36px);
     margin: 0 0 8px 0;
@@ -11,8 +11,23 @@
     //border-radius: 50px;
     //border: 1px solid mat-color($primary);
   }
+  .mat-display-2 {
+    font-size: 48px;
+    margin: 0;
+  }
   p {
     margin: 4px 0 4px 0;
   }
 }
 
+.type-indicator {
+  display: block;
+  width: 5px !important;
+  // min-height: 100%;
+  margin: 0 12px 0 0;
+  border-radius: 4px;
+  background-color: mat-color($warn);
+}
+.type-indicator.user {
+  background-color: mat-color($primary) !important;
+}

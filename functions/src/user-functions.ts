@@ -16,5 +16,23 @@ exports.userCreated = functions.firestore
                     size, updatedAt
                 })
             })
-    } ));
+    }));
+
+exports.userChanged = functions.firestore
+    .document('users/{uid}')
+    .onUpdate((change: any) => {
+        const newValue = change.after.data();
+        const userRef = admin.firestore().collection('users');
+        if (newValue.company && newValue.company.isConfirmed.confirmed) {
+            return userRef.doc(newValue.uid).set(
+                { verified: true }, { merge: true })
+        } else if (newValue.company && (newValue.company.isConfirmed.notConfirmed
+            || newValue.company.isConfirmed.checking)) {
+            return userRef.doc(newValue.uid).set(
+                { verified: false}, {merge: true} )
+        } else {
+            return null;
+        }
+    }
+    )
 

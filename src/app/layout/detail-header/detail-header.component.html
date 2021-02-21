@@ -1,32 +1,60 @@
 <div fxLayout="column" *ngIf="detail | async as detail">
-    <mat-toolbar class="header" fxLayout="column" role="heading">
-        <mat-toolbar-row class="title" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
-            <div fxLayout="column">
-                <p class="mat-headline" fxHide.gt-xs="">{{detail.name}}</p>
-                <p class="mat-display-1" fxHide.xs="">{{detail.name}}</p>
-                <div fxLayout="row" class="actions" *ngIf="authService.user$ | async as user" fxLayoutAlign="start center">
-                    <p class="mat-body-1">Хэрэглэгдсэн ({{detail.totalUsed}})</p>
-                    <button mat-icon-button *ngIf="user.tags[detail.id]"
-                            [class.followed]="user.tags[detail.id]" (click)="toggleFollow(user, detail)">
-                        <mat-icon>notifications_active</mat-icon>
-                    </button>
-                    <button mat-icon-button *ngIf="!user.tags[detail.id]"
-                            (click)="toggleFollow(user, detail)">
-                        <mat-icon>notifications_off</mat-icon>
-                    </button>
-                    <button mat-icon-button (click)="edit(detail)"
-                            *ngIf="permissionService.canEdit(user)">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="authService.user$ | async as user">
-                <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)">
-                    <mat-icon>edit</mat-icon>
-                    Хэлэлцүүлэг нэмэх
-                </button>
-            </div>
-        </mat-toolbar-row>
-    </mat-toolbar>
+  <mat-toolbar class="header" fxLayout="column" role="heading">
+    <mat-toolbar-row
+      class="title"
+      fxFlex
+      fxLayout="row"
+      fxLayoutAlign="space-between start"
+    >
+      <div fxLayout="column">
+        <p class="mat-headline" fxHide.gt-xs="">{{ detail.name }}</p>
+        <p class="mat-display-1" fxHide.xs="">{{ detail.name }}</p>
+        <div
+          fxLayout="row"
+          class="actions"
+          *ngIf="authService.user$ | async as user"
+          fxLayoutAlign="start center"
+        >
+          <p class="mat-body-1">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
+          <button
+            mat-icon-button
+            *ngIf="user.tags[detail.id]"
+            [matTooltip]="'Сэдвийг дагахаа болих'"
+            matTooltipClass="tooltip"
+            [class.followed]="user.tags[detail.id]"
+            (click)="toggleFollow(user, detail)"
+          >
+            <mat-icon>notifications_active</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            *ngIf="!user.tags[detail.id]"
+            [matTooltip]="'Сэдвийг дагах'"
+            matTooltipClass="tooltip"
+            (click)="toggleFollow(user, detail)"
+          >
+            <mat-icon>notifications_off</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="edit(detail)"
+            *ngIf="permissionService.canEdit(user)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div *ngIf="authService.user$ | async as user">
+        <button
+          mat-flat-button
+          color="primary"
+          [routerLink]="'/ask'"
+          *ngIf="permissionService.canRead(user)"
+        >
+          <mat-icon>edit</mat-icon>
+          Хэлэлцүүлэг нэмэх
+        </button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
-

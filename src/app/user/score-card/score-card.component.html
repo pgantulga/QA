@@ -1,6 +1,15 @@
-<div class="score-card background-card-small" fxLayout="column" fxLayoutAlign="center center">
-    <p class="mat-display-2">{{item.value}}</p>
-    <p class="mat-body-2">{{item.description}}</p>
-        <mat-icon>{{item.icon}}</mat-icon>
-
+<div
+  class="score-card background-card-small"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  *ngIf="authService.user$ | async as user"
+>
+  <div fxLayout="row" >
+        <div class="type-indicator" [class.user]="item.uid === user.uid"></div>
+    <div fxLayout="column">
+      <p class="mat-display-2">{{ item.value }}</p>
+      <p class="mat-body-2">{{ item.description }}</p>
+    </div>
+  </div>
+  <mat-icon>{{ item.icon }}</mat-icon>
 </div>

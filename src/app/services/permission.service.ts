@@ -23,7 +23,10 @@ export class PermissionService {
     });
   }
   selectRole(role: string , uid: string ) {
-    console.log(role, uid);
+    if (role === 'admin') {
+      console.log('Sorry, cant make admin');
+      return null;
+    }
     this.reset(uid);
     return this.authService.updateUserInstant(
       {
@@ -46,7 +49,7 @@ export class PermissionService {
   }
   setRole(role, uid) {
     // setting only this role to be true
-    this.reset(uid)
+    return this.reset(uid)
         .then(() => {
           return this.authService.updateUserInstant(
               {

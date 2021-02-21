@@ -21,13 +21,13 @@
                     <p class="mat-caption" style="margin: 12px 0 12px 0">эсвэл бүртгэлтэй имэйл хаягаараа нэвтрэх</p>
                 </div>
             <form (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="outline" color="primary" style="margin-bottom: 8px;width: 100%">
+                <mat-form-field appearance="outline" color="primary" class="login-form-field">
                     <mat-label>Имэйл хаяг</mat-label>
                     <input matInput placeholder="Имэйл хаяг" [formControl]="email">
                     <mat-icon matSuffix class="formIcon">email</mat-icon>
                 </mat-form-field>
                 <mat-error *ngIf="email.touched" class="mat-caption">{{getEmailError()}}</mat-error>
-                <mat-form-field appearance="outline" color="primary" style="margin-bottom: 16px;width: 100%">
+                <mat-form-field appearance="outline" color="primary" class="login-form-field">
                     <mat-label>Нууц үг</mat-label>
                     <input matInput placeholder="Нууц үг" type="password" [formControl]="password">
                     <mat-icon matSuffix class="formIcon">lock</mat-icon>

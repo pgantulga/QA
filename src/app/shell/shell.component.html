@@ -74,8 +74,7 @@
         fxLayout="column"
         [fxLayoutAlign]="
           currentLayoutObj.layout3 && !(isHandset$ | async)
-            ? 'center center'
-            : ''
+            ? 'center center': ''
         "
       >
         <!--                <sidebar *ngIf="!(isHandset$ | async) && currentLayoutObj.layout1"></sidebar>-->

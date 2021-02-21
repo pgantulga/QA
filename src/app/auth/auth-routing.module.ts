@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
-import {WelcomeComponent} from './welcome/welcome.component';
-import {ProfileSettingsComponent} from './profile-settings/profile-settings.component';
-import {SelectCategoryComponent} from './select-category/select-category.component';
-import {NotificationsComponent} from './notifications/notifications.component';
-import {AuthGuard} from "../services/auth-guard.service";
-import {PasswordResetComponent} from "./password-reset/password-reset.component";
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
+import { SelectCategoryComponent } from './select-category/select-category.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { AuthGuard } from "../services/auth-guard.service";
+import { PasswordResetComponent } from "./password-reset/password-reset.component";
 
 
 const routes: Routes = [
@@ -29,16 +29,21 @@ const routes: Routes = [
   },
   {
     path: 'select-category',
-    component: SelectCategoryComponent
+    component: SelectCategoryComponent,
+    canActivate: [AuthGuard],
+    data: {roles: ['subscriber', 'member', 'moderator', 'admin']}
   },
   {
     path: 'profile-settings',
-    component: ProfileSettingsComponent
+    component: ProfileSettingsComponent,
+    canActivate: [AuthGuard],
+    data: {roles: ['subscriber', 'member', 'moderator', 'admin']}
   },
   {
     path: 'notifications',
     component: NotificationsComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {roles: ['subscriber', 'member', 'moderator', 'admin']}
   }
 ];
 

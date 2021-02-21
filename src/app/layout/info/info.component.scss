@@ -1,0 +1,17 @@
+@import "src/styles/custom-theme";
+.info-section {
+  margin: 8px 0;
+  border-radius: 6px;
+  padding: 16px;
+  background-color: mat-color($primary);
+  .alert-icon mat-icon{
+    color: mat-color($my-grey, 800);
+    margin: 0 8px 0 0;
+    // width: 64px;
+  }
+  .text p{
+    color: mat-color($my-grey, 800);
+    margin: 0;
+  }
+
+}

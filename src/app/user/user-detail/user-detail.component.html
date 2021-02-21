@@ -5,6 +5,11 @@
     <div fxLayout="row layout-wrap" fxLayoutAlign="center center">
         <score-card *ngFor="let item of scores" [item]="item"></score-card>
     </div>
+    <div class="user-tags-container">
+        <mat-chip-list>
+            <tag-chip  *ngFor="let item of userTags" [item]="item" ></tag-chip>
+        </mat-chip-list>
+    </div>
     <div *ngIf="filteredPosts$ | async as posts; else loading" style="position: relative">
         <p class="mat-body-2 page-title">Хэрэглэгчийн нэмсэн хэлэлцүүлгүүд ({{posts.length}})</p>
         <div *ngIf="posts.length else empty">

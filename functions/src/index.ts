@@ -27,5 +27,6 @@ exports.notificationCreated = notificationFunctions.notificationCreated;
 
 const userFunctions = require('./user-functions');
 exports.userCreated = userFunctions.userCreated;
+exports.userChanged = userFunctions.userChanged;
 
 

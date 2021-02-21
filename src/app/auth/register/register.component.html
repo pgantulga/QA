@@ -1,70 +1,132 @@
 <mat-card class="login-card" fxLayout="column">
-    <div *ngIf="authService.user$ | async as user; else login" fxLayout="column" fxFlex="">
-        <p class="mat-body-1"> Та дараах хэрэглэгчээр нэвтэрсэн байна: <span class="mat-body-2">{{user.email}}</span>
-        </p>
-        <div fxLayout="column">
-            <button mat-button color="primary" routerLink="/home" fxFlex="" class="background-button">Нүүр хуудасруу
-                буцах
-            </button>
-<!--            <button mat-button color="primary" (click)="signOut()" fxFlex="">Гарах</button>-->
-        </div>
+  <div
+    *ngIf="authService.user$ | async as user; else login"
+    fxLayout="column"
+    fxFlex=""
+  >
+    <p class="mat-body-1">
+      Та дараах хэрэглэгчээр нэвтэрсэн байна:
+      <span class="mat-body-2">{{ user.email }}</span>
+    </p>
+    <div fxLayout="column">
+      <button
+        mat-button
+        color="primary"
+        routerLink="/home"
+        fxFlex=""
+        class="background-button"
+      >
+        Нүүр хуудасруу буцах
+      </button>
+      <!--            <button mat-button color="primary" (click)="signOut()" fxFlex="">Гарах</button>-->
     </div>
-    <ng-template #login>
-        <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-            <button type="button" aria-label="back" mat-icon-button routerLink="/auth/login">
-                <mat-icon>keyboard_arrow_left</mat-icon>
-            </button>
-            <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">
-                <img src="../../../assets/logo_white.png" alt="Logo" class="logo">
-            </div>
-            <i class="fa fa-google" aria-hidden="true"></i>
-            <div class="social-login-container " fxLayout="column" fxLayoutAlign="center center">
-                <button mat-button class="google-login" (click)="loginWithGoogle()">
-                    <i class="fab fa-google fa-2x"></i>
-                    Sign in with Google
-                </button>
-                <p class="mat-caption" style="margin: 12px 0 12px 0">Хэрэв та бүртгэлтэй бол, <span
-                        class="register-link" routerLink="/login"> Нэвтрэх</span></p>
-            </div>
+  </div>
+  <ng-template #login>
+    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+      <button
+        type="button"
+        aria-label="back"
+        mat-icon-button
+        routerLink="/auth/login"
+      >
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+      <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">
+        <img src="../../../assets/logo_white.png" alt="Logo" class="logo" />
+      </div>
+      <i class="fa fa-google" aria-hidden="true"></i>
+      <div
+        class="social-login-container"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <button mat-button class="google-login" (click)="loginWithGoogle()">
+          <i class="fab fa-google fa-2x"></i>
+          Sign in with Google
+        </button>
+        <p class="mat-caption" style="margin: 12px 0 12px 0">
+          Хэрэв та бүртгэлтэй бол,
+          <span class="register-link" routerLink="/auth/login"> Нэвтрэх</span>
+        </p>
+      </div>
 
-            <mat-form-field appearance="outline" color="primary">
-                <mat-label>Имэйл хаяг</mat-label>
-                <input matInput placeholder="Имэйл хаяг" formControlName="email" required>
-            </mat-form-field>
-            <mat-error class="mat-caption"
-                       *ngIf="registerForm.get('email').hasError('email')">{{getEmailError()}}</mat-error>
+      <mat-form-field
+        appearance="outline"
+        color="primary"
+      >
+        <mat-label>Имэйл хаяг</mat-label>
+        <input
+          matInput
+          placeholder="Имэйл хаяг"
+          formControlName="email"
+          required
+        />
+      </mat-form-field>
+      <mat-error
+        class="mat-caption"
+        *ngIf="registerForm.get('email').hasError('email')"
+        >{{ getEmailError() }}</mat-error
+      >
 
-            <mat-form-field appearance="outline" color="primary">
-                <mat-label>Нэр</mat-label>
-                <input matInput placeholder="Нэр" formControlName="firstName" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline" color="primary">
-                <mat-label>Овог</mat-label>
-                <input matInput placeholder="Овог" formControlName="lastName">
-            </mat-form-field>
-            <mat-form-field appearance="outline" color="primary">
-                <mat-label>Нууц үг</mat-label>
-                <input matInput placeholder="Нууц үг" formControlName="password" type="password" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline" color="primary">
-                <mat-label>Нууц үг давтах</mat-label>
-                <input matInput placeholder="Нууц үг давтах" formControlName="confirmPassword" type="password" required>
-                <mat-error style="color: red; padding: 0"
-                           *ngIf="registerForm.hasError('notSame')">{{getPasswordConfirmError()}}</mat-error>
-                <!--<mat-label *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</mat-label>-->
-            </mat-form-field>
-            <mat-error class="mat-caption"
-                       *ngIf="registerForm.hasError('notSame')">{{getPasswordConfirmError()}}</mat-error>
-            <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-                <button mat-raised-button color="primary" type="submit" fxFlex="" [disabled]="!registerForm.valid">
-                    Бүртгүүлэх
-                </button>
-            </mat-card-actions>
-            <p class="mat-caption" style="color: red" *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</p>
-            <div fxLayout="row" fxLayoutAlign="center center">
-                <!--                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" routerLink="/register">Бүртгүүлэх</span></p>-->
-            </div>
-        </form>
-    </ng-template>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Нэр</mat-label>
+        <input
+          matInput
+          placeholder="Нэр"
+          formControlName="firstName"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Овог</mat-label>
+        <input matInput placeholder="Овог" formControlName="lastName" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Нууц үг</mat-label>
+        <input
+          matInput
+          placeholder="Нууц үг"
+          formControlName="password"
+          type="password"
+          required
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Нууц үг давтах</mat-label>
+        <input
+          matInput
+          placeholder="Нууц үг давтах"
+          formControlName="confirmPassword"
+          type="password"
+          required
+        />
+        <mat-error
+          style="color: red; padding: 0"
+          *ngIf="registerForm.hasError('notSame')"
+          >{{ getPasswordConfirmError() }}</mat-error
+        >
+        <!--<mat-label *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</mat-label>-->
+      </mat-form-field>
+      <mat-error class="mat-caption" *ngIf="registerForm.hasError('notSame')">{{
+        getPasswordConfirmError()
+      }}</mat-error>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          fxFlex=""
+          [disabled]="!registerForm.valid"
+        >
+          Бүртгүүлэх
+        </button>
+      </mat-card-actions>
+      <p class="mat-caption" style="color: red" *ngIf="serviceErrorMessage">
+        {{ serviceErrorMessage }}
+      </p>
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!--                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" routerLink="/register">Бүртгүүлэх</span></p>-->
+      </div>
+    </form>
+  </ng-template>
 </mat-card>
-

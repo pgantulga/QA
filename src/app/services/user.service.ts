@@ -19,7 +19,7 @@ export class UserService {
     }
 
     getAll() {
-        return this.userCollection.valueChanges();
+        return this.db.collection('users', ref => ref.orderBy('updatedAt', 'desc')).valueChanges();
     }
 
     getUserDetail(uid) {

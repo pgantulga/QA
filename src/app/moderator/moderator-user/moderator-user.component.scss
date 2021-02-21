@@ -1,12 +1,23 @@
-@import 'custom-theme';
+@import "custom-theme";
 
-table td{
+table td {
   p {
     margin: 0 !important;
   }
   button.mat-button {
     transform: scale(0.8);
-
+  }
+  .verified {
+    color: #8bc34a;
+  }
+  .need-action {
+    color: mat-color($warn);
+  }
+  .confirmed {
+    color: #8bc34a;
+  }
+  .nof-confirmed {
+    color: mat-color($primary);
   }
 }
 table .select:hover {
@@ -20,9 +31,4 @@ table .select:hover {
 .mat-standard-chip.activeRole {
   background-color: green !important ;
   //margin: 0 2px;
-}
-.mat-table::ng-deep.mat-form-field-infix {
-  padding: 4px 0 4px 0 !important;
-  width: 100px !important;
-  border-top: 4px solid transparent !important;
 }
