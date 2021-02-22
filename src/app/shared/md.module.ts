@@ -23,6 +23,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   exports: [
@@ -48,7 +49,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatTooltipModule,
     MatBadgeModule,
     MatButtonToggleModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatProgressBarModule
   ],
   providers: [{provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 4000}},
               {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'never'}}, MatSidenav]

@@ -25,14 +25,21 @@ blockquote {
   border-left: 4px solid mat-color($primary, 300);
   padding: 0 0 0 16px;
 }
-
+strong {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+}
 a {
   color: mat-color($primary, 300);
 }
 .tooltip {
   font-size: 12px !important;
-  //font-weight: bolder;
 }
+.mat-toolbar-row {
+  white-space: normal !important;
+}
+
 
 .fa-google {
   background: conic-gradient(

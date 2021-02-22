@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {TagAddComponent} from '../tag-add/tag-add.component';
@@ -26,7 +27,8 @@ export class TagsComponent implements OnInit {
                 public tagService: TagService,
                 public authService: AuthService,
                 public permissionService: PermissionService,
-                public articleService: ArticleService
+                public articleService: ArticleService,
+                private router: Router
     ) {
     }
 
@@ -47,5 +49,8 @@ export class TagsComponent implements OnInit {
     changeSort(sort) {
         this.selected = sort;
     }
-
+    goToLogin() {
+      const routerStateSnapshot = this.router.routerState.snapshot;
+      this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
+    }
 }

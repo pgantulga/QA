@@ -1,11 +1,6 @@
 <div fxLayout="column" *ngIf="detail | async as detail">
   <mat-toolbar class="header" fxLayout="column" role="heading">
-    <mat-toolbar-row
-      class="title"
-      fxFlex
-      fxLayout="row"
-      fxLayoutAlign="space-between start"
-    >
+    <mat-toolbar-row class="title" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
       <div fxLayout="column">
         <p class="mat-headline" fxHide.gt-xs="">{{ detail.name }}</p>
         <p class="mat-display-1" fxHide.xs="">{{ detail.name }}</p>
@@ -13,8 +8,7 @@
           fxLayout="row"
           class="actions"
           *ngIf="authService.user$ | async as user"
-          fxLayoutAlign="start center"
-        >
+          fxLayoutAlign="start center">
           <p class="mat-body-1">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
           <button
             mat-icon-button

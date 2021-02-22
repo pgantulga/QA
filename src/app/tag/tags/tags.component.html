@@ -2,7 +2,8 @@
 <div class="background-card" *ngIf="aboutTag$ | async as aboutTag">
     <p [innerHTML]="aboutTag.content"></p>
 </div>
-<ng-container *ngIf="authService.user$ | async as user">
+
+<ng-container *ngIf="authService.user$ | async as user else login">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
         <p class="mat-subheading-2">Таны дагаж байгаа</p>
     </div>
@@ -11,6 +12,11 @@
         <tag-item *ngFor="let item of userTags" [item]="item" fxFlex.xs=""></tag-item>
     </div>
 </ng-container>
+<ng-template #login>
+    <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'">
+        <button mat-button (click)="goToLogin()">Нэвтрэх</button>
+    </warn>
+</ng-template>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
     <p class="mat-subheading-2">Бусад сэдвүүд</p>
 </div>

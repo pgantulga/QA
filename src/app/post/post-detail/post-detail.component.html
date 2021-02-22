@@ -1,7 +1,7 @@
-<div class="detail-page-container" *ngIf="post$ | async as post">
+<ng-container *ngIf="post$ | async as post">
     <post-header [pageTitle]="post.title" id="postheader">
         <div sub-nav fxLayout="column">
-            <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 16px">
+            <div fxLayout="row" fxLayoutAlign="start center" style="margin-top: 8px">
                 <p class="mat-caption">Сүүлд шинэчлэгдсэн {{post.updatedAt | momentPipe}}</p>
                 <div fxLayout="row" fxLayoutAlign="start center" class="time" *ngIf="authService.user$ | async as user">
                     <button mat-icon-button style="margin: 0 0 0 0" *ngIf="isFollowed"  [class.followed]="isFollowed" (click)="toggleFollow(post, user)" matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирнэ." matTooltipClass="tooltip">
@@ -108,7 +108,7 @@
                 <answer-add [post]="post" [user]="user" [text]="this.selectedText"></answer-add>
             </div>
         </div>
-    </div>
+    </div>`
     <ng-template #loginWarning>
         <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'">
             <button mat-button (click)="goToLogin()">Нэвтрэх</button>
@@ -120,4 +120,4 @@
             <mat-divider *ngIf="!last"></mat-divider>
         </post-list>
     </div>
-</div>
+</ng-container>

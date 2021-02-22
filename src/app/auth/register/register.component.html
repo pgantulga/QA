@@ -105,8 +105,15 @@
           *ngIf="registerForm.hasError('notSame')"
           >{{ getPasswordConfirmError() }}</mat-error
         >
-        <!--<mat-label *ngIf="serviceErrorMessage">{{serviceErrorMessage}}</mat-label>-->
       </mat-form-field>
+      <ng-container>
+        <mat-checkbox [(ngModel)]="acceptTOC" [ngModelOptions]="{standalone: true}">
+          <p class="mat-caption toc"  [routerLink]="['/articles/', tocId]">
+            Би <span>үйлчилгээний нөхцөлийг</span> зөвшөөрч байна.
+          </p> 
+        </mat-checkbox>
+      </ng-container>
+
       <mat-error class="mat-caption" *ngIf="registerForm.hasError('notSame')">{{
         getPasswordConfirmError()
       }}</mat-error>
@@ -116,7 +123,7 @@
           color="primary"
           type="submit"
           fxFlex=""
-          [disabled]="!registerForm.valid"
+          [disabled]="!registerForm.valid || !acceptTOC"
         >
           Бүртгүүлэх
         </button>
@@ -125,7 +132,6 @@
         {{ serviceErrorMessage }}
       </p>
       <div fxLayout="row" fxLayoutAlign="center center">
-        <!--                    <p class="mat-caption">Хэрэв та бүртгэлгүй бол, <span class="register-link" routerLink="/register">Бүртгүүлэх</span></p>-->
       </div>
     </form>
   </ng-template>

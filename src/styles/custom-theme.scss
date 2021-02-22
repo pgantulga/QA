@@ -73,7 +73,7 @@ $my-dark-theme-foreground: (
         secondary-text:    $light-secondary-text,
         icon:              white,
         icons:             white,
-        text:              white,
+        text:               rgba(white, 0.87),
         slider-min:        white,
         slider-off:        rgba(white, 0.3),
         slider-off-active: rgba(white, 0.3),
@@ -96,7 +96,7 @@ $dark-theme: create-dark-theme($primary, $accent, $warn);
 @include angular-material-theme($dark-theme);
 
 $QA-typography: mat-typography-config(
-        $font-family: 'Roboto, sans-serif',
+        $font-family: 'Roboto, monospace',
         $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
         $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
         $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),

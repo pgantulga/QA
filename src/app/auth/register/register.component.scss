@@ -1,1 +1,10 @@
 @import "../login/login.component";
+.toc {
+    margin-bottom:  0;
+    span {
+        color: mat-color($primary);
+    }
+}
+.toc:focus {
+    outline: 0;
+}

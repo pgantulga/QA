@@ -25,6 +25,9 @@ export class RouteService {
         if (url.includes('/posts/') && !url.includes('/edit')) {
             return 'post-detail';
         }
+        if (url.includes('/articles/')) {
+            return 'article-view';
+        }
         if (url.includes('/posts/') && url.includes('/edit') || url.includes('ask')) {
             return 'post-edit';
         }
@@ -59,6 +62,7 @@ export class RouteService {
             || route === 'post-edit'
             || route === 'settings'
             || route === 'user-detail'
+            || route === 'article-view'
             || route === 'moderator'
             || route === 'tag-detail') {
             return {

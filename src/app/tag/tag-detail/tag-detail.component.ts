@@ -1,12 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {TagService} from '../../services/tag.service';
 import {map, switchMap} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PostService} from '../../services/post.service';
 import {Observable} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {MenuService} from '../../services/menu.service';
 import {PageEvent} from '@angular/material/paginator';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'tag-detail',
@@ -25,8 +26,10 @@ export class TagDetailComponent implements OnInit {
 
     constructor(public tagService: TagService,
                 public route: ActivatedRoute,
+                private router: Router,
                 public postService: PostService,
                 public dialog: MatDialog,
+                public authService: AuthService,
                 private menu: MenuService
                 ) {
         this.toggleMenu = this.menu.toggleMenu;
@@ -85,5 +88,9 @@ export class TagDetailComponent implements OnInit {
     changeSort(sort) {
         this.selectedSort = sort;
         this.getStarted();
+    }
+    goToLogin() {
+        const routerStateSnapshot = this.router.routerState.snapshot;
+        this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
     }
 }

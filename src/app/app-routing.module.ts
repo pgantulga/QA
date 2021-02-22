@@ -11,8 +11,11 @@ const routes: Routes = [
     },
     {
         path: 'posts/:id',
-        loadChildren: () => import('./post/post.' +
-            'module').then(m => m.PostModule)
+        loadChildren: () => import('./post/post.module').then(m => m.PostModule)
+    },
+    {
+        path: 'articles/:id',
+        loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
     },
     {
         path: 'ask',

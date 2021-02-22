@@ -16,6 +16,8 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   serviceErrorMessage: string;
+  acceptTOC: boolean;
+  tocId: string;
 
   constructor(
     public authService: AuthService,
@@ -37,6 +39,8 @@ export class RegisterComponent implements OnInit {
         confirmPassword: ['']
       }, { validator: this.passwordCheck }
     );
+    this.acceptTOC = false;
+    this.tocId = '44LFn7kNX5BPkb1RwID5';
   }
 
   loginWithGoogle() {

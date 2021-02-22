@@ -11,10 +11,10 @@ export class ArticleService {
   getAllArticles(): Observable<any> {
     return this.articleCollection.valueChanges();
   }
-  getArticle(id): Observable<any> {
+  getArticle(id: string): Observable<any> {
     return this.articleCollection.doc(id).valueChanges();
   }
-  createArticle(article, author): any {
+  createArticle(article: { title: any; content: any; }, author: { uid: any; displayName: any; }): any {
     return this.articleCollection.add(
         {
           author: {
@@ -31,10 +31,10 @@ export class ArticleService {
       });
     });
   }
-  deleteArticle(article): any {
+  deleteArticle(article: { id: string; }): any {
     return this.articleCollection.doc(article.id).delete();
   }
-  updateArticle(article, updatedBy): any {
+  updateArticle(article: { id: any; title: any; content: any; }, updatedBy: { uid: any; displayName: any; }): any {
     return this.articleCollection.doc(article.id).set({
       content: article.content,
       title: article.title,

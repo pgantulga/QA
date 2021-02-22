@@ -3,7 +3,7 @@ import {AnswerService} from '../../services/answer.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {config} from '../../shared/quill-config';
+import {configReply} from '../../shared/quill-config';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
 
@@ -25,7 +25,7 @@ export class ReplyAddComponent implements OnInit {
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
     ) {
-        this.config = config;
+        this.config = configReply;
         this.replyForm = this.formBuilder.group({
             editor: ''
         });
@@ -44,13 +44,13 @@ export class ReplyAddComponent implements OnInit {
             });
             return null;
         }
-      const dialogRef = this.dialog.open(DialogComponent, {
+        const dialogRef = this.dialog.open(DialogComponent, {
         data: {
           title: 'Хариулт нэмэх',
           content: 'Таны хариултыг нэмэх гэж байна',
         }
       });
-      dialogRef.afterClosed().subscribe( result => {
+        dialogRef.afterClosed().subscribe( result => {
         if (result) {
           this.addReply()
               .then(() => {
