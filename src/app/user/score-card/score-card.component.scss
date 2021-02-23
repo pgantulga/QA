@@ -31,3 +31,18 @@
 .type-indicator.user {
   background-color: mat-color($primary) !important;
 }
+@media only screen and (max-width: 960px) {
+  .score-card {
+    width: 140px;
+    .mat-body-2 {
+      line-height: 16px;
+    }
+    .mat-caption {
+      line-height: 16px;
+    }
+    mat-icon {
+      @include md-icon-size(32px);
+      margin: 0 0 8px 0;
+    }
+  }
+}

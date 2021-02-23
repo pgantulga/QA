@@ -1,13 +1,40 @@
-@import "../../../styles/custom-theme";
+@import "src/styles/custom-theme";
+@import "../../post/post-list/post-list.component.scss";
 .footer-container {
-    position: relative;
-    background-color: mat-color($accent, 900);
-    //margin-bottom: 8px;
-}
-p {
-    //color: mat-color($QA-accent,900);
+  position: relative;
+  background-color: mat-color($my-grey, 800);
+  padding: 16px;
+
+
+  //margin-bottom: 8px;
+
+  .demo-mode {
+    padding: 16px 0;
+    .type-indicator {
+      width: 5px;
+    }
+    button {
+      margin: 8px 0 00;
+      background-color: mat-color($warn);
+    }
+    .text p {
+      margin: 0;
+    }
+
+  }
 }
 .footer {
-    height: 200px;
-    padding: 40px 15px 30px;
+  height: 85px;
+//   padding: 40px 15px 30px;
+  .footer-menu {
+    color: mat-color($my-grey,50);
+    text-decoration: none;
+    margin-bottom: 8px;
+  }
+  .footer-menu:focus {
+    outline: 0;
+  }
+  .footer-menu:hover {
+    cursor: pointer;
+  }
 }

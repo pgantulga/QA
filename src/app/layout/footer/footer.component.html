@@ -1,15 +1,43 @@
-<div fxLayout="row" class="footer-container">
+<div fxLayout="column" class="footer-container">
+  <div class="demo-mode" fxLayout="row" *ngIf="article$ | async as article">
     <div fxFlex></div>
-    <div class="container footer" fxLayout="row">
-        <div flex>
-            <p>1</p>
-        </div>
-        <div flex>
-            <p>1</p>
-        </div>
-        <div flex>
-            <p>1</p>
-        </div>
+    <div
+      class="container demo-container"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-between center"
+      fxLayout="row"
+    >
+      <div fxLayout="row">
+        <div class="type-indicator" [class.system]="true"></div>
+        <div [innerHTML]="article.content" class="text mat-body-1"></div>
+      </div>
+      <div fxLayout="row">
+        <button mat-button>Холбоо барих</button>
+      </div>
     </div>
     <div fxFlex></div>
+  </div>
+  <div fxLayout="row">
+    <div fxFlex></div>
+    <div
+      class="container footer"
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign.xs="start end"
+    >
+      <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+        <a class="mat-body-2 footer-menu" [routerLink]="['/articles/', tocId]"
+          >Үйлчилгээний нөхцөл</a
+        >
+      </div>
+      <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+        <a class="mat-body-2 footer-menu">Холбоо барих</a>
+      </div>
+
+      <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+        <p class="mat-body-2">&#169; Прайм-Инфо ХХК</p>
+      </div>
+    </div>
+    <div fxFlex></div>
+  </div>
 </div>

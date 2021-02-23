@@ -1,4 +1,7 @@
 @import "custom-theme";
+button {
+  margin: 8px;
+}
 button.active {
   background-color: mat-color($warn);
 }

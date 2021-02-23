@@ -65,3 +65,14 @@
 .type-indicator.user {
   background-color: mat-color($primary);
 }
+
+@media only screen and (max-width: 960px) {
+  .post-list {
+    padding: 12px 12px 12px 12px;
+  }
+  .score {
+    .mat-caption {
+      margin-left: 4px;
+    }
+  }
+}

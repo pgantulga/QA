@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
     selector: 'tag-detail',
     templateUrl: './tag-detail.component.html',
-    styleUrls: ['./tag-detail.component.css']
+    styleUrls: ['./tag-detail.component.scss']
 })
 export class TagDetailComponent implements OnInit {
     tagDetail$: Observable<any>;

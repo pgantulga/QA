@@ -11,7 +11,7 @@
     </mat-chip-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <p class="mat-subheading-2">Oнцлох хэлэлцүүлгүүд</p>
+    <p class="mat-subheading-2">Oнцлох</p>
     <ng-container *ngIf="authService.user$ | async as user">
         <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)" >
             <mat-icon>edit</mat-icon>

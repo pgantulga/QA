@@ -10,9 +10,11 @@ $dark-foreground: map-get($dark-theme, foreground);
 html {
   height: 100%;
   overflow: hidden;
+  background-color: mat-color($my-grey, 900) ;
 }
 body {
   height: 100%;
+  background-color: mat-color($my-grey, 900) ;
   //position: relative;
 }
 body {

@@ -71,17 +71,12 @@
         [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2"
         [class.mat-sidenav-content-container]="currentRoute !== 'home'"
         class="fullWidth"
-        fxLayout="column"
-        [fxLayoutAlign]="
-          currentLayoutObj.layout3 && !(isHandset$ | async)
-            ? 'center center': ''
-        "
+        [class.center-content]="!(isHandset$ | async)"
       >
-        <!--                <sidebar *ngIf="!(isHandset$ | async) && currentLayoutObj.layout1"></sidebar>-->
         <ng-content></ng-content>
       </div>
       <div fxFlex></div>
     </div>
-    <!--        <footer *ngIf="currentRoute !== 'login'"></footer>-->
+    <footer *ngIf="isTopBar"></footer>
   </mat-sidenav-content>
 </mat-sidenav-container>

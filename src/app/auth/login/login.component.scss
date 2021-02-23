@@ -1,11 +1,11 @@
 @import "../../../styles/custom-theme";
 .login-background {
     align-content: center;
-    //min-height: 1200px;
     width: 100%;
 }
 .login-card {
-    width: 360px;
+    min-width: 280px;
+    max-width: 480px;
     max-height: 800px;
     //background-color: mat-color($primary, A100);
     padding: 20px 32px 20px 32px;
@@ -39,3 +39,9 @@
 .fa-2x {
     font-size: 1.5em !important;
 }
+
+@media only screen and (max-width: 960px) {
+    .login-card {
+        padding: 16px 16px;
+    }
+  }

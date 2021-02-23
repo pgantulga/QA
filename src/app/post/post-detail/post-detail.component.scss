@@ -4,7 +4,6 @@
     margin: 0;
 }
 
-
 .post-detail {
     position: relative;
     padding: 12px 30px 12px 22px;
@@ -24,6 +23,9 @@
 }
 .post-detail .top-fab-button {
     position: absolute;right: 30px;top:-28px
+}
+.author-section {
+    margin: 16px 0 0 0;
 }
 .time {
     margin: 0 0 0 16px;
@@ -80,3 +82,12 @@ button.followed {
         color: mat-color($primary);
     }
 }
+@media only screen and (max-width: 960px) {
+    .post-detail {
+        padding: 12px 12px 12px 8px;
+    }
+    .answers {
+        margin: 8px 0 8px 0;
+        padding: 12px 12px 12px 8px;
+    }
+  }
