@@ -32,13 +32,15 @@
     }
 }
 .layout-three {
-    position: relative;
+    // position: relative;
     height: 100%;
     .center-content {
-        position: absolute;
-        top: 50%;
-        left:50%;
-        transform: translate(-50%, -50%);
+        background-color: yellow;
+        height: 100%;
+    //     position: absolute;
+    //     top: 50%;
+    //     left:50%;
+    //     transform: translate(-50%, -50%);
     }
 }
 .layout-four {

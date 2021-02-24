@@ -1,9 +1,10 @@
 <div class="post-list background-card" fxLayout="column" fxLayout.gt-xs="row">
-  <div fxLayout="row" fxFlex="">
+  <div fxLayout="row" fxFlex.gt-xs>
     <div
       class="type-indicator"
       [class.system]="post?.pinned"
       [class.user]="isUserPost"
+      *ngIf="post?.pinned || isUserPost"
     ></div>
     <div fxLayout="column" >
       <p class="mat-body-2 question" (click)="gotoPost(post)">

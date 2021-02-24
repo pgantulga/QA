@@ -1,6 +1,10 @@
 .select-category-container {
-  padding: 16px;
+  padding: 16px 0;
   //align-content: center;
   max-width: 850px;
   min-width: 270px;
+  button {
+    margin: 16px 0 0 0;
+    width: 100%;
+  }
 }

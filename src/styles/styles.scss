@@ -9,7 +9,7 @@ $dark-foreground: map-get($dark-theme, foreground);
 //@import "font-awesome-4.7.0/css/font-awesome.css";
 html {
   height: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   background-color: mat-color($my-grey, 900) ;
 }
 body {
@@ -161,6 +161,9 @@ button.mat-raised-button.mat-accent {
     //margin: 0 32px;
   }
 }
+.layout-center {
+  height: 100%;
+}
 .detail-page-container {
   padding: 80px 0 0 0;
 }
@@ -217,30 +220,30 @@ mat-form-field .mat-form-field-wrapper {
 }
 
 //********************************************chip*******************************************************
-mat-chip-list:focus {
-  outline: 0;
-}
-.mat-standard-chip.tag {
-  min-height: 24px !important;
-  margin-bottom: 8px;
-  cursor: pointer;
+// mat-chip-list:focus {
+//   outline: 0;
+// }
+// .mat-standard-chip.tag {
+//   min-height: 24px !important;
+//   margin-bottom: 16px;
+//   cursor: pointer;
 
-  //font-size: mat-font-size(caption);
-  background-color: transparent !important;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
+//   //font-size: mat-font-size(caption);
+//   background-color: transparent !important;
+//   border: 1px solid rgba(255, 255, 255, 0.2);
+// }
 
-.mat-standard-chip.transparent {
-  min-height: 24px !important;
-  margin-bottom: 8px;
-  background-color: transparent !important;
-  mat-icon {
-    margin: 0 4px 0 0;
-  }
-}
-.mat-standard-chip.nav-chip {
-  cursor: pointer;
-}
+// .mat-standard-chip.transparent {
+//   min-height: 24px !important;
+//   margin-bottom: 16px;
+//   background-color: transparent !important;
+//   mat-icon {
+//     margin: 0 4px 0 0;
+//   }
+// }
+// .mat-standard-chip.nav-chip {
+//   cursor: pointer;
+// }
 
 .default-snack {
   background-color: mat-color($primary);

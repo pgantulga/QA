@@ -57,7 +57,7 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content fxLayout="column">
+  <mat-sidenav-content>
     <top-wrapper *ngIf="currentRoute == 'home'"></top-wrapper>
     <div
       fxLayout="row"
@@ -70,8 +70,6 @@
       <div
         [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2"
         [class.mat-sidenav-content-container]="currentRoute !== 'home'"
-        class="fullWidth"
-        [class.center-content]="!(isHandset$ | async)"
       >
         <ng-content></ng-content>
       </div>

@@ -13,3 +13,6 @@
         color: mat-color($warn);
     }
 }
+mat-chip {
+    @include chip-tag();
+}

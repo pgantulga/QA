@@ -1,9 +1,13 @@
-    <div class="select-category-container" fxLayout="column" *ngIf="categories$ | async as categories">
+<div fxLayout="column" class="layout-center">
+    <div fxFlex></div>
+    <div class="select-category-container" *ngIf="categories$ | async as categories">
         <p class="mat-headline">Багадаа 2 сэдэв сонгох: </p>
         <div  fxLayout="row wrap" fxLayout.xs="column">
             <tag-category-list *ngFor="let item of categories" [item]="item" (select)="onSelected(item, $event)"></tag-category-list>
         </div>
-        <button mat-raised-button color="primary" (click)="setCategories()" fxFlex="" [disabled]="this.selectedCategories.length < 2" style="margin: 16px 0 0 0">
-            Үргэлжлүүлэх
-        </button>
+            <button mat-flat-button color="primary" (click)="setCategories()" [disabled]="this.selectedCategories.length < 2" >
+                Үргэлжлүүлэх
+            </button>
     </div>
+    <div fxFlex></div>
+</div>
