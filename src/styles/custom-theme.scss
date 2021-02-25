@@ -133,6 +133,7 @@ $QA-typography: mat-typography-config(
     min-height: 24px !important;
     margin-bottom: 16px;
     cursor: pointer;
+    font-size: mat-font-size($QA-typography, caption) !important;
     background-color: transparent !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
     .nav-chip {
@@ -144,4 +145,21 @@ $QA-typography: mat-typography-config(
   height: $size;
   width: $size;
   line-height: $size;
+  margin: 0 8px 00;
+}
+@mixin standart-list {
+  padding: 12px 30px 12px 12px;
+  margin: 4px 0;
+  .author {
+    cursor: bold;
+  }
+  .question {
+    cursor: pointer;
+  }
+  .question:focus {
+    outline: 0;
+  }
+  mat-icon {
+    @include md-icon-size();
+  }
 }
