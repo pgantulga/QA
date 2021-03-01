@@ -7,12 +7,12 @@
       *ngIf="post?.pinned || isUserPost"
     ></div>
     <div fxLayout="column" >
-      <p class="mat-body-2 question" (click)="gotoPost(post)">
+      <h3 class="mat-h3" (click)="gotoPost(post)">
         {{ post.title }}
-      </p>
+      </h3>
       <div fxLayout="row">
-        <mat-icon *ngIf="post.isSecret" class="pin-icon">lock</mat-icon>
-        <mat-icon *ngIf="post.pinned" class="pin-icon">push_pin</mat-icon>
+        <mat-icon *ngIf="post.isSecret" class="meta-icon">lock</mat-icon>
+        <mat-icon *ngIf="post.pinned" class="meta-icon">push_pin</mat-icon>
         <mat-chip-list>
           <tag-chip *ngFor="let item of post.tags" [item]="item"></tag-chip>
         </mat-chip-list>

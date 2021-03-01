@@ -1,22 +1,26 @@
 @import "../post-list/post-list.component";
 
+.post-list {
+  @include standart-list();
+  .question {
+    background-color: mat-color($my-grey, 700);
+    // margin: 0 0 8px;
+    width: 100%;
+    border-radius: 16px;
+  }
+  p.meta {
+    background-color: mat-color($my-grey, 700);
+    width: 200px;
+    border-radius: 16px;
+    margin: 0;
+  }
+  .tag {
+    @include chip-tag();
+    width: 100px;
+    background-color: mat-color($my-grey, 700) !important;
+    border: hidden;
+  }
+}
 
-p.question {
-  background-color: mat-color($my-grey, 700);
-  //background-color: rgba(0,0,0,0.1);
-  width: 100%;
-  border-radius: 16px;
-  //-webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))
-}
-p.meta {
-  background-color: mat-color($my-grey, 700);
-  width: 350px;
-  border-radius: 16px;
-}
-.time {
-  //col
-  margin-top: 4px;
-}
-.tag {
- width: 100px;
-}
+
+

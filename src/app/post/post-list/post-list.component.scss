@@ -1,33 +1,10 @@
 @import "../../../styles/custom-theme.scss";
 .post-list {
-  // padding: 12px 30px 12px 12px;
-  // margin: 4px 0;
   @include standart-list();
 }
 
-.post-list p {
-  // margin: 0;
-}
-.post-list .author {
-  // font-weight: bold;
-  // cursor: pointer;
-}
-
-.post-list .question {
-  // margin: 0 0 6px 0;
-  // cursor: pointer;
-
-}
-.post-list .question:focus {
-  // outline:0;
-}
-
-.post-list mat-icon {
-  // margin:0 8px 0 0;
-}
-
 .post-list .score {
-  padding: 6px; margin: 0 8px 0 8px; width: 56px
+  padding: 6px; margin: 0 8px 0 8px; 
 }
 .post-list .score.best {
   background-color: mat-color($primary,500);
@@ -40,8 +17,7 @@
   }
 }
 .post-list .post-list-edited {
-  transform: scale(0.8);
-  //color: rgba(0,0,0,0.6);
+  @include md-icon-size(18px);
 }
 .post-list .metaData {
   margin-top: 4px;
@@ -55,10 +31,11 @@
 }
 
 .type-indicator {
-  width: 5px !important;
+  min-width: 4px !important;
   min-height: 39px;
   margin: 0 8px 0 0;
   border-radius: 4px;
+  display: block;
 }
 .type-indicator.system {
   background-color: mat-color($warn) !important;
@@ -69,7 +46,7 @@
 
 @media only screen and (max-width: 960px) {
   .post-list {
-    padding: 12px 12px 12px 12px;
+    padding: 12px 12px 6px 12px;
   }
   .score {
     .mat-caption {

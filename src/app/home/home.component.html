@@ -11,7 +11,7 @@
     </mat-chip-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <p class="mat-subheading-2">Oнцлох</p>
+    <h2 style="color: yellow;">Oнцлох</h2>
     <ng-container *ngIf="authService.user$ | async as user">
         <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)" >
             <mat-icon>edit</mat-icon>
@@ -23,7 +23,7 @@
     <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <p class="mat-subheading-2">Бүх хэлэлцүүлгүүд</p>
+    <h2 class="mat-h2">Бүх хэлэлцүүлгүүд</h2>
     <mat-button-toggle-group name="posts" aria-label="sort">
         <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
             <mat-icon>{{item.icon}}</mat-icon>
