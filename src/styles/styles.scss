@@ -22,19 +22,7 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-blockquote {
-  font-style: italic;
-  border-left: 4px solid mat-color($primary, 300);
-  padding: 0 0 0 16px;
-}
-strong {
-  font-size: 14px;
-  line-height: 24px;
-  font-weight: 500;
-}
-a {
-  color: mat-color($primary, 300);
-}
+
 .tooltip {
   font-size: 12px !important;
 }
@@ -89,6 +77,20 @@ a {
 }
 
 /***************************************typography**************************************************/
+
+blockquote {
+  font-style: italic;
+  border-left: 4px solid mat-color($primary, 300);
+  padding: 0 0 0 16px;
+}
+strong {
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+}
+a {
+  color: mat-color($primary, 300);
+}
 
 
 /****************************************Buttons****************************************************/
@@ -150,7 +152,6 @@ button.mat-raised-button.mat-accent {
 @media only screen and (max-width: 1280px) and (min-width: 960px) {
   .container {
     width: 945px;
-    padding: 0 8px;
   }
 }
 

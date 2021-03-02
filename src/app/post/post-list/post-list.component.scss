@@ -1,6 +1,9 @@
 @import "../../../styles/custom-theme.scss";
 .post-list {
   @include standart-list();
+  h4 {
+    margin: 0 8px 0 0;
+  }
 }
 
 .post-list .score {
@@ -31,11 +34,15 @@
 }
 
 .type-indicator {
+  position: absolute;
   min-width: 4px !important;
-  min-height: 39px;
-  margin: 0 8px 0 0;
+  height: calc(100% - 24px);
+  margin: 0 0 0 8px;
   border-radius: 4px;
   display: block;
+  right: 12px;
+  top: 12px;
+  bottom: 12px;
 }
 .type-indicator.system {
   background-color: mat-color($warn) !important;
@@ -46,7 +53,7 @@
 
 @media only screen and (max-width: 960px) {
   .post-list {
-    padding: 12px 12px 6px 12px;
+    padding: 12px 12px 6px 16px;
   }
   .score {
     .mat-caption {

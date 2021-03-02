@@ -4,30 +4,36 @@
   position: relative;
   background-color: mat-color($my-grey, 800);
   padding: 16px;
-
-
-  //margin-bottom: 8px;
-
   .demo-mode {
     padding: 16px 0;
-    .type-indicator {
-      width: 5px;
-    }
     button {
       margin: 8px 0 00;
       background-color: mat-color($warn);
     }
-    .text p {
-      margin: 0;
-    }
+    .text {
+      position: relative;
 
+    }
+    .text p {
+      margin: 0 8px 0 0;
+    }
+    .text p:before {
+      background: mat-color($warn);
+      border-radius: 16px;
+      content: "";
+      margin-left: -0.75rem;
+      align-self: flex-start;
+      position: absolute;
+      height: 100%;
+      width: 4px;
+    }
   }
 }
 .footer {
   height: 85px;
-//   padding: 40px 15px 30px;
+  //   padding: 40px 15px 30px;
   .footer-menu {
-    color: mat-color($my-grey,50);
+    color: mat-color($my-grey, 50);
     text-decoration: none;
     margin-bottom: 8px;
   }

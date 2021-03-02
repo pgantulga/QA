@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router} from '@angular/router';
 import {RouteService} from '../../services/route.service';
@@ -10,7 +10,9 @@ const wrapperRoutes = ['home'];
 @Component({
     selector: 'top-wrapper',
     templateUrl: './top-wrapper.component.html',
-    styleUrls: ['./top-wrapper.component.scss']
+    styleUrls: ['./top-wrapper.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+
 })
 export class TopWrapperComponent implements OnInit, OnDestroy {
     @Input() item: any;

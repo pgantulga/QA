@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {TagAddComponent} from '../tag-add/tag-add.component';
 import {TagService} from '../../services/tag.service';
@@ -12,7 +12,9 @@ import {first} from 'rxjs/operators';
 @Component({
     selector: 'tags',
     templateUrl: './tags.component.html',
-    styleUrls: ['./tags.component.scss']
+    styleUrls: ['./tags.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+
 })
 export class TagsComponent implements OnInit {
     selected: any;

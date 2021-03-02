@@ -19,6 +19,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
+    tocId: string;
+
 
     constructor(
         private af: AngularFireAuth,
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.tocId = '44LFn7kNX5BPkb1RwID5';
     }
 
     loginWithGoogle() {
@@ -86,8 +89,6 @@ export class LoginComponent implements OnInit {
             title: 'Вебсайтын мэдэгдлийг зөвшөөрөх',
             content: 'Та веб хөтөчийн мэдэгдийн тохиргоог зөвшөөрснөөр мэдээллүүдийг цаг тухайд нь авах боломжтой.'
         };
-        console.log('before roken ask');
-
         const dialogRef = this.dialog.open(DialogComponent, { data: dialogData });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

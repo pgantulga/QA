@@ -1,138 +1,141 @@
-<mat-card class="login-card" fxLayout="column">
-  <div
-    *ngIf="authService.user$ | async as user; else login"
-    fxLayout="column"
-    fxFlex=""
-  >
-    <p class="mat-body-1">
-      Та дараах хэрэглэгчээр нэвтэрсэн байна:
-      <span class="mat-body-2">{{ user.email }}</span>
-    </p>
-    <div fxLayout="column">
-      <button
-        mat-button
-        color="primary"
-        routerLink="/home"
-        fxFlex=""
-        class="background-button"
-      >
-        Нүүр хуудасруу буцах
-      </button>
-      <!--            <button mat-button color="primary" (click)="signOut()" fxFlex="">Гарах</button>-->
-    </div>
-  </div>
-  <ng-template #login>
-    <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
-      <button
-        type="button"
-        aria-label="back"
-        mat-icon-button
-        routerLink="/auth/login"
-      >
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
-      <p class="mat-title" style="margin: 8px; text-align: center">
-        Шинээр бүртгүүлэх
+<div fxLayout="column" class="layout-center">
+  <div fxFlex></div>
+  <mat-card class="login-card" fxLayout="column">
+    <div
+      *ngIf="authService.user$ | async as user; else login"
+      fxLayout="column"
+      fxFlex=""
+    >
+      <p class="mat-body-1">
+        Та дараах хэрэглэгчээр нэвтэрсэн байна:
+        <span class="mat-body-2">{{ user.email }}</span>
       </p>
-      <i class="fa fa-google" aria-hidden="true"></i>
-      <div
-        class="social-login-container"
-        fxLayout="column"
-        fxLayoutAlign="center center"
-      >
-        <button mat-button class="google-login" (click)="loginWithGoogle()">
-          <i class="fab fa-google fa-2x"></i>
-          Sign in with Google
-        </button>
-        <p class="mat-body-1" style="margin: 12px 0 12px 0">
-          Хэрэв та бүртгэлтэй бол,
-          <span class="register-link" routerLink="/auth/login"> Нэвтрэх</span>
-        </p>
-      </div>
-
-      <mat-form-field
-        appearance="outline"
-        color="primary"
-      >
-        <mat-label>Имэйл хаяг</mat-label>
-        <input
-          matInput
-          placeholder="Имэйл хаяг"
-          formControlName="email"
-          required
-        />
-      </mat-form-field>
-      <mat-error
-        class="mat-caption"
-        *ngIf="registerForm.get('email').hasError('email')"
-        >{{ getEmailError() }}</mat-error
-      >
-
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label>Нэр</mat-label>
-        <input
-          matInput
-          placeholder="Нэр"
-          formControlName="firstName"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label>Овог</mat-label>
-        <input matInput placeholder="Овог" formControlName="lastName" />
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label>Нууц үг</mat-label>
-        <input
-          matInput
-          placeholder="Нууц үг"
-          formControlName="password"
-          type="password"
-          required
-        />
-      </mat-form-field>
-      <mat-form-field appearance="outline" color="primary">
-        <mat-label>Нууц үг давтах</mat-label>
-        <input
-          matInput
-          placeholder="Нууц үг давтах"
-          formControlName="confirmPassword"
-          type="password"
-          required
-        />
-        <mat-error
-          style="color: red; padding: 0"
-          *ngIf="registerForm.hasError('notSame')"
-          >{{ getPasswordConfirmError() }}</mat-error
-        >
-      </mat-form-field>
-      <ng-container>
-        <mat-checkbox [(ngModel)]="acceptTOC" [ngModelOptions]="{standalone: true}">
-          <p class="mat-caption toc"  [routerLink]="['/articles/', tocId]">
-            Би <span>үйлчилгээний нөхцөлийг</span> зөвшөөрч байна.
-          </p> 
-        </mat-checkbox>
-      </ng-container>
-
-      <mat-error class="mat-caption" *ngIf="registerForm.hasError('notSame')">{{
-        getPasswordConfirmError()
-      }}</mat-error>
-      <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+      <div fxLayout="column">
         <button
-          mat-raised-button
+          mat-button
           color="primary"
-          type="submit"
+          routerLink="/home"
           fxFlex=""
-          [disabled]="!registerForm.valid || !acceptTOC"
+          class="background-button"
         >
-          Бүртгүүлэх
+          Нүүр хуудасруу буцах
         </button>
-      </mat-card-actions>
-      <p class="mat-caption" style="color: red" *ngIf="serviceErrorMessage">
-        {{ serviceErrorMessage }}
-      </p>
-      <div fxLayout="row" fxLayoutAlign="center center">
+        <!--            <button mat-button color="primary" (click)="signOut()" fxFlex="">Гарах</button>-->
       </div>
-    </form>
-  </ng-template>
-</mat-card>
+    </div>
+    <ng-template #login>
+      <form (ngSubmit)="onSubmit()" [formGroup]="registerForm">
+        <button
+          type="button"
+          aria-label="back"
+          mat-icon-button
+          routerLink="/auth/login"
+        >
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <h1>
+          Шинээр бүртгүүлэх
+        </h1>
+        <div
+          class="social-login-container"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <button mat-button class="google-login" (click)="loginWithGoogle()">
+            <i class="fab fa-google fa-2x"></i>
+            Sign in with Google
+          </button>
+          <p class="mat-body-1" style="margin: 12px 0 12px 0">
+            Хэрэв та бүртгэлтэй бол,
+            <span class="register-link" routerLink="/auth/login"> Нэвтрэх</span>
+          </p>
+        </div>
+  
+        <mat-form-field
+          appearance="outline"
+          color="primary"
+        >
+          <mat-label>Имэйл хаяг</mat-label>
+          <input
+            matInput
+            placeholder="Имэйл хаяг"
+            formControlName="email"
+            required
+          />
+        </mat-form-field>
+        <mat-error
+          class="mat-caption"
+          *ngIf="registerForm.get('email').hasError('email')"
+          >{{ getEmailError() }}</mat-error
+        >
+  
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Нэр</mat-label>
+          <input
+            matInput
+            placeholder="Нэр"
+            formControlName="firstName"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Овог</mat-label>
+          <input matInput placeholder="Овог" formControlName="lastName" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Нууц үг</mat-label>
+          <input
+            matInput
+            placeholder="Нууц үг"
+            formControlName="password"
+            type="password"
+            required
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>Нууц үг давтах</mat-label>
+          <input
+            matInput
+            placeholder="Нууц үг давтах"
+            formControlName="confirmPassword"
+            type="password"
+            required
+          />
+          <mat-error
+            style="color: red; padding: 0"
+            *ngIf="registerForm.hasError('notSame')"
+            >{{ getPasswordConfirmError() }}</mat-error
+          >
+        </mat-form-field>
+        <ng-container>
+          <mat-checkbox [(ngModel)]="acceptTOC" [ngModelOptions]="{standalone: true}">
+            <p class="mat-caption toc"  [routerLink]="['/articles/', tocId]">
+              Би <span>үйлчилгээний нөхцөлийг</span> зөвшөөрч байна.
+            </p> 
+          </mat-checkbox>
+        </ng-container>
+  
+        <mat-error class="mat-caption" *ngIf="registerForm.hasError('notSame')">{{
+          getPasswordConfirmError()
+        }}</mat-error>
+        <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            fxFlex=""
+            [disabled]="!registerForm.valid || !acceptTOC"
+          >
+            Бүртгүүлэх
+          </button>
+        </mat-card-actions>
+        <p class="mat-caption" style="color: red" *ngIf="serviceErrorMessage">
+          {{ serviceErrorMessage }}
+        </p>
+        <div fxLayout="row" fxLayoutAlign="center center">
+        </div>
+      </form>
+    </ng-template>
+  </mat-card>
+  <div fxFlex></div>
+</div>

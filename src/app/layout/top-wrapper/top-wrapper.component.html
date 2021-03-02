@@ -3,10 +3,9 @@
         <div fxFlex></div>
         <div class="container top-wrapper" fxLayout="row" fxLayoutAlign="start end" style="position: relative;  height: 100%" >
             <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
-                <div class="type-indicator system"></div>
                 <div fxLayout="column">
                     <p class="mat-body-2">{{getGreetings()}}</p>
-                    <p class="mat-h1" [routerLink]="[content.link]" >{{content.title}}</p>
+                    <h1 [routerLink]="[content.link]" >{{content.title}}</h1>
                 </div>
             </div>
         </div>

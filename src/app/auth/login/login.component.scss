@@ -9,6 +9,52 @@
     max-height: 800px;
     //background-color: mat-color($primary, A100);
     padding: 20px 32px 20px 32px;
+    h1 {
+        margin-bottom: 16px;
+        text-align: center;
+    }
+    .divider-text {
+        margin: 12px 0;
+    }
+    .divider-text span {
+        display: inline-block;
+        position: relative;
+    }
+    .divider-text span:before {
+        right: 100%;
+        margin-right: 15px;
+        border-top: 0.5px solid #555555;
+        content: "";
+        position: absolute;
+        height: 5px;
+        top: 50%;
+        width: 45px;
+        box-sizing: border-box;
+    }
+    .divider-text span:after {
+        left: 100%;
+        margin-left: 15px;
+        border-top: 0.5px solid #555555;
+        content: "";
+        position: absolute;
+        height: 5px;
+        top: 50%;
+        width: 45px;
+        box-sizing: border-box;
+    }
+    .toc {
+        margin:  8px 0;
+        span {
+            color: mat-color($primary);
+        }
+
+    }
+    .toc:focus {
+        outline: 0;
+    }
+    .toc:hover {
+        cursor: pointer;
+    }
     .logo-container {
         padding: 16px 0 16px 0;
     }
