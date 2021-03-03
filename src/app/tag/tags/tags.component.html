@@ -9,7 +9,7 @@
     </div>
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px" style="margin: 8px 0 0 0"
          *ngIf="authService.user$ | async as user">
-        <tag-item *ngFor="let item of userTags" [item]="item" fxFlex.xs=""></tag-item>
+        <tag-item *ngFor="let item of userTags" [user]="user" [item]="item" fxFlex.xs=""></tag-item>
     </div>
 </ng-container>
 <ng-template #login>

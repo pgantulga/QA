@@ -32,8 +32,9 @@
                         </div>
                     </ng-template>
                     <mat-chip-list>
-                        <mat-chip class="tag chip-click" *ngFor="let tag of post.tags"
-                                  [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</mat-chip>
+                        <tag-chip class="tag chip-click" *ngFor="let tag of post.tags"
+                            [item]="tag"
+                                  [routerLink]="['/tags/tagDetail', tag?.id]">{{tag?.name}}</tag-chip>
                     </mat-chip-list>
                     <div class="author-section" fxLayout="row" fxLayoutAlign="end center" *ngIf="authService.user$ | async as user">
                         <user-profile [user]="post.author"></user-profile>

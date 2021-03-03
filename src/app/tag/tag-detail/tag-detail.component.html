@@ -1,17 +1,9 @@
 <detail-header id="header"></detail-header>
 <div class="background-card" *ngIf="tagDetail$ | async as tagDetail">
-    {{tagDetail.description}}
+    <p class="mat-body-2">{{tagDetail.description}}</p>
 </div>
-<ng-container *ngIf="authService.user$ async as user else noUser">
-    
-</ng-container>
-<ng-template #noUser>
-    <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'" >
-        <button mat-button (click)="goToLogin()">Нэвтрэх</button>
-    </warn>
-</ng-template>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <p class="mat-subheading-2">Хэлэлцүүлгүүд</p>
+    <h2>Хэлэлцүүлгүүд</h2>
     <mat-button-toggle-group name="posts" aria-label="sort">
         <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
             <mat-icon>{{item.icon}}</mat-icon>
@@ -31,8 +23,4 @@
 </ng-container>
 <ng-template #loading>
     <post-list-ghost *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]"></post-list-ghost>
-    <!--    <div style="padding: 8px 22px;" fxLayout="row" fxLayoutAlign="center center">-->
-    <!--        <mat-spinner color="accent" [diameter]="24"></mat-spinner>-->
-    <!--    </div>-->
 </ng-template>
-<!--Need to create pagination-->

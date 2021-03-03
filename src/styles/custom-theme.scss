@@ -90,7 +90,7 @@ $QA-typography: mat-typography-config(
   $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
   $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
   $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
-  $display-1: mat-typography-level(34px, 40px, 400),
+  $display-1: mat-typography-level(34px, 44px, 400),
   $headline: mat-typography-level(24px, 32px, 500),
   $title: mat-typography-level(20px, 24px, 500),
   $subheading-2: mat-typography-level(16px, 18px, 500),
@@ -102,8 +102,11 @@ $QA-typography: mat-typography-config(
   // Line-height must be unit-less fraction of the font-size.
   $input: mat-typography-level(inherit, 1.125, 400),
 );
-.mat-h1, .mat-headline, h1 {
-  // margin: 0 !important;
+mat-toolbar h1 {
+  font-size: mat-font-size($QA-typography, display-1) !important;
+  line-height: 44px !important;
+  margin: 0 0 16px 0 !important;
+
 }
 .mat-h2, .mat-title, h2 {
   margin: 0 !important;
@@ -127,14 +130,17 @@ h2 ::before {
   box-sizing: border-box;
 }
 .mat-h4, .mat-subheading-1, h4 {
-  margin: 0 0 8px 0 !important;
+  // margin: 0 0 8px 0 !important;
+}
+.mat-h4, .mat-subheading-1, h4:focus {
+  outline: 0;
 }
 .mat-display-2, .mat-display-2 {
   margin: 0;
 }
 
 .mat-display-1, .mat-display-1 {
-  margin: 0;
+  margin-bottom: 8px;
 }
 
 @include mat-base-typography($QA-typography);
@@ -166,6 +172,7 @@ h2 ::before {
   margin: 0 8px 0 0;
 }
 
+
 @mixin standart-list {
   padding: 12px 12px 12px 16px;
   margin: 4px 0;
@@ -173,13 +180,14 @@ h2 ::before {
   mat-caption {
     margin: 0;
   }
-  h3 {
-    margin: 0 0 8px;
+  h4 {
+    margin: 0 8px 8px 0;
     cursor: pointer;
   }
-  p {
-    margin: 0;
+  h4:hover {
+    color: mat-color($primary);
   }
+
   .mat-caption {
     margin: 0;
   }
@@ -191,5 +199,16 @@ h2 ::before {
   }
   mat-icon.meta-icon {
     @include md-icon-size(20px);
+  }
+  .type-indicator {
+    position: absolute;
+    min-width: 4px !important;
+    height: calc(100% - 24px);
+    margin: 0 0 0 8px;
+    border-radius: 4px;
+    display: block;
+    right: 12px;
+    top: 12px;
+    bottom: 12px;
   }
 }

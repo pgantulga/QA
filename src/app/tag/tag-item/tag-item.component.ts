@@ -9,15 +9,10 @@ import {AuthService} from "../../services/auth.service";
 })
 export class TagItemComponent implements OnInit {
   @Input() item: any;
+  @Input() user: any;
   isUserTag: boolean;
   constructor(private tagService: TagService, private authService: AuthService) { }
   ngOnInit(): void {
-    this.checkUserTag();
-  }
-  async checkUserTag() {
-    const user = await this.authService.getUser();
-    if (user) {
-      this.isUserTag = user.tags[this.item.id];
-    }
+    this.isUserTag = (this.user && this.user.tags[this.item.id]);
   }
 }

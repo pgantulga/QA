@@ -2,14 +2,14 @@
   <mat-toolbar class="header" fxLayout="column" role="heading">
     <mat-toolbar-row class="title" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
       <div fxLayout="column">
-        <p class="mat-headline" fxHide.gt-xs="">{{ detail.name }}</p>
-        <p class="mat-display-1" fxHide.xs="">{{ detail.name }}</p>
+        <h1 fxHide.gt-xs>{{ detail.name }}</h1>
+        <h1 fxHide.xs>{{ detail.name }}</h1>
+        <p class="mat-body-1">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
         <div
           fxLayout="row"
           class="actions"
           *ngIf="authService.user$ | async as user"
           fxLayoutAlign="start center">
-          <p class="mat-body-1">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
           <button
             mat-icon-button
             *ngIf="user.tags[detail.id]"

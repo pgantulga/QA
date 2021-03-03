@@ -13,7 +13,6 @@ import {first} from 'rxjs/operators';
     selector: 'tags',
     templateUrl: './tags.component.html',
     styleUrls: ['./tags.component.scss'],
-    encapsulation: ViewEncapsulation.None,
 
 })
 export class TagsComponent implements OnInit {

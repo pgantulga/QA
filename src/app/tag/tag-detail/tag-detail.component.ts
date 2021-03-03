@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {TagService} from '../../services/tag.service';
 import {map, switchMap} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -12,7 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
     selector: 'tag-detail',
     templateUrl: './tag-detail.component.html',
-    styleUrls: ['./tag-detail.component.scss']
+    styleUrls: ['./tag-detail.component.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class TagDetailComponent implements OnInit {
     tagDetail$: Observable<any>;

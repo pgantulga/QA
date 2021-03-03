@@ -1,12 +1,12 @@
-<div fxLayout="row" class="tag-item">
-    <div class="type-indicator " [class.user]="isUserTag"></div>
-    <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex="">
+<div fxLayout="row" class="background-card tag-item">
+    <div fxLayout="column" fxLayoutAlign="space-between start" fxFlex>
         <div fxLayout="column">
-            <p class="mat-subheading-2 tag-link" [routerLink]="['tagDetail', item.id]">{{item.name}}</p>
-            <p class="line-clamp-3 mat-body-2">{{item.description}}</p>
+            <h4 [routerLink]="['tagDetail', item.id]">{{item.name}}</h4>
+            <p class="line-clamp-3 mat-body">{{item.description}}</p>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
             <p class="mat-caption tag-link" [routerLink]="['tagDetail', item.id]">{{item.totalUsed}} хэлэлцүүлэг</p>
         </div>
     </div>
+    <div class="type-indicator " [class.user]="isUserTag"></div>
 </div>
