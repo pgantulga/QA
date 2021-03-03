@@ -1,18 +1,7 @@
-@import "src/styles/custom-theme";
-.tag {
-    mat-icon {
-        font-size: 8px;
-        height: 8px;
-        width: 12px;
-
-    }
-    mat-icon.user-tag {
-        color: mat-color($primary);
-    }
-    mat-icon.important {
-        color: mat-color($warn);
-    }
-}
+@import "custom-theme";
 mat-chip {
     @include chip-tag();
+    .user-tag {
+        color: mat-color($primary);
+      }
 }

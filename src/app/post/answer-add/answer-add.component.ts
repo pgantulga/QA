@@ -11,7 +11,7 @@ import {config} from '../../shared/quill-config';
 @Component({
   selector: 'answer-add',
   templateUrl: './answer-add.component.html',
-  styleUrls: ['./answer-add.component.css']
+  styleUrls: ['./answer-add.component.scss']
 })
 export class AnswerAddComponent {
   @Input() user: any;

@@ -1,62 +1,37 @@
 @import "../../../styles/custom-theme";
-/*typography*/
+h2 {
+    margin: 16px 0;
+}
 .mat-caption {
     margin: 0;
 }
-
-.post-detail {
-    position: relative;
-    padding: 12px 30px 12px 22px;
-    margin: 8px 0 8px 0;
-}
-.post-detail .view{
-    text-align: justify;
-    margin: 0 0 0 0;
-    padding: 16px 0 16px 0;
-}
-.post-detail .tags {
-    padding: 0 15px;
-}
-
-.post-detail .voteArea {
-    padding: 16px 0 0 0;
-}
-.post-detail .top-fab-button {
-    position: absolute;right: 30px;top:-28px
-}
-.author-section {
-    margin: 16px 0 0 0;
-}
 .time {
     margin: 0 0 0 16px;
-    /*color: #dadada;*/
 }
-.votes {
-    margin: 0 16px 0 0;
+.post-detail {
+    padding: 12px 30px 12px 22px;
+    .view{
+        text-align: justify;
+        margin: 0 0 0 0;
+        padding: 16px 0 16px 0;
+    }
+    .author-section {
+        margin: 16px 0 0 0;
+    }
+    .voteArea {
+        padding: 16px 0 0 0;
+    }
+    .pinned {
+        color: mat-color($primary);
+    }
 }
-.votes mat-icon {
-    margin: 0 4px 0 0;
-}
-.replies {
-    margin: 0 16px 0 0;
-}
-.replies mat-icon {
-    margin: 0 4px 0 0;
-}
-
-
-
 .answers {
-    margin: 8px 0 8px 0;
     padding: 12px 30px 12px 22px;
 }
-.pinned {
-    color: mat-color($primary);
-}
+
 ::ng-deep.selection-tooltip{
     padding: 0 !important;
     border-radius: 16px !important ;
-
 }
 .selected-text-tooltip-bar {
     background-color: mat-color($my-grey, 900);
@@ -71,11 +46,6 @@
         cursor: pointer;
     }
 }
-.post-logs {
-    width: 233px;
-    margin: 8px 0  8px 8px;
-}
-
 button.followed {
     background-color: mat-color($primary, 200 ,0.1);
     mat-icon {
@@ -85,6 +55,9 @@ button.followed {
 @media only screen and (max-width: 960px) {
     .post-detail {
         padding: 12px 12px 12px 8px;
+        .view{
+            padding: 16px 0 0 0;
+        }
     }
     .answers {
         margin: 8px 0 8px 0;

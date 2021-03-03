@@ -1,12 +1,23 @@
-<p class="mat-body-2">Таны хариулт</p>
-<div class="answer-add background-card">
+<div class="answer-add-container" style="margin: 16px 0">
+  <div style="margin: 16px 0">
+    <h2>Таны хариулт</h2>
+  </div>
+  <div class="answer-add background-card">
     <form [formGroup]="answerForm" (ngSubmit)="submit()">
-        <div class="form-group">
-            <quill-editor class="answer" formControlName="editor" [modules]="config" [placeholder]="'Хариулт бичих ...'" #answer></quill-editor>
-        </div>
-        <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
-<!--            <button mat-flat-button class="background-button">Цуцлах</button>-->
-            <button mat-button type="submit" class="background-button">Нэмэх</button>
-        </div>
+      <div class="form-group">
+        <quill-editor
+          class="answer"
+          formControlName="editor"
+          [modules]="config"
+          [placeholder]="'Хариулт бичих ...'"
+          #answer
+        ></quill-editor>
+      </div>
+      <div fxLayout="row" style="padding: 16px 0 0 0" fxLayoutAlign="end end">
+        <button mat-button type="submit" class="background-button">
+          Нэмэх
+        </button>
+      </div>
     </form>
+  </div>
 </div>

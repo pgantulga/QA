@@ -146,12 +146,6 @@ h2 ::before {
 @include mat-base-typography($QA-typography);
 @include angular-material-typography($QA-typography);
 
-@mixin mat-chips-typography($config) {
-  .mat-chip {
-    font-size: mat-font-size($config, caption) !important;
-  }
-}
-
 @mixin chip-tag {
   min-height: 24px !important;
   margin-bottom: 16px;
@@ -161,6 +155,10 @@ h2 ::before {
   border: 1px solid rgba(255, 255, 255, 0.2);
   .nav-chip {
     cursor: pointer;
+  }
+  mat-icon {
+    @include md-icon-size(8px);
+    
   }
 }
 
