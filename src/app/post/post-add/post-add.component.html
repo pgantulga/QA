@@ -2,7 +2,9 @@
     <div class="post-add">
         <form (ngSubmit)="onSubmit()" >
             <div class="form-group">
-                <p class="mat-subheading-2">Хэлэлцүүлгийн гарчиг</p>
+                <div class="sub-header">
+                    <h2>Хэлэлцүүлгийн гарчиг</h2>
+                </div>
                 <p class="mat-body-1">Хэн нэгнээс асуусан маягтай тухайн асуудлыг оновчтой тодорхойлохоор бичнэ үү.</p>
                 <mat-form-field style="width:100%" appearance="outline"  color="accent" [floatLabel]="'never'">
                     <mat-label>Гарчиг</mat-label>
@@ -10,11 +12,15 @@
                 </mat-form-field>
                 <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{getErrorMessage()}}</mat-error>
                 <!-- <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint> -->
-                <p class="mat-subheading-2" style="margin-top: 16px">Агуулга</p>
+                <div class="sub-header">
+                    <h2>Агуулга</h2>
+                </div>
                 <p class="mat-body-1">Таны асуудалд хариулт өгөхөд шаардлагатай бүх мэдээллийг багтаахыг зорино уу</p>
                 <quill-editor [formControl]="content" [modules]="config" [styles]="{height: '300px'}" required [placeholder]="'Агуулга бичих ...'"></quill-editor>
                 <mat-hint align="end" class="mat-caption">Агуулгын доод урт 300 тэмдэгт</mat-hint>
-                <p class="mat-subheading-2" style="margin-top: 16px">Таг</p>
+                <div class="sub-header">
+                    <h2>Сэдэв</h2>
+                </div>
                 <p class="mat-body-1">Таны асуудлыг тодорхойлж чадах 3 хүртэлх сэдэв сонгоно уу. Хэрэв тохиромжтой сэдэв байхгүй бол <a [routerLink]="['/tags']" style="text-decoration: none" >сэдвүүд хуудаснаас</a> дэлгэрэнгүй жагсаалтыг харах боломжтой.</p>
                 <ng-container *ngIf="this.oldValue else new">
                     <tag-select (emittingTags)="getTag($event)" required="" [inputTags]="this.oldValue.tags"></tag-select>

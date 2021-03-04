@@ -179,9 +179,10 @@
     </div>
   </div>
   <ng-template #loginWarning>
-    <warn [articleId]="'bqOHqSFn2LikdjVOQ6py'">
-      <button mat-button (click)="goToLogin()">Нэвтрэх</button>
-    </warn>
+      <login-warn>
+          <h3>Хэлэлцүүлгийн хариултууд харах</h3>
+          <p class="mat-body-1">Хариултуудыг зөвхөн бүртгэлтэй хэрэглэгчид харах боломжтой</p>
+      </login-warn>
   </ng-template>
   <div *ngIf="suggestedPosts$ | async as suggestedPosts">
       <div style="margin: 16px 0;">

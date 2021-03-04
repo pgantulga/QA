@@ -1,0 +1,10 @@
+@import 'custom-theme';
+
+.login-warn-container {
+    margin: 8px 0;
+    padding: 20px 20px 20px 20px;
+    mat-icon {
+        @include md-icon-size(48px);
+        margin-bottom: 12px;
+    }
+}

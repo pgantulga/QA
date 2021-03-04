@@ -32,6 +32,7 @@ import { TopWrapperComponent } from './top-wrapper/top-wrapper.component';
 import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfoComponent } from './info/info.component';
+import { LoginWarnComponent } from './login-warn/login-warn.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { InfoComponent } from './info/info.component';
         TopWrapperComponent,
         TagChipComponent,
         InfoComponent,
+        LoginWarnComponent,
     ],
     exports: [
         NavbarComponent,
@@ -71,7 +73,8 @@ import { InfoComponent } from './info/info.component';
         TopWrapperComponent,
         WarnComponent,
         InfoComponent,
-        TagChipComponent
+        TagChipComponent,
+        LoginWarnComponent
     ],
     imports: [
         CommonModule,

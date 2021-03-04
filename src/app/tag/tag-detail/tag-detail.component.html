@@ -2,6 +2,12 @@
 <div class="background-card" *ngIf="tagDetail$ | async as tagDetail">
     <p class="mat-body-2">{{tagDetail.description}}</p>
 </div>
+<ng-container *ngIf = "authService.user$">
+    <login-warn>
+        <h3>Дэлгэрэнгүй мэдээлэл</h3>
+        <p class="mat-body-1">Сэдвийн тухай дэлгэрэнгүй мэдээллийг зөвхөн бүртгэлтэй хэрэглэгчид харах боломжтой.</p>
+    </login-warn>
+</ng-container>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
     <h2>Хэлэлцүүлгүүд</h2>
     <mat-button-toggle-group name="posts" aria-label="sort">

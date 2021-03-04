@@ -5,7 +5,10 @@
             <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
                 <div fxLayout="column">
                     <p class="mat-body-2">{{getGreetings()}}</p>
-                    <h1 [routerLink]="[content.link]" >{{content.title}}</h1>
+                    <h1 [routerLink]="[content.link]" >
+                        {{content.title}}
+                        <mat-icon>arrow_forward</mat-icon>
+                    </h1>
                 </div>
             </div>
         </div>
