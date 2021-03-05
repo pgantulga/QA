@@ -2,8 +2,10 @@
 @import "src/app/post/post-list/post-list.component";
 .top-wrapper-container {
   position: relative;
-  align-items: center;
+  background: linear-gradient(0deg, rgba(0,0,0,1) 2%, rgba(0,0,0,0) 49%, rgba(0,0,0,0.7595413165266106) 99%);
   margin-bottom: 8px;
+  overflow: hidden;
+  height: 350px;
   h1 {
     margin: 0 !important;
     position: relative;
@@ -24,15 +26,21 @@
   .mat-body-2 {
     margin: 0;
   }
+  img.banner{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
   .top-wrapper {
-    background-image: url("src/assets/wrapper_background.png");
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
     .wrapper-content {
       z-index: 10;
       position: relative;
       padding-left: .75rem;
+      margin-bottom: 32px;
     }
     .wrapper-content:before {
       background: mat-color($primary);
@@ -45,15 +53,32 @@
       width: 4px;
     }
   }
-  height: 261px;
 }
-@media only screen and (max-width: 400px) {
-  .top-wrapper-container {
-    .top-wrapper {
-      background-position: right center;
-    }
+@media only screen and (max-width: 960px) {
+  .container {
+    padding: 0;
+  }
+  img.banner{
+    height: 100%;
   }
 }
+@media only screen and (min-width: 1300px) {
+  .container {
+    padding: 0;
+  }
+  img.banner{
+    width: 100%;
+  }
+}
+
+// @media only screen and (max-width: 400px) {
+//   .top-wrapper-container {
+//     .top-wrapper {
+//       .background-image {
+//       }
+//     }
+//   }
+// }
 .top-wrapper-container.warning {
   background-image: linear-gradient(90deg, #ef5350 0%, #ef5350 100%);
 }
