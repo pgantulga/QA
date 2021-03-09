@@ -1,124 +1,118 @@
 <ng-container *ngIf="post$ | async as post">
   <post-header [pageTitle]="post.title" id="postheader">
     <div sub-nav fxLayout="column">
-      <div fxLayout="row" fxLayoutAlign="start center">
+      <div fxLayout="column">
         <p class="mat-caption">
           Сүүлд шинэчлэгдсэн {{ post.updatedAt | momentPipe }}
         </p>
-        <div
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          class="time"
-          *ngIf="authService.user$ | async as user"
-        >
-          <button
-            mat-icon-button
-            style="margin: 0 0 0 0"
-            *ngIf="isFollowed"
-            [class.followed]="isFollowed"
-            (click)="toggleFollow(post, user)"
-            matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирнэ."
-            matTooltipClass="tooltip"
-          >
-            <mat-icon>notifications_active</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            style="margin: 0 0 0 0"
-            *ngIf="!isFollowed"
-            (click)="toggleFollow(post, user)"
-            matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирэхгүй."
-            matTooltipClass="tooltip"
-          >
-            <mat-icon>notifications_off</mat-icon>
-          </button>
-        </div>
       </div>
     </div>
   </post-header>
   <div fxLayout="row" class="post-detail background-card">
-      <div fxLayout="column" fxLayoutAlign="start center" class="voteArea">
-        <vote-button [obj]="post" [type]="'post'"></vote-button>
-      </div>
-      <div class="view" fxFlex fxLayout="column">
+    <div fxLayout="column" fxLayoutAlign="start center" class="voteArea">
+      <vote-button [obj]="post" [type]="'post'"></vote-button>
+    </div>
+    <div class="view" fxFlex fxLayout="column">
+      <div
+        [innerHTML]="htmlContent"
+        [sttSelectedTextTooltip]="selectedTextTooltipTemplate"
+        (sttSelectedText)="selectedText = $event"
+      ></div>
+      <ng-template #selectedTextTooltipTemplate>
         <div
-          [innerHTML]="htmlContent"
-          [sttSelectedTextTooltip]="selectedTextTooltipTemplate"
-          (sttSelectedText)="selectedText = $event"
-        ></div>
-        <ng-template #selectedTextTooltipTemplate>
-          <div
-            class="selected-text-tooltip-bar"
-            (mousedown)="$event.preventDefault()"
-            style="padding: 0"
-            *ngIf="authService.user$ | async as user"
+          class="selected-text-tooltip-bar"
+          (mousedown)="$event.preventDefault()"
+          style="padding: 0"
+          *ngIf="authService.user$ | async as user"
+        >
+          <button
+            mat-icon-button
+            (click)="scroll(answer)"
+            matTooltip="Хариулт нэмэх"
+            matTooltipClass="tooltip"
           >
+            <mat-icon>reply</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+      <mat-chip-list>
+        <tag-chip
+          *ngFor="let tag of post.tags"
+          [item]="tag"
+          [routerLink]="['/tags/tagDetail', tag?.id]"
+          >{{ tag?.name }}</tag-chip
+        >
+      </mat-chip-list>
+      <div
+        class="author-section"
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="end end"
+        *ngIf="authService.user$ | async as user"
+      >
+        <user-profile [user]="post.author"></user-profile>
+        <div fxLayout="row">
+          <div class="actions" fxLayout="row" fxLayoutGap="2px">
             <button
               mat-icon-button
+              *ngIf="permissionService.canRead(user)"
               (click)="scroll(answer)"
               matTooltip="Хариулт нэмэх"
               matTooltipClass="tooltip"
             >
               <mat-icon>reply</mat-icon>
             </button>
-          </div>
-        </ng-template>
-        <mat-chip-list>
-          <tag-chip
-            *ngFor="let tag of post.tags"
-            [item]="tag"
-            [routerLink]="['/tags/tagDetail', tag?.id]"
-            >{{ tag?.name }}</tag-chip
-          >
-        </mat-chip-list>
-        <div
-          class="author-section"
-          fxLayout="row"
-          fxLayout.xs="column"
-          fxLayoutAlign="end end"
-          *ngIf="authService.user$ | async as user"
-        >
-          <user-profile [user]="post.author"></user-profile>
-          <div fxLayout="row">
-            <div class="actions" fxLayout="row" fxLayoutGap="2px">
-              <button
-                mat-icon-button
-                class="background-button"
-                *ngIf="permissionService.canRead(user)"
-                (click)="scroll(answer)"
-                matTooltip="Хариулт нэмэх"
-                matTooltipClass="tooltip"
-              >
-                <mat-icon>reply</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                class="background-button"
-                *ngIf="isPostAuthor(user, post.author) || permissionService.canEdit(user)"
-                [routerLink]="['/posts', post.id, 'edit']"
-              >
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                class="background-button"
-                *ngIf="isPostAuthor(user, post.author) ||permissionService.canDelete(user)"
-                (click)="deletePost(post)"
-              >
-                <mat-icon>delete</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                class="background-button"
-                *ngIf="permissionService.canDelete(user)"
-                (click)="pinPost(post)"
-              >
-                <mat-icon [class.pinned]="post.pinned">push_pin</mat-icon>
-              </button>
-            </div>
+            <button
+              mat-icon-button
+              *ngIf="isFollowed"
+              [class.followed]="isFollowed"
+              (click)="toggleFollow(post, user)"
+              matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирнэ."
+              matTooltipClass="tooltip"
+            >
+              <mat-icon>notifications_active</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="!isFollowed"
+              (click)="toggleFollow(post, user)"
+              matTooltip="Танд энэ хэлэлцүүлгийн мэдэгдлүүд ирэхгүй."
+              matTooltipClass="tooltip"
+            >
+              <mat-icon>notifications_off</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="
+                isPostAuthor(user, post.author) ||
+                permissionService.canEdit(user)
+              "
+              [routerLink]="['/posts', post.id, 'edit']"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              *ngIf="
+                isPostAuthor(user, post.author) ||
+                permissionService.canDelete(user)
+              "
+              (click)="deletePost(post)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              class="background-button"
+              *ngIf="permissionService.canDelete(user)"
+              (click)="pinPost(post)"
+            >
+              <mat-icon [class.pinned]="post.pinned">push_pin</mat-icon>
+            </button>
           </div>
         </div>
       </div>
+    </div>
   </div>
   <ng-container *ngIf="authService.user$ | async as user; else loginWarning">
     <div *ngIf="permissionService.canRead(user); else loginWarning">
@@ -179,15 +173,17 @@
     </div>
   </div>
   <ng-template #loginWarning>
-      <login-warn>
-          <h3>Хэлэлцүүлгийн хариултууд харах</h3>
-          <p class="mat-body-1">Хариултуудыг зөвхөн бүртгэлтэй хэрэглэгчид харах боломжтой</p>
-      </login-warn>
+    <login-warn>
+      <h3>Хэлэлцүүлгийн хариултууд харах</h3>
+      <p class="mat-body-1">
+        Хариултуудыг зөвхөн бүртгэлтэй хэрэглэгчид харах боломжтой
+      </p>
+    </login-warn>
   </ng-template>
   <div *ngIf="suggestedPosts$ | async as suggestedPosts">
-      <div style="margin: 16px 0;">
-        <h2 >Санал болгох сэдвүүд</h2>
-      </div>
+    <div style="margin: 16px 0">
+      <h2>Санал болгох сэдвүүд</h2>
+    </div>
     <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
       <mat-divider *ngIf="!last"></mat-divider>
     </post-list>

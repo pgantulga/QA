@@ -1,12 +1,11 @@
 <mat-toolbar class="top-toolbar" [class.dark]="isOnTop" cdkScrollable>
     <mat-toolbar-row>
         <div fxFlex></div>
-        <div class="container" fxLayout="row" fxLayoutAlign="center center">
+        <div class="container" fxLayout="row" fxLayoutAlign="center center" style="padding: 0 12px 0 0">
             <div fxLayout="row" fxLayoutAlign="center center">
                 <button type="button" aria-label="back" mat-icon-button *ngIf="layout.layout2" (click)="back()">
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
-                <ng-content></ng-content>
                 <button mat-icon-button class="homeButton" [routerLink]="['/home']">
                     <img src="../../../assets/logo_full.png" alt="Logo" class="toolbarLogo">
                 </button>

@@ -1,6 +1,6 @@
 <div fxLayout="column" *ngIf="detail | async as detail">
   <mat-toolbar class="header" fxLayout="column" role="heading">
-    <mat-toolbar-row class="title" fxFlex fxLayout="row" fxLayoutAlign="space-between start">
+    <mat-toolbar-row class="title" fxLayout="row" fxLayoutAlign="space-between start">
       <div fxLayout="column">
         <h1 fxHide.gt-xs>{{ detail.name }}</h1>
         <h1 fxHide.xs>{{ detail.name }}</h1>
@@ -38,7 +38,7 @@
           </button>
         </div>
       </div>
-      <div *ngIf="authService.user$ | async as user">
+      <!-- <div *ngIf="authService.user$ | async as user">
         <button
           mat-flat-button
           color="primary"
@@ -48,7 +48,7 @@
           <mat-icon>edit</mat-icon>
           Хэлэлцүүлэг нэмэх
         </button>
-      </div>
+      </div> -->
     </mat-toolbar-row>
   </mat-toolbar>
 </div>

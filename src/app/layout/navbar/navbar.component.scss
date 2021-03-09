@@ -3,14 +3,9 @@
 
 .top-toolbar {
     position: -webkit-sticky;
-    //position: -ms-sticky;
-    //position: -o-sticky;
     position: sticky;
-    //display: none;
-    //position: fixed;
     top: 0; /* Sets the sticky toolbar to be on top */
     z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
-    //border-bottom: 1px solid mat-color($my-grey, 800);
     background-color: mat-color($my-grey, 900) ;
 
 }

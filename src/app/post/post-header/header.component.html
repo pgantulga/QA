@@ -1,10 +1,8 @@
-<div fxLayout="column">
     <mat-toolbar class="header" fxLayout="column" role="heading">
-        <mat-toolbar-row class="title" fxFlex fxLayout="column wrap" fxLayoutAlign="end start">
+        <mat-toolbar-row class="title">
             <div fxLayout="column wrap">
                 <h1 class="mat-display-1">{{pageTitle}}</h1>
                 <ng-content select="[sub-nav]"></ng-content>
             </div>
         </mat-toolbar-row>
     </mat-toolbar>
-</div>

@@ -1,7 +1,7 @@
 <div style="margin: 8px 0" *ngIf="userTags" id="tags">
     <mat-chip-list>
         <tag-chip  *ngFor="let item of userTags" [item]="item" ></tag-chip>
-        <button mat-button color="primary" style="height: 24px; line-height: 24px" [routerLink]="['/tags']">
+        <button mat-button color="primary" style="height: 24px; line-height: 24px;margin: 4px;" [routerLink]="['/tags']">
             Бүх сэдвүүд
             <mat-icon>keyboard_arrow_right</mat-icon>
         </button>

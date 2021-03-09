@@ -158,6 +158,9 @@ h2 ::before {
     
   }
 }
+.mat-chip-list-wrapper {
+  margin: 0 !important;
+}
 
 @mixin md-icon-size($size: 24px) {
   font-size: $size;

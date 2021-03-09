@@ -1,6 +1,6 @@
 <ng-container *ngIf="user$ | async as user">
-    <mat-toolbar class="header" fxLayout="column" role="heading">
-        <mat-toolbar-row class="title" fxFlex fxLayout="column" fxLayoutAlign="end start">
+    <mat-toolbar class="header" role="heading">
+        <mat-toolbar-row class="title">
             <user-profile-large [user]="user"></user-profile-large>
 <!--            <p class="mat-caption">Бүртгүүлсэн:  {{user.createdAt | momentPipe}}</p>-->
         </mat-toolbar-row>
