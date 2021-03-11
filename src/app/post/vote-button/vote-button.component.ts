@@ -19,7 +19,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
 
     constructor(public voteService: VoteService,
                 public snackBar: MatSnackBar,
-                public authService: AuthService
+                public authService: AuthService,
     ) {
     }
 
@@ -48,7 +48,6 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
         this.loading = true;
         if (!this.isVoted) {
             this.addVote().then(res => {
-                console.log(res);
                 // @ts-ignore
                 if (res) {
                     // until cloud function runs
@@ -70,7 +69,6 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     }
 
     addVote() {
-        console.log('add');
         return this.voteService.addVote(this.obj, this.type)
             .then(() => {
                 this.snackBar.openFromComponent(SnackComponent, {
@@ -79,8 +77,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
                 return true;
             })
             .catch(err => {
-                console.log(err);
-                return false
+                return false;
             });
     }
 

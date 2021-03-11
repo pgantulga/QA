@@ -117,7 +117,7 @@ export class PostService {
     }
 
     async addFollowers(tags, postId) {
-        // get followers from tags
+        // need when post created get followers from post tags
         if (!tags) {
             return null;
         }

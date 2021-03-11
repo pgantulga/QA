@@ -31,6 +31,7 @@ export class VoteService {
       return this.votesCollection.add(data)
           .then(res => {
               this.postService.addLog(user, 'voted', data.postId);
+              this.postService.followPost({id: data.postId}, user);
               res.update({
                       id: res.id,
                   }
