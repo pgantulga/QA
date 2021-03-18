@@ -8,11 +8,12 @@
     matTooltip="Үнэлгээ өгөх"
     matTooltipClass="tooltip"
   >
-    <mat-icon
+    <mat-icon svgIcon="empty" style="fill: white; width: 30px"></mat-icon>
+    <!-- <mat-icon
       [class.vote-icon-color]="isVoted"
       [class.vote-icon-dark]="!isVoted"
       >done</mat-icon
-    >
+    > -->
   </button>
   <mat-spinner color="accent" *ngIf="loading" diameter="24"></mat-spinner>
   <div *ngIf="!loading">

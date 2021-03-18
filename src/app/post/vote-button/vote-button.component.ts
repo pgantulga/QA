@@ -1,8 +1,11 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import {Component, Input, OnDestroy, OnInit,} from '@angular/core';
 import {VoteService} from '../../services/vote.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
 import {AuthService} from "../../services/auth.service";
+import { MatIconRegistry} from "@angular/material/icon";
+
 import {Observable} from "rxjs";
 
 @Component({
@@ -20,7 +23,13 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     constructor(public voteService: VoteService,
                 public snackBar: MatSnackBar,
                 public authService: AuthService,
+                private matIconRegistry: MatIconRegistry,
+                private domSanitizer: DomSanitizer
     ) {
+        this.matIconRegistry.addSvgIcon(
+            "empty",
+            this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/empty.svg")
+        )
     }
 
     ngOnInit(): void {

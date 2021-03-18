@@ -1,3 +1,4 @@
+import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
 import { AppComponent } from './app.component';
@@ -20,7 +21,9 @@ import {PostGuardService} from './post/post-guard.service';
 import {ModeratorGuard} from './moderator/moderator-guard.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AppErrorHandler} from './shared/app-error-handler';
+
 import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -40,9 +43,11 @@ import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet
         MatSidenavModule,
         MdModule,
         FlexLayoutModule,
-        AngularFireMessagingModule
+        AngularFireMessagingModule,
+        HttpClientModule
     ],
     providers: [
+        MatIconRegistry,
         AdminGuard,
         AuthGuard,
         ModeratorGuard,
