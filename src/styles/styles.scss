@@ -4,7 +4,6 @@
 @import "../../node_modules/quill/dist/quill.bubble.css";
 @import "../../node_modules/quill/dist/quill.core.css";
 @import "../../node_modules/quill/dist/quill.snow.css";
-$dark-foreground: map-get($dark-theme, foreground);
 
 //@import "font-awesome-4.7.0/css/font-awesome.css";
 html {
@@ -192,13 +191,13 @@ quill-editor.answer .ql-editor {
 
 .background-card {
   margin: 8px 0;
-  background-color: mat-color($my-grey, 800);
-  border-radius: 8px;
+  background-color: mat-color($my-grey, 50);
+  border-radius: 16px;
   padding: 20px 20px 20px 20px;
 }
 .background-card-small {
-  background-color: mat-color($my-grey, 800);
-  border-radius: 8px;
+  background-color: mat-color($my-grey, 50);
+  border-radius: 12px;
   padding: 12px;
 }
 

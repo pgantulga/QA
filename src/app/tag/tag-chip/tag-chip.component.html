@@ -1,4 +1,4 @@
 <mat-chip  [routerLink]="['/tags/tagDetail', item.id]">
-    <mat-icon [class.user-tag]="type === 'user'" *ngIf="type">fiber_manual_record</mat-icon>
+    <mat-icon [class.user-tag]="type === 'user'">fiber_manual_record</mat-icon>
     {{item?.name}}
 </mat-chip>

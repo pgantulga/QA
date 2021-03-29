@@ -2,6 +2,7 @@
 mat-chip {
     @include chip-tag();
     .user-tag {
-        color: mat-color($primary);
+        color: mat-color($accent);
       }
+
 }

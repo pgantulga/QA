@@ -2,12 +2,14 @@
   <div fxLayout="column" fxLayout.gt-xs="row">
     <div fxLayout="row" fxFlex.gt-xs>
       <div fxLayout="column" >
-        <h4 (click)="gotoPost(post)">
-          {{ post.title }}
-        </h4>
-        <div fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="start center">
           <mat-icon *ngIf="post.isSecret" class="meta-icon">lock</mat-icon>
           <mat-icon *ngIf="post.pinned" class="meta-icon">push_pin</mat-icon>
+          <h4 (click)="gotoPost(post)">
+            {{ post.title }}
+          </h4>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
           <mat-chip-list>
             <tag-chip *ngFor="let item of post.tags" [item]="item"></tag-chip>
           </mat-chip-list>
@@ -48,5 +50,4 @@
         *ngIf="post?.pinned || isUserPost"
       >
   </div>
-  
 </div>
