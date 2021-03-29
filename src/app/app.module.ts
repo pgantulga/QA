@@ -14,15 +14,11 @@ import { MdModule} from './shared/md.module';
 import { ShellComponent } from './shell/shell.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LayoutModule} from './layout/layout.module';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import {AdminGuard} from './admin/admin-guard.service';
 import {PostGuardService} from './post/post-guard.service';
 import {ModeratorGuard} from './moderator/moderator-guard.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AppErrorHandler} from './shared/app-error-handler';
-
-import { MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -39,8 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
         AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule,
         LayoutModule,
-        MatSnackBarModule,
-        MatSidenavModule,
         MdModule,
         FlexLayoutModule,
         AngularFireMessagingModule,
