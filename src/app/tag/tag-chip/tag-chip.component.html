@@ -1,4 +1,7 @@
-<mat-chip  [routerLink]="['/tags/tagDetail', item.id]">
-    <mat-icon [class.user-tag]="type === 'user'">fiber_manual_record</mat-icon>
-    {{item?.name}}
-</mat-chip>
+<div fxLayout="row" fxLayoutAlign="center center">
+    <mat-chip  [routerLink]="['/tags/tagDetail', item.id]">
+        <mat-icon [class.user-tag]="type === 'user'" *ngIf="type === 'user'">fiber_manual_record</mat-icon>
+        {{item?.name}}
+    </mat-chip>
+    <ng-content></ng-content> 
+</div>

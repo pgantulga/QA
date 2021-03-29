@@ -7,7 +7,7 @@
                     <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
                 </button>
                 <button mat-icon-button class="homeButton" [routerLink]="['/home']">
-                    <img src="../../../assets/logo_full.png" alt="Logo" class="toolbarLogo">
+                    <img src="../../../assets/logo_full_black.png" alt="Logo" class="toolbarLogo">
                 </button>
             </div>
             <div class="example-spacer"></div>
@@ -39,7 +39,7 @@
                 </mat-menu>
             </div>
             <ng-template #login>
-                <button mat-button color="primary" (click)=goToLogin() class="login">Нэвтрэх</button>
+                <button mat-flat-button color="accent" (click)=goToLogin() class="login">Нэвтрэх</button>
             </ng-template>
         </div>
         <div fxFlex></div>

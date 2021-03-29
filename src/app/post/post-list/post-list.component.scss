@@ -1,4 +1,4 @@
-@import "../../../styles/custom-theme.scss";
+@import "custom-theme";
 .post-list {
   @include standart-list();
   h4 {
@@ -43,7 +43,7 @@
   background-color: mat-color($warn) !important;
 }
 .type-indicator.user {
-  background-color: mat-color($primary);
+  background-color: mat-color($accent);
 }
 
 @media only screen and (max-width: 960px) {

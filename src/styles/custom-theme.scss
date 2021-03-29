@@ -5,10 +5,10 @@ $my-grey: (
   50: #fafafa,
   100: #f5f5f5,
   200: #eeeeee,
-  300: #e0e0e0,
+  300: #cccccc,
   400: #bdbdbd,
   500: #F2EFE4, //#F2EFEB
-  600: #757575,
+  600: #dad7cd,
   700: #1e1e1e,
   800: #424761,
   900: #000000,
@@ -78,7 +78,7 @@ $my-theme-background: (
   disabled-button: rgba(white, 0.12),
   raised-button: map-get($my-grey, 800),
   focused-button: $light-focused,
-  selected-button: map_get($my-grey, 900),
+  selected-button: rgba(white, 0.04),
   selected-disabled-button: map_get($my-grey, 800),
   disabled-button-toggle: black,
   unselected-chip: map_get($my-grey, 700),
@@ -86,28 +86,27 @@ $my-theme-background: (
   tooltip: map_get($my-grey, 50),
 );
 $my-theme-foreground: (
-  base: white,
-  divider: $light-dividers,
-  dividers: $light-dividers,
-  disabled: $light-disabled-text,
-  disabled-button: rgba(white, 0.3),
-  disabled-text: $light-disabled-text,
-  elevation: black,
-  hint-text: $light-disabled-text,
-  secondary-text: $light-secondary-text,
-  icon: white,
-  icons: white,
+  base: #424761,
+  // divider: $dark-divder,
+  // dividers: $light-dividers,
+  // disabled: $light-disabled-text,
+  disabled-button: rgba(#424761, 0.3),
+  // disabled-text: $light-disabled-text,
+  elevation: #424761,
+  // hint-text: $light-disabled-text,
+  // secondary-text: $light-secondary-text,
+  icon: #424761,
+  icons: #424761,
   text: map_get($my-grey, 800),
-  slider-min: white,
-  slider-off: rgba(white, 0.3),
-  slider-off-active: rgba(white, 0.3),
+  slider-min: #424761,
+  slider-off: rgba(#424761, 0.3),
+  slider-off-active: rgba(#424761, 0.3),
 );
 @function create-theme($primary, $accent, $warn: mat-palette($mat-red)) {
   @return (
     primary: $primary,
     accent: $accent,
     warn: $warn,
-    is-dark: false,
     background: $my-theme-background,
     foreground: $my-theme-foreground
   );
@@ -140,7 +139,7 @@ mat-toolbar h1 {
 .mat-h2, .mat-title, h2 {
   margin: 0 !important;
   position: relative;
-  padding-left: .75rem;
+  // padding-left: .75rem;
 }
 .mat-h3, .mat-subheading-2, h3 {
   margin: 0 0 8px 0 !important;
@@ -194,6 +193,17 @@ h2 ::before {
   margin: 0 !important;
 }
 
+:host-context(.nav-chip) mat-chip{
+  border: none;
+}
+// :host-context(.nav-chip) mat-chip ::after{
+//   position: absolute;
+//   margin-left: 4px;
+//   height: 100%;
+//   width: 1px;
+//   background: mat-color($my-grey, 800);
+// }
+
 @mixin md-icon-size($size: 24px) {
   font-size: $size;
   height: $size;
@@ -216,7 +226,6 @@ h2 ::before {
   }
   h4:hover {
     opacity: 0.8;
-    // color: mat-color($primary);
   }
 
   .mat-caption {
@@ -236,12 +245,12 @@ h2 ::before {
     position: absolute;
     width: 6px !important;
     height: calc(100% - 24px);
-    margin: 0 6px 0 0;
+    margin: 0 8px 0 0;
     border-radius: 4px;
     display: block;
     left: 12px;
     top: 12px;
     bottom: 12px;
-    background-color: transparent;
+    // background-color: transparent;
   }
 }
