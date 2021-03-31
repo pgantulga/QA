@@ -1,3 +1,4 @@
+import { ShellComponent } from './shell/shell.component';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import {ErrorHandler, NgModule} from '@angular/core';
@@ -11,7 +12,6 @@ import { AuthGuard} from './services/auth-guard.service';
 import { SnackComponent } from './shared/components/snack/snack.component';
 import { BottomSheetComponent } from './shared/bottom-sheet/bottom-sheet.component';
 import { MdModule} from './shared/md.module';
-import { ShellComponent } from './shell/shell.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LayoutModule} from './layout/layout.module';
 import {AdminGuard} from './admin/admin-guard.service';

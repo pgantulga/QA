@@ -3,23 +3,24 @@
 .footer-container {
   margin-top: 16px;
   position: relative;
-  background-color: mat-color($my-grey, 800);
+  background-color: #35373F;
   padding: 16px;
   .demo-mode {
     padding: 16px 0;
     button {
       margin: 8px 0 00;
-      background-color: mat-color($warn);
+      background-color: mat-color($accent);
     }
     .text {
       position: relative;
 
     }
     .text p {
+      color: white;
       margin: 0 8px 0 0;
     }
     .text p:before {
-      background: mat-color($warn);
+      background: mat-color($accent);
       border-radius: 16px;
       content: "";
       margin-left: -0.75rem;

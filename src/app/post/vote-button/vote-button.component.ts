@@ -27,8 +27,8 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
                 private domSanitizer: DomSanitizer
     ) {
         this.matIconRegistry.addSvgIcon(
-            "empty",
-            this.domSanitizer.bypassSecurityTrustResourceUrl("../../../assets/empty.svg")
+            'empty',
+            this.domSanitizer.bypassSecurityTrustResourceUrl('../../../assets/beer_icon/beer_5.svg')
         )
     }
 
