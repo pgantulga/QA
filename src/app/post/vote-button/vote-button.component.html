@@ -22,7 +22,8 @@
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
   <mat-spinner color="accent" *ngIf="loading" diameter="24"></mat-spinner>
-  <div *ngIf="!loading">
+  <p>{{voteCount}}</p>
+  <!-- <div *ngIf="!loading">
     <p class="mat-caption" *ngIf="obj.votesNumber > 0">{{ obj.votesNumber }}</p>
-  </div>
+  </div> -->
 </div>

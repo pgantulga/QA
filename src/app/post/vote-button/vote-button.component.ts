@@ -44,6 +44,8 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
         if (this.user) {
           this.userVote = (upvotes) ? upvotes[this.user.uid] : 0;
         }
+        this.voteCount = (upvotes) ? Object.values(upvotes).reduce((a: number, b: number) => a + b, 0) : 0;
+
         // this.voteCount = Object.sum(values(upvotes));
       });
     });

@@ -75,7 +75,7 @@ export class VoteService {
   updateVote(itemId, userId, value) {
       const data = {};
       data[userId] = value;
-      this.upVotesCollection.doc(itemId).set(data)
+      this.upVotesCollection.doc(itemId).set(data, {merge: true})
         .then(res => {
             console.log(res);
         })
