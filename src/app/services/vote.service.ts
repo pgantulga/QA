@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
+import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {AuthService} from './auth.service';
 import * as firebase from 'firebase';
 import {first, map, switchMap, take} from 'rxjs/operators';
 import {PostService} from './post.service';
+import { Observable } from 'rxjs/internal/Observable';
 // import increment = firebase.database.ServerValue.increment;
 
 @Injectable({
@@ -11,6 +12,7 @@ import {PostService} from './post.service';
 })
 export class VoteService {
   votesCollection = this.db.collection<any>('votes');
+  upVotesCollection = this.db.collection<any>('upVotes');
   constructor(private db: AngularFirestore, private authService: AuthService, private postService: PostService) { }
   async addVote(obj, type) {
       const user = await this.authService.getUser();
@@ -65,4 +67,19 @@ export class VoteService {
               ref => ref.where('voteId', '==', obj.id + '_' + user.uid));
       return voteRef.get().toPromise();
   }
+
+  getItemVotes(itemId: string): Observable<any> {
+    return this.upVotesCollection.doc(itemId).valueChanges();
+  }
+
+  updateVote(itemId, userId, value) {
+      const data = {};
+      data[userId] = value;
+      this.upVotesCollection.doc(itemId).set(data)
+        .then(res => {
+            console.log(res);
+        })
+  }
+
+
 }
