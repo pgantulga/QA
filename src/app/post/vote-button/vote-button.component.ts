@@ -6,8 +6,6 @@ import { SnackComponent } from "../../shared/components/snack/snack.component";
 import { AuthService } from "../../services/auth.service";
 import { MatIconRegistry } from "@angular/material/icon";
 
-import { Observable } from "rxjs";
-
 @Component({
   selector: "vote-button",
   templateUrl: "./vote-button.component.html",
@@ -30,9 +28,9 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     private domSanitizer: DomSanitizer
   ) {
     this.matIconRegistry.addSvgIcon(
-      "empty",
+      'empty',
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        "../../../assets/beer_icon/beer_5.svg"
+        '../../../assets/beer_icon/beer_5.svg'
       )
     );
   }
@@ -40,7 +38,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      this.voteService.getItemVotes(this.obj.id).subscribe((upvotes: any) => {
+      this.voteService.getItemVotes(this.obj, this.type).subscribe((upvotes: any) => {
         if (this.user) {
           this.userVote = (upvotes) ? upvotes[this.user.uid] : 0;
         }
@@ -113,10 +111,10 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
 
   upVote() {
       const vote = (this.userVote === 1) ? 0 : 1;
-      this.voteService.updateVote(this.obj.id, this.user.uid, vote);
+      this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   downVote() {
       const vote = (this.userVote === -1 ) ? 0 : -1;
-      this.voteService.updateVote(this.obj.id, this.user.uid, vote);
+      this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
 }

@@ -15,8 +15,9 @@ exports.aggregateComments = commentFunctions.aggregateComments;
 exports.repliesUpdate = commentFunctions.repliesUpdate;
 
 const votesFunctions = require('./votes-functions');
-exports.voteAdded = votesFunctions.voteAdded;
-exports.voteDeleted = votesFunctions.voteDeleted;
+// exports.voteAdded = votesFunctions.voteAdded;
+// exports.voteDeleted = votesFunctions.voteDeleted;
+exports.voteChanged = votesFunctions.voteChanged;
 
 const tagFunctions = require('./tags-functions');
 exports.tagChanged = tagFunctions.tagChanged;

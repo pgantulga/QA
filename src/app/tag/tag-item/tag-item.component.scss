@@ -1,4 +1,4 @@
-@import "../../../styles/custom-theme.scss";
+@import "custom-theme";
 @import "src/app/post/post-list/post-list.component";
 .tag-item {
   @include standart-list();
