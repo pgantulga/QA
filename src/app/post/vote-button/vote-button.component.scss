@@ -2,34 +2,41 @@
 .vote {
     width: 48px;
     margin: 0 24px 0 0;
-}
-.vote p{
-    margin: 0;
-}
+    .mat-icon-button {
+        width: 40px;
+        height: 40px;
+    }
+    .mat-icon-button:hover {
+        background-color: mat-color($my-grey, 800, 0.04);
 
-.active-button {
-    background-color: mat-color($accent, A200 ,0.2);
-}
-.vote .mat-icon-button {
-    width: 60px;
-    height: 60px;
+    }
+    .button--active {
+        background-color: mat-color($accent, A200 ,0.2);
+    }
+    p {
+        margin: 0;
 
+    }
+    .vote__beer-container {
+        position: relative;
+        height: 40px;
+        width: 40px;
+        .vote__beer {
+            position: absolute;
+            fill: mat-color($my-grey, 800);
+            width: 40px;
+            height: 40px;
+            left: 5px;
+        }
+    }
+    
 }
-.vote .mat-icon-button:hover {
-    background-color: mat-color($my-grey, 800, 0.04);
-}
-.vote mat-icon {
-    transform: scale(1.5);
-    fill: mat-color($my-grey, 800);
-}
-
 .vote-icon-dark {
     opacity: 0.7;
     //color: rgba(0,0,0,0.56);
 }
 .vote-icon-color {
     color: mat-color($primary);
-
 }
 
 .vote-content {

@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
-} from "@angular/fire/firestore";
-import { AuthService } from "./auth.service";
-import * as firebase from "firebase";
-import { first, map, switchMap, take } from "rxjs/operators";
-import { PostService } from "./post.service";
-import { Observable } from "rxjs/internal/Observable";
+} from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
+import * as firebase from 'firebase';
+import { first, map, switchMap, take } from 'rxjs/operators';
+import { PostService } from './post.service';
+import { Observable } from 'rxjs/internal/Observable';
 // import increment = firebase.database.ServerValue.increment;
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class VoteService {
-  votesCollection = this.db.collection<any>("votes");
-  upVotesCollection = this.db.collection<any>("upVotes");
+  votesCollection = this.db.collection<any>('votes');
+  upVotesCollection = this.db.collection<any>('upVotes');
   constructor(
     private db: AngularFirestore,
     private authService: AuthService,
@@ -31,19 +31,19 @@ export class VoteService {
       voteReceiver: obj.author.uid,
       createdAt: new Date(),
       type,
-      answerId: type === "answer" ? obj.id : null,
-      answerContent: type === "answer" ? obj.content : null,
-      postTitle: type === "answer" ? obj.parent.title : obj.title,
-      postId: type === "answer" ? obj.parent.id : obj.id,
+      answerId: type === 'answer' ? obj.id : null,
+      answerContent: type === 'answer' ? obj.content : null,
+      postTitle: type === 'answer' ? obj.parent.title : obj.title,
+      postId: type === 'answer' ? obj.parent.id : obj.id,
       voteId:
-        type === "answer"
-          ? obj.parent.id + "_" + obj.id + "_" + user.uid
-          : obj.id + "_" + user.uid,
+        type === 'answer'
+          ? obj.parent.id + '_' + obj.id + '_' + user.uid
+          : obj.id + '_' + user.uid,
     };
     return this.votesCollection
       .add(data)
       .then((res) => {
-        this.postService.addLog(user, "voted", data.postId);
+        this.postService.addLog(user, 'voted', data.postId);
         this.postService.followPost({ id: data.postId }, user);
         res.update({
           id: res.id,
@@ -60,9 +60,9 @@ export class VoteService {
     const vote = await this.findVote(obj, type);
     vote.forEach((doc) => {
       doc.ref.delete().then(() => {
-        type === "answer"
-          ? this.postService.addLog(user, "devoted", obj.parent.id)
-          : this.postService.addLog(user, "devoted", obj.id);
+        type === 'answer'
+          ? this.postService.addLog(user, 'devoted', obj.parent.id)
+          : this.postService.addLog(user, 'devoted', obj.id);
       });
     });
   }
@@ -72,22 +72,21 @@ export class VoteService {
       return null;
     }
     const voteRef =
-      type === "answer"
-        ? this.db.collection("votes", (ref) =>
+      type === 'answer'
+        ? this.db.collection('votes', (ref) =>
             ref.where(
-              "voteId",
-              "==",
-              obj.parent.id + "_" + obj.id + "_" + user.uid
+              'voteId',
+              '==',
+              obj.parent.id + '_' + obj.id + '_' + user.uid
             )
           )
-        : this.db.collection("votes", (ref) =>
-            ref.where("voteId", "==", obj.id + "_" + user.uid)
+        : this.db.collection('votes', (ref) =>
+            ref.where('voteId', '==', obj.id + '_' + user.uid)
           );
     return voteRef.get().toPromise();
   }
 
   getItemVotes(item: any, type?: string): Observable<any> {
-      console.log(item)
     return type === 'answer'
       ? this.upVotesCollection
           .doc(item.parent.id + '_' + item.id)

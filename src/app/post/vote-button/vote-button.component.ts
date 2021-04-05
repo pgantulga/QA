@@ -1,15 +1,42 @@
-import { DomSanitizer } from "@angular/platform-browser";
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
-import { VoteService } from "../../services/vote.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { SnackComponent } from "../../shared/components/snack/snack.component";
-import { AuthService } from "../../services/auth.service";
-import { MatIconRegistry } from "@angular/material/icon";
+import { DomSanitizer } from '@angular/platform-browser';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { VoteService } from '../../services/vote.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { AuthService } from '../../services/auth.service';
+import { MatIconRegistry } from '@angular/material/icon';
+
+const BeerIcons = [
+  {
+    name: 'beer_0',
+    url: '../../../assets/beer_icon/beer_0.svg',
+  },
+  {
+    name: 'beer_1',
+    url: '../../../assets/beer_icon/beer_1.svg',
+  },
+  {
+    name: 'beer_2',
+    url: '../../../assets/beer_icon/beer_2.svg',
+  },
+  {
+    name: 'beer_3',
+    url: '../../../assets/beer_icon/beer_3.svg',
+  },
+  {
+    name: 'beer_4',
+    url: '../../../assets/beer_icon/beer_4.svg',
+  },
+  {
+    name: 'beer_cheers',
+    url: '../../../assets/beer_icon/beer_cheers.svg',
+  },
+];
 
 @Component({
-  selector: "vote-button",
-  templateUrl: "./vote-button.component.html",
-  styleUrls: ["./vote-button.component.scss"],
+  selector: 'vote-button',
+  templateUrl: './vote-button.component.html',
+  styleUrls: ['./vote-button.component.scss'],
 })
 export class VoteButtonComponent implements OnInit, OnDestroy {
   @Input() obj: any;
@@ -27,94 +54,44 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.matIconRegistry.addSvgIcon(
-      'empty',
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../../../assets/beer_icon/beer_5.svg'
-      )
-    );
+    this.registerIcons(BeerIcons);
   }
 
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      this.voteService.getItemVotes(this.obj, this.type).subscribe((upvotes: any) => {
-        if (this.user) {
-          this.userVote = (upvotes) ? upvotes[this.user.uid] : 0;
-        }
-        this.voteCount = (upvotes) ? Object.values(upvotes).reduce((a: number, b: number) => a + b, 0) : 0;
-
-        // this.voteCount = Object.sum(values(upvotes));
-      });
-    });
-    this.voteService.findVote(this.obj, this.type).then((data) => {
-      if (data) {
-        data.forEach((doc) => {
-          this.isVoted = doc.exists;
+      this.voteService
+        .getItemVotes(this.obj, this.type)
+        .subscribe((upvotes: any) => {
+          if (this.user) {
+            this.userVote = upvotes ? upvotes[this.user.uid] : 0;
+          }
+          this.voteCount = upvotes
+            ? Object.values(upvotes).reduce((a: number, b: number) => a + b, 0)
+            : 0;
+          // this.voteCount = Object.sum(values(upvotes));
         });
-      }
     });
   }
   ngOnDestroy() {
     this.isVoted = false;
   }
-
-  onClick() {
-    if (!this.user) {
-      return this.snackBar.openFromComponent(SnackComponent, {
-        data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.',
-      });
-    }
-    this.loading = true;
-    if (!this.isVoted) {
-      this.addVote().then((res) => {
-        // @ts-ignore
-        if (res) {
-          // until cloud function runs
-          this.obj.votesNumber++;
-          this.isVoted = !this.isVoted;
-          this.loading = false;
-        } else {
-          return null;
-        }
-      });
-    } else {
-      this.removeVote().then(() => {
-        this.isVoted = !this.isVoted;
-        this.obj.votesNumber--;
-        this.loading = false;
-      });
-    }
-  }
-
-  addVote() {
-    return this.voteService
-      .addVote(this.obj, this.type)
-      .then(() => {
-        this.snackBar.openFromComponent(SnackComponent, {
-          data: "Таны үнэлгээ нэмэгдлээ",
-        });
-        return true;
-      })
-      .catch((err) => {
-        return false;
-      });
-  }
-
-  removeVote() {
-    return this.voteService.removeVote(this.obj, this.type).then(() => {
-      this.snackBar.openFromComponent(SnackComponent, {
-        data: "Таны үнэлгээ хасагдлаа",
-      });
-    });
-  }
-
   upVote() {
-      const vote = (this.userVote === 1) ? 0 : 1;
-      this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    const vote = this.userVote === 1 ? 0 : 1;
+    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   downVote() {
-      const vote = (this.userVote === -1 ) ? 0 : -1;
-      this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    const vote = this.userVote === -1 ? 0 : -1;
+    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+  }
+  registerIcons(icons: Array<any>) {
+      icons.forEach(icon => {
+        this.matIconRegistry.addSvgIcon(
+            icon.name,
+            this.domSanitizer.bypassSecurityTrustResourceUrl(
+              icon.url
+            )
+          );
+      });
   }
 }
