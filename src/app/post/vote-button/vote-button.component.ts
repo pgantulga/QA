@@ -5,33 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../../shared/components/snack/snack.component';
 import { AuthService } from '../../services/auth.service';
 import { MatIconRegistry } from '@angular/material/icon';
-
-const BeerIcons = [
-  {
-    name: 'beer_0',
-    url: '../../../assets/beer_icon/beer_0.svg',
-  },
-  {
-    name: 'beer_1',
-    url: '../../../assets/beer_icon/beer_1.svg',
-  },
-  {
-    name: 'beer_2',
-    url: '../../../assets/beer_icon/beer_2.svg',
-  },
-  {
-    name: 'beer_3',
-    url: '../../../assets/beer_icon/beer_3.svg',
-  },
-  {
-    name: 'beer_4',
-    url: '../../../assets/beer_icon/beer_4.svg',
-  },
-  {
-    name: 'beer_cheers',
-    url: '../../../assets/beer_icon/beer_cheers.svg',
-  },
-];
+import { BeerIcons } from "../../services/vote.service";
 
 @Component({
   selector: 'vote-button',
@@ -77,12 +51,16 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.isVoted = false;
   }
   upVote() {
-    const vote = this.userVote === 1 ? 0 : 1;
-    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    this.checkAuth();
+    this.voteCount += 1;
+    // const vote = this.userVote === 1 ? 0 : 1;
+    // this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   downVote() {
-    const vote = this.userVote === -1 ? 0 : -1;
-    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    this.checkAuth();
+    this.voteCount -= 1;
+    // const vote = this.userVote === -1 ? 0 : -1;
+    // this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   registerIcons(icons: Array<any>) {
       icons.forEach(icon => {
@@ -93,5 +71,12 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
             )
           );
       });
+  }
+  checkAuth () {
+    if (!this.user) {
+      return this.snackBar.openFromComponent(SnackComponent, {
+        data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.'
+      })
+    }
   }
 }

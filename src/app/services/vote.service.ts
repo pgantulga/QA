@@ -8,7 +8,37 @@ import * as firebase from 'firebase';
 import { first, map, switchMap, take } from 'rxjs/operators';
 import { PostService } from './post.service';
 import { Observable } from 'rxjs/internal/Observable';
-// import increment = firebase.database.ServerValue.increment;
+
+export const BeerIcons = [
+  {
+    name: 'beer_break',
+    url: '../../../assets/beer_icon/beer_break.svg'
+  },
+  {
+    name: 'beer_0',
+    url: '../../../assets/beer_icon/beer_0.svg',
+  },
+  {
+    name: 'beer_1',
+    url: '../../../assets/beer_icon/beer_1.svg',
+  },
+  {
+    name: 'beer_2',
+    url: '../../../assets/beer_icon/beer_2.svg',
+  },
+  {
+    name: 'beer_3',
+    url: '../../../assets/beer_icon/beer_3.svg',
+  },
+  {
+    name: 'beer_4',
+    url: '../../../assets/beer_icon/beer_4.svg',
+  },
+  {
+    name: 'beer_cheers',
+    url: '../../../assets/beer_icon/beer_cheers.svg',
+  },
+];
 
 @Injectable({
   providedIn: 'root',
@@ -103,6 +133,9 @@ export class VoteService {
         : this.upVotesCollection.doc(item.id);
     ref.set(data, { merge: true }).then((res) => {
       console.log(res);
-    });
+    }, )
+    .catch(err => {
+      console.log(err)
+    })
   }
 }

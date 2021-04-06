@@ -1,17 +1,25 @@
 @import "../../../styles/custom-theme";
 .vote {
     width: 48px;
-    margin: 0 24px 0 0;
+    margin: 0 16px 0 0;
+
     .mat-icon-button {
-        width: 40px;
-        height: 40px;
+        // width: 40px;
+        // height: 40px;
+        mat-icon {
+            @include md-icon-size(36px);
+            margin: 0;
+        }
     }
     .mat-icon-button:hover {
         background-color: mat-color($my-grey, 800, 0.04);
 
     }
     .button--active {
-        background-color: mat-color($accent, A200 ,0.2);
+        background-color: mat-color($accent, A200 ,0.1);
+        mat-icon {
+            color: mat-color($accent);
+        }
     }
     p {
         margin: 0;
@@ -21,13 +29,29 @@
         position: relative;
         height: 40px;
         width: 40px;
+        margin: 8px 0;
         .vote__beer {
+            @include md-icon-size(40px);
             position: absolute;
             fill: mat-color($my-grey, 800);
-            width: 40px;
-            height: 40px;
             left: 5px;
+            bottom: 0;width: 40px;
+            transition: enter 0.5s 0s ease
+
         }
+        .vote__beer.beer--full {
+            bottom: -5px;
+            width: 40px;
+            height: auto;
+        }
+        .vote__beer.beer--cheers {
+            @include md-icon-size(60px);
+            left: -5px;
+            bottom: -10px;
+            background-color: mat-color($accent, 0.1);
+            border-radius: 100%;
+        }
+        
     }
     
 }
@@ -42,16 +66,3 @@
 .vote-content {
     text-align: justify;
 }
-@media only screen and (max-width: 960px) {
-    .vote {
-        width: 48px;
-        margin: 0 12px 0 0;
-    }
-    .vote .mat-icon-button {
-        width: 48px;
-        height: 48px;
-    }
-    .vote mat-icon {
-        transform: scale(2);
-    }
-  }

@@ -2,20 +2,26 @@
   <button mat-icon-button (click)="upVote()" [class.button--active]="userVote > 0">
     <mat-icon>arrow_drop_up</mat-icon>
   </button>
-  <div class="vote__beer-container" *ngIf="voteCount">
-    <mat-icon class="vote__beer" *ngIf="voteCount == 0" svgIcon="beer_cheers"></mat-icon>
+  <div class="vote__beer-container" *ngIf="voteCount else empty">
+    <mat-icon class="vote__beer" *ngIf="voteCount < 0 " svgIcon="beer_break"></mat-icon>
+    <mat-icon class="vote__beer" *ngIf="voteCount == 0 " svgIcon="beer_0"></mat-icon>
     <mat-icon class="vote__beer" *ngIf="voteCount == 1" svgIcon="beer_1"></mat-icon>
     <mat-icon class="vote__beer" *ngIf="voteCount == 2" svgIcon="beer_2"></mat-icon>
     <mat-icon class="vote__beer" *ngIf="voteCount == 3" svgIcon="beer_3"></mat-icon>
-    <mat-icon class="vote__beer" *ngIf="voteCount == 4" svgIcon="beer_4"></mat-icon>
-    <!-- <mat-icon *ngIf="voteCount > 5" svgIcon="beer_cheers"></mat-icon> -->
+    <mat-icon class="vote__beer beer--full" *ngIf="voteCount == 4" svgIcon="beer_4"></mat-icon>
+    <mat-icon class="vote__beer beer--cheers" *ngIf="voteCount >= 5" svgIcon="beer_cheers"></mat-icon>
   </div>
+  <ng-template #empty>
+    <div class="vote__beer-container">
+      <mat-icon class="vote__beer" svgIcon="beer_0"></mat-icon>
+    </div>
+  </ng-template>
   
-  <button mat-icon-button (click)="downVote()" [class.active]="userVote < 0">
+  <button mat-icon-button (click)="downVote()" [class.button--active]="userVote < 0">
     <mat-icon>arrow_drop_down</mat-icon>
   </button>
   <!-- <mat-spinner color="accent" *ngIf="loading" diameter="24"></mat-spinner> -->
-  <p>{{voteCount}}</p>
+  <p class="mat-body-2">{{voteCount}}</p>
   <!-- <div *ngIf="!loading">
     <p class="mat-caption" *ngIf="obj.votesNumber > 0">{{ obj.votesNumber }}</p>
   </div> -->
