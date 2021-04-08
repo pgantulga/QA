@@ -1,1 +1,32 @@
 @import "custom-theme";
+
+mat-chip-list:focus {
+    outline: 0;
+}
+.h-scrolling {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    tag-chip {
+        display: inline-block;
+    }
+}
+.h-scrolling-flex {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    align-items: center;
+    margin-left: 8px;
+
+    tag-chip, button {
+        flex: 0 0 auto;
+    }
+    &::-webkit-scrollbar {
+        display: none;
+      }
+}
+.chip-list-container {
+    margin-right: -8px;
+
+
+}

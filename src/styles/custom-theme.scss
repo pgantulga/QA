@@ -7,7 +7,8 @@ $my-grey: (
   200: #eeeeee,
   300: #cccccc,
   400: #bdbdbd,
-  500: #F2EFE4, //#F2EFEB
+  500: #f2efe4,
+  //#F2EFEB
   600: #dad7cd,
   700: #1e1e1e,
   800: #424761,
@@ -34,36 +35,36 @@ $my-grey: (
   ),
 );
 $mat-amber: (
-        50: #fff8e1,
-        100: #ffecb3,
-        200: #ffe082,
-        300: #ffd54f,
-        400: #ffca28,
-        500: #F6AC07,
-        600: #ffb300,
-        700: #ffa000,
-        800: #ff8f00,
-        900: #ff6f00,
-        A100: #ffe57f,
-        A200: #ffd740,
-        A400: #ffc400,
-        A700: #ffab00,
-        contrast: (
-                50: $dark-primary-text,
-                100: $dark-primary-text,
-                200: $dark-primary-text,
-                300: $dark-primary-text,
-                400: $dark-primary-text,
-                500: $dark-primary-text,
-                600: $dark-primary-text,
-                700: $dark-primary-text,
-                800: $dark-primary-text,
-                900: $dark-primary-text,
-                A100: $dark-primary-text,
-                A200: $dark-primary-text,
-                A400: $dark-primary-text,
-                A700: $dark-primary-text,
-        )
+  50: #fff8e1,
+  100: #ffecb3,
+  200: #ffe082,
+  300: #ffd54f,
+  400: #ffca28,
+  500: #f6ac07,
+  600: #ffb300,
+  700: #ffa000,
+  800: #ff8f00,
+  900: #ff6f00,
+  A100: #ffe57f,
+  A200: #ffd740,
+  A400: #ffc400,
+  A700: #ffab00,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $dark-primary-text,
+    600: $dark-primary-text,
+    700: $dark-primary-text,
+    800: $dark-primary-text,
+    900: $dark-primary-text,
+    A100: $dark-primary-text,
+    A200: $dark-primary-text,
+    A400: $dark-primary-text,
+    A700: $dark-primary-text,
+  ),
 );
 $primary: mat-palette($my-grey, 500);
 $accent: mat-palette($mat-amber, 500);
@@ -71,7 +72,7 @@ $warn: mat-palette($mat-deep-orange, 800);
 $my-theme-background: (
   status-bar: white,
   app-bar: map_get($my-grey, 800),
-  background: map-get($my-grey, 500 ),
+  background: map-get($my-grey, 500),
   hover: rgba(white, 0.04),
   card: map_get($my-grey, 50),
   dialog: map_get($my-grey, 100),
@@ -120,10 +121,10 @@ $QA-typography: mat-typography-config(
   $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
   $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
   $display-1: mat-typography-level(34px, 44px, 400),
-  $headline: mat-typography-level(24px, 32px, 500),
+  /* h1*/ $headline: mat-typography-level(24px, 32px, 500),
   $title: mat-typography-level(20px, 24px, 500),
   $subheading-2: mat-typography-level(16px, 18px, 500),
-  $subheading-1: mat-typography-level(15px, 24px, 500), /* h4*/
+  $subheading-1: mat-typography-level(15px, 24px, 500),
   $body-2: mat-typography-level(14px, 24px, 500),
   $body-1: mat-typography-level(14px, 20px, 400, $letter-spacing: 0.25 px),
   $caption: mat-typography-level(12px, 20px, 400),
@@ -136,12 +137,16 @@ mat-toolbar h1 {
   line-height: 44px !important;
   margin: 0 0 16px 0 !important;
 }
-.mat-h2, .mat-title, h2 {
+.mat-h2,
+.mat-title,
+h2 {
   margin: 0 !important;
   position: relative;
   // padding-left: .75rem;
 }
-.mat-h3, .mat-subheading-2, h3 {
+.mat-h3,
+.mat-subheading-2,
+h3 {
   margin: 0 0 8px 0 !important;
 }
 h2:before {
@@ -157,20 +162,34 @@ h2:before {
 h2 ::before {
   box-sizing: border-box;
 }
-.mat-h4, .mat-subheading-1, h4:focus {
+.mat-h4,
+.mat-subheading-1,
+h4:focus {
   outline: 0;
 }
-.mat-display-2, .mat-display-2 {
+.mat-display-2,
+.mat-display-2 {
   margin: 0;
 }
 
-.mat-display-1, .mat-display-1 {
+.mat-display-1,
+.mat-display-1 {
   margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 500px) {
+  .mat-h2,
+  .mat-title,
+  h2 {
+    margin: 0 !important;
+    position: relative;
+    font-size: 16px !important;
+    // padding-left: .75rem;
+  }
 }
 
 @include mat-base-typography($QA-typography);
 @include angular-material-typography($QA-typography);
-
 
 /********************************Mixins******************************/
 
@@ -179,8 +198,8 @@ h2 ::before {
   margin-bottom: 16px;
   cursor: pointer;
   font-size: mat-font-size($QA-typography, body-1) !important;
-  background-color: transparent !important;
-  border: 1px solid mat-color($my-grey, 800, 0.1);
+  background-color: mat-color($my-grey, 800, 0.1) !important;
+  // border: 1px solid mat-color($my-grey, 800, 0.1) !important;
   .nav-chip {
     cursor: pointer;
   }
@@ -193,7 +212,7 @@ h2 ::before {
   margin: 0 !important;
 }
 
-:host-context(.nav-chip) mat-chip{
+:host-context(.nav-chip) mat-chip {
   border: none;
 }
 // :host-context(.nav-chip) mat-chip ::after{
@@ -211,7 +230,6 @@ h2 ::before {
   line-height: $size;
   margin: 0 8px 0 0;
 }
-
 
 @mixin standart-list {
   padding: 12px 12px 12px 26px;
@@ -239,7 +257,6 @@ h2 ::before {
   }
   mat-icon.meta-icon {
     @include md-icon-size(15px);
-
   }
   .type-indicator {
     position: absolute;
