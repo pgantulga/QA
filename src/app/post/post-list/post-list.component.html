@@ -3,8 +3,6 @@
     <div fxLayout="row" fxFlex.gt-xs>
       <div fxLayout="column" >
         <div fxLayout="row" fxLayoutAlign="start center">
-          <mat-icon *ngIf="post.isSecret" class="meta-icon">lock</mat-icon>
-          <mat-icon *ngIf="post.pinned" class="meta-icon">push_pin</mat-icon>
           <h4 (click)="gotoPost(post)">
             {{ post.title }}
           </h4>
@@ -31,6 +29,8 @@
       </div>
     </div>
     <div fxLayout="row"  fxLayoutAlign="start start" fxLayoutAlign.xs="end end">
+      <!-- <mat-icon *ngIf="post.isSecret" class="meta-icon">lock</mat-icon>
+          <mat-icon *ngIf="post.pinned" class="meta-icon">push_pin</mat-icon> -->
       <div class="score" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
         <p class="mat-body-2">{{ post.answersCount }}</p>
         <p class="mat-caption">Хариулт</p>

@@ -5,23 +5,18 @@
 @import "../../node_modules/quill/dist/quill.core.css";
 @import "../../node_modules/quill/dist/quill.snow.css";
 
-//@import "font-awesome-4.7.0/css/font-awesome.css";
 html {
   height: 100%;
-  // overflow: hidden;
   background-color: mat-color($my-grey, 500) ;
   font-size: 14px;
 }
 body {
   height: 100%;
-  background-color: mat-color($my-grey, 500) ;
-  //position: relative;
-}
-body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: mat-color($my-grey, 500) ;
 }
 
+/************************ global typography *****************************/
 blockquote {
   font-style: italic;
   border-left: 4px solid mat-color($primary, 300);
@@ -38,10 +33,20 @@ a {
 .tooltip {
   font-size: 12px !important;
 }
-.mat-toolbar-row {
-  white-space: normal !important;
+.line-clamp-5 {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/************************ Icons *****************************/
 
 .fa-google {
   background: conic-gradient(
@@ -58,10 +63,6 @@ a {
   -webkit-text-fill-color: transparent;
 }
 
-.icon-small {
-  transform: scale(0.7);
-  //font-size: 16px;
-}
 .avatar {
   width: 36px;
   height: 36px;
@@ -88,22 +89,12 @@ a {
   margin: 2px;
 }
 
-/***************************************typography**************************************************/
-
-
 /****************************************Buttons****************************************************/
-.top-fab-button {
-  position: absolute;
-  right: 0;
-  top: -28px;
-}
 button.mat-button {
   border-radius: 300px;
 }
 button.mat-button.border-white {
   border: 2px solid white;
-  //border-radius: 30px;
-  //margin-left: 16px;
 }
 button.mat-raised-button {
   border-radius: 300px;
@@ -112,30 +103,21 @@ button.mat-raised-button {
 button.mat-flat-button {
   border-radius: 300px;
 }
-button.mat-raised-button.mat-accent {
-  text-transform: uppercase;
-}
-.mat-button-toggle-standalone.mat-button-toggle-appearance-standard,
-.mat-button-toggle-group-appearance-standard {
-  border: solid 1px mat-color($my-grey, 800, 0.1) !important;
-}
-.mat-button-toggle-group-appearance-standard
-  .mat-button-toggle
-  + .mat-button-toggle {
-  border-left: solid 1px mat-color($my-grey, 800, 0.1) !important;
+mat-button-toggle-group {
+  box-shadow: none !important;
+  background-color:white;
+  border-radius: 16px !important;
 }
 
 .mat-button.google-login {
-  //border: 1px solid mat-color($QA-primary, 500);
   border-radius: 300px;
   width: 100%;
   background-color: white !important;
   color: #1e2029 !important;
 }
 
-//*****************************Global styles*************************************
+//*****************************Layout styles*************************************
 
-//Container
 @media only screen and (min-width: 1920px) {
   .container {
     width: 1110px;
@@ -161,35 +143,17 @@ button.mat-raised-button.mat-accent {
     box-sizing: border-box;
     padding-left: 8px !important;
     padding-right: 8px !important;
-    //margin: 0 32px;
   }
-}
-.layout-center {
-  height: 100%;
-}
-.detail-page-container {
-  padding: 80px 0 0 0;
-}
-.mat-toolbar-row {
-  padding: 0 !important;
-}
-
-.container_content .list {
-  padding: 0 22px;
 }
 
 .editor {
   height: 300px !important;
 }
 .section-header {
-  margin: 16px 0;
+  margin: 8px 0;
   .mat-subheading-2 {
     margin: 0;
   }
-}
-
-quill-editor.answer .ql-editor {
-  height: 150px;
 }
 
 .background-card {
@@ -205,16 +169,11 @@ quill-editor.answer .ql-editor {
   padding: 12px;
 }
 
-.custom-bottom-sheet {
-  background-color: mat-color($primary);
-}
-
 mat-divider.mat-divider-vertical {
   height: 12px;
   opacity: 0.3;
 }
 
-//******************************************form-field***************************************************
 mat-form-field .mat-form-field-wrapper {
   margin: 0;
   padding-bottom: 0;
@@ -228,31 +187,14 @@ mat-form-field .mat-form-field-wrapper {
   }
 }
 
-
 .default-snack {
   background-color: mat-color($primary);
 }
 .warn-snack {
   background-color: mat-color($warn);
 }
-//*******************************************divider*******************************************************
 .answer-divider.mat-divider.mat-divider-inset {
   margin-left: 102px;
-}
-
-//******************************************line clamps*****************************************************
-
-.line-clamp-5 {
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .color-grid {
@@ -261,6 +203,8 @@ mat-form-field .mat-form-field-wrapper {
   display: block;
   margin: 0 4px 0 0;
 }
+
+/*********************************ql-editor styles********************************/
 .ql-toolbar .ql-stroke {
   fill: none !important;
   stroke: #fff !important;
@@ -284,5 +228,9 @@ mat-form-field .mat-form-field-wrapper {
   margin-bottom: 5px;
   margin-top: 5px;
   padding-left: 16px;
+}
+
+quill-editor.answer .ql-editor {
+  height: 150px;
 }
 

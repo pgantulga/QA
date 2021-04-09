@@ -88,14 +88,8 @@ $my-theme-background: (
 );
 $my-theme-foreground: (
   base: #424761,
-  // divider: $dark-divder,
-  // dividers: $light-dividers,
-  // disabled: $light-disabled-text,
   disabled-button: rgba(#424761, 0.3),
-  // disabled-text: $light-disabled-text,
   elevation: #424761,
-  // hint-text: $light-disabled-text,
-  // secondary-text: $light-secondary-text,
   icon: #424761,
   icons: #424761,
   text: map_get($my-grey, 800),
@@ -115,6 +109,7 @@ $my-theme-foreground: (
 $my-theme: create-theme($primary, $accent, $warn);
 @include angular-material-theme($my-theme);
 
+/*******************************typography*******************************************/
 $QA-typography: mat-typography-config(
   $font-family: 'Roboto, "Helvetica Neue", sans-serif',
   $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
@@ -137,69 +132,46 @@ mat-toolbar h1 {
   line-height: 44px !important;
   margin: 0 0 16px 0 !important;
 }
-.mat-h2,
-.mat-title,
-h2 {
+.mat-h2, .mat-title, h2 {
   margin: 0 !important;
   position: relative;
-  // padding-left: .75rem;
 }
-.mat-h3,
-.mat-subheading-2,
-h3 {
+.mat-h3, .mat-subheading-2, h3 {
   margin: 0 0 8px 0 !important;
 }
-h2:before {
-  background: mat-color($primary);
-  border-radius: 16px;
-  content: "";
-  margin-left: -0.75rem;
-  align-self: flex-start;
-  position: absolute;
-  height: 100%;
-  width: 4px;
-}
-h2 ::before {
-  box-sizing: border-box;
-}
-.mat-h4,
-.mat-subheading-1,
-h4:focus {
+.mat-h4, .mat-subheading-1, h4:focus {
   outline: 0;
 }
-.mat-display-2,
 .mat-display-2 {
   margin: 0;
 }
-
-.mat-display-1,
 .mat-display-1 {
   margin-bottom: 8px;
 }
 
 @media only screen and (max-width: 500px) {
-  .mat-h2,
-  .mat-title,
-  h2 {
-    margin: 0 !important;
-    position: relative;
+  .mat-h2, .mat-title, h2 {
     font-size: 16px !important;
-    // padding-left: .75rem;
   }
 }
-
 @include mat-base-typography($QA-typography);
 @include angular-material-typography($QA-typography);
 
 /********************************Mixins******************************/
+.mat-chip-list-wrapper {
+  margin: 0 !important;
+}
+
+:host-context(.nav-chip) mat-chip {
+  border: none;
+}
 
 @mixin chip-tag {
   min-height: 24px !important;
   margin-bottom: 16px;
-  cursor: pointer;
   font-size: mat-font-size($QA-typography, body-1) !important;
   background-color: mat-color($my-grey, 800, 0.1) !important;
-  // border: 1px solid mat-color($my-grey, 800, 0.1) !important;
+  cursor: pointer;
   .nav-chip {
     cursor: pointer;
   }
@@ -208,20 +180,6 @@ h4:focus {
     color: mat-color($my-grey, 800);
   }
 }
-.mat-chip-list-wrapper {
-  margin: 0 !important;
-}
-
-:host-context(.nav-chip) mat-chip {
-  border: none;
-}
-// :host-context(.nav-chip) mat-chip ::after{
-//   position: absolute;
-//   margin-left: 4px;
-//   height: 100%;
-//   width: 1px;
-//   background: mat-color($my-grey, 800);
-// }
 
 @mixin md-icon-size($size: 24px) {
   font-size: $size;
@@ -232,14 +190,14 @@ h4:focus {
 }
 
 @mixin standart-list {
-  padding: 12px 12px 12px 26px;
+  padding: 12px 12px 8px 20px;
   margin: 4px 0;
   position: relative;
   mat-caption {
     margin: 0;
   }
   h4 {
-    margin: 0 8px 8px 0;
+    margin: 0 4px 4px 0;
     cursor: pointer;
   }
   h4:hover {
@@ -262,12 +220,10 @@ h4:focus {
     position: absolute;
     width: 6px !important;
     height: calc(100% - 24px);
-    margin: 0 8px 0 0;
     border-radius: 4px;
     display: block;
-    left: 12px;
+    left: 8px;
     top: 12px;
     bottom: 12px;
-    // background-color: transparent;
   }
 }

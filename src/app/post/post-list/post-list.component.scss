@@ -1,9 +1,6 @@
 @import "custom-theme";
 .post-list {
   @include standart-list();
-  h4 {
-    margin: 0 8px 8px 0;
-  }
   mat-icon.meta-icon {
     margin-bottom: 8px;
   }
@@ -47,9 +44,7 @@
 }
 
 @media only screen and (max-width: 960px) {
-  .post-list {
-    padding: 12px 12px 6px 16px;
-  }
+ 
   .score {
     .mat-caption {
       margin-left: 4px;

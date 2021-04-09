@@ -1,7 +1,9 @@
 <div class="chip-list-container" *ngIf="userTags" id="tags">
     <mat-chip-list >
         <div class="h-scrolling-flex">
-            <mat-icon color="accent">trending_up</mat-icon>
+            <ng-container *ngIf="authService.user$ | async as user">
+                <mat-icon color="accent" *ngIf="!user">trending_up</mat-icon>
+            </ng-container>
             <tag-chip *ngFor="let item of userTags; let last = last" [item]="item" class="nav-chip">
                 <mat-divider [vertical]="true" *ngIf="!last"></mat-divider>
             </tag-chip>
@@ -11,23 +13,22 @@
             </button>
         </div>
     </mat-chip-list>    
-    <!-- <div class="chip-list--mask"></div> -->
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
     <h2>Oнцлох</h2>
-    <ng-container *ngIf="authService.user$ | async as user">
+    <!-- <ng-container *ngIf="authService.user$ | async as user">
         <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)" >
             <mat-icon>edit</mat-icon>
             Хэлэлцүүлэг нэмэх
         </button>
-    </ng-container>
+    </ng-container> -->
 </div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
     <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
     <h2>Бүх хэлэлцүүлгүүд</h2>
-    <mat-button-toggle-group name="posts" aria-label="sort">
+    <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
         <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
             <mat-icon>{{item.icon}}</mat-icon>
         </mat-button-toggle>

@@ -4,22 +4,15 @@
     class="container top-wrapper"
     fxLayout="row"
     fxLayoutAlign="start end"
-    style="position: relative; height: 100%"
   >
     <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
       <div fxLayout="column">
-        <p class="mat-body-2">{{ getGreetings() }}</p>
+        <h2>{{ getGreetings() }}</h2>
         <h1 [routerLink]="[content.link]">
           {{ content.title }}
-          <span>
-            <mat-icon>arrow_forward</mat-icon>
-          </span>
         </h1>
       </div>
     </div>
   </div>
   <div fxFlex></div>
-  <!-- <img class="banner" src="./assets/test04.jpg" alt=""> -->
-  <!-- <img src="https://lh3.googleusercontent.com/CT-t4yJarwOnk9PuyVD6rQ5vZha1gtuNMaMM7ULcQ6TcVb6F9ZUHXlvLT44KsKyXKYWZExLWWFBCyV2uHvAdI2eK7f3b_yiymcCvIDe6Yu9G0nFZBJ39MpAGcLIOECzhMjGZcxQY9g=w2400" alt=""> -->
-  <!-- <img [src]="'https://lh3.googleusercontent.com/KGhsd0L6vicWTRRM-yyxyO8egi0VCja-xVxFTTvfJ1-ZlHLYivy99EXPbA5qj8s1Ro8XlyZekl48v9Q6n_9uQSV11tRj2WHyyTSVEN8LPGlhf8J8e9IIBXg9dH5PPvgxy1snmz_xJw=w2400'" alt="Banner Image"> -->
 </div>

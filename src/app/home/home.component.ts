@@ -37,10 +37,9 @@ export class HomeComponent implements OnInit {
         this.postMetas = this.postService.getPostMeta();
         this.getStarted();
         this.getTagsMenu();
-
     }
 
-    getStarted() {
+    private getStarted() {
         this.posts = [];
         this.postService.getFirstItems(10, this.selectedSort.sort).toPromise()
             .then(data => {
@@ -49,18 +48,8 @@ export class HomeComponent implements OnInit {
         this.pinnedPosts$ = this.postService.getPinnedPost();
     }
 
-    getItem(ev) {
-        this.goToTop();
-        this.posts = [];
-        const subscription = ev.pageIndex > ev.previousPageIndex
-            ? this.postService.nextPage(this.lastItem, this.selectedSort.sort)
-            : this.postService.prevPage(this.firstItem, this.selectedSort.sort);
-        subscription.subscribe(data => {
-            this.copyItems(data);
-        });
-        return ev;
-    }
-    copyItems(data) {
+    
+    private copyItems(data) {
         for (const a of data.docs) {
             this.posts.push(a.data());
         }
@@ -68,12 +57,12 @@ export class HomeComponent implements OnInit {
         this.lastItem = data.docs[data.docs.length - 1];
     }
 
-    goToTop() {
+    private goToTop() {
         const element = document.getElementById('tags');
         element.scrollIntoView(true);
     }
 
-    async getTagsMenu() {
+    private async getTagsMenu() {
         const userData = await this.authService.getUser();
         if (userData && userData.tags) {
             const userTagsData = await this.tagService.getUserTags(userData);
@@ -90,6 +79,18 @@ export class HomeComponent implements OnInit {
             });
         }
     }
+    getItem(ev) {
+        this.goToTop();
+        this.posts = [];
+        const subscription = ev.pageIndex > ev.previousPageIndex
+            ? this.postService.nextPage(this.lastItem, this.selectedSort.sort)
+            : this.postService.prevPage(this.firstItem, this.selectedSort.sort);
+        subscription.subscribe(data => {
+            this.copyItems(data);
+        });
+        return ev;
+    }
+
     changeSort(sort) {
         this.selectedSort = sort;
         this.getStarted();
