@@ -29,7 +29,7 @@
   background-color: mat-color($warn);
 }
 .type-indicator.user {
-  background-color: mat-color($primary) !important;
+  background-color: mat-color($accent);
 }
 @media only screen and (max-width: 960px) {
   .score-card {

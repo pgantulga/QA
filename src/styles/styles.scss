@@ -19,7 +19,7 @@ body {
 /************************ global typography *****************************/
 blockquote {
   font-style: italic;
-  border-left: 4px solid mat-color($primary, 300);
+  border-left: 4px solid mat-color($accent);
   padding: 0 0 0 16px;
 }
 strong {
@@ -28,7 +28,7 @@ strong {
   font-weight: 500;
 }
 a {
-  color: mat-color($primary, 300);
+  color: mat-color($accent, 500);
 }
 .tooltip {
   font-size: 12px !important;
@@ -90,6 +90,10 @@ a {
 }
 
 /****************************************Buttons****************************************************/
+button.background-active {
+  background-color: mat-color($primary, 200) !important;
+
+}
 button.mat-button {
   border-radius: 300px;
 }
@@ -103,6 +107,7 @@ button.mat-raised-button {
 button.mat-flat-button {
   border-radius: 300px;
 }
+
 mat-button-toggle-group {
   box-shadow: none !important;
   background-color:white;
@@ -112,8 +117,10 @@ mat-button-toggle-group {
 .mat-button.google-login {
   border-radius: 300px;
   width: 100%;
-  background-color: white !important;
+  background-color: tra !important;
   color: #1e2029 !important;
+  border: 1px solid mat-color($my-grey, 800, 0.2)
+
 }
 
 //*****************************Layout styles*************************************
@@ -146,11 +153,15 @@ mat-button-toggle-group {
   }
 }
 
+.layout-center {
+  height: 100%;
+}
+
 .editor {
   height: 300px !important;
 }
 .section-header {
-  margin: 8px 0;
+  margin: 16px 0;
   .mat-subheading-2 {
     margin: 0;
   }
@@ -188,10 +199,12 @@ mat-form-field .mat-form-field-wrapper {
 }
 
 .default-snack {
-  background-color: mat-color($primary);
+  background-color: mat-color($accent) !important;
+  color: #1e2029 !important;
 }
 .warn-snack {
-  background-color: mat-color($warn);
+  background-color: mat-color($warn) !important;
+  color: #ffffff !important;
 }
 .answer-divider.mat-divider.mat-divider-inset {
   margin-left: 102px;
@@ -206,25 +219,68 @@ mat-form-field .mat-form-field-wrapper {
 
 /*********************************ql-editor styles********************************/
 .ql-toolbar .ql-stroke {
-  fill: none !important;
-  stroke: #fff !important;
+  // fill: none !important;
+  // stroke: #fff !important;
 }
 
 .ql-toolbar .ql-fill {
-  fill: #fff !important;
-  stroke: none !important;
+  // fill: #fff !important;
+  // stroke: none !important;
 }
 
 .ql-toolbar .ql-blockquote {
-  fill: mat-color($primary) !important;
-  stroke: none !important;
+  // fill: mat-color($accent) !important;
+  // stroke: none !important;
 }
 .ql-editor.ql-blank::before {
-  color: rgba(255, 255, 255, 0.6);
+  // color: rgba(255, 255, 255, 0.6);
+}
+
+.selection-tooltip {
+  padding: 0 !important;
+  border-radius: 16px;
+}
+.selection-tooltip:after {
+  background-color: mat-color($my-grey, 800 !important);
+
+}
+.selected-text-tooltip-bar {
+  background-color: mat-color($my-grey, 800);
+  //margin: 0 -5px;
+  .selected-text-tooltip-button {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    font-size: 20px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+}
+
+.ql-container {
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: inherit;
+  height: 100%;
+  margin: 0px;
+}
+.ql-editor {
+  padding: 16px 0 0 0;
+  p {
+    text-align: justify;
+  text-align-last: left;
+  }
+  line-height: inherit;
+  color: inherit;
+}
+
+.ql-snow .ql-editor img {
+  margin: 8px ;
 }
 
 .ql-snow .ql-editor blockquote {
-  border-left: 4px solid mat-color($primary, 300);
+  border-left: 4px solid mat-color($accent);
   margin-bottom: 5px;
   margin-top: 5px;
   padding-left: 16px;
@@ -232,5 +288,8 @@ mat-form-field .mat-form-field-wrapper {
 
 quill-editor.answer .ql-editor {
   height: 150px;
+}
+.ql-video {
+  max-width: 100%;
 }
 

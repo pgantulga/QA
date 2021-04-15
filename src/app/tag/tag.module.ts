@@ -1,9 +1,9 @@
+import { MdModule } from './../shared/md.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TagRoutingModule } from './tag-routing.module';
 import { TagsComponent } from './tags/tags.component';
-import { MdModule } from '../shared/md.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagItemComponent } from './tag-item/tag-item.component';

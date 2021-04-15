@@ -10,14 +10,14 @@
     .content {
         margin: 0 0 0 16px;
     }
-
+    background-color: mat-color($my-grey, 800, 0.1);
 
 }
 .notification-list:hover {
     cursor: pointer;
 }
 .notification-list.active {
-    background-color: mat-color($my-grey, 700);
+    background-color: mat-color($my-grey, 50);
 }
 
 

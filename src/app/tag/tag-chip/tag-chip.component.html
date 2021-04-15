@@ -1,7 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="center center">
     <mat-chip  [routerLink]="['/tags/tagDetail', item.id]">
         <mat-icon [class.user-tag]="type === 'user'" *ngIf="type === 'user'">fiber_manual_record</mat-icon>
-        {{item?.name}}
+        {{item?.name}} 
+        <ng-container *ngIf="item.totalUsed">
+            ({{item?.totalUsed}})
+        </ng-container>
     </mat-chip>
     <ng-content></ng-content> 
 </div>

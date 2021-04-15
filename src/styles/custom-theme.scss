@@ -39,7 +39,7 @@ $mat-amber: (
   100: #ffecb3,
   200: #ffe082,
   300: #ffd54f,
-  400: #ffca28,
+  400: #FFCB2B,
   500: #f6ac07,
   600: #ffb300,
   700: #ffa000,
@@ -77,19 +77,22 @@ $my-theme-background: (
   card: map_get($my-grey, 50),
   dialog: map_get($my-grey, 100),
   disabled-button: rgba(white, 0.12),
-  raised-button: map-get($my-grey, 800),
+  raised-button: map-get($mat-amber, 500),
+  flat-button: transparent,
   focused-button: $light-focused,
   selected-button: rgba(white, 0.04),
   selected-disabled-button: map_get($my-grey, 800),
   disabled-button-toggle: black,
-  unselected-chip: map_get($my-grey, 700),
+  unselected-chip: mat-color($my-grey, 800, 0.1),
   disabled-list-option: black,
-  tooltip: map_get($my-grey, 50),
+  snackbar: map-get($accent, 500 ),
+  tooltip: map_get($accent, 500),
 );
 $my-theme-foreground: (
   base: #424761,
   disabled-button: rgba(#424761, 0.3),
   elevation: #424761,
+  divider: rgba(#424761, 0.2),
   icon: #424761,
   icons: #424761,
   text: map_get($my-grey, 800),
@@ -111,12 +114,12 @@ $my-theme: create-theme($primary, $accent, $warn);
 
 /*******************************typography*******************************************/
 $QA-typography: mat-typography-config(
-  $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+  $font-family: 'Roboto, sans-serif',
   $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
   $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
   $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
   $display-1: mat-typography-level(34px, 44px, 400),
-  /* h1*/ $headline: mat-typography-level(24px, 32px, 500),
+  /* h1*/ $headline: mat-typography-level(28px, 32px, 500),
   $title: mat-typography-level(20px, 24px, 500),
   $subheading-2: mat-typography-level(16px, 18px, 500),
   $subheading-1: mat-typography-level(15px, 24px, 500),
@@ -132,26 +135,39 @@ mat-toolbar h1 {
   line-height: 44px !important;
   margin: 0 0 16px 0 !important;
 }
-.mat-h2, .mat-title, h2 {
-  margin: 0 !important;
-  position: relative;
-}
-.mat-h3, .mat-subheading-2, h3 {
-  margin: 0 0 8px 0 !important;
-}
-.mat-h4, .mat-subheading-1, h4:focus {
-  outline: 0;
-}
 .mat-display-2 {
   margin: 0;
 }
 .mat-display-1 {
   margin-bottom: 8px;
 }
+.mat-h2,
+.mat-title,
+h2 {
+  margin: 0 !important;
+  position: relative;
+}
+.mat-h3,
+.mat-subheading-2,
+h3 {
+  margin: 0 0 8px 0 !important;
+}
+.mat-h4,
+.mat-subheading-1,
+h4:focus {
+  outline: 0;
+}
 
 @media only screen and (max-width: 500px) {
-  .mat-h2, .mat-title, h2 {
+  .mat-h2,
+  .mat-title,
+  h2 {
     font-size: 16px !important;
+  }
+  mat-toolbar h1 {
+    font-size: mat-font-size($QA-typography, headline) !important;
+    line-height: 32px !important;
+    margin: 0 0 16px 0 !important;
   }
 }
 @include mat-base-typography($QA-typography);
@@ -166,6 +182,59 @@ mat-toolbar h1 {
   border: none;
 }
 
+@mixin user-profile {
+  margin: 8px 0;
+  padding: 0 8px;
+  .profile-name {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .profile-name:hover {
+    cursor: pointer;
+    color: mat-color($primary);
+  }
+  p {
+    margin: 0;
+  }
+  mat-icon {
+    transform: scale(2);
+    color: rgba(0, 0, 0, 0.56);
+  }
+  @media only screen and (max-width: 500px) {
+    margin: 8px 0;
+    padding: 0 4px;
+    .profile-email {
+      font-size: 9px !important;
+      line-height: 12px;
+    }
+  }
+}
+
+@mixin top-toolbar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
+  background-color: mat-color($my-grey, 500);
+  @include mat-elevation(2);
+  .mat-toolbar-row {
+    padding: 0;
+  }
+}
+@mixin header-toolbar {
+  padding: 32px 0 8px 0;
+  background-color: transparent;
+  .mat-toolbar-row {
+    white-space: normal !important;
+    height: auto;
+    padding: 0;
+  }
+  .meta {
+    margin: 0 !important;
+    color: mat-color($accent);
+  }
+}
+
 @mixin chip-tag {
   min-height: 24px !important;
   margin-bottom: 16px;
@@ -173,6 +242,7 @@ mat-toolbar h1 {
   background-color: mat-color($my-grey, 800, 0.1) !important;
   cursor: pointer;
   .nav-chip {
+    background-color: mat-color($my-grey, 800) !important;
     cursor: pointer;
   }
   mat-icon {
@@ -190,7 +260,7 @@ mat-toolbar h1 {
 }
 
 @mixin standart-list {
-  padding: 12px 12px 8px 20px;
+  padding: 12px 12px 8px 22px;
   margin: 4px 0;
   position: relative;
   mat-caption {
@@ -202,6 +272,7 @@ mat-toolbar h1 {
   }
   h4:hover {
     opacity: 0.8;
+    color: mat-color($accent);
   }
 
   .mat-caption {

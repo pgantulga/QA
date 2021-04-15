@@ -33,32 +33,5 @@ export class DetailHeaderComponent implements OnInit {
         );
     }
 
-    edit(oldData) {
-        const dialogRef = this.dialog.open(TagUpdateComponent, {
-            width: '500px',
-            data: {
-                name: oldData.name,
-                description: oldData.description
-            }
-        });
-        dialogRef.afterClosed()
-            .subscribe(result => {
-                if (result) {
-                    this.tagService.updateTag(result, oldData)
-                        .then(() => {
-                            console.log('tag Updated');
-                        });
-                }
-            });
-    }
-    toggleFollow(user, tagDetail) {
-        (user.tags[tagDetail.id]) ? this.tagService.unfollowTag(user, tagDetail) : this.tagService.followTag(user, tagDetail);
-        this.authService.updateUserInstant(
-            {
-                tags: {
-                    [tagDetail.id]: !user.tags[tagDetail.id]
-                }
-            }, user.uid
-        );
-    }
+    
 }

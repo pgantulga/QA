@@ -23,19 +23,5 @@ export class TagsHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.metaData$ = this.tagService.getMeta();
   }
-  openDialog(user) {
-    const dialogRef = this.dialog.open(TagAddComponent, {
-      width: '500px',
-      data: {
-        name: this.name,
-        description: this.description
-      }
-    });
-    dialogRef.afterClosed()
-        .subscribe(result => {
-          if (result) {
-            this.tagService.recommendTag(result, user);
-          }
-        });
-  }
+
 }

@@ -7,7 +7,7 @@
   >
     <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
       <div fxLayout="column">
-        <h2>{{ getGreetings() }}</h2>
+        <p class="mat-body-2 greetings">{{ getGreetings() }}</p>
         <h1 [routerLink]="[content.link]">
           {{ content.title }}
         </h1>

@@ -8,6 +8,8 @@ import {MatDialog} from '@angular/material/dialog';
 import {MenuService} from '../../services/menu.service';
 import {PageEvent} from '@angular/material/paginator';
 import { AuthService } from 'src/app/services/auth.service';
+import { TagUpdateComponent } from '../tag-update/tag-update.component';
+import { PermissionService } from 'src/app/services/permission.service';
 
 @Component({
     selector: 'tag-detail',
@@ -31,7 +33,8 @@ export class TagDetailComponent implements OnInit {
                 public postService: PostService,
                 public dialog: MatDialog,
                 public authService: AuthService,
-                private menu: MenuService
+                private menu: MenuService,
+                public permissionService: PermissionService
                 ) {
         this.toggleMenu = this.menu.toggleMenu;
         this.selectedSort = this.toggleMenu[0];
@@ -93,5 +96,33 @@ export class TagDetailComponent implements OnInit {
     goToLogin() {
         const routerStateSnapshot = this.router.routerState.snapshot;
         this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
+    }
+    edit(oldData) {
+        const dialogRef = this.dialog.open(TagUpdateComponent, {
+            width: '500px',
+            data: {
+                name: oldData.name,
+                description: oldData.description
+            }
+        });
+        dialogRef.afterClosed()
+            .subscribe(result => {
+                if (result) {
+                    this.tagService.updateTag(result, oldData)
+                        .then(() => {
+                            console.log('tag Updated');
+                        });
+                }
+            });
+    }
+    toggleFollow(user, tagDetail) {
+        (user.tags[tagDetail.id]) ? this.tagService.unfollowTag(user, tagDetail) : this.tagService.followTag(user, tagDetail);
+        this.authService.updateUserInstant(
+            {
+                tags: {
+                    [tagDetail.id]: !user.tags[tagDetail.id]
+                }
+            }, user.uid
+        );
     }
 }

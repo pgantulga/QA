@@ -1,23 +1,23 @@
 @import "../../../styles/custom-theme";
 .user-profile-container {
-  margin: 8px 0;
-  padding: 0 8px;
-  .profile-name {
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  .profile-name:hover {
-    cursor: pointer;
-    color: mat-color($primary)
-  }
+  @include user-profile;
+  // p {
+  //   margin: 0;
+  // }
+  // mat-icon{
+  //   transform: scale(2);
+  //   color: rgba(0,0,0,0.56);
+  // }
 }
-.user-profile-container p {
-  margin: 0;
-}
-.user-profile-container mat-icon{
-  transform: scale(2);
-  color: rgba(0,0,0,0.56);
-
-}
+// @media only screen and (width: 500px) {
+//   .user-profile-container {
+//     margin: 8px 0;
+//     padding: 0 4px;
+//     .profile-email {
+//       font-size: 9px;
+//       line-height: 12px;
+//     }
+//   }
+// }
 
 

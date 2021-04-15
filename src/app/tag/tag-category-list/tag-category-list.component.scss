@@ -5,29 +5,36 @@
     margin: 8px 8px 0 0;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: mat-color($my-grey, 800);
+    background-color: mat-color($my-grey, 500);
     border-radius: 8px;
     width: 260px;
     height: 200px;
     .content {
         padding: 12px;
-        z-index: 1000
+        z-index: 1000;
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        h2 {
+            color: white;
+        }
     }
     .bottom-action {
         position: absolute;
         bottom: 12px;
         right: 12px;
-        z-index: 1000
+        z-index: 1000;
+        color: white;
     }
     .top-action {
         position: absolute;
         top: 12px;
         right: 12px;
-        z-index: 1000
+        z-index: 1000;
+        color: white;
+
     }
-    .subtitle {
-        color: rgba(255, 255, 255, 0.7);
-    }
+    
     p {
         margin: 0 !important;
         //color: mat-color($my-grey,900) !important;
@@ -41,12 +48,12 @@
 
         width: 100%;
         height: 100%;
-        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(0,0, 0, 0.73));
+        background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0,0, 0, 0.50));
 
     }
     .mask.selected {
         background-image: none;
-        background-color:rgba(0, 0, 0, 0.9);
+        background-color:rgba(0, 0, 0, 0.6);
     }
 
 }
@@ -54,14 +61,14 @@
     cursor: pointer;
     .mask {
         background-image: none;
-        background-color:rgba(0, 0, 0, 0.9);
+        background-color:rgba(0, 0, 0, 0.6);
     }
 }
 
 
 @media only screen and (max-width: 960px) {
     .color-card {
-        width: 340px;
+        width: 300px;
 
     }
 }

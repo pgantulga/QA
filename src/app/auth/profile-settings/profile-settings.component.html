@@ -84,9 +84,9 @@
       <mat-card-actions fxLayout="row" fxLayoutAlign="center center" style="margin: 16px 0 0 0">
         <button
           mat-raised-button
-          color="primary"
+          color="accent"
           type="submit"
-          fxFlex=""
+          fxFlex
           [disabled]="
             !(
               displayName.valid &&
@@ -99,9 +99,10 @@
       </mat-card-actions>
       <div fxLayout="column" fxLayoutAlign="center center" style="margin: 8px 0">
         <button
-          mat-flat-button
+          mat-button
           (click)="changePassword()"
           type="button"
+          fxFlex
           [disabled]="changePasswordButton"
         >
           Нууц үг солих

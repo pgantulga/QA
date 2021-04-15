@@ -4,8 +4,8 @@
             <h4 [routerLink]="['tagDetail', item.id]">{{item.name}}</h4>
             <p class="line-clamp-3 mat-body">{{item.description}}</p>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center">
-            <p class="mat-caption tag-link" [routerLink]="['tagDetail', item.id]">{{item.totalUsed}} хэлэлцүүлэг</p>
+        <div class="tag-info" fxLayout="row" fxLayoutAlign="end center">
+            <p class="mat-caption" [routerLink]="['tagDetail', item.id]">{{item.totalUsed}} хэлэлцүүлэг</p>
         </div>
     </div>
     <div class="type-indicator " [class.user]="isUserTag"></div>

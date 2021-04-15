@@ -3,3 +3,15 @@
 p.mat-body-2{
     margin: 0;
 }
+
+.actions {
+    button.mat-icon-button {
+      margin-left: 8px;
+    }
+  }
+  button.followed {
+    background-color: mat-color($primary, 200 ,0.1);
+    mat-icon {
+      color: mat-color($accent);
+    }
+  }

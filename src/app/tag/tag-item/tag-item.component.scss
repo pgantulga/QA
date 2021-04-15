@@ -3,24 +3,27 @@
 .tag-item {
   @include standart-list();
   width: 269px;
-  height: 170px;
+  height: 140px;
+  .tag-info {
+    width: 100%;
+  }
   p {
     margin: 0 16px 0 0;
   }
 }
 
-@media only screen and (max-width: 1280px ) and ( min-width: 960px) {
+@media only screen and (max-width: 1280px) and (min-width: 960px) {
   .tag-item {
-    width: 305px;
+    width: 300px;
   }
 }
 
-@media only screen and (max-width: 960px) and ( min-width: 660px){
+@media only screen and (max-width: 960px) and (min-width: 660px) {
   .tag-item {
-    width: 305px;
+    width: 320px;
   }
 }
-@media only screen and (max-width: 660px){
+@media only screen and (max-width: 660px) {
   .tag-item {
     width: auto;
   }

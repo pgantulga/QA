@@ -1,63 +1,34 @@
 @import "../../../styles/custom-theme";
-h2 {
-    margin: 16px 0;
-}
-.mat-caption {
-    margin: 0;
-}
+
+
 .post-detail {
-    padding: 12px 30px 12px 22px;
-    .view{
-        text-align: justify;
-        margin: 0 0 0 0;
-        padding: 16px 0 16px 0;
-    }
-    .author-section {
-        margin: 16px 0 0 0;
-    }
-    .voteArea {
-        padding: 16px 0 0 0;
-    }
-    .pinned {
-        color: mat-color($primary);
-    }
-}
-.answers {
-    padding: 12px 30px 12px 22px;
+  padding: 12px 30px 22px 22px;
+  .author-section {
+    margin: 8px 0 0 0;
+  }
+  .voteArea {
+    padding: 16px 0 0 0;
+  }
+  .active {
+    color: mat-color($accent);
+  }
 }
 
-::ng-deep.selection-tooltip{
-    padding: 0 !important;
-    border-radius: 16px !important ;
-}
-.selected-text-tooltip-bar {
-    background-color: mat-color($my-grey, 900);
-    //margin: 0 -5px;
-    .selected-text-tooltip-button {
-        display: inline-block;
-        width: 21px;
-        height: 21px;
-        line-height: 21px;
-        font-size: 20px;
-        margin: 0 5px;
-        cursor: pointer;
-    }
-}
 button.followed {
-    background-color: mat-color($primary, 200 ,0.1);
-    mat-icon {
-        color: mat-color($primary);
-    }
+  background-color: mat-color($accent, 200, 0.1);
+  mat-icon {
+    color: mat-color($accent);
+  }
 }
 @media only screen and (max-width: 960px) {
-    .post-detail {
-        padding: 12px 12px 12px 8px;
-        .view{
-            padding: 16px 0 0 0;
-        }
-    }
-    .answers {
-        margin: 8px 0 8px 0;
-        padding: 12px 12px 12px 8px;
+  .post-detail {
+    padding: 12px 12px 12px 8px;
+    .view {
+      padding: 16px 0 0 0;
     }
   }
+  .answers {
+    margin: 8px 0 8px 0;
+    padding: 12px 12px 12px 8px;
+  }
+}

@@ -1,49 +1,114 @@
-<mat-toolbar class="top-toolbar" [class.dark]="isOnTop" cdkScrollable>
-    <mat-toolbar-row>
-        <div fxFlex></div>
-        <div class="container" fxLayout="row" fxLayoutAlign="center center" style="padding: 0 12px 0 0">
-            <div fxLayout="row" fxLayoutAlign="start center" style="margin-left: -12px;">
-                <button type="button" aria-label="back" mat-icon-button *ngIf="layout.layout2" (click)="back()" id="navbar-back">
-                    <mat-icon aria-label="Side nav toggle icon">keyboard_arrow_left</mat-icon>
-                </button>
-                <button mat-icon-button class="homeButton" [routerLink]="['/home']">
-                    <img src="../../../assets/logo_full_black.png" alt="Logo" class="toolbarLogo">
-                </button>
-            </div>
-              
-            <div class="example-spacer"></div>
-
-<!--            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">-->
-<!--                <input matInput placeholder="Хайх" label="search">-->
-<!--                <mat-label>Хайх</mat-label>-->
-<!--                <mat-icon matSuffix>search</mat-icon>-->
-<!--            </mat-form-field>-->
-            <div *ngIf="authService.user$ | async as user; else login">
-                <ng-container *ngIf="notifications">
-                    <button mat-icon-button [routerLink]="['/auth/notifications']">
-                        <mat-icon matBadge="{{notifications.length}}+" matBadgeColor="warn" *ngIf="(notifications.length > 9) else number" [matBadgeHidden]="!(!!notifications.length)">notifications</mat-icon>
-                        <ng-template #number>
-                            <mat-icon matBadge="{{notifications.length}}" matBadgeColor="warn" [matBadgeHidden]="!(!!notifications.length)" >notifications</mat-icon>
-                        </ng-template>
-                    </button>
-                </ng-container>
-                <button mat-icon-button style="margin-left: 8px" aria-label="Icon button" color="primary" [matMenuTriggerFor]="dropMenu">
-                    <mat-icon>account_circle</mat-icon>
-                </button>
-                <mat-menu #dropMenu="matMenu">
-                    <button mat-menu-item [routerLink]="['users', user.uid]"><mat-icon>account_circle</mat-icon>{{user.displayName}}</button>
-                    <mat-divider></mat-divider>
-                    <button mat-menu-item [routerLink]="['/auth/profile-settings']">Хэрэглэгчийн тохиргоо</button>
-                    <button mat-menu-item *ngIf="permissionService.canEdit(user)" [routerLink]="['/moderator']">Модератор</button>
-                    <button mat-menu-item *ngIf="permissionService.canDelete(user)" [routerLink]="['/admin']"> Админ</button>
-                    <button mat-menu-item (click)="signOut()">Системээс гарах</button>
-                </mat-menu>
-            </div>
-        
-            <ng-template #login>
-                <button mat-flat-button color="accent" (click)=goToLogin() class="login">Нэвтрэх</button>
+<mat-toolbar class="top-toolbar" [class.no-scroll]="isOnTop" cdkScrollable>
+  <mat-toolbar-row>
+    <div fxFlex></div>
+    <div class="container" fxLayout="row" fxLayoutAlign="center center">
+      <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        style="margin-left: -12px"
+      >
+        <button
+          type="button"
+          aria-label="back"
+          mat-icon-button
+          *ngIf="layout.layout2"
+          (click)="back()"
+          id="navbar-back"
+        >
+          <mat-icon aria-label="Side nav toggle icon"
+            >keyboard_arrow_left</mat-icon
+          >
+        </button>
+        <button mat-icon-button class="logo-button" [routerLink]="['/home']">
+          <img
+            src="../../../assets/logo_full_black.png"
+            alt="Logo"
+            class="toolbarLogo"
+          />
+        </button>
+      </div>
+      <div class="spacer"></div>
+      <div *ngIf="authService.user$ | async as user" fxHide.xs>
+        <button
+          mat-flat-button
+          color="accent"
+          [routerLink]="'/ask'"
+          *ngIf="permissionService.canRead(user)"
+        >
+          <mat-icon>edit</mat-icon>
+          Хэлэлцүүлэг нэмэх
+        </button>
+      </div>
+      <!--            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">-->
+      <!--                <input matInput placeholder="Хайх" label="search">-->
+      <!--                <mat-label>Хайх</mat-label>-->
+      <!--                <mat-icon matSuffix>search</mat-icon>-->
+      <!--            </mat-form-field>-->
+      <div *ngIf="authService.user$ | async as user; else login">
+        <ng-container *ngIf="notifications">
+          <button mat-icon-button [routerLink]="['/auth/notifications']">
+            <mat-icon
+              matBadge="{{ notifications.length }}+"
+              matBadgeColor="warn"
+              *ngIf="notifications.length > 9; else number"
+              [matBadgeHidden]="!!!notifications.length"
+              >notifications</mat-icon
+            >
+            <ng-template #number>
+              <mat-icon
+                matBadge="{{ notifications.length }}"
+                matBadgeColor="warn"
+                [matBadgeHidden]="!!!notifications.length"
+                >notifications</mat-icon
+              >
             </ng-template>
-        </div>
-        <div fxFlex></div>
-    </mat-toolbar-row>
+          </button>
+        </ng-container>
+        <button
+          mat-icon-button
+          class="account-button"
+          aria-label="Icon button"
+          color="accent"
+          [matMenuTriggerFor]="dropMenu"
+        >
+          <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #dropMenu="matMenu">
+          <button mat-menu-item [routerLink]="['users', user.uid]">
+            <mat-icon>account_circle</mat-icon>{{ user.displayName }}
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item [routerLink]="['/auth/profile-settings']">
+            Хэрэглэгчийн тохиргоо
+          </button>
+          <button
+            mat-menu-item
+            *ngIf="permissionService.canEdit(user)"
+            [routerLink]="['/moderator']"
+          >
+            Модератор
+          </button>
+          <button
+            mat-menu-item
+            *ngIf="permissionService.canDelete(user)"
+            [routerLink]="['/admin']"
+          >
+            Админ
+          </button>
+          <button mat-menu-item (click)="signOut()">Системээс гарах</button>
+        </mat-menu>
+      </div>
+      <ng-template #login>
+        <button
+          mat-flat-button
+          color="accent"
+          (click)="goToLogin()"
+          class="login"
+        >
+          Нэвтрэх
+        </button>
+      </ng-template>
+    </div>
+    <div fxFlex></div>
+  </mat-toolbar-row>
 </mat-toolbar>

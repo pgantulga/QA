@@ -54,4 +54,20 @@ export class TagsComponent implements OnInit {
       const routerStateSnapshot = this.router.routerState.snapshot;
       this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
     }
+
+    openDialog(user) {
+      const dialogRef = this.dialog.open(TagAddComponent, {
+        width: '500px',
+        data: {
+          name: this.name,
+          description: this.description
+        }
+      });
+      dialogRef.afterClosed()
+          .subscribe(result => {
+            if (result) {
+              this.tagService.recommendTag(result, user);
+            }
+          });
+    }
 }

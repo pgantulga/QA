@@ -16,7 +16,7 @@
 
     }
     .button--active {
-        background-color: mat-color($accent, A200 ,0.1);
+        // background-color: mat-color($accent, A200 ,0.1);
         mat-icon {
             color: mat-color($accent);
         }
@@ -29,31 +29,70 @@
         position: relative;
         height: 40px;
         width: 40px;
-        margin: 8px 0;
+        margin: 4px 0;
         .vote__beer {
-            @include md-icon-size(40px);
+            @include md-icon-size(36px);
             position: absolute;
             fill: mat-color($my-grey, 800);
-            left: 5px;
+            left: 4px;
             bottom: 0;width: 40px;
             transition: enter 0.5s 0s ease
 
         }
         .vote__beer.beer--full {
-            bottom: -5px;
-            width: 40px;
+            bottom: -6px;
+            left: 5px;
+
+            width: 36px;
             height: auto;
         }
         .vote__beer.beer--cheers {
             @include md-icon-size(60px);
-            left: -5px;
+            left: -10px;
             bottom: -10px;
             background-color: mat-color($accent, 0.1);
             border-radius: 100%;
         }
-        
+     
     }
     
+    
+}
+
+@media only screen and (max-width: 500px) {
+    .vote {
+        margin: 0 8px 0 0;
+        .vote__beer-container {
+            position: relative;
+            height: 32px;
+            width: 32px;
+            margin: 4px 0;
+            .vote__beer {
+                @include md-icon-size(28px);
+                position: absolute;
+                fill: mat-color($my-grey, 800);
+                left: 2px;
+                bottom: 0;
+                width: 32px;
+                transition: enter 0.5s 0s ease
+    
+            }
+            .vote__beer.beer--full {
+                bottom: -3px;
+                left: 4px;
+                width: 28px;
+                height: auto;
+            }
+            .vote__beer.beer--cheers {
+                @include md-icon-size(50px);
+                left: -10px;
+                bottom: -8px;
+                background-color: mat-color($accent, 0.1);
+                border-radius: 100%;
+            }
+            
+        } 
+    }
 }
 .vote-icon-dark {
     opacity: 0.7;

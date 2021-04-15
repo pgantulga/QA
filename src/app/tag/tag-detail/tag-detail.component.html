@@ -1,32 +1,84 @@
 <detail-header id="header"></detail-header>
 <div class="background-card" *ngIf="tagDetail$ | async as tagDetail">
-    <p class="mat-body-2">{{tagDetail.description}}</p>
+  <p class="mat-body-1">{{ tagDetail.description }}</p>
+  <div
+    fxLayout="row"
+    class="actions"
+    *ngIf="authService.user$ | async as user"
+    fxLayoutAlign="end center"
+  >
+    <button
+      mat-icon-button
+      *ngIf="user.tags[tagDetail.id]"
+      [matTooltip]="'Сэдвийг дагахаа болих'"
+      matTooltipClass="tooltip"
+      [class.followed]="user.tags[tagDetail.id]"
+      (click)="toggleFollow(user, tagDetail)"
+    >
+      <mat-icon>notifications_active</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      *ngIf="!user.tags[tagDetail.id]"
+      [matTooltip]="'Сэдвийг дагах'"
+      matTooltipClass="tooltip"
+      (click)="toggleFollow(user, tagDetail)"
+    >
+      <mat-icon>notifications_off</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="edit(tagDetail)"
+      *ngIf="permissionService.canEdit(user)"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
 </div>
-<ng-container *ngIf = "authService.user$">
-    <login-warn>
-        <h3>Дэлгэрэнгүй мэдээлэл</h3>
-        <p class="mat-body-1">Сэдвийн тухай дэлгэрэнгүй мэдээллийг зөвхөн бүртгэлтэй хэрэглэгчид харах боломжтой.</p>
-    </login-warn>
+
+<ng-container *ngIf="!authService.user$">
+  <login-warn>
+    <h3>Дэлгэрэнгүй мэдээлэл</h3>
+    <p class="mat-body-1">
+      Сэдвийн тухай дэлгэрэнгүй мэдээллийг зөвхөн бүртгэлтэй хэрэглэгчид харах
+      боломжтой.
+    </p>
+  </login-warn>
 </ng-container>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <h2>Хэлэлцүүлгүүд</h2>
-    <mat-button-toggle-group name="posts" aria-label="sort">
-        <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
-            <mat-icon>{{item.icon}}</mat-icon>
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+  <h2>Хэлэлцүүлгүүд</h2>
+  <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
+    <mat-button-toggle
+      *ngFor="let item of toggleMenu"
+      (click)="changeSort(item)"
+      [matTooltip]="item.name"
+      matTooltipClass="tooltip"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
-<div *ngIf="filteredPosts else loading" style="position: relative">
-    <div *ngIf="filteredPosts.length else empty">
-        <post-list *ngFor="let item of filteredPosts; last as last" [post]="item"></post-list>
-    </div>
-    <ng-template #empty>
-        <p>Хэлэлцүүлэг олдсонгүй</p>
-    </ng-template>
+<div *ngIf="filteredPosts; else loading">
+  <div *ngIf="filteredPosts.length; else empty">
+    <post-list
+      *ngFor="let item of filteredPosts; last as last"
+      [post]="item"
+    ></post-list>
+  </div>
+  <ng-template #empty>
+    <p>Хэлэлцүүлэг олдсонгүй</p>
+  </ng-template>
 </div>
 <ng-container *ngIf="tagDetail$ | async as tagDetail">
-    <mat-paginator [length]="tagDetail.totalUsed" [pageSize]="10" (page)="pageEvent = getItem($event)" style="background-color: transparent"></mat-paginator>
+  <mat-paginator
+    [length]="tagDetail.totalUsed"
+    [pageSize]="10"
+    (page)="pageEvent = getItem($event)"
+    style="background-color: transparent"
+  ></mat-paginator>
 </ng-container>
 <ng-template #loading>
-    <post-list-ghost *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]"></post-list-ghost>
+  <post-list-ghost
+    *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+  ></post-list-ghost>
 </ng-template>

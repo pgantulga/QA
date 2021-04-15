@@ -1,17 +1,27 @@
 <tags-header></tags-header>
 <div class="background-card" *ngIf="aboutTag$ | async as aboutTag">
-    <p class="mat-body-2" [innerHTML]="aboutTag.content"></p>
+    <p class="mat-body-1" [innerHTML]="aboutTag.content"></p>
+     <div fxLayout="row" fxLayoutAlign="end center" *ngIf="authService.user$ | async as user">
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="openDialog(user)"
+          *ngIf="permissionService.canRead(user)"
+        >
+          <mat-icon>add</mat-icon>
+          Сэдэв санал болгох
+        </button>
+      </div>
 </div>
-
-<ng-container *ngIf="authService.user$ | async as user else login">
-    <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-        <h2>Таны дагаж байгаа</h2>
-    </div>
+<div class="section-header">
+    <h2>Таны дагаж байгаа</h2>
+</div>
+<div *ngIf="authService.user$ | async as user else login">
     <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap="8px" style="margin: 8px 0 0 0"
          *ngIf="authService.user$ | async as user">
-        <tag-item *ngFor="let item of userTags" [user]="user" [item]="item" fxFlex.xs=""></tag-item>
+        <tag-item *ngFor="let item of userTags" [user]="user" [item]="item" fxFlex.xs></tag-item>
     </div>
-</ng-container>
+</div>
 <ng-template #login>
     <login-warn>
         <h3>Таны дагаж байгаа сэдвүүд</h3>

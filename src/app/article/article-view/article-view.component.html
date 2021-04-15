@@ -1,10 +1,9 @@
 <div *ngIf="article$ | async as article">
   <mat-toolbar class="header" fxLayout="column" role="heading">
-    <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between start" class="title">
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between start">
         <div fxLayout="column">
-            <p class="mat-headline" fxHide.gt-xs="">{{ article.title }}</p>
-            <p class="mat-display-1" fxHide.xs="">{{ article.title }}</p>
-            <p class="mat-caption">{{article.updatedAt | momentPipe}}</p>
+            <h1>{{ article.title }}</h1>
+            <p class="mat-body-1">{{article.updatedAt | momentPipe}}</p>
         </div>
     </mat-toolbar-row>
   </mat-toolbar>

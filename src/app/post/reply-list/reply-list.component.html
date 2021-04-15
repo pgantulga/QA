@@ -5,11 +5,13 @@
         <ng-container *ngIf="authService.user$ | async as user">
             <div fxLayout="row" fxLayoutAlign="space-between center">
                 <div></div>
-                <div fxLayout="row">
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="end end" >
                     <user-profile [user]="item.author"></user-profile>
-                    <button mat-icon-button (click)="deleteReply()" *ngIf="permissionService.canEdit(user) || (item.author.uid == user.uid)">
-                        <mat-icon>delete</mat-icon>
-                    </button>
+                    <div fxLayout="row">
+                        <button mat-icon-button (click)="deleteReply()" *ngIf="permissionService.canEdit(user) || (item.author.uid == user.uid)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
                 </div>
             </div>
         </ng-container>

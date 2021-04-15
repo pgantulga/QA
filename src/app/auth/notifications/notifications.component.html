@@ -1,5 +1,5 @@
-<div fxLayout="column" class="detail-page-container">
-    <p class="mat-headline">Хэрэглэгчийн мэдэгдлүүд</p>
+<div fxLayout="column">
+    <h2>Хэрэглэгчийн мэдэгдлүүд</h2>
     <div *ngIf="notifications$ | async as notifications" >
         <ng-container *ngIf="notifications.length else noNotifications"></ng-container>
         <notification-list *ngFor="let item of notifications" [item]="item"></notification-list>

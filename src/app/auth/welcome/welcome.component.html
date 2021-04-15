@@ -1,13 +1,13 @@
 <div fxLayout="column" class="layout-center">
-  <div fxFlex></div>
+  <div fxFlex fxHide.xs></div>
   <mat-card class="login-card settings-card-container background-card">
     <form (ngSubmit)="onSubmit()">
       <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">
-        <img src="../../../assets/logo_white.png" alt="Logo" class="logo" />
+        <img src="../../../assets/logo_full_black.png" alt="Logo" class="logo" />
       </div>
-      <p class="mat-headline mat-primary" style="text-align: center">
-        Taвтай морил!
-      </p>
+      <div class="greetings">
+        <h2>Тавтай морил!</h2>
+      </div>
       <div fxLayout="column" class="welcome-field">
         <p class="mat-body-2">Таны аватар (сонгох):</p>
         <div fxLayout="row wrap">
@@ -40,7 +40,6 @@
       </mat-form-field>
       <mat-hint align="end" class="mat-caption">Жишээлбэл: Геологич </mat-hint>
       <div class="name-card-container" fxLayout="row">
-        <div class="type-indicator"></div>
         <div fxLayout="column">
           <p class="mat-body-2">Нэрийн хуудасны мэдээлэл оруулах (Заавал биш)</p>
           <p class="mat-body-1">
@@ -53,26 +52,27 @@
           ></upload-file>
         </div>
       </div>
-      <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          fxFlex=""
-          [disabled]="
-            !(
-              displayName.valid &&
-              position.valid &&
-              company.valid &&
-              selectedColor
-            )
-          "
-        >
-          Үргэлжлүүлэх
-        </button>
-      </mat-card-actions>
+      
       <div fxLayout="row" fxLayoutAlign="center center"></div>
     </form>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+      <button
+        mat-flat-button
+        color="accent"
+        type="submit"
+        fxFlex
+        [disabled]="
+          !(
+            displayName.valid &&
+            position.valid &&
+            company.valid &&
+            selectedColor
+          )
+        "
+      >
+        Үргэлжлүүлэх
+      </button>
+    </mat-card-actions>
   </mat-card>  
-  <div fxFlex></div>
+  <div fxFlex fxHide.xs></div>
 </div>

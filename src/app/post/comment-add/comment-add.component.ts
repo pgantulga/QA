@@ -30,7 +30,6 @@ export class CommentAddComponent  {
     });
   }
   addComment() {
-    console.log(this.postId, this.user);
     return this.commentService.addComment( this.postId, {
       content: this.commentForm.get('editor').value,
     }, this.user);

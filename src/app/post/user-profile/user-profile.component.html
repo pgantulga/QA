@@ -3,7 +3,7 @@
         <div class="avatar" [ngStyle]="{'background-color': userData.color?.code}">{{userData.displayName.charAt(0)}}</div>
         <div fxLayout="column" fxLayoutAlign="center start" >
             <p class="mat-caption profile-name" [routerLink]="['/users', userData.uid]">{{userData.displayName}}</p>
-            <p class="mat-caption">{{userData.email}}</p>
+            <p class="mat-caption profile-email" fxHide.xs>{{userData.email}}</p>
         </div>
     </div>
 </ng-container>

@@ -75,7 +75,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   checkAuth () {
     if (!this.user) {
       return this.snackBar.openFromComponent(SnackComponent, {
-        data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.'
+        data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.',
       })
     }
   }

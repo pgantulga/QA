@@ -1,4 +1,4 @@
-<div class="notification-list background-card" fxLayout="row" fxLayoutAlign="space-between center" [class.active]="item.status">
+<div class="notification-list background-card" fxLayout="row" fxLayoutAlign="space-between center" [class.active]="item.status" [class.mat-elevation-z3]="item.status">
     <div fxLayout="row" fxLayoutAlign="start center" (click)="changeStatus()">
         <mat-icon>{{icon}}</mat-icon>
         <div fxLayout="column" class="content">

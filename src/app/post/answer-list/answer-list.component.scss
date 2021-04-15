@@ -7,6 +7,15 @@
     //background-color: mat-color($my-grey, 800);
     //border-radius: 16px;
     //padding: 12px 30px 12px 22px;
-    margin-top: 12px;
+    // margin-top: 12px;
 }
 
+.answers {
+    padding: 12px 30px 12px 22px;
+}
+
+@media only screen and (max-width: 960px) {
+    .answers {
+        padding: 12px 12px 12px 8px;
+    }
+  }

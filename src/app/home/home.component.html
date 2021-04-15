@@ -1,9 +1,7 @@
 <div class="chip-list-container" *ngIf="userTags" id="tags">
     <mat-chip-list >
         <div class="h-scrolling-flex">
-            <ng-container *ngIf="authService.user$ | async as user">
-                <mat-icon color="accent" *ngIf="!user">trending_up</mat-icon>
-            </ng-container>
+            <mat-icon color="accent">trending_up</mat-icon>
             <tag-chip *ngFor="let item of userTags; let last = last" [item]="item" class="nav-chip">
                 <mat-divider [vertical]="true" *ngIf="!last"></mat-divider>
             </tag-chip>

@@ -1,42 +1,12 @@
 <div fxLayout="column" *ngIf="detail | async as detail">
   <mat-toolbar class="header" fxLayout="column" role="heading">
-    <mat-toolbar-row class="title" fxLayout="row" fxLayoutAlign="space-between start">
+    <mat-toolbar-row
+      fxLayout="row"
+      fxLayoutAlign="space-between start"
+    >
       <div fxLayout="column">
-        <h1 fxHide.gt-xs>{{ detail.name }}</h1>
-        <h1 fxHide.xs>{{ detail.name }}</h1>
-        <p class="mat-body-1">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
-        <div
-          fxLayout="row"
-          class="actions"
-          *ngIf="authService.user$ | async as user"
-          fxLayoutAlign="start center">
-          <button
-            mat-icon-button
-            *ngIf="user.tags[detail.id]"
-            [matTooltip]="'Сэдвийг дагахаа болих'"
-            matTooltipClass="tooltip"
-            [class.followed]="user.tags[detail.id]"
-            (click)="toggleFollow(user, detail)"
-          >
-            <mat-icon>notifications_active</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            *ngIf="!user.tags[detail.id]"
-            [matTooltip]="'Сэдвийг дагах'"
-            matTooltipClass="tooltip"
-            (click)="toggleFollow(user, detail)"
-          >
-            <mat-icon>notifications_off</mat-icon>
-          </button>
-          <button
-            mat-icon-button
-            (click)="edit(detail)"
-            *ngIf="permissionService.canEdit(user)"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
+        <h1>{{ detail.name }}</h1>
+        <p class="mat-body-1 meta">Хэрэглэгдсэн ({{ detail.totalUsed }})</p>
       </div>
       <!-- <div *ngIf="authService.user$ | async as user">
         <button
