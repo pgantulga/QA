@@ -9,9 +9,14 @@
 
 .sidenav-container {
     height: 100%;
-    margin-top: -64px;
+    // margin-top: -64px;
     //padding-top: 64px;
 }
+mat-sidenav-content {
+    position: relative;
+    
+}
+
 
 /*---------------------------Layout-one---------------------------------*/
 .layout-one {

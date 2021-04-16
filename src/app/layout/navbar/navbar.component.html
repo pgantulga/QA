@@ -1,4 +1,9 @@
-<mat-toolbar class="top-toolbar" [class.no-scroll]="isOnTop" cdkScrollable>
+<mat-toolbar
+  class="top-toolbar"
+  [class.no-scroll]="isOnTop"
+  cdkScrollable
+  [class.on-scroll]="hideToolbar"
+>
   <mat-toolbar-row>
     <div fxFlex></div>
     <div class="container" fxLayout="row" fxLayoutAlign="center center">
@@ -112,3 +117,18 @@
     <div fxFlex></div>
   </mat-toolbar-row>
 </mat-toolbar>
+<ng-container *ngIf="authService.user$ | async as user">
+  <button
+  mat-fab
+  color="accent"
+  aria-label="fab button"
+  id="fab"
+  fxHide.gt-xs
+  [class.fab-hide]="hideToolbar || currentRoute === 'post-edit'"
+  [routerLink]="'/ask'"
+  *ngIf="permissionService.canRead(user)"
+>
+  <mat-icon>edit</mat-icon>
+</button>
+</ng-container>
+

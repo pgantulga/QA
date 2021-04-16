@@ -2,6 +2,9 @@
 
 .top-toolbar {
   @include top-toolbar;
+  top: 0; 
+  visibility: visible;
+  transition: top 0.3s ease;
   .toolbarLogo {
     height: 42px;
   }
@@ -16,11 +19,23 @@
   .account-button {
     margin-left: 8px
   }
+  
 }
+.on-scroll {
+  top: -64px;
+  // visibility: hidden;
+  transition: top 0.3s ease;
+}
+
 .no-scroll {
   background-color: transparent !important;
   @include mat-elevation(0);
 }
+.fab-hide {
+  visibility: hidden !important;
+}
+
+
 
 img::selection {
   border: none;

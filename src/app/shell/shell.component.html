@@ -1,5 +1,6 @@
 <app-navbar *ngIf="isTopBar">
 </app-navbar>
+
 <mat-sidenav-container
   [class.sidenav-container]="
     !(currentLayoutObj.layout3 || currentLayoutObj.layout4)
@@ -48,7 +49,7 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <top-wrapper *ngIf="currentRoute == 'home'"></top-wrapper>
+    <top-wrapper *ngIf="currentRoute == 'home'"></top-wrapper> 
     <div
       fxLayout="row"
       [class.layout-one]="currentLayoutObj.layout1"

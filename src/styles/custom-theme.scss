@@ -212,8 +212,8 @@ h4:focus {
 
 @mixin top-toolbar {
   position: -webkit-sticky;
-  position: sticky;
-  top: 0; /* Sets the sticky toolbar to be on top */
+  position: fixed;
+  /* Sets the sticky toolbar to be on top */
   z-index: 5; /* Ensure that your app's content doesn't overlap the toolbar */
   background-color: mat-color($my-grey, 500);
   @include mat-elevation(2);

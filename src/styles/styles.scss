@@ -120,7 +120,13 @@ mat-button-toggle-group {
   background-color: tra !important;
   color: #1e2029 !important;
   border: 1px solid mat-color($my-grey, 800, 0.2)
-
+}
+#fab {
+  position: fixed; 
+  visibility: visible;
+  z-index: 1000;
+  right: 32px;
+  bottom: 32px;
 }
 
 //*****************************Layout styles*************************************
