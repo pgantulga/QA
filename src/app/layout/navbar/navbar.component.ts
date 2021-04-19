@@ -1,3 +1,6 @@
+import { PostService } from './../../services/post.service';
+import { AnswerBottomSheetComponent } from './../../post/answer-bottom-sheet/answer-bottom-sheet.component';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { element } from 'protractor';
 import { Location } from '@angular/common';
 import { Component, NgZone, OnInit } from '@angular/core';
@@ -6,13 +9,26 @@ import { Menu } from '../../interfaces/Menu';
 import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { filter, first, switchMap } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import { filter, first, isEmpty, switchMap } from 'rxjs/operators';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { Layout, RouteService } from '../../services/route.service';
 import { PermissionService } from '../../services/permission.service';
 import { Observable, of } from 'rxjs';
 import { NotificationService } from '../../services/notification.service';
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
+
+const fabData = [
+    {
+        link: "'/ask'",
+        icon: 'edit',
+        name: 'ask'
+    },
+    {
+        link: "'/reply'",
+        icon: 'reply',
+        name: 'reply'
+    }
+]
 
 @Component({
     selector: 'app-navbar',
@@ -29,21 +45,30 @@ export class NavbarComponent implements OnInit {
     previousUrl: any;
     hideToolbar: boolean;
     preScrollPos: number;
+    currentFab: any;
+    
 
     constructor(public menu: MenuService,
         public authService: AuthService,
         public permissionService: PermissionService,
         public dialog: MatDialog,
         public router: Router,
+        public route: ActivatedRoute,
         public routeService: RouteService,
         public notificationService: NotificationService,
         private scrollDispatcher: ScrollDispatcher,
         private zone: NgZone,
-        private location: Location
+        private location: Location,
+        private bottomSheet: MatBottomSheet,
+        private postService: PostService
     ) {
         this.layout = this.routeService.getLayout(this.currentRoute);
         this.topMenu = this.menu.topMenu;
         this.hideToolbar = false;
+        this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
+        this.layout = this.routeService.getLayout(this.currentRoute);
+        this.currentFab = this.setFabData(this.currentRoute);
+    
     }
 
     ngOnInit(): void {
@@ -51,10 +76,11 @@ export class NavbarComponent implements OnInit {
             filter(event => event instanceof NavigationEnd));
         this.routerEvent$.subscribe((e: NavigationEnd) => {
             this.currentRoute = this.routeService.getCurrentRoute(e.url);
-            console.log(this.currentRoute)
+            this.currentFab = this.setFabData(this.currentRoute);
             this.layout = this.routeService.getLayout(this.currentRoute);
             this.previousUrl = e.url;
-        });
+        }
+    );
         this.authService.user$.pipe(
             first(),
             switchMap(user => (user) ? this.notificationService.getNotifications(user) : of()
@@ -68,6 +94,30 @@ export class NavbarComponent implements OnInit {
         });
     }
 
+    setFabData(route) {
+        return (route == 'post-detail') ? fabData[1] : fabData[0];
+    }
+    fabClick(fabData) {
+        console.log('fabclick');
+        if (fabData.name !== 'reply') {
+            this.router.navigateByUrl('/ask');
+        } else {
+            const post$ = this.postService.currentPost
+                .pipe(
+                    switchMap((id: any) => {
+                        return this.postService.getPost(id)
+                    })
+                )
+            post$.pipe(first()).subscribe((postData: any) => {
+                this.bottomSheet.open(AnswerBottomSheetComponent, {
+                    data: {id: postData.id, title: postData.title},
+                    panelClass: 'answer-bottom-sheet'
+                })
+            })
+             
+        }
+    }
+   
     signOut() {
         const dialogRef = this.dialog.open(DialogComponent, {
             data: { title: 'Системээс гарах', content: 'Та системээс гарахдаа итгэлтэй байна уу?' }
@@ -89,7 +139,7 @@ export class NavbarComponent implements OnInit {
                 this.isOnTop = newIsOnTop;
             });
         }
-        if (this.preScrollPos < scroll && this.preScrollPos > 0 ) {
+        if (this.preScrollPos < scroll && this.preScrollPos > 0) {
             this.zone.run(() => {
                 this.hideToolbar = true;
             })

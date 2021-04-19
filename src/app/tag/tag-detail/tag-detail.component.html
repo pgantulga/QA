@@ -8,7 +8,8 @@
     fxLayoutAlign="end center"
   >
     <button
-      mat-icon-button
+      mat-flat-button
+      class="background-active--accent"
       *ngIf="user.tags[tagDetail.id]"
       [matTooltip]="'Сэдвийг дагахаа болих'"
       matTooltipClass="tooltip"
@@ -16,15 +17,18 @@
       (click)="toggleFollow(user, tagDetail)"
     >
       <mat-icon>notifications_active</mat-icon>
+      Дагаж байна
     </button>
     <button
-      mat-icon-button
+      mat-flat-button
+      class="background-active"
       *ngIf="!user.tags[tagDetail.id]"
       [matTooltip]="'Сэдвийг дагах'"
       matTooltipClass="tooltip"
       (click)="toggleFollow(user, tagDetail)"
     >
       <mat-icon>notifications_off</mat-icon>
+      Дагаагүй байна
     </button>
     <button
       mat-icon-button

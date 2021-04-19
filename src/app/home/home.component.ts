@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
     private goToTop() {
         const element = document.getElementById('tags');
-        element.scrollIntoView(true);
+        element.scrollIntoView({behavior: "smooth"});
     }
 
     private async getTagsMenu() {

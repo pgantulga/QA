@@ -6,7 +6,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {config} from '../../shared/quill-config';
+import {configReply} from '../../shared/quill-config';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'answer-add',
@@ -23,9 +24,10 @@ export class AnswerAddComponent {
               private formBuilder: FormBuilder,
               public dialog: MatDialog,
               public snackBar: MatSnackBar,
-              public router: Router
+              public router: Router,
+              private bottomSheet: MatBottomSheet
   ) {
-    this.config = config;
+    this.config = configReply;
     this.answerService.highlightedText$.subscribe( value => {
       this.answerForm.patchValue(
           {
@@ -58,10 +60,16 @@ export class AnswerAddComponent {
               this.snackBar.openFromComponent(SnackComponent, {
                 data: 'Таны хариулт нэмэгдлээ.',
               });
+              this.bottomSheet.dismiss();
               // return this.router.navigate(['/home']);
             });
       }
     });
+  }
+  clear() {
+    this.answerForm = this.formBuilder.group({
+      editor: '',
+    })
   }
 
 

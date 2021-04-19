@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { TagService } from './tag.service';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -10,8 +10,13 @@ import { NotificationService } from './notification.service';
 export class PostService {
     postCollection = this.db.collection<any>('posts', ref => ref.orderBy('createdAt', 'desc'));
     postMetaDoc = this.db.doc('metas/post');
+    postSource = new BehaviorSubject('default');
+    currentPost = this.postSource.asObservable();
 
     constructor(private db: AngularFirestore, public tagService: TagService, private notificationService: NotificationService) {
+    }
+    setCurrentPost(postId) {
+        this.postSource.next(postId);
     }
     getPostMeta() {
         return this.db.doc('metas/post').valueChanges();

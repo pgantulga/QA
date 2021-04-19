@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { Router, RouterEvent, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
@@ -17,15 +18,20 @@ export class AppComponent implements OnInit {
     this.loading = false;
     router.events.subscribe((event: RouterEvent) => {
       if (event instanceof RouteConfigLoadStart) {
-        console.log('loading');
         this.loading = true;
       } else if (event instanceof RouteConfigLoadEnd) {
-        console.log('loading finished');
         this.loading = false;
       }
     })
 
   }
   ngOnInit(): void {
+  }
+  onActivate(event) {
+   this.gotop();
+  }
+  gotop() {
+     const element = document.getElementsByName('top-anchor');
+    element[0].scrollIntoView({behavior: "smooth"});
   }
 }

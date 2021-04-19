@@ -45,6 +45,13 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.cut-text { 
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  max-width: 150px; 
+  // height: 1.2em; 
+  white-space: nowrap;
+}
 
 /************************ Icons *****************************/
 
@@ -92,6 +99,10 @@ a {
 /****************************************Buttons****************************************************/
 button.background-active {
   background-color: mat-color($primary, 200) !important;
+}
+button.background-active--accent {
+  background-color: mat-color($accent, 0.1) !important;
+  color: mat-color($accent) !important;
 
 }
 button.mat-button {
@@ -212,6 +223,20 @@ mat-form-field .mat-form-field-wrapper {
   background-color: mat-color($warn) !important;
   color: #ffffff !important;
 }
+.answer-bottom-sheet {
+  background-color: #fafafa  !important;
+  padding: 0 !important;
+  .answer-add-container {
+    margin: 0;
+    .answer-add {
+        padding: 0 16px 0 16px !important;
+    }
+    
+}
+  h2 {
+   display: none;
+  }
+}
 .answer-divider.mat-divider.mat-divider-inset {
   margin-left: 102px;
 }
@@ -272,7 +297,7 @@ mat-form-field .mat-form-field-wrapper {
   margin: 0px;
 }
 .ql-editor {
-  padding: 16px 0 0 0;
+  padding: 16px 8px 0px 0;
   p {
     text-align: justify;
   text-align-last: left;

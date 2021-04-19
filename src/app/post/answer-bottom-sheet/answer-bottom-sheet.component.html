@@ -1,0 +1,8 @@
+    <div *ngIf="authService.user$ | async as user">
+      <div *ngIf="permissionService.canRead(user)">
+        <answer-add
+          [post]="data"
+          [user]="user"
+        ></answer-add>
+      </div>
+    </div>

@@ -1,15 +1,11 @@
 @import "./src/styles/custom-theme";
 .score-card {
   width: 230px;
-  // height: 100px;
   margin: 4px;
   padding: 12px 12px;
   mat-icon {
     @include md-icon-size(36px);
     margin: 0 0 8px 0;
-    //color: mat-color($primary) !important;
-    //border-radius: 50px;
-    //border: 1px solid mat-color($primary);
   }
   .mat-display-2 {
     font-size: 48px;
@@ -26,9 +22,6 @@
   // min-height: 100%;
   margin: 0 12px 0 0;
   border-radius: 4px;
-  background-color: mat-color($warn);
-}
-.type-indicator.user {
   background-color: mat-color($accent);
 }
 @media only screen and (max-width: 960px) {

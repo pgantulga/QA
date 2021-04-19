@@ -14,12 +14,6 @@
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
     <h2>Oнцлох</h2>
-    <!-- <ng-container *ngIf="authService.user$ | async as user">
-        <button mat-flat-button color="primary" [routerLink]="'/ask'" *ngIf="permissionService.canRead(user)" >
-            <mat-icon>edit</mat-icon>
-            Хэлэлцүүлэг нэмэх
-        </button>
-    </ng-container> -->
 </div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
     <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>

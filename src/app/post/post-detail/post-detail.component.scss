@@ -5,6 +5,13 @@
   padding: 12px 30px 22px 22px;
   .author-section {
     margin: 8px 0 0 0;
+    .admin-actions {
+      // background-color: red;
+    }
+    .core-actions {
+      padding: 8px 0;
+      // background-color: yellow;
+    }
   }
   .voteArea {
     padding: 16px 0 0 0;

@@ -1,5 +1,5 @@
 <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
 <app-shell>
-    <router-outlet>
+    <router-outlet (activate)="onActivate($event)">
     </router-outlet>
 </app-shell>

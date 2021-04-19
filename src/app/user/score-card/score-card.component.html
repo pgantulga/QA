@@ -4,12 +4,11 @@
   fxLayoutAlign="space-between center"
   *ngIf="authService.user$ | async as user"
 >
-  <div fxLayout="row" >
-        <div class="type-indicator" [class.user]="item.uid === user.uid"></div>
+  <div fxLayout="row">
+    <div class="type-indicator"></div>
     <div fxLayout="column">
       <p class="mat-display-2">{{ item.value }}</p>
-      <p class="mat-body-2" fxHide.xs>{{ item.description }}</p>
-      <p class="mat-caption" fxHide.gt-xs>{{ item.description }}</p>
+      <p class="mat-caption">{{ item.description }}</p>
     </div>
   </div>
   <mat-icon>{{ item.icon }}</mat-icon>

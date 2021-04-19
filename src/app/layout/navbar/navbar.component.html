@@ -123,12 +123,12 @@
   color="accent"
   aria-label="fab button"
   id="fab"
+  (click) = "fabClick(currentFab)"
   fxHide.gt-xs
   [class.fab-hide]="hideToolbar || currentRoute === 'post-edit'"
-  [routerLink]="'/ask'"
   *ngIf="permissionService.canRead(user)"
 >
-  <mat-icon>edit</mat-icon>
+  <mat-icon>{{currentFab.icon}}</mat-icon>
 </button>
 </ng-container>
 

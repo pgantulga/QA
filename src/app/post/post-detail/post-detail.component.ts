@@ -1,17 +1,18 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router, RouterStateSnapshot} from '@angular/router';
-import {first, switchMap, take} from 'rxjs/internal/operators';
-import {PostService} from '../../services/post.service';
-import {AuthService} from '../../services/auth.service';
-import {AnswerService} from '../../services/answer.service';
-import {combineLatest, Observable} from 'rxjs';
-import {ViewportScroller} from '@angular/common';
-import {PermissionService} from '../../services/permission.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {MatDialog} from '@angular/material/dialog';
-import {DialogComponent} from '../../shared/dialog/dialog.component';
-import {DomSanitizer} from '@angular/platform-browser';
+import { element } from 'protractor';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
+import { first, switchMap, take } from 'rxjs/internal/operators';
+import { PostService } from '../../services/post.service';
+import { AuthService } from '../../services/auth.service';
+import { AnswerService } from '../../services/answer.service';
+import { combineLatest, Observable } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
+import { PermissionService } from '../../services/permission.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const DropdownMenu = [
     {
@@ -61,6 +62,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             post => {
                 this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(post.content);
                 this.getSuggestedPosts(post.tags, post.id);
+                this.postService.setCurrentPost(post.id);
                 this.authService.getUser()
                     .then(user => {
                         return (user) ? this.postService.checkFollower(user, post) : null;
@@ -73,15 +75,24 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             (error: Response) => {
                 console.log(error.status);
             });
+        
+
 
     }
 
     ngOnDestroy(): void {
         // this.post$.unsubscribe();
     }
+    private goToTop() {
+        document.body.scrollTop = 0
+        document.documentElement.scrollTop = 0;
+        // const element = document.getElementById('navbar');
+        // console.log(element);
+        // element.scrollIntoView(true);
+    }
 
     scroll(el: HTMLElement) {
-        el.scrollIntoView();
+        el.scrollIntoView({behavior: "smooth"});
         if (this.selectedText) {
             this.answerService.setHighlightedText(this.selectedText);
         }
@@ -149,17 +160,23 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             this.postService.unfollowPost(user, post)
                 .then(() => {
                     this.isFollowed = false;
+                    this.snack.openFromComponent(SnackComponent, {
+                        data: 'Танд энэ хэлэцүүлгийн мэдэгдлүүд ирэхгүй.'
+                    })
                 });
         } else {
             this.postService.followPost(post, user)
                 .then(() => {
                     this.isFollowed = true;
+                    this.snack.openFromComponent(SnackComponent, {
+                        data: 'Танд энэ хэлэцүүлгийн мэдэгдлүүд ирнэ.'
+                    })
                 });
         }
     }
     goToLogin() {
         const routerStateSnapshot = this.router.routerState.snapshot;
-        this.router.navigate(['/auth/login'], {queryParams: {returnUrl: this.router.routerState.snapshot.url}});
+        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.routerState.snapshot.url } });
     }
 
 

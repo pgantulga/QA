@@ -33,6 +33,8 @@ import {TagChipComponent} from '../tag/tag-chip/tag-chip.component';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { InfoComponent } from './info/info.component';
 import { LoginWarnComponent } from './login-warn/login-warn.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -83,7 +85,10 @@ import { LoginWarnComponent } from './login-warn/login-warn.component';
         FlexLayoutModule,
         SharedModule,
         MatSlideToggleModule,
-        ScrollingModule
+        ScrollingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        QuillModule.forRoot()
     ]
 })
 export class LayoutModule {

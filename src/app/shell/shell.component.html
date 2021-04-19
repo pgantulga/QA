@@ -48,8 +48,10 @@
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content>
-    <top-wrapper *ngIf="currentRoute == 'home'"></top-wrapper> 
+  <mat-sidenav-content
+  >
+    <div name="top-anchor"></div>
+    <top-wrapper *ngIf="currentRoute == 'home'" ></top-wrapper> 
     <div
       fxLayout="row"
       [class.layout-one]="currentLayoutObj.layout1"
