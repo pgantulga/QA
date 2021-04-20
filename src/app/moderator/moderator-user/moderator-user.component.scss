@@ -17,12 +17,12 @@ table td {
     color: #8bc34a;
   }
   .nof-confirmed {
-    color: mat-color($primary);
+    color: mat-color($accent);
   }
 }
 table .select:hover {
   cursor: pointer;
-  color: mat-color($primary);
+  color: mat-color($accent);
 }
 .mat-standard-chip.role-chip {
   transform: scale(1);

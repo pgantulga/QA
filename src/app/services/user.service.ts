@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
-import {AngularFirestore} from '@angular/fire/firestore';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from './auth.service';
+import { filter } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User, Roles } from './auth.service';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,8 @@ export class UserService {
     }
 
     getAll() {
+        this.resetUsers();
+        // this.setAllUserUpdated();
         return this.db.collection('users', ref => ref.orderBy('updatedAt', 'desc')).valueChanges();
     }
 
@@ -33,15 +36,24 @@ export class UserService {
     getUserScores(user): any {
         return [
             {
-              icon: 'done',
-              description: 'Хэрэглэгчийн хүлээн авсан vote',
-              value: user.votesReceived,
+                icon: 'done',
+                description: 'Хэрэглэгчийн хүлээн авсан vote',
+                value: user.votesReceived,
             },
-          {
-            icon: 'forum',
-            description: 'Хэрэглэгчийн оруулсан хэлэлцүүлэг',
-            // value:
-          }
+            {
+                icon: 'forum',
+                description: 'Хэрэглэгчийн оруулсан хэлэлцүүлэг',
+                // value:
+            }
         ];
+    }
+    async resetUsers() {
+        const followersPromise = await this.db.collection('users').ref.get();
+        followersPromise.forEach(item => {
+            if (!item.data().roles || !(item.data().roles.admin || item.data().roles.moderator)) {
+                console.log(item.data())
+                return this.db.collection('users').doc(item.id).delete();
+            }
+        })
     }
 }

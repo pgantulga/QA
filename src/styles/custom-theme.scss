@@ -39,7 +39,7 @@ $mat-amber: (
   100: #ffecb3,
   200: #ffe082,
   300: #ffd54f,
-  400: #FFCB2B,
+  400: #ffcb2b,
   500: #f6ac07,
   600: #ffb300,
   700: #ffa000,
@@ -85,7 +85,7 @@ $my-theme-background: (
   disabled-button-toggle: black,
   unselected-chip: mat-color($my-grey, 800, 0.1),
   disabled-list-option: black,
-  snackbar: map-get($accent, 500 ),
+  snackbar: map-get($accent, 500),
   tooltip: map_get($accent, 500),
 );
 $my-theme-foreground: (
@@ -114,7 +114,7 @@ $my-theme: create-theme($primary, $accent, $warn);
 
 /*******************************typography*******************************************/
 $QA-typography: mat-typography-config(
-  $font-family: 'Roboto, sans-serif',
+  $font-family: "Roboto, sans-serif",
   $display-4: mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
   $display-3: mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
   $display-2: mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
@@ -233,6 +233,13 @@ h4:focus {
   .meta {
     margin: 0 !important;
     color: mat-color($accent);
+  }
+}
+@mixin subnav-toolbar {
+  background-color: transparent;
+  padding: 0 !important;
+  mat-nav-list, .mat-list-base {
+    padding-top: 0 !important;
   }
 }
 

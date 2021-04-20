@@ -67,6 +67,8 @@ export class WelcomeComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('submit');
+
     const data = {
       displayName: this.displayName.value,
       company: {
@@ -77,6 +79,7 @@ export class WelcomeComponent implements OnInit {
       idCard: (this.idCard || this.user.idCard),
       updatedAt: new Date()
     }
+    console.log(data);
     this.authService.updateUserInstant(data, this.user.uid)
       .then(res => {
         if (!(this.user.roles.moderator || this.user.roles.admin)) {
