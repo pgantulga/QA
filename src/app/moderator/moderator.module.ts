@@ -13,10 +13,12 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { ModeratorPostsComponent } from './moderator-posts/moderator-posts.component';
 import { ModeratorCompanyComponent } from './moderator-company/moderator-company.component';
 import { CompanyAddComponent } from './moderator-company/company-add/company-add.component';
+import { ModeratorOverviewComponent } from './moderator-overview/moderator-overview.component';
+import { OverviewCardComponent } from './overview-card/overview-card.component';
 
 
 @NgModule({
-    declarations: [ModeratorComponent, ModeratorUserComponent, ModeratorTagsComponent, ModeratorPostsComponent, ModeratorCompanyComponent, CompanyAddComponent],
+    declarations: [ModeratorComponent, ModeratorUserComponent, ModeratorTagsComponent, ModeratorPostsComponent, ModeratorCompanyComponent, CompanyAddComponent, ModeratorOverviewComponent, OverviewCardComponent],
     imports: [
         CommonModule,
         ModeratorRoutingModule,

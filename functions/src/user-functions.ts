@@ -17,7 +17,21 @@ exports.userCreated = functions.firestore
                 })
             })
     }));
-
+exports.userDeleted = functions.firestore
+    .document('users/{uid}')
+    .onDelete(((snapshot: any) => {
+        const metaRef = admin.firestore().collection('metas').doc('user');
+        const userRef = admin.firestore().collection('users');
+        return userRef.orderBy('createdAt', 'desc')
+            .get()
+            .then(snapshot => {
+                const size = snapshot.size;
+                const updatedAt = admin.firestore.FieldValue.serverTimestamp();
+                return metaRef.update({
+                    size, updatedAt
+                })
+            })
+    }));
 exports.userChanged = functions.firestore
     .document('users/{uid}')
     .onUpdate((change: any) => {
@@ -29,7 +43,7 @@ exports.userChanged = functions.firestore
         } else if (newValue.company && (newValue.company.isConfirmed.notConfirmed
             || newValue.company.isConfirmed.checking)) {
             return userRef.doc(newValue.uid).set(
-                { verified: false}, {merge: true} )
+                { verified: false }, { merge: true })
         } else {
             return null;
         }

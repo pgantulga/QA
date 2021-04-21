@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 const ModeratorMenu = [
-
+  {
+    link: 'overview',
+    name: 'Ерөнхий'
+  },
   {
     link: 'users',
     name: 'Хэрэглэгчид'

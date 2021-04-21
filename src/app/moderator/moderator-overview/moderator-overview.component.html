@@ -1,0 +1,11 @@
+<div class="card-container" fxLayout="row wrap">
+    <overview-card [data]="postMeta">
+        <button mat-flat-button class="background-active" (click)="resetPost()">Reset</button>
+    </overview-card>   
+    <overview-card [data]="usersMeta">
+        <button mat-flat-button class="background-active" (click)="resetUser()">Reset</button>
+    </overview-card>
+    <overview-card [data]="tagMeta">
+        <button mat-flat-button class="background-active" (click)="deleteTagFollowers()">Remove followers</button>
+    </overview-card>
+</div>

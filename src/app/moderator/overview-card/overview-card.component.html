@@ -1,0 +1,9 @@
+<div class="background-card overview-card" *ngIf="data">
+  <p class="mat-display-2">{{ data.size }}</p>
+  <p>{{ data.title }}</p>
+  <p>{{ data.updatedAt | momentPipe }}</p>
+  <div class="overview-card__actions" fxLayout="row" fxLayoutAlign="end center">
+    <ng-content></ng-content>
+  </div>
+  <p class="mat-caption">{{ data.caption }}</p>
+</div>

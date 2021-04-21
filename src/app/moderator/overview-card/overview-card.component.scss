@@ -1,0 +1,17 @@
+@import "custom-theme";
+.overview-card {
+  width: 230px;
+  height: 210px;
+  margin: 4px;
+  padding: 12px 12px;
+  .mat-display-2 {
+      margin-bottom: 8px;
+  }
+  
+  .mat-caption {
+      margin: 0 ;
+  }
+  .overview-card__actions {
+      margin: 8px 0;
+  }
+}

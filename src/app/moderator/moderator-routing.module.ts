@@ -1,3 +1,4 @@
+import { ModeratorOverviewComponent } from './moderator-overview/moderator-overview.component';
 import { ModeratorCompanyComponent } from './moderator-company/moderator-company.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
@@ -14,6 +15,10 @@ const routes: Routes = [
         component: ModeratorComponent,
         canActivate: [ModeratorGuard],
         children: [
+            {
+                path: 'overview',
+                component: ModeratorOverviewComponent
+            },
             {
                 path: 'posts',
                 component: ModeratorPostsComponent

@@ -15,13 +15,15 @@ export class UserService {
     constructor(private db: AngularFirestore) {
     }
 
+    getUserMeta() {
+        return this.db.doc('metas/user').valueChanges();
+    }
+
     setSelectedUser(uid) {
         this.userSource.next(uid);
     }
 
     getAll() {
-        this.resetUsers();
-        // this.setAllUserUpdated();
         return this.db.collection('users', ref => ref.orderBy('updatedAt', 'desc')).valueChanges();
     }
 
