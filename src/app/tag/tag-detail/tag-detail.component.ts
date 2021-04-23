@@ -124,5 +124,5 @@ export class TagDetailComponent implements OnInit {
                 }
             }, user.uid
         );
-    }
+    } 
 }

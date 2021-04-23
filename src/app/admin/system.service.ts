@@ -4,6 +4,9 @@ import { PostService } from './../services/post.service';
 import { UserService } from './../services/user.service';
 import { Injectable } from '@angular/core';
 import { TagService } from '../services/tag.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +17,8 @@ export class SystemService {
     private userService: UserService,
     private postService: PostService,
     private notifService: NotificationService,
-    private tagService: TagService
-
+    private tagService: TagService,
+    private db: AngularFirestore
   ) { }
 
   async resetPost() {
@@ -66,16 +69,26 @@ export class SystemService {
     const tagsPromise = await this.tagService.tagsCollection.ref.get();
     tagsPromise.forEach(tag => {
       if (tag.data().name === 'Орон нутаг') {
-        this.deleteSingleTagFollower(tag)
+        this.deleteSingleTagFollower(tag);
+        this.refrestTagUsedCount(tag);
       }
     })
   }
 
   private async deleteSingleTagFollower(tag) {
     const followersPromise = await this.tagService.tagsCollection.doc(tag.id)
-          .collection('followers').ref.get();
-          followersPromise.forEach(follower => {
-            console.log(follower.data());
-          })
+      .collection('followers').ref.get();
+    followersPromise.forEach(follower => {
+      console.log(follower.data());
+    })
   }
+  private async refrestTagUsedCount(tag) {
+    return this.tagService.tagsCollection.doc(tag.id).update(
+      {
+        totalUsed: 0,
+        updatedAt: new Date()
+      }
+    )
+  }
+  
 }

@@ -73,7 +73,7 @@
                 isPostAuthor(user, post.author) ||
                 permissionService.canDelete(user)
               "
-              (click)="deletePost(post)"
+              (click)="deletePost(post, user)"
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -128,7 +128,7 @@
   </div>
   <!-- answers -->
   <ng-container *ngIf="authService.user$ | async as user; else loginWarning">
-    <div *ngIf="permissionService.canRead(user); else loginWarning">
+    <div *ngIf="permissionService.canRead(user);  else loginWarning">
       <div fxLayout="row" fxLayoutAlign="start start">
         <button
           mat-button

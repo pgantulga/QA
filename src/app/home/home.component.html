@@ -1,44 +1,80 @@
 <div class="chip-list-container" *ngIf="userTags" id="tags">
-    <mat-chip-list >
-        <div class="h-scrolling-flex">
-            <mat-icon color="accent">trending_up</mat-icon>
-            <tag-chip *ngFor="let item of userTags; let last = last" [item]="item" class="nav-chip">
-                <mat-divider [vertical]="true" *ngIf="!last"></mat-divider>
-            </tag-chip>
-            <button mat-button color="accent" style="height: 24px; line-height: 24px;margin: 4px;" [routerLink]="['/tags']">
-                Бүх сэдвүүд
-                <mat-icon>keyboard_arrow_right</mat-icon>
-            </button>
-        </div>
-    </mat-chip-list>    
+  <mat-chip-list>
+    <div class="h-scrolling-flex">
+      <mat-icon color="accent">trending_up</mat-icon>
+      <tag-chip
+        *ngFor="let item of userTags; let last = last"
+        [item]="item"
+        class="nav-chip"
+      >
+        <mat-divider [vertical]="true" *ngIf="!last"></mat-divider>
+      </tag-chip>
+      <button
+        mat-button
+        color="accent"
+        style="height: 24px; line-height: 24px; margin: 4px"
+        [routerLink]="['/tags']"
+      >
+        Бүх сэдвүүд
+        <mat-icon>keyboard_arrow_right</mat-icon>
+      </button>
+    </div>
+  </mat-chip-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <h2>Oнцлох</h2>
+  <h2>Oнцлох</h2>
+  <!-- <button
+        mat-button
+        class="background-white"
+        (click)="followingPost()"
+    >   
+        <mat-icon>notifications_active</mat-icon>
+        Дагасан хэлэлцүүлгүүд
+    </button> -->
 </div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
-    <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
+  <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
-    <h2>Бүх хэлэлцүүлгүүд</h2>
-    <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
-        <mat-button-toggle *ngFor="let item of toggleMenu" (click)="changeSort(item)" [matTooltip]="item.name" matTooltipClass="tooltip">
-            <mat-icon>{{item.icon}}</mat-icon>
-        </mat-button-toggle>
-    </mat-button-toggle-group>
+  <h2>Бүх хэлэлцүүлгүүд</h2>
+  <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
+    <ng-container *ngIf="authService.user$ | async as user">
+      <mat-button-toggle
+        (click)="followingPost(user)"
+        [matTooltip]="'Дагасан'"
+        matTooltipClass="tooltip"
+      >
+        <mat-icon>notifications_active</mat-icon>
+      </mat-button-toggle>
+    </ng-container>
+    <mat-button-toggle
+      *ngFor="let item of toggleMenu"
+      (click)="changeSort(item)"
+      [matTooltip]="item.name"
+      matTooltipClass="tooltip"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
 </div>
 
 <div class="post-list_container">
-    <div *ngIf="posts.length; else loading">
-        <div *ngFor="let item of posts; last as last"  >
-            <post-list [post]="item" *ngIf="!item.pinned"></post-list>
-        </div>
+  <div *ngIf="posts.length; else loading">
+    <div *ngFor="let item of posts; last as last">
+      <post-list [post]="item" *ngIf="!item.pinned"></post-list>
     </div>
-    <div *ngIf="this.postMetas | async as meta">
-        <mat-paginator [length]="meta.size" [pageSize]="10" (page)="pageEvent = getItem($event)" style="background-color: transparent"></mat-paginator>
-    </div>
-    <ng-template #loading>
-        <post-list-ghost *ngFor="let item of [1,2,3,4,5,6]"></post-list-ghost>
-    </ng-template>
+  </div>
+  <ng-container *ngIf="showPaginator">
+      <div *ngIf="this.postMetas | async as meta">
+        <mat-paginator
+          [length]="meta.size"
+          [pageSize]="10"
+          (page)="pageEvent = getItem($event)"
+          style="background-color: transparent"
+        ></mat-paginator>
+      </div>
+  </ng-container>
+  <ng-template #loading>
+    <post-list-ghost *ngFor="let item of [1, 2, 3, 4, 5, 6]"></post-list-ghost>
+  </ng-template>
 </div>
-
-

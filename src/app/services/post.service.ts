@@ -1,7 +1,8 @@
+import { entityType, LogService, } from './log-service.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { TagService } from './tag.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { NotificationService } from './notification.service';
 
 @Injectable({
@@ -13,7 +14,12 @@ export class PostService {
     postSource = new BehaviorSubject('default');
     currentPost = this.postSource.asObservable();
 
-    constructor(private db: AngularFirestore, public tagService: TagService, private notificationService: NotificationService) {
+    constructor(
+        private db: AngularFirestore,
+        public tagService: TagService,
+        private notificationService: NotificationService,
+        private logService: LogService,
+        ) {
     }
     setCurrentPost(postId) {
         this.postSource.next(postId);
@@ -71,6 +77,14 @@ export class PostService {
             .where('uid', '==', user.uid)).valueChanges();
     }
 
+    getUserFollowedPosts(postIds: any) {
+        const array = [];
+        for (const property in postIds) {
+            array.push(this.getPost(property))
+        }
+        return combineLatest(array);
+    }
+
     async getUserPostNumber(user) {
         const posts = await this.getPostByUser(user).toPromise();
         return posts.length;
@@ -103,6 +117,8 @@ export class PostService {
         return this.postCollection.add(data).then((res) => {
             return this.addFollowers(tagsArray, res.id)
                 .then(() => {
+                    this.logService.addEventObj(
+                        'posts', res.id, entityType.create, user.uid);
                     this.notificationService.createNotificationObject(res.id, user, 1, 'post');
                     return res.update({
                         id: res.id,
@@ -147,13 +163,27 @@ export class PostService {
             isSecret: isSecret || false
         }, { merge: true }).then(
             () => {
+                this.logService.addEventObj(
+                    'posts',
+                    oldValue.id,
+                    entityType.update,
+                    oldValue.author.uid
+                    )
                 return this.addLog(user, 'edited', oldValue.id);
             }
         );
     }
 
-    deletePost(postId) {
-        return this.postCollection.doc(postId).delete();
+    deletePost(postId, user) {
+        return this.postCollection.doc(postId).delete()
+        .then(() => {
+            this.logService.addEventObj(
+                'posts',
+                postId,
+                entityType.delete,
+                user.uid
+            )
+        })
     }
 
     getPinnedPost(): Observable<any> {
@@ -179,6 +209,12 @@ export class PostService {
         return this.checkFollower(user, post)
             .then(value => {
                 if (!value) {
+                    this.logService.addEventObj(
+                        'posts',
+                        post.id,
+                        entityType.follow,
+                        user.uid
+                    )
                     return this.postCollection.doc(post.id).collection('followers')
                         .add({ uid: user.uid })
                         .catch(err => {
@@ -193,6 +229,12 @@ export class PostService {
         const querySnapshot = await this.findFollower(user, post).toPromise();
         if (querySnapshot.docs.length) {
             querySnapshot.forEach(item => {
+                this.logService.addEventObj(
+                    'posts',
+                    post.id,
+                    entityType.unfollow,
+                    user.uid
+                )
                 return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
             });
         }

@@ -33,11 +33,6 @@ export class MenuService {
       sort: 'answersCount',
       icon: 'whatshot'
     },
-    // {
-    //   name: 'Дахин ачааллах',
-    //   sort: 'updatedAt',
-    //   icon: 'refresh'
-    // }
   ];
   public topMenu: Menu[] = [
     {

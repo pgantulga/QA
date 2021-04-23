@@ -1,11 +1,70 @@
-<div class="card-container" fxLayout="row wrap">
-    <overview-card [data]="postMeta">
-        <button mat-flat-button class="background-active" (click)="resetPost()">Reset</button>
-    </overview-card>   
-    <overview-card [data]="usersMeta">
-        <button mat-flat-button class="background-active" (click)="resetUser()">Reset</button>
-    </overview-card>
-    <overview-card [data]="tagMeta">
-        <button mat-flat-button class="background-active" (click)="deleteTagFollowers()">Remove followers</button>
-    </overview-card>
-</div>
+<ng-container *ngIf="authService.user$ | async as user">
+    <div
+      class="card-container"
+      fxLayout="row wrap"
+    >
+      <overview-card [data]="postMeta">
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="resetPost()"
+          [disabled]="!permissionService.canDelete(user)"
+        >
+          Reset
+        </button>
+      </overview-card>
+      <overview-card [data]="usersMeta">
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="resetUser()"
+          [disabled]="!permissionService.canDelete(user)"
+        >
+          Reset
+        </button>
+      </overview-card>
+      <overview-card [data]="tagMeta">
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="deleteTagFollowers()"
+          [disabled]="!permissionService.canDelete(user)"
+        >
+          Remove followers
+        </button>
+      </overview-card>
+    </div>
+    <div class="background-card notif-area">
+      <h1>Notification data</h1>
+      <p>This commands are used for delete notification objects, notifiers and notification tokens.</p>
+      <div fxLayout="column">
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="deleteNotifObjects()"
+          [disabled]="!permissionService.canDelete(user)"
+
+        >
+          Delete notifcation objects
+        </button>
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="deleteNotifiers()"
+          [disabled]="!permissionService.canDelete(user)"
+
+        >
+          Delete notifiers
+        </button>
+        <button
+          mat-flat-button
+          class="background-active"
+          (click)="deleteNotifTokents()"
+          [disabled]="!permissionService.canDelete(user)"
+
+        >
+          Delete notification tokens
+        </button>
+      </div>
+    </div>
+</ng-container>

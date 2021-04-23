@@ -100,10 +100,14 @@ a {
 button.background-active {
   background-color: mat-color($primary, 200) !important;
 }
+
 button.background-active--accent {
   background-color: mat-color($accent, 0.1) !important;
   color: mat-color($accent) !important;
 
+}
+button.background-white {
+  background-color: #ffffff !important;
 }
 button.mat-button {
   border-radius: 300px;
@@ -297,7 +301,7 @@ mat-form-field .mat-form-field-wrapper {
   margin: 0px;
 }
 .ql-editor {
-  padding: 16px 8px 0px 0;
+  padding: 16px 8px 0px 8px;
   p {
     text-align: justify;
   text-align-last: left;

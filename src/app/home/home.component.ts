@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
     postMetas: Observable<any>;
     pinnedPosts$: Observable<any>;
     userTags = [];
+    showPaginator: boolean = true;
 
     constructor(private postService: PostService,
                 public authService: AuthService,
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit {
     }
 
     private getStarted() {
+        this.showPaginator = true;
         this.posts = [];
         this.postService.getFirstItems(10, this.selectedSort.sort).toPromise()
             .then(data => {
@@ -94,6 +96,17 @@ export class HomeComponent implements OnInit {
     changeSort(sort) {
         this.selectedSort = sort;
         this.getStarted();
+    }
+    followingPost(user) {
+        this.showPaginator = false;
+        this.posts = [];
+        this.postService.getUserFollowedPosts(user.posts)
+            .subscribe(items => {
+                items.sort((a: any, b: any) => b.updatedAt - a.updatedAt)
+                items.forEach(post => {
+                    this.posts.push(post);
+                })
+            })
     }
 }
 

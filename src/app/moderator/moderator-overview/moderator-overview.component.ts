@@ -1,3 +1,7 @@
+import { DialogComponent } from './../../shared/dialog/dialog.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { PermissionService } from './../../services/permission.service';
+import { AuthService } from './../../services/auth.service';
 import { SystemService } from './../../admin/system.service';
 import { UserService } from './../../services/user.service';
 import { PostService } from './../../services/post.service';
@@ -17,7 +21,10 @@ export class ModeratorOverviewComponent implements OnInit {
     private postService: PostService,
     private userService: UserService,
     public systemService: SystemService,
-    private tagService: TagService
+    private tagService: TagService,
+    public authService: AuthService,
+    public permissionService: PermissionService,
+    private dialogRef: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -53,27 +60,53 @@ export class ModeratorOverviewComponent implements OnInit {
   }
 
   resetPost() {
-    this.systemService.resetPost();
+    this.askDialog(()=> {
+      return this.systemService.resetPost();
+    })
    }
   
   resetUser() {
-    this.systemService.resetUsers();
+    this.askDialog(() => {
+      return this.systemService.resetUsers();
+    })
   }
 
   deleteNotifObjects() {
-    this.systemService.deleteNotObjects()
+    this.askDialog(() => {
+      return this.systemService.deleteNotObjects()
+    })
   }
 
   deleteNotifiers() {
-    this.systemService.deleteNotifiers();
+    this.askDialog(() => {
+      return this.systemService.deleteNotifiers();
+    })
   }
 
   deleteNotifTokents() {
-    this.systemService.deleteNotifTokens();
+    this.askDialog(() => {
+      return this.systemService.deleteNotifTokens();
+    })
   }
 
   deleteTagFollowers() {
-    this.systemService.deleteAllTagFollowers();
+    this.askDialog(() => {
+      return this.systemService.deleteAllTagFollowers();
+    })
+  }
+  
+  private askDialog(method) {
+    return this.dialogRef.open(DialogComponent, {
+      data: {
+        title: 'Are you sure?',
+        content: 'There is no go back!!'
+      }
+    }).afterClosed()
+    .subscribe(res => {
+      if (res) {
+        return method().then(()=> {console.log('Done!')})
+      }
+    })
   }
 
 }

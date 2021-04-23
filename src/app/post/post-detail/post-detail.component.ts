@@ -31,7 +31,7 @@ const LogTypes = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'
     templateUrl: './post-detail.component.html',
     styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit, OnDestroy {
+export class PostDetailComponent implements OnInit {
     post$: Observable<any>;
     answers$: any;
     logs$: any;
@@ -75,24 +75,14 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             (error: Response) => {
                 console.log(error.status);
             });
-        
+
 
 
     }
 
-    ngOnDestroy(): void {
-        // this.post$.unsubscribe();
-    }
-    private goToTop() {
-        document.body.scrollTop = 0
-        document.documentElement.scrollTop = 0;
-        // const element = document.getElementById('navbar');
-        // console.log(element);
-        // element.scrollIntoView(true);
-    }
 
     scroll(el: HTMLElement) {
-        el.scrollIntoView({behavior: "smooth"});
+        el.scrollIntoView({ behavior: "smooth" });
         if (this.selectedText) {
             this.answerService.setHighlightedText(this.selectedText);
         }
@@ -117,7 +107,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
         return (user1.uid === user2.uid);
     }
 
-    deletePost(post) {
+    deletePost(post,user) {
         return this.dialogRef.open(DialogComponent, {
             data: {
                 title: 'Устгах үйлдэл',
@@ -125,7 +115,7 @@ export class PostDetailComponent implements OnInit, OnDestroy {
             }
         }).afterClosed().subscribe(res => {
             if (res) {
-                return this.postService.deletePost(post.id)
+                return this.postService.deletePost(post.id, user)
                     .then(() => {
                         this.router.navigate(['/home']);
                         return this.snack.openFromComponent(SnackComponent, {
@@ -156,23 +146,19 @@ export class PostDetailComponent implements OnInit, OnDestroy {
     }
 
     toggleFollow(post, user) {
-        if (this.isFollowed) {
-            this.postService.unfollowPost(user, post)
-                .then(() => {
-                    this.isFollowed = false;
-                    this.snack.openFromComponent(SnackComponent, {
-                        data: 'Танд энэ хэлэцүүлгийн мэдэгдлүүд ирэхгүй.'
-                    })
-                });
-        } else {
-            this.postService.followPost(post, user)
-                .then(() => {
-                    this.isFollowed = true;
-                    this.snack.openFromComponent(SnackComponent, {
-                        data: 'Танд энэ хэлэцүүлгийн мэдэгдлүүд ирнэ.'
-                    })
-                });
-        }
+        const promise = (this.isFollowed)
+            ? this.postService.unfollowPost(user, post)
+            : this.postService.followPost(post, user);
+        promise.then(() => {
+            this.authService.updateUserInstant(
+                {
+                    posts: {
+                        [post.id]: !this.isFollowed
+                    }
+                }, user.uid
+            )
+            this.isFollowed = !this.isFollowed;
+        })
     }
     goToLogin() {
         const routerStateSnapshot = this.router.routerState.snapshot;
