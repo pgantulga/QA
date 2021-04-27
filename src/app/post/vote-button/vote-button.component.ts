@@ -52,15 +52,15 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   }
   upVote() {
     this.checkAuth();
-    this.voteCount += 1;
-    // const vote = this.userVote === 1 ? 0 : 1;
-    // this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    // this.voteCount += 1;
+    const vote = this.userVote === 1 ? 0 : 1;
+    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   downVote() {
     this.checkAuth();
-    this.voteCount -= 1;
-    // const vote = this.userVote === -1 ? 0 : -1;
-    // this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    // this.voteCount -= 1;
+    const vote = this.userVote === -1 ? 0 : -1;
+    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
   }
   registerIcons(icons: Array<any>) {
       icons.forEach(icon => {

@@ -45,26 +45,37 @@ import * as admin from "firebase-admin";
 exports.voteChanged = functions.firestore
   .document("upVotes/{itemId}")
   .onWrite((change: any, context: any) => {
-    const document = change.after.exists ? change.afterData() : null;
+    const updatedDocument = change.after.exists ? change.after.data() : null;
     const increasedBy = admin.firestore.FieldValue.increment(
-      getTotalVotes(document)
+      getVoteDiff(updatedDocument, change.before.data())
     );
+    console.log(increasedBy);
+    const refArray = context.params.itemId.split("_");
     const batch = admin.firestore().batch();
     getUserRef(context.params.itemId).then((userRef) => {
       batch.update(userRef, { votesReceived: increasedBy });
-      batch.update(getPostRef(context.params.itemId), {
-        totalVotes: getTotalVotes(document),
-      });
+      if (refArray.length == 1) {
+        batch.update(getPostRef(context.params.itemId), {
+          totalVotes: increasedBy,
+        });
+      }
       return batch.commit().then(() => {
         console.log("votes updated");
       });
     });
   });
-function getTotalVotes(voteDocument: any): any {
-  return voteDocument
-    ? Object.values(voteDocument).reduce((a: any, b: any) => a + b, 0)
+function getVoteDiff(updatedDocument: any, oldDocument: any): any {
+  const updatedTotal: any = updatedDocument
+    ? Object.values(updatedDocument).reduce(reducer, 0)
     : 0;
+  const oldTotal: any = oldDocument
+    ? Object.values(oldDocument).reduce(reducer, 0)
+    : 0
+    const diff = updatedTotal - oldTotal;
+  return diff;
 }
+
+const reducer = (accumulator: any, currentValue: any) => accumulator + currentValue
 function getPostRef(itemId: string) {
   const idArray = itemId.split("_");
   return admin.firestore().collection("posts").doc(idArray[0]);
@@ -74,14 +85,15 @@ async function getUserRef(itemId: string) {
   const itemRef =
     idArray.length > 1
       ? admin
-          .firestore()
-          .collection("posts")
-          .doc(idArray[0])
-          .collection("answers")
-          .doc(idArray[1])
+        .firestore()
+        .collection("posts")
+        .doc(idArray[0])
+        .collection("answers")
+        .doc(idArray[1])
       : admin.firestore().collection("posts").doc(idArray[0]);
   const snapshot = await itemRef.get();
   const data = snapshot.data();
+  console.log(data?.author.uid);
   return admin.firestore().collection("users").doc(data?.author.uid);
 }
 // function getAnswerRef(postId: string, answerId: string) {
@@ -91,4 +103,3 @@ async function getUserRef(itemId: string) {
 //     .doc(postId)
 //     .collection("answers")
 //     .doc(answerId);
-// }

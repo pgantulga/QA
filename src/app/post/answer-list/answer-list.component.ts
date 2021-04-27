@@ -1,3 +1,4 @@
+import { LogService } from './../../services/log-service.service';
 import {Component, Input} from '@angular/core';
 import {VoteService} from '../../services/vote.service';
 import {AuthService} from '../../services/auth.service';
@@ -28,7 +29,8 @@ export class AnswerListComponent {
                 public permissionService: PermissionService,
                 private dialog: MatDialog,
                 private snack: MatSnackBar,
-                private layoutService: LayoutService) {
+                private layoutService: LayoutService,
+                ) {
         this.deleter = this.answerService.deleteAnswer;
         this.showReply = false;
         this.showReplies = false;
@@ -57,6 +59,7 @@ export class AnswerListComponent {
             if (res) {
                 return this.answerService.deleteAnswer(this.answer)
                     .then(() => {
+
                         return this.snack.openFromComponent(SnackComponent, {data: 'Хариулт устгагдлаа'});
                     });
             }

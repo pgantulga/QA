@@ -1,3 +1,4 @@
+import { entityType, LogService } from './log-service.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -26,7 +27,11 @@ export class TagService {
     tagSource = new BehaviorSubject('default');
     currentTag = this.tagSource.asObservable();
 
-    constructor(private db: AngularFirestore, private authService: AuthService) {
+    constructor(
+        private db: AngularFirestore,
+        private authService: AuthService,
+        private logService: LogService
+        ) {
     }
     getMeta(): Observable<any> {
         return this.db.doc('metas/tag').valueChanges();
@@ -76,6 +81,12 @@ export class TagService {
             active: false
         };
         return this.tagsCollection.add(data).then(res => {
+            this.logService.addEventObj(
+                'tags',
+                this.logService.getEntityId('tags', res.id),
+                entityType.create,
+                user.uid
+            )
             return res.update({
                 id: res.id
             }
@@ -120,7 +131,16 @@ export class TagService {
         return this.findFollower(user, tag)
             .subscribe(followers => {
                 if (followers.size < 1) {
-                    return this.tagsCollection.doc(tag.id).collection('followers').add({ uid: user.uid });
+                    return this.tagsCollection.doc(tag.id).collection('followers')
+                    .add({ uid: user.uid })
+                    .then(() => {
+                        this.logService.addEventObj(
+                            'tags',
+                            this.logService.getEntityId('tags', tag.id),
+                            entityType.follow,
+                            user.uid
+                        )
+                    })
                 }
             })
     }
@@ -130,7 +150,17 @@ export class TagService {
             .subscribe(followers => {
                 if (followers.size > 0) {
                     followers.forEach(item => {
-                        return this.tagsCollection.doc(tag.id).collection('followers').doc(item.id).delete();
+                        return this.tagsCollection.doc(tag.id).collection('followers')
+                            .doc(item.id).delete()
+                            .then(() => {
+                                this.logService.addEventObj(
+                                    'tags',
+                                    this.logService.getEntityId('tags', tag.id),
+                                    entityType.unfollow,
+                                    user.uid
+
+                                )
+                            })
                     });
                 }
             });

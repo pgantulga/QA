@@ -20,7 +20,6 @@ export const entityType = {
   providedIn: 'root'
 })
 export class LogService {
-
   constructor(private db: AngularFirestore) { }
   private createEventObj(collection, entity, entityType, actor): EventObj {
     return {
@@ -33,10 +32,24 @@ export class LogService {
   }
 
   addEventObj(collection, entity, entityType, actor) {
-    this.db.collection('eventLogs')
+    return this.db.collection('eventLogs')
       .add(this.createEventObj(collection, entity, entityType, actor))
       .then(() => {
         console.log('Event Object added.')
       })
+  }
+  getEntityId(collection, objectId, object?) {
+    if (collection === 'posts') {
+        return objectId
+    }
+    if (collection === "answers") {
+        return object.parent.id + '_' + objectId; 
+    }
+    if (collection === 'replies') {
+      return object.parentPost.id + '_' + object.parentAnswer.id + '_' + objectId;
+    }
+    if (collection === 'tags') {
+      return objectId
+    }
   }
 }

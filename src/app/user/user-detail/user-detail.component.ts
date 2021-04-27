@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {ActivatedRoute} from "@angular/router";
 import {Observable, of} from "rxjs";
-import {switchMap, take} from "rxjs/operators";
+import {first, switchMap, take} from "rxjs/operators";
 import {PostService} from '../../services/post.service';
 import { TagService } from 'src/app/services/tag.service';
 
@@ -35,7 +35,7 @@ export class UserDetailComponent implements OnInit {
     }
 
     getDetails() {
-        this.user$.subscribe(user => {
+        this.user$.pipe(first()).subscribe(user => {
             this.filteredPosts$ = this.postService.getPostByUser({uid: user.uid});
             this.getUserTags(user);
             this.scores = this.getUserScore(user);
