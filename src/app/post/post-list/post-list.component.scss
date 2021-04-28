@@ -1,6 +1,7 @@
 @import "custom-theme";
 .post-list {
   @include standart-list();
+  animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
   mat-icon.meta-icon {
     margin-bottom: 8px;
   }
@@ -49,5 +50,14 @@
     .mat-caption {
       margin-left: 4px;
     }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }

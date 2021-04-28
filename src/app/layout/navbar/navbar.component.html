@@ -125,7 +125,7 @@
   id="fab"
   (click) = "fabClick(currentFab)"
   fxHide.gt-xs
-  [class.fab-hide]="hideToolbar || currentRoute === 'post-edit'"
+  [class.fab-hide]="hideToolbar || (currentRoute === 'post-edit') || (currentRoute === 'post-logs')"
   *ngIf="permissionService.canRead(user)"
 >
   <mat-icon>{{currentFab.icon}}</mat-icon>

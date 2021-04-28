@@ -19,7 +19,7 @@ export class PostService {
         public tagService: TagService,
         private notificationService: NotificationService,
         private logService: LogService,
-        ) {
+    ) {
     }
     setCurrentPost(postId) {
         this.postSource.next(postId);
@@ -168,7 +168,7 @@ export class PostService {
                     oldValue.id,
                     entityType.update,
                     oldValue.author.uid
-                    )
+                )
                 return this.addLog(user, 'edited', oldValue.id);
             }
         );
@@ -176,14 +176,14 @@ export class PostService {
 
     deletePost(postId, user) {
         return this.postCollection.doc(postId).delete()
-        .then(() => {
-            this.logService.addEventObj(
-                'posts',
-                postId,
-                entityType.delete,
-                user.uid
-            )
-        })
+            .then(() => {
+                this.logService.addEventObj(
+                    'posts',
+                    postId,
+                    entityType.delete,
+                    user.uid
+                )
+            })
     }
 
     getPinnedPost(): Observable<any> {
@@ -215,6 +215,7 @@ export class PostService {
                         entityType.follow,
                         user.uid
                     )
+                    this.addLog(user, 'followed', post.id);
                     return this.postCollection.doc(post.id).collection('followers')
                         .add({ uid: user.uid })
                         .catch(err => {
@@ -237,6 +238,8 @@ export class PostService {
                 )
                 return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
             });
+            this.addLog(user, 'unfollowed', post.id);
+
         }
     }
     private findFollower(user, post) {
@@ -247,7 +250,7 @@ export class PostService {
         return !!querySnapshot.docs.length;
     }
     addLog(user, action: string, postId) {
-        const types = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];
+        const types = ['created', 'edited', 'voted', 'devoted', 'downvoted', 'answered', 'replied', 'followed', 'unfollowed'];
         const ref = this.postCollection.doc(postId).collection('logs');
         if (!types.includes(action)) {
             return null;
@@ -264,27 +267,40 @@ export class PostService {
         });
     }
     getLogMessage(actor, type) {
-        const typesMN = ['нэмсэн', 'зассан', 'санал өгсөн', 'саналаа буцаасан', 'хариулт өгсөн', 'хариулсан'];
+        const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', '"+" санал өгсөн', 'санал буцаасан', '"-" санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
+            'хэлэлцүүлгийг дагасан', 'хэлэлцүүлгийг дагахаа больсон'];
         switch (type) {
             case 'created': return `${actor.displayName} ${typesMN[0]}`;
             case 'edited': return `${actor.displayName} ${typesMN[1]}`;
             case 'voted': return `${actor.displayName} ${typesMN[2]}`;
+            case 'downvoted': return `${actor.displayName} ${typesMN[4]}`
             case 'devoted': return `${actor.displayName} ${typesMN[3]}`;
-            case 'answered': return `${actor.displayName} ${typesMN[4]}`;
-            case 'replied': return `${actor.displayName} ${typesMN[5]}`;
+            case 'answered': return `${actor.displayName} ${typesMN[5]}`;
+            case 'replied': return `${actor.displayName} ${typesMN[6]}`;
+            case 'followed': return `${actor.displayName} ${typesMN[7]}`;
+            case 'unfollowed': return `${actor.displayName} ${typesMN[8]}`;
+
             // default: null;
         }
     }
     getLogIcon(type) {
         switch (type) {
             case 'voted':
-                return 'done';
+                return 'exposure_plus_1';
+            case 'downvoted':
+                return 'exposure_neg_1'
             case 'created':
                 return 'edit';
             case 'devoted':
-                return 'done';
+                return 'exposure_zero';
             case 'answered':
+                return 'add_comment';
+            case 'replied':
                 return 'reply';
+            case 'followed':
+                return 'notifications_active';
+            case 'unfollowed':
+                return 'notifications_off'
             default:
                 return 'update';
         }

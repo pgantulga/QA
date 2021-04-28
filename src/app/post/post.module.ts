@@ -21,6 +21,7 @@ import { NgSelectedTextTooltipModule } from 'ng-selected-text-tooltip';
 import {LayoutModule} from '../layout/layout.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AnswerBottomSheetComponent } from './answer-bottom-sheet/answer-bottom-sheet.component';
+import { PostLogsComponent } from './post-logs/post-logs.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AnswerBottomSheetComponent } from './answer-bottom-sheet/answer-bottom-
     AnswerAddComponent,
     ReplyAddComponent,
     ReplyListComponent,
-    AnswerBottomSheetComponent],
+    AnswerBottomSheetComponent,
+    PostLogsComponent],
     imports: [
         CommonModule,
         NgSelectedTextTooltipModule,

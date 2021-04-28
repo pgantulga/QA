@@ -117,7 +117,7 @@ export class PostAddComponent implements OnInit {
             }
         });
     }
-    cancel() {
+    cancel(url) {
         const dialogData = {
             title: 'Цуцлах үйлдэл',
             content: ' Таны бичсэн агуулга хадгалагдахгүй.',
@@ -127,7 +127,7 @@ export class PostAddComponent implements OnInit {
                 if (result) {
                     this.title.setValue(null);
                     this.content.setValue(null);
-                    return this.router.navigate(['/home']);
+                    return this.router.navigate([url]);
                 }
             });
     }

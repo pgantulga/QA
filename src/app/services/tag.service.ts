@@ -49,7 +49,7 @@ export class TagService {
     }
 
     getPopularTags() {
-        return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(8)).valueChanges();
+        return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(6)).valueChanges();
     }
     async getUserTags(user) {
         const userData = await this.db.collection('users').doc(user.uid).ref.get();

@@ -57,7 +57,13 @@
       >
         <div fxLayout="row" fxLayout.xs="column">
           <user-profile [user]="post.author"></user-profile>
-          <div class="admin-actions" fxLayout="row" fxLayoutGap="2px">
+          <div class="admin-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2px">
+            <button
+              mat-icon-button
+              [routerLink]="['/posts', post.id, 'logs']"
+            >
+              <mat-icon>update</mat-icon>
+            </button>
             <button
               mat-icon-button
               *ngIf="

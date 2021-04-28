@@ -1,0 +1,41 @@
+@import "../../../styles/custom-theme";
+.event-log {
+    width: 100%;
+    position: relative;
+    padding: 8px 0;
+    box-sizing: content-box;
+    .event-log__header {
+        mat-icon {
+            @include md-icon-size(20px);
+            // background-color: mat-color($my-grey, 800, 0.05);
+            // border-radius: 16px;
+            margin: 0 12px 0 0;
+        }
+        .message{
+            margin: 0 ;
+        }
+    }
+    .event-log__vertical--top {
+        content: '';
+        position: absolute;
+        top: 0;
+        // background-color: red;
+        height: 6px;
+        width: 100%;
+        margin-left: 12px;
+        border-left: 1px solid mat-color($my-grey, 800, 0.2);
+        
+    }
+    .event-log__vertical--bottom {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        // background-color: green;
+        height: 6px;
+        width: 100%;
+        margin-left: 12px;
+        border-left: 1px solid mat-color($my-grey, 800, 0.2);
+    
+    }
+    
+}

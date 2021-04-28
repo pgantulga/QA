@@ -1,32 +1,40 @@
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { VoteService } from '../../services/vote.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../../shared/components/snack/snack.component';
 import { AuthService } from '../../services/auth.service';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BeerIcons } from "../../services/vote.service";
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'vote-button',
   templateUrl: './vote-button.component.html',
   styleUrls: ['./vote-button.component.scss'],
+
 })
 export class VoteButtonComponent implements OnInit, OnDestroy {
+  @ViewChild("tooltip") tooltip: MatTooltip;
+
   @Input() obj: any;
   @Input() type: string;
+  
   isVoted: boolean;
   loading = false;
   user: any;
   userVote: any;
   voteCount: any;
+  tooltipValue: any;
+  showTooltip: boolean = false;
 
   constructor(
     public voteService: VoteService,
     public snackBar: MatSnackBar,
     public authService: AuthService,
     private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private cd: ChangeDetectorRef
   ) {
     this.registerIcons(BeerIcons);
   }
@@ -52,31 +60,40 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   }
   upVote() {
     this.checkAuth();
-    // this.voteCount += 1;
     const vote = this.userVote === 1 ? 0 : 1;
-    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    this.tooltipValue = this.userVote === 1 ? '-1' : '+1';
+    this.voteService.updateVote(this.obj, this.user, vote, this.type);
+    this.toggle();
   }
   downVote() {
     this.checkAuth();
-    // this.voteCount -= 1;
     const vote = this.userVote === -1 ? 0 : -1;
-    this.voteService.updateVote(this.obj, this.user.uid, vote, this.type);
+    this.tooltipValue = this.userVote === -1 ? '+1' : '-1';
+    this.voteService.updateVote(this.obj, this.user, vote, this.type);
+    this.toggle();
   }
   registerIcons(icons: Array<any>) {
-      icons.forEach(icon => {
-        this.matIconRegistry.addSvgIcon(
-            icon.name,
-            this.domSanitizer.bypassSecurityTrustResourceUrl(
-              icon.url
-            )
-          );
-      });
+    icons.forEach(icon => {
+      this.matIconRegistry.addSvgIcon(
+        icon.name,
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          icon.url
+        )
+      );
+    });
   }
-  checkAuth () {
+  checkAuth() {
     if (!this.user) {
       return this.snackBar.openFromComponent(SnackComponent, {
         data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.',
       })
     }
   }
+  toggle() {
+    this.showTooltip = true;
+    setTimeout(() => {
+      this.showTooltip = false;
+    }, 1500);
+  }
 }
+

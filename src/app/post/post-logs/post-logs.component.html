@@ -1,0 +1,24 @@
+<ng-container *ngIf="post$ | async as post">
+    <post-header [pageTitle]="post.title" id="postheader">
+      <div sub-nav fxLayout="column">
+        <div fxLayout="column">
+          <p class="mat-caption meta">
+            Сүүлд шинэчлэгдсэн {{ post.updatedAt | momentPipe }}
+          </p>
+        </div>
+      </div>
+    </post-header>
+    <div fxLayout="row" class="post-detail background-card" fxLayout="column" *ngIf="logs$ | async as logs">
+      <div class="event-log" *ngFor="let item of logs; let first=first; let last=last">
+        <div class="event-log__header" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon>{{item.icon}}</mat-icon>
+            <p class="message">{{item.timestamp | momentPipe}} {{item.message}}</p>
+        </div>
+        <div class="event-log__vertical--top" *ngIf="!first"></div>
+        <div class="event-log__vertical--bottom" *ngIf="!last"></div>
+      </div>
+      
+    </div>
+
+  </ng-container>
+  

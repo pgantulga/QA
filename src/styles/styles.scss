@@ -29,10 +29,15 @@ strong {
 }
 a {
   color: mat-color($accent, 500);
+  
+}
+a:hover {
+  cursor: pointer;
 }
 .tooltip {
   font-size: 12px !important;
 }
+
 .line-clamp-5 {
   display: -webkit-box;
   -webkit-line-clamp: 5;

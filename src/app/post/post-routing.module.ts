@@ -1,3 +1,4 @@
+import { PostLogsComponent } from './post-logs/post-logs.component';
 import { PostGuardService } from './post-guard.service';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -15,6 +16,10 @@ const routes: Routes = [
     {
         path: 'edit',
         component: PostAddComponent
+    },
+    {
+        path: 'logs',
+        component: PostLogsComponent
     }
 ];
 

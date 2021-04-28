@@ -56,7 +56,7 @@ exports.voteChanged = functions.firestore
       batch.update(userRef, { votesReceived: increasedBy });
       if (refArray.length == 1) {
         batch.update(getPostRef(context.params.itemId), {
-          totalVotes: increasedBy,
+          totalVotes: getDocumentTotalVotes(updatedDocument),
         });
       }
       return batch.commit().then(() => {
@@ -73,6 +73,12 @@ function getVoteDiff(updatedDocument: any, oldDocument: any): any {
     : 0
     const diff = updatedTotal - oldTotal;
   return diff;
+}
+function getDocumentTotalVotes(updatedDocument: any): any {
+  const updatedTotal: any = updatedDocument
+  ? Object.values(updatedDocument).reduce(reducer, 0)
+  : 0;
+  return updatedTotal;
 }
 
 const reducer = (accumulator: any, currentValue: any) => accumulator + currentValue
