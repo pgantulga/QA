@@ -22,16 +22,17 @@ exports.notificationCreated = functions.firestore
                 }
             }
         };
+      
         getUserData(notifierData.notifier)
-            .then((data: any) => {
-                if (!data) {
+            .then((docSnapshot: any) => {
+                if (!docSnapshot.exists) {
                     return null;
                 }
-                if (!data.notificationTokens) {
+                if (!docSnapshot.data().notificationTokens) {
                     console.log('no token');
                     return null;
                 }
-                message.tokens = message.tokens.concat(data.notificationTokens);
+                message.tokens = message.tokens.concat(docSnapshot.data().notificationTokens);
                 console.log(message.tokens.length);
                 return admin.messaging().sendMulticast(message)
                     .then((res) => {
@@ -39,10 +40,9 @@ exports.notificationCreated = functions.firestore
                     });
             });
     });
-async function getUserData(uid: string) {
+function getUserData(uid: string) {
     const userRef = admin.firestore().collection('users').doc(uid);
-    const userData = await userRef.get();
-    return userData.data();
+    return userRef.get();
 }
 function getMessageTitle(obj: any) {
     if (obj.entity_type === 1) {return 'Шинэ хэлэлцүүлэг';}

@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { entityType, LogService, } from './log-service.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -19,6 +20,7 @@ export class PostService {
         public tagService: TagService,
         private notificationService: NotificationService,
         private logService: LogService,
+        private authService: AuthService
     ) {
     }
     setCurrentPost(postId) {
@@ -80,7 +82,9 @@ export class PostService {
     getUserFollowedPosts(postIds: any) {
         const array = [];
         for (const property in postIds) {
-            array.push(this.getPost(property))
+            if (postIds[property]) {
+                array.push(this.getPost(property))
+            }
         }
         return combineLatest(array);
     }
@@ -147,6 +151,14 @@ export class PostService {
         followers.forEach(item => {
             addPromises.push(this.postCollection.doc(postId).collection('followers')
                 .add({ uid: item.uid }));
+                // this.authService.updateUserInstant(
+                //     {
+                //         posts: {
+                //             [postId]: true
+                //         }
+                //     }, item.uid
+                // )
+            // add post to user.posts
         });
         return Promise.all(addPromises);
     }
@@ -238,7 +250,7 @@ export class PostService {
                 )
                 return this.postCollection.doc(post.id).collection('followers').doc(item.id).delete();
             });
-            this.addLog(user, 'unfollowed', post.id);
+            this.addLog(user, 'unffollowed', post.id);
 
         }
     }
@@ -270,15 +282,15 @@ export class PostService {
         const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', '"+" санал өгсөн', 'санал буцаасан', '"-" санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
             'хэлэлцүүлгийг дагасан', 'хэлэлцүүлгийг дагахаа больсон'];
         switch (type) {
-            case 'created': return `${actor.displayName} ${typesMN[0]}`;
-            case 'edited': return `${actor.displayName} ${typesMN[1]}`;
-            case 'voted': return `${actor.displayName} ${typesMN[2]}`;
-            case 'downvoted': return `${actor.displayName} ${typesMN[4]}`
-            case 'devoted': return `${actor.displayName} ${typesMN[3]}`;
-            case 'answered': return `${actor.displayName} ${typesMN[5]}`;
-            case 'replied': return `${actor.displayName} ${typesMN[6]}`;
-            case 'followed': return `${actor.displayName} ${typesMN[7]}`;
-            case 'unfollowed': return `${actor.displayName} ${typesMN[8]}`;
+            case 'created': return ` ${typesMN[0]}`;
+            case 'edited': return ` ${typesMN[1]}`;
+            case 'voted': return ` ${typesMN[2]}`;
+            case 'downvoted': return `${typesMN[4]}`
+            case 'devoted': return `${typesMN[3]}`;
+            case 'answered': return `${typesMN[5]}`;
+            case 'replied': return `${typesMN[6]}`;
+            case 'followed': return `${typesMN[7]}`;
+            case 'unfollowed': return `${typesMN[8]}`;
 
             // default: null;
         }

@@ -75,12 +75,7 @@ export class PostDetailComponent implements OnInit {
             (error: Response) => {
                 console.log(error.status);
             });
-
-
-
     }
-
-
     scroll(el: HTMLElement) {
         el.scrollIntoView({ behavior: "smooth" });
         if (this.selectedText) {
@@ -164,6 +159,4 @@ export class PostDetailComponent implements OnInit {
         const routerStateSnapshot = this.router.routerState.snapshot;
         this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.routerState.snapshot.url } });
     }
-
-
 }

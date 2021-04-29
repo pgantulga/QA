@@ -4,7 +4,7 @@
     (click)="upVote()"
     [class.button--active]="userVote > 0"
   >
-    <mat-icon>arrow_drop_up</mat-icon>
+    <mat-icon >arrow_drop_up</mat-icon>
   </button>
   <div class="vote__beer-container" *ngIf="voteCount; else empty">
     <div class="tooltip-beer" *ngIf="showTooltip">
@@ -36,7 +36,7 @@
       svgIcon="beer_3"
     ></mat-icon>
     <mat-icon
-      class="vote__beer beer--full"
+      class="vote__beer"
       *ngIf="voteCount == 4"
       svgIcon="beer_4"
     ></mat-icon>

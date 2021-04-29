@@ -61,7 +61,7 @@
 <div class="post-list_container">
   <div *ngIf="posts.length; else loading">
     <div *ngFor="let item of posts; last as last">
-      <post-list [post]="item" *ngIf="!item.pinned"></post-list>
+      <post-list [post]="item"></post-list>
     </div>
   </div>
   <ng-container *ngIf="showPaginator">

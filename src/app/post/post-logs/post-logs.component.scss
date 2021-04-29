@@ -2,17 +2,28 @@
 .event-log {
     width: 100%;
     position: relative;
-    padding: 8px 0;
+    padding: 16px 0;
     box-sizing: content-box;
     .event-log__header {
         mat-icon {
             @include md-icon-size(20px);
-            // background-color: mat-color($my-grey, 800, 0.05);
-            // border-radius: 16px;
+            background-color: mat-color($my-grey, 800, 0.1);
+            border-radius: 16px;
             margin: 0 12px 0 0;
+            padding: 3px;
+            text-align: center;
+            // border: 1px solid mat-color($my-grey, 800, 0.2);
+            // box-sizing: border-box;
         }
         .message{
             margin: 0 ;
+            .profile-link {
+                font-weight: bold;
+            }
+            .profile-link:hover {
+                cursor: pointer;
+                color: mat-color($accent);
+            }
         }
     }
     .event-log__vertical--top {
@@ -20,10 +31,10 @@
         position: absolute;
         top: 0;
         // background-color: red;
-        height: 6px;
+        height: 12px;
         width: 100%;
-        margin-left: 12px;
-        border-left: 1px solid mat-color($my-grey, 800, 0.2);
+        margin-left: 13px;
+        border-left: 2px solid mat-color($my-grey, 800, 0.2);
         
     }
     .event-log__vertical--bottom {
@@ -31,10 +42,10 @@
         position: absolute;
         bottom: 0;
         // background-color: green;
-        height: 6px;
+        height: 12px;
         width: 100%;
-        margin-left: 12px;
-        border-left: 1px solid mat-color($my-grey, 800, 0.2);
+        margin-left: 13px;
+        border-left: 2px solid mat-color($my-grey, 800, 0.2);
     
     }
     

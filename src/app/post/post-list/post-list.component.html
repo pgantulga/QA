@@ -23,6 +23,7 @@
           }}</mat-icon>
           <p class="mat-caption">
             {{ post.lastLog.timestamp | momentPipe }}
+            {{post.lastLog.user.displayName}}
             <span *ngIf="post.lastLog.message">{{ post.lastLog.message }}</span>
           </p>
         </div>

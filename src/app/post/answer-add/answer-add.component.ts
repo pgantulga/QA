@@ -61,6 +61,8 @@ export class AnswerAddComponent {
                 data: 'Таны хариулт нэмэгдлээ.',
               });
               this.bottomSheet.dismiss();
+                const element = document.getElementsByName('answers-anchor');
+               element[0].scrollIntoView({behavior: "smooth"});
               // return this.router.navigate(['/home']);
             });
       }

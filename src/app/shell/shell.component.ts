@@ -66,9 +66,10 @@ export class ShellComponent implements OnInit {
                     title: message.notification.title,
                     link: message.notification.click_action
                 };
-                if (user.uid === message.data.actor) {
-                    return null;
-                }
+                console.log('new not arrived')
+                // if (user.uid === message.data.actor) {
+                //     return null;
+                // }
                 this.bottomSheet.open(BottomSheetComponent, {
                     data: bottomSheetData,
                     panelClass: 'custom-bottom-sheet'

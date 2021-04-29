@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {MenuService} from '../services/menu.service';
 import {TagService} from '../services/tag.service';
 import {PermissionService} from '../services/permission.service';
+import { first } from 'rxjs/operators';
 
 @Component({
     selector: 'app-home',
@@ -76,7 +77,7 @@ export class HomeComponent implements OnInit {
             });
             this.userTags = this.userTags.slice(0, 11);
         } else {
-            this.tagService.getPopularTags().subscribe(tags => {
+            this.tagService.getPopularTags().pipe(first()).subscribe(tags => {
                 this.userTags = this.userTags.concat(tags);
             });
         }

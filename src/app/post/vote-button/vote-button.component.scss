@@ -4,12 +4,9 @@ $button-bg: mat-color($accent);
 .vote {
   width: 48px;
   margin: 0 16px 0 0;
-
   .mat-icon-button {
     position: relative;
     transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-    // width: 40px;
-    // height: 40px;
     mat-icon {
       @include md-icon-size(36px);
       margin: 0;
@@ -25,9 +22,12 @@ $button-bg: mat-color($accent);
     background-color: mat-color($my-grey, 800, 0.04);
   }
   .button--active {
-    // background-color: mat-color($accent, A200 ,0.1);
+    background-color: mat-color($accent, A200 ,0.1);
     mat-icon {
       color: mat-color($accent);
+
+    //   @include md-icon-size(48px);
+
     }
   }
   p {
@@ -35,9 +35,11 @@ $button-bg: mat-color($accent);
   }
   .vote__beer-container {
     position: relative;
-    height: 40px;
-    width: 40px;
-    margin: 4px 0;
+    // background-color: yellow;
+    height: 44px;
+    width: 36px;
+    margin: 4px 0 8px 0;
+    overflow: visible;
     .tooltip-beer {
       position: absolute;
       top: -20px;
@@ -49,75 +51,66 @@ $button-bg: mat-color($accent);
         margin: 0;
         color: mat-color($accent);
       }
-      animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 1s both;
+      animation: slide-out-top 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) 1s
+        both;
     }
     .vote__beer {
       @include md-icon-size(36px);
+      svg {
+        position: absolute;
+        width: 100%;
+        overflow: visible;
+        height: auto;
+        bottom: 0;
+      }
       position: absolute;
       fill: mat-color($my-grey, 800);
       left: 4px;
       bottom: 0;
-      width: 40px;
-      .vote__beer.beer--full {
-        bottom: -6px;
-        left: 5px;
-
-        width: 36px;
-        height: auto;
-      }
-      .vote__beer.beer--cheers {
+      width: 36px;
+      &.beer--cheers {
         @include md-icon-size(60px);
         left: -10px;
         bottom: -10px;
         background-color: mat-color($accent, 0.1);
         border-radius: 100%;
+        svg {
+          bottom: 8px;
+        }
       }
     }
   }
-
-  @media only screen and (max-width: 500px) {
-    .vote {
-      margin: 0 8px 0 0;
-      .vote__beer-container {
-        position: relative;
-        height: 32px;
+}
+@media only screen and (max-width: 500px) {
+  .vote {
+    margin: 0 8px 0 0;
+    .vote__beer-container {
+      height: 32px;
+      width: 32px;
+      margin: 4px 0;
+      .vote__beer {
+        @include md-icon-size(32px);
+        position: absolute;
+        fill: mat-color($my-grey, 800);
+        left: 2px;
+        bottom: 0;
         width: 32px;
-        margin: 4px 0;
-        .vote__beer {
-          @include md-icon-size(28px);
-          position: absolute;
-          fill: mat-color($my-grey, 800);
-          left: 2px;
-          bottom: 0;
-          width: 32px;
-          transition: enter 0.5s 0s ease;
-        }
-        .vote__beer.beer--full {
-          bottom: -3px;
-          left: 4px;
-          width: 28px;
-          height: auto;
-        }
-        .vote__beer.beer--cheers {
-          @include md-icon-size(50px);
-          left: -10px;
-          bottom: -8px;
-          background-color: mat-color($accent, 0.1);
-          border-radius: 100%;
-        }
+        transition: enter 0.5s 0s ease;
+      }
+      .vote__beer.beer--full {
+        bottom: -3px;
+        left: 4px;
+        width: 28px;
+        height: auto;
+      }
+      .vote__beer.beer--cheers {
+        @include md-icon-size(50px);
+        // left: -10px;
+        bottom: -8px;
+        background-color: mat-color($accent, 0.1);
+        border-radius: 100%;
       }
     }
-  }
-  .vote-icon-dark {
-    opacity: 0.7;
-    //color: rgba(0,0,0,0.56);
-  }
-  .vote-icon-color {
-    color: mat-color($primary);
-  }
-
-  .vote-content {
-    text-align: justify;
   }
 }
 @keyframes slide-out-top {

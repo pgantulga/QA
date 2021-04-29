@@ -12,7 +12,9 @@
       <div class="event-log" *ngFor="let item of logs; let first=first; let last=last">
         <div class="event-log__header" fxLayout="row" fxLayoutAlign="start center">
             <mat-icon>{{item.icon}}</mat-icon>
-            <p class="message">{{item.timestamp | momentPipe}} {{item.message}}</p>
+            <p class="mat-caption message">{{item.timestamp.seconds *1000 | date:"MM/dd/yy"}} 
+                <span class="profile-link" [routerLink]="['/users', item.user.uid]">{{item.user.displayName}}</span>
+                {{item.message}}</p>
         </div>
         <div class="event-log__vertical--top" *ngIf="!first"></div>
         <div class="event-log__vertical--bottom" *ngIf="!last"></div>

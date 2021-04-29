@@ -12,6 +12,7 @@ import { MatTooltip } from '@angular/material/tooltip';
   selector: 'vote-button',
   templateUrl: './vote-button.component.html',
   styleUrls: ['./vote-button.component.scss'],
+  encapsulation: ViewEncapsulation.None
 
 })
 export class VoteButtonComponent implements OnInit, OnDestroy {
@@ -62,6 +63,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.checkAuth();
     const vote = this.userVote === 1 ? 0 : 1;
     this.tooltipValue = this.userVote === 1 ? '-1' : '+1';
+    // this.voteCount += 1;
     this.voteService.updateVote(this.obj, this.user, vote, this.type);
     this.toggle();
   }
@@ -69,6 +71,8 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.checkAuth();
     const vote = this.userVote === -1 ? 0 : -1;
     this.tooltipValue = this.userVote === -1 ? '+1' : '-1';
+    // this.voteCount += -1;
+
     this.voteService.updateVote(this.obj, this.user, vote, this.type);
     this.toggle();
   }

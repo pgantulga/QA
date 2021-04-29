@@ -57,7 +57,7 @@
       >
         <div fxLayout="row" fxLayout.xs="column">
           <user-profile [user]="post.author"></user-profile>
-          <div class="admin-actions" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="2px">
+          <div class="admin-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2px">
             <button
               mat-icon-button
               [routerLink]="['/posts', post.id, 'logs']"
@@ -134,7 +134,7 @@
   </div>
   <!-- answers -->
   <ng-container *ngIf="authService.user$ | async as user; else loginWarning">
-    <div *ngIf="permissionService.canRead(user);  else loginWarning">
+    <div *ngIf="permissionService.canRead(user);  else loginWarning" name="answers-anchor">
       <div fxLayout="row" fxLayoutAlign="start start">
         <button
           mat-button

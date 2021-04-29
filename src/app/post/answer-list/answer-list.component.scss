@@ -4,10 +4,8 @@
 /*    margin: 0;*/
 /*}*/
 .answer-list {
-    //background-color: mat-color($my-grey, 800);
-    //border-radius: 16px;
-    //padding: 12px 30px 12px 22px;
-    // margin-top: 12px;
+    animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
 }
 
 .answers {
@@ -17,5 +15,13 @@
 @media only screen and (max-width: 960px) {
     .answers {
         padding: 12px 12px 12px 8px;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
