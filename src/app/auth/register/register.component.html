@@ -19,7 +19,7 @@
           class="background-button"
         >
           Нүүр хуудасруу буцах
-        </button>
+        </button>        
       </div>
     </div>
     <ng-template #login>
@@ -71,20 +71,6 @@
           *ngIf="registerForm.get('email').hasError('email')"
           >{{ getEmailError() }}</mat-error
         >
-  
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>Нэр</mat-label>
-          <input
-            matInput
-            placeholder="Нэр"
-            formControlName="firstName"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field appearance="outline" color="accent">
-          <mat-label>Овог</mat-label>
-          <input matInput placeholder="Овог" formControlName="lastName" />
-        </mat-form-field>
         <mat-form-field appearance="outline" color="accent">
           <mat-label>Нууц үг</mat-label>
           <input
@@ -129,7 +115,7 @@
             fxFlex=""
             [disabled]="!registerForm.valid || !acceptTOC"
           >
-            Бүртгүүлэх
+            Үргэлжлүүлэх
           </button>
         </mat-card-actions>
         <p class="mat-caption" style="color: red" *ngIf="serviceErrorMessage">

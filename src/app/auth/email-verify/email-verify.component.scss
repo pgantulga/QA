@@ -1,0 +1,25 @@
+@import "../login/login.component";
+@import "custom-theme";
+
+.email {
+  color: mat-color($accent);
+  font-weight: bold;
+}
+.verified {
+  mat-icon {
+    @include md-icon-size(36px);
+    color: green;
+  }
+  p {
+    text-align: center;
+  }
+}
+.toc {
+  margin-bottom: 0;
+  span {
+    color: mat-color($primary);
+  }
+}
+.toc:focus {
+  outline: 0;
+}

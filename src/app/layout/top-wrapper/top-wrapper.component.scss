@@ -9,13 +9,13 @@
     cursor: pointer !important;
     color: mat-color($accent) !important;
   }
+  h1.warn {
+    color: mat-color($warn);
+  }
   .greetings {
     margin: 0;
   }
-  // .top-wrapper {
-  //   .wrapper-content {
-  //   }
-  // }
+
 }
 @media only screen and (max-width: 960px) {
   .container {

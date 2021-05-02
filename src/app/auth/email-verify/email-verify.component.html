@@ -1,0 +1,51 @@
+<div fxLayout="column" class="layout-center">
+  <div fxFlex></div>
+  <mat-card class="login-card" *ngIf="afUser">
+    <div fxLayout="column" fxFlex>
+      <ng-container *ngIf="!afUser.emailVerified; else verified">
+        <div class="greetings">
+          <h2>Имэйл хаягаа баталгаажуулна уу?</h2>
+        </div>
+        <p>
+          Таны бүртгүүлсэн <span class="email">{{ afUser.email }}</span>
+          хаягруу баталгаажуулах имэйл илгээсэн. Та имэйлээ шалгана уу.
+        </p>
+        <button
+          mat-button
+          class="background-act ive"
+          (click)="sendVerificationAgain()"
+          [disabled]="emailSent"
+        >
+          Дахин илгээх <span *ngIf="emailSent">(Илгээсэн)</span>
+        </button>
+      </ng-container>
+      <ng-template #verified>
+        <div
+          class="greetings verified"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <mat-icon>done</mat-icon>
+          <div class="greetings">
+            <h2>Таны имэйл баталгаажлаа</h2>
+
+          </div>
+          <p>Таны имэйл хаяг баталгаажсан байна. Бүртгэлээ үргэлжлүүлнэ үү.</p>
+
+        </div>
+        <div fxLayout="row">
+          <button
+            mat-button
+            color="accent"
+            fxFlex
+            class="background-button"
+            (click)="submit()"
+          >
+            Үргэлжлүүлэх
+          </button>
+        </div>
+      </ng-template>
+    </div>
+  </mat-card>
+  <div fxFlex></div>
+</div>

@@ -16,10 +16,11 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { NotificationListComponent } from './notification-list/notification-list.component';
 import {SharedModule} from "../shared/shared.module";
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { EmailVerifyComponent } from './email-verify/email-verify.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent, NotificationsComponent, NotificationListComponent, PasswordResetComponent],
+  declarations: [LoginComponent, RegisterComponent, WelcomeComponent, ProfileSettingsComponent, SelectCategoryComponent, NotificationsComponent, NotificationListComponent, PasswordResetComponent, EmailVerifyComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,

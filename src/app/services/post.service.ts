@@ -279,8 +279,8 @@ export class PostService {
         });
     }
     getLogMessage(actor, type) {
-        const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', '"+" санал өгсөн', 'санал буцаасан', '"-" санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
-            'хэлэлцүүлгийг дагасан', 'хэлэлцүүлгийг дагахаа больсон'];
+        const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', 'санал өгсөн', 'санал буцаасан', 'санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
+            'хэлэлцүүлэг дагасан', 'хэлэлцүүлэг дагахаа больсон'];
         switch (type) {
             case 'created': return ` ${typesMN[0]}`;
             case 'edited': return ` ${typesMN[1]}`;
@@ -304,7 +304,7 @@ export class PostService {
             case 'created':
                 return 'edit';
             case 'devoted':
-                return 'exposure_zero';
+                return 'restore';
             case 'answered':
                 return 'add_comment';
             case 'replied':

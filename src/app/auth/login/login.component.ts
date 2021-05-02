@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
     onSubmit() {
         this.authService.signIn({ email: this.email.value, password: this.password.value })
             .then(res => {
-                const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+                const returnUrl = (res.user.emailVerified) ? this.route.snapshot.queryParamMap.get('returnUrl') : '/auth/email-verify'
                 this.router.navigate([returnUrl || '/'])
                     .then(() => {
                         this.checkNotification(res);

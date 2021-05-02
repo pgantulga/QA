@@ -97,9 +97,9 @@ export class NavbarComponent implements OnInit {
     setFabData(route) {
         return (route == 'post-detail') ? fabData[1] : fabData[0];
     }
-    fabClick(fabData) {
+    fabClick() {
         console.log('fabclick');
-        if (fabData.name !== 'reply') {
+        if (this.currentFab.name !== 'reply') {
             this.router.navigateByUrl('/ask');
         } else {
             const post$ = this.postService.currentPost

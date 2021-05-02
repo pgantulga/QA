@@ -7,6 +7,7 @@
   transition: top 0.3s ease;
   .toolbarLogo {
     height: 42px;
+    width: 120px;
   }
   .logo-button {
     height: 48px;
@@ -28,7 +29,7 @@
 }
 
 .no-scroll {
-  background-color: transparent !important;
+  // background-color: transparent !important;
   @include mat-elevation(0);
 }
 .fab-hide {

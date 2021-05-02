@@ -5,11 +5,12 @@
     fxLayout="row"
     fxLayoutAlign="start end"
   >
-    <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper">
+    <div fxLayout="row" class="wrapper-content" *ngIf="showWrapper" >
       <div fxLayout="column">
         <p class="mat-body-2 greetings">{{ getGreetings() }}</p>
-        <h1 [routerLink]="[content.link]">
+        <h1 [routerLink]="[content.link]" [class.warn]="content.name === 'regFinish'" >
           {{ content.title }}
+          <mat-icon class="mat-18" *ngIf="content.name === 'regFinish'">launch</mat-icon>
         </h1>
       </div>
     </div>

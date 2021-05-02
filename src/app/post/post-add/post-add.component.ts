@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Quill from 'quill';
 import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { PostService } from '../../services/post.service';
@@ -12,15 +11,15 @@ import { TagService } from '../../services/tag.service';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { config } from '../../shared/quill-config';
 import { switchMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { PermissionService } from 'src/app/services/permission.service';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        const isSubmitted = form && form.submitted;
-        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-    }
-}
+// export class MyErrorStateMatcher implements ErrorStateMatcher {
+//     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+//         const isSubmitted = form && form.submitted;
+//         return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+//     }
+// }
 
 @Component({
     selector: 'app-post-add',
@@ -42,6 +41,7 @@ export class PostAddComponent implements OnInit {
     editing = false;
     oldValue: any;
     isSecret: boolean;
+    post$: Observable<any>;
     constructor(
         public postService: PostService,
         public authService: AuthService,
@@ -51,15 +51,19 @@ export class PostAddComponent implements OnInit {
         public snackBar: MatSnackBar,
         public tagService: TagService,
         public permissionService: PermissionService
-        ) {
+    ) {
     }
     ngOnInit(): void {
-        this.route.paramMap.pipe(
+        this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
-                return params.get('id') ? this.postService.getPost(params.get('id')) : [];
-                })
-            )
-            .subscribe((data: any) => {
+                if (params.get('id')) {
+                    return this.postService.getPost(params.get('id'))
+                }
+                else { return EMPTY}
+            })
+        )
+        if (this.post$) {
+            this.post$.subscribe((data: any) => {
                 if (data) {
                     this.oldValue = data;
                     this.tags = data.tags;
@@ -69,6 +73,8 @@ export class PostAddComponent implements OnInit {
                     this.isSecret = data.isSecret || false;
                 }
             });
+        }
+        
         this.config = config;
         this.authService.user$.subscribe(user => {
             this.author = user;

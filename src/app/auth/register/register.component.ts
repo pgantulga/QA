@@ -72,19 +72,17 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.authService
       .emailSignUp({
-        firstName: this.registerForm.get('firstName').value,
-        lastName: this.registerForm.get('lastName').value,
-        displayName: this.registerForm.get('firstName').value,
         email: this.registerForm.get('email').value,
         password: this.registerForm.get('password').value
       })
-      .then((res: any) => {
-        console.log(res)
-        if (res.firstTime) {
-          this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
-        }
-      });
+      // .then((res: any) => {
+      //   console.log(res)
+      //   if (res.firstTime) {
+      //     this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
+      //   }
+      // });
   }
+  
   signOut() {
     this.authService.signOut();
   }

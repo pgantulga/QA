@@ -30,20 +30,8 @@ export interface Roles {
 }
 
 const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be whitelisted in the Firebase Console.
-    url: 'http://localhost:4200/auth/welcome',
-    // This must be true.
+    url: 'https://uurkhaichin.mn/auth/welcome',
     handleCodeInApp: true,
-    iOS: {
-        bundleId: 'com.example.ios'
-    },
-    android: {
-        packageName: 'com.example.android',
-        installApp: true,
-        minimumVersion: '12'
-    },
-    dynamicLinkDomain: 'example.page.link'
 };
 
 @Injectable({
@@ -67,10 +55,6 @@ export class AuthService {
     }
     private userCollection = this.db.collection<any>('users');
     user$: Observable<User>;
-
-    private static getDisplayName(user): any {
-        return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
-    }
 
     getUser(): Promise<any> {
         return this.user$.pipe(first()).toPromise();
@@ -112,17 +96,18 @@ export class AuthService {
     emailSignUp(userData) {
         return this.af.createUserWithEmailAndPassword(userData.email, userData.password)
             .then(res => {
-                userData.uid = res.user.uid;
-                userData.createdAt = new Date();
-                this.emailVerify(userData.email);
-                return this.createUserData(userData)
-                    .then(() => {
-                        return new Promise(resolve => {
-                            resolve({ firstTime: true, uid: res.user.uid });
-                        });
-                    });
-            });
+                return this.emailVerify(); });
+    }
 
+    async emailVerify() {
+        return (await this.af.currentUser).sendEmailVerification()
+            .then(() => {
+                this.router.navigate(['/auth/email-verify']);
+                console.log('email verification sent');
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     passwordReset(email) {
@@ -133,17 +118,6 @@ export class AuthService {
         return this.af.signInWithEmailAndPassword(userData.email, userData.password);
     }
 
-    emailVerify(email) {
-        console.log('email sending..', email);
-        this.af.sendSignInLinkToEmail(email, actionCodeSettings)
-            .then(() => {
-                window.localStorage.setItem('emailForSignIn', email);
-                console.log('email sent');
-            })
-            .catch(err => {
-                console.log(err.message);
-            });
-    }
 
     async signOut() {
         await this.af.signOut()
@@ -172,7 +146,7 @@ export class AuthService {
         return ref.set(data, { merge: true });
     }
 
-    private createUserData(user: any) {
+    createUserData(user: any) {
         const ref = this.userCollection.doc(user.uid);
         const data = {
             uid: user.uid,
@@ -187,6 +161,11 @@ export class AuthService {
         };
         return ref.set(data, { merge: true });
     }
+
+    private static getDisplayName(user): any {
+        return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;
+    }
+
     verify(user) {
         return this.userCollection.doc(user.uid)
             .set({ verified: true }, { merge: true });

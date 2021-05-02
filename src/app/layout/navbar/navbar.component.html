@@ -37,7 +37,7 @@
         <button
           mat-flat-button
           color="accent"
-          [routerLink]="'/ask'"
+          [routerLink]="['/ask']"
           *ngIf="permissionService.canRead(user)"
         >
           <mat-icon>edit</mat-icon>
@@ -123,9 +123,9 @@
   color="accent"
   aria-label="fab button"
   id="fab"
-  (click) = "fabClick(currentFab)"
+  (click) = "fabClick()"
   fxHide.gt-xs
-  [class.fab-hide]="hideToolbar || (currentRoute === 'post-edit') || (currentRoute === 'post-logs')"
+  [class.fab-hide]="hideToolbar || (currentRoute === 'post-logs')"
   *ngIf="permissionService.canRead(user)"
 >
   <mat-icon>{{currentFab.icon}}</mat-icon>

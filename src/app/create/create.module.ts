@@ -1,3 +1,4 @@
+import { LayoutModule } from './../layout/layout.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateRoutingModule } from './create-routing.module';
@@ -22,6 +23,7 @@ import {TagSelectComponent} from '../tag/tag-select/tag-select.component';
         FlexLayoutModule,
         SharedModule,
         FormsModule,
+        LayoutModule,
         ReactiveFormsModule,
         QuillModule.forRoot()
     ]

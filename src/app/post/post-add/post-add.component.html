@@ -1,120 +1,117 @@
-<div class="container_content">
-  <div class="post-add">
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <div class="background-card">
-          <div class="sub-header">
-            <h2>Хэлэлцүүлгийн гарчиг</h2>
-          </div>
-          <p class="mat-body-1">
-            Хэн нэгнээс асуусан маягтай тухайн асуудлыг оновчтой тодорхойлохоор
-            бичнэ үү.
-          </p>
-          <mat-form-field
-            style="width: 100%"
-            appearance="outline"
-            color="accent"
-            [floatLabel]="'never'"
-          >
-            <mat-label>Гарчиг</mat-label>
-            <input
-              matInput
-              placeholder="Гарчиг"
-              [formControl]="title"
-              required
-              maxlength="150"
-            />
-          </mat-form-field>
-          <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{
-            getErrorMessage()
-          }}</mat-error>
-        </div>
-        <!-- <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint> -->
-        <div class="background-card">
-          <div class="sub-header">
-            <h2>Агуулга</h2>
-          </div>
-          <p class="mat-body-1">
-            Таны асуудалд хариулт өгөхөд шаардлагатай бүх мэдээллийг багтаахыг
-            зорино уу
-          </p>
-          <quill-editor
-            [formControl]="content"
-            [modules]="config"
-            [styles]="{ height: '300px' }"
-            required
-            [placeholder]="'Агуулга бичих ...'"
-          ></quill-editor>
-          <mat-hint align="end" class="mat-caption"
-            >Агуулгын доод урт 300 тэмдэгт</mat-hint
-          >
-        </div>
-        <div class="background-card">
-          <div class="sub-header">
-            <h2>Сэдэв</h2>
-          </div>
-          <p class="mat-body-1">
-            Таны асуудлыг тодорхойлж чадах 3 хүртэлх сэдэв сонгоно уу. Хэрэв
-            тохиромжтой сэдэв байхгүй бол
-            <a (click)="cancel('/tags')" style="text-decoration: none"
-              >сэдвүүд хуудаснаас</a
-            >
-            дэлгэрэнгүй жагсаалтыг харах боломжтой.
-          </p>
-          <ng-container *ngIf="this.oldValue; else new">
-            <tag-select
-              (emittingTags)="getTag($event)"
-              required=""
-              [inputTags]="this.oldValue.tags"
-            ></tag-select>
-          </ng-container>
-          <ng-template #new>
-            <tag-select
-              (emittingTags)="getTag($event)"
-              required=""
-              [inputTags]="[]"
-            ></tag-select>
-          </ng-template>
-        </div>
-        <ng-container *ngIf="authService.user$ | async as user">
-          <mat-checkbox
-            *ngIf="permissionService.canEdit(user)"
-            [(ngModel)]="isSecret"
-            [ngModelOptions]="{ standalone: true }"
-            >Нууц хэлэлцүүлэг</mat-checkbox
-          >
-        </ng-container>
+
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="background-card">
+      <div class="sub-header">
+        <h2>Хэлэлцүүлгийн гарчиг</h2>
       </div>
-      <div fxLayout="row" style="padding: 16px 0 0 0" fxLayoutAlign="end end">
-        <button
-          mat-button
-          (click)="cancel('/home')"
-          type="button"
-          style="margin: 0 16px 0 0"
+      <p class="mat-body-1">
+        Хэн нэгнээс асуусан маягтай тухайн асуудлыг оновчтой тодорхойлохоор
+        бичнэ үү.
+      </p>
+      <mat-form-field
+        style="width: 100%"
+        appearance="outline"
+        color="accent"
+        [floatLabel]="'never'"
+      >
+        <mat-label>Гарчиг</mat-label>
+        <input
+          matInput
+          placeholder="Гарчиг"
+          [formControl]="title"
+          required
+          maxlength="150"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{
+        getErrorMessage()
+      }}</mat-error>
+    </div>
+    <!-- <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint> -->
+    <div class="background-card">
+      <div class="sub-header">
+        <h2>Агуулга</h2>
+      </div>
+      <p class="mat-body-1">
+        Таны асуудалд хариулт өгөхөд шаардлагатай бүх мэдээллийг багтаахыг
+        зорино уу
+      </p>
+      <quill-editor
+        [formControl]="content"
+        [modules]="config"
+        [styles]="{ height: '300px' }"
+        required
+        [placeholder]="'Агуулга бичих ...'"
+      ></quill-editor>
+      <mat-hint align="end" class="mat-caption"
+        >Агуулгын доод урт 300 тэмдэгт</mat-hint
+      >
+    </div>
+    <div class="background-card">
+      <div class="sub-header">
+        <h2>Сэдэв</h2>
+      </div>
+      <p class="mat-body-1">
+        Таны асуудлыг тодорхойлж чадах 3 хүртэлх сэдэв сонгоно уу. Хэрэв
+        тохиромжтой сэдэв байхгүй бол
+        <a (click)="cancel('/tags')" style="text-decoration: none"
+          >сэдвүүд хуудаснаас</a
         >
-          Цуцлах
-        </button>
-        <ng-container *ngIf="editing; else add">
-          <button
-            mat-flat-button
-            type="submit"
-            color="accent"
-            [disabled]="title.invalid || content.invalid"
-          >
-            Сануулах
-          </button>
-        </ng-container>
-        <ng-template #add>
-          <button
-            mat-flat-button
-            type="submit"
-            color="accent"
-            [disabled]="title.invalid || content.invalid"
-          >
-            Нийтлэх
-          </button>
-        </ng-template>
-      </div>
-    </form>
+        дэлгэрэнгүй жагсаалтыг харах боломжтой.
+      </p>
+      <ng-container *ngIf="this.oldValue; else new">
+        <tag-select
+          (emittingTags)="getTag($event)"
+          required=""
+          [inputTags]="this.oldValue.tags"
+        ></tag-select>
+      </ng-container>
+      <ng-template #new>
+        <tag-select
+          (emittingTags)="getTag($event)"
+          required=""
+          [inputTags]="[]"
+        ></tag-select>
+      </ng-template>
+    </div>
+    <ng-container *ngIf="authService.user$ | async as user">
+      <mat-checkbox
+        *ngIf="permissionService.canEdit(user)"
+        [(ngModel)]="isSecret"
+        [ngModelOptions]="{ standalone: true }"
+        >Нууц хэлэлцүүлэг</mat-checkbox
+      >
+    </ng-container>
   </div>
-</div>
+  <div fxLayout="row" style="padding: 16px 0 0 0" fxLayoutAlign="end end">
+    <button
+      mat-button
+      (click)="cancel('/home')"
+      type="button"
+      style="margin: 0 16px 0 0"
+    >
+      Цуцлах
+    </button>
+    <ng-container *ngIf="editing; else add">
+      <button
+        mat-flat-button
+        type="submit"
+        color="accent"
+        [disabled]="title.invalid || content.invalid"
+      >
+        Сануулах
+      </button>
+    </ng-container>
+    <ng-template #add>
+      <button
+        mat-flat-button
+        type="submit"
+        color="accent"
+        [disabled]="title.invalid || content.invalid"
+      >
+        Нийтлэх
+      </button>
+    </ng-template>
+  </div>
+</form>

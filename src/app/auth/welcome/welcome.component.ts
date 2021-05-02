@@ -67,8 +67,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('submit');
-
     const data = {
       displayName: this.displayName.value,
       company: {
