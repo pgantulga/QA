@@ -18,7 +18,7 @@ exports.notificationCreated = functions.firestore
             },
             webpush: {
                 fcmOptions: {
-                    link: (notifierData.parent) ? 'http://localhost:4200/posts/' + notifierData.parent : 'http://localhost:4200/'
+                    link: (notifierData.parent) ? 'https://uurkhaichin.mn/posts/' + notifierData.parent : 'https://uurkhaichin.mn/'
                 }
             }
         };

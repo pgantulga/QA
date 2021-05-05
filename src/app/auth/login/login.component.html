@@ -1,5 +1,5 @@
 <div fxLayout="column" class="layout-center">
-  <div fxFlex fxHide.xs></div>
+  <div fxFlex></div>
   <mat-card class="login-card">
     <div
       *ngIf="authService.user$ | async as user; else login"
@@ -58,7 +58,7 @@
         </div>
         <mat-form-field
           appearance="outline"
-          color="primary"
+          color="accent"
           class="login-form-field"
         >
           <mat-label>Имэйл хаяг</mat-label>
@@ -70,7 +70,7 @@
         }}</mat-error>
         <mat-form-field
           appearance="outline"
-          color="primary"
+          color="accent"
           class="login-form-field"
         >
           <mat-label>Нууц үг</mat-label>
@@ -107,5 +107,5 @@
       </form>
     </ng-template>
   </mat-card>
-  <div fxFlex fxHide.xs></div>
+  <div fxFlex></div>
 </div>

@@ -38,7 +38,7 @@ $button-bg: mat-color($accent);
     // background-color: yellow;
     height: 44px;
     width: 36px;
-    margin: 4px 0 8px 0;
+    margin: 8px 0 8px 0;
     overflow: visible;
     .tooltip-beer {
       position: absolute;
@@ -72,7 +72,7 @@ $button-bg: mat-color($accent);
         @include md-icon-size(60px);
         left: -10px;
         bottom: -10px;
-        background-color: mat-color($accent, 0.1);
+        // background-color: mat-color($accent, 0.1);
         border-radius: 100%;
         svg {
           bottom: 8px;
@@ -87,7 +87,7 @@ $button-bg: mat-color($accent);
     .vote__beer-container {
       height: 32px;
       width: 32px;
-      margin: 4px 0;
+      margin: 8px 0;
       .vote__beer {
         @include md-icon-size(32px);
         position: absolute;
@@ -106,8 +106,8 @@ $button-bg: mat-color($accent);
       .vote__beer.beer--cheers {
         @include md-icon-size(50px);
         // left: -10px;
-        bottom: -8px;
-        background-color: mat-color($accent, 0.1);
+        bottom: -10px;
+        // background-color: mat-color($accent, 0.1);
         border-radius: 100%;
       }
     }

@@ -9,6 +9,7 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
           <mat-chip-list>
+            <mat-icon class="locked" *ngIf="post.isSecret">lock</mat-icon>
             <tag-chip *ngFor="let item of post.tags" [item]="item"></tag-chip>
           </mat-chip-list>
         </div>

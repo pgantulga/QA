@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { VoteService } from '../../services/vote.service';
@@ -28,6 +29,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   voteCount: any;
   tooltipValue: any;
   showTooltip: boolean = false;
+  subscription: Subscription
 
   constructor(
     public voteService: VoteService,
@@ -43,7 +45,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       this.user = user;
-      this.voteService
+      this.subscription = this.voteService
         .getItemVotes(this.obj, this.type)
         .subscribe((upvotes: any) => {
           if (this.user) {
@@ -57,6 +59,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     this.isVoted = false;
   }
   upVote() {

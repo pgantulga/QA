@@ -1,21 +1,23 @@
+import { NotificationService } from './../services/notification.service';
 import { MetaObj } from './../services/tag.service';
-import {Component, OnInit} from '@angular/core';
-import {PostService} from '../services/post.service';
-import {AuthService} from '../services/auth.service';
-import {PageEvent} from '@angular/material/paginator';
-import {Observable} from 'rxjs';
-import {MenuService} from '../services/menu.service';
-import {TagService} from '../services/tag.service';
-import {PermissionService} from '../services/permission.service';
-import { first } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { AuthService } from '../services/auth.service';
+import { PageEvent } from '@angular/material/paginator';
+import { Observable, Subscription } from 'rxjs';
+import { MenuService } from '../services/menu.service';
+import { TagService } from '../services/tag.service';
+import { PermissionService } from '../services/permission.service';
+import { first, isEmpty } from 'rxjs/operators';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
     posts: any;
+    posts$: Observable<any>;
     toggleMenu: any;
     selectedSort: any;
     pageEvent: PageEvent;
@@ -25,12 +27,16 @@ export class HomeComponent implements OnInit {
     pinnedPosts$: Observable<any>;
     userTags = [];
     showPaginator: boolean = true;
+    isNoPost: boolean = false;
+    subscription: Subscription ;
 
     constructor(private postService: PostService,
-                public authService: AuthService,
-                private tagService: TagService,
-                private menu: MenuService,
-                public permissionService: PermissionService) {
+        public authService: AuthService,
+        private tagService: TagService,
+        private menu: MenuService,
+        public permissionService: PermissionService,
+        public notificationService: NotificationService
+    ) {
     }
 
     ngOnInit(): void {
@@ -39,19 +45,25 @@ export class HomeComponent implements OnInit {
         this.postMetas = this.postService.getPostMeta();
         this.getStarted();
         this.getTagsMenu();
+        this.notificationService.getPowerUsers()
     }
+    ngOnDestroy(){
+        this.subscription.unsubscribe();
+    } 
 
     private getStarted() {
         this.showPaginator = true;
         this.posts = [];
-        this.postService.getFirstItems(10, this.selectedSort.sort).toPromise()
+        this.posts$ = this.postService.getFirstItems(10, this.selectedSort.sort)
+        this.subscription = this.posts$.pipe(isEmpty()).subscribe(x => this.isNoPost = x)
+        this.posts$.toPromise()
             .then(data => {
                 this.copyItems(data);
             });
         this.pinnedPosts$ = this.postService.getPinnedPost();
     }
-
     
+
     private copyItems(data) {
         for (const a of data.docs) {
             this.posts.push(a.data());
@@ -62,7 +74,7 @@ export class HomeComponent implements OnInit {
 
     private goToTop() {
         const element = document.getElementById('tags');
-        element.scrollIntoView({behavior: "smooth"});
+        element.scrollIntoView({ behavior: "smooth" });
     }
 
     private async getTagsMenu() {
@@ -101,11 +113,16 @@ export class HomeComponent implements OnInit {
     followingPost(user) {
         this.showPaginator = false;
         this.posts = [];
-        this.postService.getUserFollowedPosts(user.posts)
+        const followingPosts$ = this.postService.getUserFollowedPosts(user.posts)
+        const isEmpty$ = followingPosts$.pipe(isEmpty());
+        isEmpty$.subscribe(x => this.isNoPost = x)
+        followingPosts$
             .subscribe(items => {
                 items.sort((a: any, b: any) => b.updatedAt - a.updatedAt)
                 items.forEach(post => {
-                    this.posts.push(post);
+                    if (post) {
+                        this.posts.push(post);
+                    }
                 })
             })
     }

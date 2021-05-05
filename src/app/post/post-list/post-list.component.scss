@@ -5,6 +5,10 @@
   mat-icon.meta-icon {
     margin-bottom: 8px;
   }
+  mat-icon.locked {
+    @include md-icon-size(16px);
+    margin: 0;
+  }
   .mat-body-2 {
     margin: 0;
   }

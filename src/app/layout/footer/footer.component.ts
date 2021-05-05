@@ -16,4 +16,8 @@ export class FooterComponent {
     this.tocId = '44LFn7kNX5BPkb1RwID5';
     this.article$ = this.articleService.getArticle('WYg2RZvhKat1PxtPaUL0');
    }
+   feedback() {
+    window.location.href = 'mailto:tulga@miningmongolia.mn?subject=Санал хүсэлт Уурхайчин форум';
+  }
 }
+  

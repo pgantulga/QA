@@ -21,7 +21,7 @@ const DropdownMenu = [
     },
     {
         name: 'Их үнэлгээтэй хариултууд',
-        sort: 'votesNumber'
+        sort: 'totalVotes'
     }
 ];
 const LogTypes = ['created', 'edited', 'voted', 'devoted', 'answered', 'replied'];

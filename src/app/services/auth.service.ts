@@ -1,3 +1,4 @@
+import { NotificationService } from './notification.service';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,6 +43,7 @@ export class AuthService {
         private router: Router,
         private db: AngularFirestore,
         public snackBar: MatSnackBar,
+        private notificationService: NotificationService
     ) {
         this.user$ = this.af.authState.pipe(
             switchMap(user => {
@@ -159,8 +161,13 @@ export class AuthService {
                 guest: true
             },
         };
-        return ref.set(data, { merge: true });
+        return ref.set(data, { merge: true })
+        .then(res => {
+            this.notificationService.createNotificationObject(data.uid, data, 0, 'user');
+        
+        })
     }
+    
 
     private static getDisplayName(user): any {
         return (user.firstName || user.lastName) ? (user.firstName + ' ' + user.lastName.charAt(0) + '.') : null;

@@ -59,6 +59,12 @@ exports.voteChanged = functions.firestore
           totalVotes: getDocumentTotalVotes(updatedDocument),
         });
       }
+      if (refArray.length == 2) {
+        batch.update(getAnswerRef(refArray[0], refArray[1]),
+          {
+            totalVotes: getDocumentTotalVotes(updatedDocument),
+          });
+      }
       return batch.commit().then(() => {
         console.log("votes updated");
       });
@@ -71,13 +77,13 @@ function getVoteDiff(updatedDocument: any, oldDocument: any): any {
   const oldTotal: any = oldDocument
     ? Object.values(oldDocument).reduce(reducer, 0)
     : 0
-    const diff = updatedTotal - oldTotal;
+  const diff = updatedTotal - oldTotal;
   return diff;
 }
 function getDocumentTotalVotes(updatedDocument: any): any {
   const updatedTotal: any = updatedDocument
-  ? Object.values(updatedDocument).reduce(reducer, 0)
-  : 0;
+    ? Object.values(updatedDocument).reduce(reducer, 0)
+    : 0;
   return updatedTotal;
 }
 
@@ -85,6 +91,14 @@ const reducer = (accumulator: any, currentValue: any) => accumulator + currentVa
 function getPostRef(itemId: string) {
   const idArray = itemId.split("_");
   return admin.firestore().collection("posts").doc(idArray[0]);
+}
+function getAnswerRef(postId: string, answerId: string) {
+  return admin
+    .firestore()
+    .collection("posts")
+    .doc(postId)
+    .collection("answers")
+    .doc(answerId);
 }
 async function getUserRef(itemId: string) {
   const idArray = itemId.split("_");
@@ -102,10 +116,4 @@ async function getUserRef(itemId: string) {
   console.log(data?.author.uid);
   return admin.firestore().collection("users").doc(data?.author.uid);
 }
-// function getAnswerRef(postId: string, answerId: string) {
-//   return admin
-//     .firestore()
-//     .collection("posts")
-//     .doc(postId)
-//     .collection("answers")
-//     .doc(answerId);
+

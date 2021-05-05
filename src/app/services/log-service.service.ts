@@ -34,7 +34,7 @@ export class LogService {
   addEventObj(collection, entity, entityType, actor) {
     return this.db.collection('eventLogs')
       .add(this.createEventObj(collection, entity, entityType, actor))
-      .then(() => {
+      .then(() => {``
         console.log('Event Object added.')
       })
   }
