@@ -45,11 +45,13 @@
       </div>
     </div>
   </div>
-  <div
-        class="type-indicator"
-        [class.user]="post?.pinned"
-        [class.user]="isUserPost"
-        *ngIf="post?.pinned || isUserPost"
-      >
-  </div>
+  <ng-container *ngIf="authService.user$ | async as user">
+    <div
+          class="type-indicator"
+          [class.user]="post?.pinned"
+          [class.user]="user.posts[post.id]"
+          *ngIf="post?.pinned || user.posts[post.id]"
+        >
+    </div>
+  </ng-container>
 </div>

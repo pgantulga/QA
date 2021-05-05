@@ -9,6 +9,7 @@ const postFunctions = require('./post-functions');
 exports.lastLog = postFunctions.lastLog;
 exports.postUpdate = postFunctions.postUpdate;
 exports.postMeta = postFunctions.postMeta;
+exports.postFollowers = postFunctions.postFollowers;
 
 const commentFunctions = require('./comments-functions');
 exports.aggregateComments = commentFunctions.aggregateComments;

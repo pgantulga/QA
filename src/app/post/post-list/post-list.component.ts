@@ -16,12 +16,11 @@ export class PostListComponent implements OnInit {
 
     constructor(private router: Router,
                 private viewportScroller: ViewportScroller,
-                private authService: AuthService,
+                public authService: AuthService,
                 public postService: PostService) {
     }
 
     ngOnInit(): void {
-        this.checkUserPost();
     }
 
     gotoPost(post) {
@@ -30,15 +29,4 @@ export class PostListComponent implements OnInit {
         });
 
     }
-    async checkUserPost() {
-      const followers = await this.postService.getFollowers(this.post.id);
-      const user = await this.authService.getUser();
-      if (user) {
-          followers.forEach(fol => {
-              if (fol.data().uid === user.uid) {
-                  this.isUserPost = true;
-              }
-          });
-      }
-   }
 }
