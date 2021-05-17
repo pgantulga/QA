@@ -142,7 +142,6 @@ export class PostService {
     }
 
     async addFollowers(tags, postId) {
-        // need when post created get followers from post tags
         if (!tags) {
             return null;
         }
@@ -150,15 +149,7 @@ export class PostService {
         const addPromises = [];
         followers.forEach(item => {
             addPromises.push(this.postCollection.doc(postId).collection('followers')
-                .add({ uid: item.uid }));
-                // this.authService.updateUserInstant(
-                //     {
-                //         posts: {
-                //             [postId]: true
-                //         }
-                //     }, item.uid
-                // )
-            // add post to user.posts
+                .add({ uid: item.uid }))
         });
         return Promise.all(addPromises);
     }
@@ -279,7 +270,7 @@ export class PostService {
         });
     }
     getLogMessage(actor, type) {
-        const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', 'санал өгсөн', 'санал буцаасан', 'санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
+        const typesMN = ['хэлэлцүүлэг нэмсэн', 'хэлэлцүүлгийг зассан', 'санал өгсөн', 'санал буцаасан', '"-" санал өгсөн', 'хариулт нэмсэн', 'хариулсан',
             'хэлэлцүүлэг дагасан', 'хэлэлцүүлэг дагахаа больсон'];
         switch (type) {
             case 'created': return ` ${typesMN[0]}`;

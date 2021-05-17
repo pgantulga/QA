@@ -10,9 +10,15 @@ exports.lastLog = functions.firestore
   .onCreate((snap: any, context: any) => {
     const postId = context.params.postId;
     const docRef = admin.firestore().collection("posts").doc(postId);
-    return docRef.update({
-      lastLog: snap.data(),
-    });
+    if (snap.data().type == 'created'
+      || snap.data().type == 'answered'
+      || snap.data().type == 'replied'
+      || snap.data().type == 'voted') {
+        return docRef.update({
+          lastLog: snap.data(),
+        });  
+    } 
+    return null;
   });
 //when post/followers added update user/posts
 exports.postFollowers = functions.firestore

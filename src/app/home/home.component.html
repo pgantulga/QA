@@ -1,12 +1,17 @@
+<div class="section-header">
+  <ng-container *ngIf="authService.user$ | async as user; else noUserTag">
+    <h4>Таны дагасан сэдвүүд</h4>
+    <mat-icon color="accent">loyalty</mat-icon>
+  </ng-container>
+  <ng-template #noUserTag>
+    <h4>Эрэлттэй сэдвүүд</h4>
+    <mat-icon color="accent">trending_up</mat-icon>
+  </ng-template>
+</div>
 <div class="chip-list-container" *ngIf="userTags" id="tags">
   <mat-chip-list>
     <div class="h-scrolling-flex">
-      <ng-container *ngIf="authService.user$ | async as user; else noUserTag">
-        <mat-icon color="accent">loyalty</mat-icon>
-      </ng-container>
-      <ng-template #noUserTag>
-        <mat-icon color="accent">trending_up</mat-icon>
-      </ng-template>
+      
       <tag-chip
         *ngFor="let item of userTags; let last = last"
         [item]="item"
@@ -84,7 +89,9 @@
       </div>
     </ng-container>
     <ng-template #loading>
-      <post-list-ghost *ngFor="let item of [1, 2, 3, 4, 5, 6]"></post-list-ghost>
+      <post-list-ghost
+        *ngFor="let item of [1, 2, 3, 4, 5, 6]"
+      ></post-list-ghost>
     </ng-template>
   </ng-template>
 </div>
