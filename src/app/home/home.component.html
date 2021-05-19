@@ -1,17 +1,28 @@
-<div class="section-header">
-  <ng-container *ngIf="authService.user$ | async as user; else noUserTag">
-    <h4>Таны дагасан сэдвүүд</h4>
-    <mat-icon color="accent">loyalty</mat-icon>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <ng-container *ngIf="user?.tags; else noUserTag">
+    <div class="section-header-sub" fxLayout="row">
+      <mat-icon color="accent">loyalty</mat-icon>
+      <h4 style="margin: 0">Таны дагасан сэдвүүд</h4>
+    </div>
   </ng-container>
   <ng-template #noUserTag>
-    <h4>Эрэлттэй сэдвүүд</h4>
-    <mat-icon color="accent">trending_up</mat-icon>
+    <div class="section-header-sub" fxLayout="row">
+      <mat-icon color="accent">trending_up</mat-icon>
+      <h4>Эрэлттэй сэдвүүд</h4>
+    </div>
   </ng-template>
+  <button
+    mat-button
+    color="accent"
+    style="height: 24px; line-height: 24px; margin: 4px"
+    [routerLink]="['/tags']"
+  >
+    Бүх сэдвүүд
+  </button>
 </div>
 <div class="chip-list-container" *ngIf="userTags" id="tags">
   <mat-chip-list>
     <div class="h-scrolling-flex">
-      
       <tag-chip
         *ngFor="let item of userTags; let last = last"
         [item]="item"
@@ -19,28 +30,11 @@
       >
         <mat-divider [vertical]="true" *ngIf="!last"></mat-divider>
       </tag-chip>
-      <button
-        mat-button
-        color="accent"
-        style="height: 24px; line-height: 24px; margin: 4px"
-        [routerLink]="['/tags']"
-      >
-        Бүх сэдвүүд
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
     </div>
   </mat-chip-list>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
   <h2>Oнцлох</h2>
-  <!-- <button
-        mat-button
-        class="background-white"
-        (click)="followingPost()"
-    >   
-        <mat-icon>notifications_active</mat-icon>
-        Дагасан хэлэлцүүлгүүд
-    </button> -->
 </div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
   <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
@@ -48,7 +42,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
   <h2>Бүх хэлэлцүүлгүүд</h2>
   <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
-    <ng-container *ngIf="authService.user$ | async as user">
+    <ng-container *ngIf="user">
       <mat-button-toggle
         (click)="followingPost(user)"
         [matTooltip]="'Дагасан'"
@@ -75,7 +69,10 @@
   <ng-template #postsArray>
     <div *ngIf="posts.length; else loading">
       <div *ngFor="let item of posts; last as last">
-        <post-list [post]="item" *ngIf="!item.pinned"></post-list>
+        <post-list
+          [post]="item"
+          *ngIf="!item.pinned"
+        ></post-list>
       </div>
     </div>
     <ng-container *ngIf="showPaginator">

@@ -77,7 +77,6 @@ export class WelcomeComponent implements OnInit {
       idCard: (this.idCard || this.user.idCard),
       updatedAt: new Date()
     }
-    console.log(data);
     this.authService.updateUserInstant(data, this.user.uid)
       .then(res => {
         if (!(this.user.roles.moderator || this.user.roles.admin)) {

@@ -14,6 +14,9 @@ export class PostService {
     postMetaDoc = this.db.doc('metas/post');
     postSource = new BehaviorSubject('default');
     currentPost = this.postSource.asObservable();
+    userPostsSource  = new BehaviorSubject('default');
+    userPosts = this.userPostsSource.asObservable();
+    postService: any;
 
     constructor(
         private db: AngularFirestore,
@@ -22,6 +25,9 @@ export class PostService {
         private logService: LogService,
         private authService: AuthService
     ) {
+    }
+    setUserPosts(posts) {
+        this.userPostsSource.next(posts);
     }
     setCurrentPost(postId) {
         this.postSource.next(postId);

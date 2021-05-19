@@ -5,6 +5,10 @@
   top: 0; 
   visibility: visible;
   transition: top 0.3s ease;
+  .warning {
+    background-color: mat-color($warn);
+    height: 50px;
+  }
   .toolbarLogo {
     height: 42px;
     width: 120px;
@@ -23,7 +27,7 @@
   
 }
 .on-scroll {
-  top: -64px;
+  top: -114px;
   // visibility: hidden;
   transition: top 0.3s ease;
 }

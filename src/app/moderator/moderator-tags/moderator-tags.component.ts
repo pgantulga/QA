@@ -65,4 +65,7 @@ export class ModeratorTagsComponent implements OnInit {
   commit(item) {
     return this.tagService.commitRecommend(item);
   }
+  delete (item) {
+    return this.tagService.deleteRecomment(item);
+  }
 }

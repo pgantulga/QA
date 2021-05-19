@@ -3,7 +3,11 @@
   <mat-card class="login-card settings-card-container background-card">
     <form (ngSubmit)="onSubmit()">
       <div fxLayout="row" fxLayoutAlign="center center" class="logo-container">
-        <img src="../../../assets/logo_full_black.png" alt="Logo" class="logo" />
+        <img
+          src="../../../assets/logo_full_black.png"
+          alt="Logo"
+          class="logo"
+        />
       </div>
       <div class="greetings">
         <h2>Тавтай морил!</h2>
@@ -19,32 +23,53 @@
             type="button"
             [ngClass]="{ active: isSelected(color) }"
           >
-            <mat-icon [ngStyle]="{ color: color.code }">account_circle</mat-icon>
+            <mat-icon [ngStyle]="{ color: color.code }"
+              >account_circle</mat-icon
+            >
           </button>
         </div>
       </div>
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Таны харагдах нэр</mat-label>
-        <input matInput placeholder="Харагдах нэр" [formControl]="displayName" required />
+        <input
+          matInput
+          placeholder="Харагдах нэр"
+          [formControl]="displayName"
+          required
+        />
       </mat-form-field>
+      <mat-hint class="mat-caption">Хамгийн багадаа 3 тэмдэгт байна. </mat-hint>
+
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Байгууллага</mat-label>
-        <input matInput placeholder="Байгууллага" [formControl]="company" required />
+        <input
+          matInput
+          placeholder="Байгууллага"
+          [formControl]="company"
+          required
+        />
       </mat-form-field>
-      <mat-hint align="end" class="mat-caption"
-        >Жишээлбэл: Эрдэнэт Үйлдвэр ТӨҮГ
-      </mat-hint>
+      <mat-hint class="mat-caption">Жишээлбэл: Эрдэнэт Үйлдвэр ТӨҮГ </mat-hint>
+
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Албан тушаал</mat-label>
-        <input matInput placeholder="Албан тушаал" [formControl]="position" required />
+        <input
+          matInput
+          placeholder="Албан тушаал"
+          [formControl]="position"
+          required
+        />
       </mat-form-field>
-      <mat-hint align="end" class="mat-caption">Жишээлбэл: Геологич </mat-hint>
+      <mat-hint class="mat-caption">Жишээлбэл: Геологич </mat-hint>
       <div class="name-card-container" fxLayout="row">
         <div fxLayout="column">
-          <p class="mat-body-2">Нэрийн хуудасны мэдээлэл оруулах (Заавал биш)</p>
+          <p class="mat-body-2">
+            Нэрийн хуудасны мэдээлэл оруулах (Заавал биш)
+          </p>
           <p class="mat-body-1">
             Та нэрийн хуудасны зургаа оруулснаар таны байгууллагын мэдээлэл
-            баталгаажих МУУҮА -ийн гишүүдийн хаалттай хэлэлцүүлэгт орох боломжтой.
+            баталгаажих МУУҮА -ийн гишүүдийн хаалттай хэлэлцүүлэгт орох
+            боломжтой.
           </p>
           <upload-file
             [path]="storagePath"
@@ -71,7 +96,6 @@
         </button>
       </mat-card-actions>
     </form>
-    
-  </mat-card>  
+  </mat-card>
   <div fxFlex fxHide.xs></div>
 </div>

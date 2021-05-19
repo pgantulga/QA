@@ -59,7 +59,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
     this.isVoted = false;
   }
   upVote() {

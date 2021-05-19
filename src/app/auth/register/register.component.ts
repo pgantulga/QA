@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
 
   loginWithGoogle() {
     this.authService.googleLogin()
-      .then((res) => {
+      .then((res: any) => {
         if (res.firstTime) {
           this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
         } else {

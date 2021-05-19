@@ -115,7 +115,8 @@ export class TagDetailComponent implements OnInit {
                 }
             });
     }
-    toggleFollow(user, tagDetail) { 
+    toggleFollow(user, tagDetail) {
+        if (!user.tags) { user.tags = {}; }
         (user.tags[tagDetail.id]) ? this.tagService.unfollowTag(user, tagDetail) : this.tagService.followTag(user, tagDetail);
         this.authService.updateUserInstant(
             {

@@ -1,7 +1,7 @@
 <div class="post-list background-card">
   <div fxLayout="column" fxLayout.gt-xs="row">
     <div fxLayout="row" fxFlex.gt-xs>
-      <div fxLayout="column" >
+      <div fxLayout="column">
         <div fxLayout="row" fxLayoutAlign="start center">
           <h4 (click)="gotoPost(post)">
             {{ post.title }}
@@ -24,34 +24,41 @@
           }}</mat-icon>
           <p class="mat-caption">
             {{ post.lastLog.timestamp | momentPipe }}
-            {{post.lastLog.user.displayName}}
+            {{ post.lastLog.user.displayName }}
             <span *ngIf="post.lastLog.message">{{ post.lastLog.message }}</span>
           </p>
         </div>
       </div>
     </div>
-    <div fxLayout="row"  fxLayoutAlign="start start" fxLayoutAlign.xs="end end">
+    <div fxLayout="row" fxLayoutAlign="start start" fxLayoutAlign.xs="end end">
       <!-- <mat-icon *ngIf="post.isSecret" class="meta-icon">lock</mat-icon>
           <mat-icon *ngIf="post.pinned" class="meta-icon">push_pin</mat-icon> -->
-      <div class="score" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
+      <div
+        class="score"
+        fxLayout="column"
+        fxLayout.xs="row"
+        fxLayoutAlign="center center"
+      >
         <p class="mat-body-2">{{ post.answersCount }}</p>
         <p class="mat-caption">Хариулт</p>
         <mat-icon fxHide.xs>reply</mat-icon>
       </div>
-      <div class="score" fxLayout="column" fxLayout.xs="row" fxLayoutAlign="center center">
+      <div
+        class="score"
+        fxLayout="column"
+        fxLayout.xs="row"
+        fxLayoutAlign="center center"
+      >
         <p class="mat-body-2">{{ post.totalVotes }}</p>
         <p class="mat-caption">Үнэлгээ</p>
         <mat-icon fxHide.xs>done</mat-icon>
       </div>
     </div>
   </div>
-  <ng-container *ngIf="authService.user$ | async as user">
-    <div
-          class="type-indicator"
-          [class.user]="post?.pinned"
-          [class.user]="user.posts[post.id]"
-          *ngIf="post?.pinned || user.posts[post.id]"
-        >
-    </div>
+  <ng-container *ngIf="isUserPost">
+    <div class="type-indicator" [class.user]="isUserPost"></div>
+  </ng-container>
+  <ng-container *ngIf="post.pinned">
+    <div class="type-indicator" [class.system]="post.pinned"></div>
   </ng-container>
 </div>

@@ -1,14 +1,14 @@
+import { DialogComponent } from './../shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 import { PostService } from './../services/post.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { take } from 'rxjs/internal/operators/take';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../shared/components/snack/snack.component';
 import { PermissionService } from "../services/permission.service";
 import { combineLatest } from 'rxjs';
-import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,20 +19,22 @@ export class PostGuardService implements CanActivate {
     private router: Router,
     private snackbar: MatSnackBar,
     private permissionService: PermissionService,
-    private postService: PostService
+    private postService: PostService,
+    private dialog: MatDialog
   ) { }
+  user: any;
   canActivate(route: ActivatedRouteSnapshot) {
     console.log(route.params);
     const obs = combineLatest([this.authService.user$, this.postService.getPost(route.params.id)]);
     const roles = ['member', 'moderator', 'admin'];
     return obs.pipe(
       map((values: any) => {
-        const user = values[0];
+        this.user = values[0];
         const post = values[1];
         if (post.isSecret) {
-          if (user) {
+          if (this.user) {
             for (const role of roles) {
-              if ( user.roles[role]) {
+              if ( this.user.roles[role]) {
                 return true;
               }
             }
@@ -45,6 +47,17 @@ export class PostGuardService implements CanActivate {
       tap(isSubscriber => {
         if (!isSubscriber) {
           console.error('Access denied');
+          const dialogData = {
+            title: 'Зөвхөн гишүүд нэвтрэх боломжтой.',
+            content: 'Хэрвээ та эсвэл танай байгууллага МУУҮА-ийн гишүүн бол та өөрийн нэрийн хуудасны зургаа оруулж гишүүнээ баталгаажуулах боломжтой. '
+          };
+          const dialogRef = this.dialog.open(DialogComponent, {data: dialogData});
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                console.log('request token');
+                this.router.navigate(['auth/profile-settings']);
+            }
+        });
           this.snackbar.openFromComponent(SnackComponent, {
             data: 'Зөвхөн гишүүд нэвтрэх боломжтой.'
           });

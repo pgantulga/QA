@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
     loginWithGoogle() {
         this.authService.googleLogin()
-            .then((res) => {
+            .then((res: any) => {
                 if (res.firstTime) {
                     console.log('first time');
                     this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
@@ -69,9 +69,12 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-        this.authService.signIn({ email: this.email.value, password: this.password.value })
-            .then(res => {
-                const returnUrl = (res.user.emailVerified) ? this.route.snapshot.queryParamMap.get('returnUrl') : '/auth/email-verify'
+        this.authService.emailLogin({ email: this.email.value, password: this.password.value })
+            .then((res: any) => {
+                if (res.firstTime) {
+                    return this.router.navigate(['auth/welcome']).then(() => this.checkNotification(res));
+                } 
+                const returnUrl = (res.emailVerified) ? this.route.snapshot.queryParamMap.get('returnUrl') : '/auth/email-verify';
                 this.router.navigate([returnUrl || '/'])
                     .then(() => {
                         this.checkNotification(res);

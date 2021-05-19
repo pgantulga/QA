@@ -188,10 +188,27 @@ mat-button-toggle-group {
 }
 .section-header {
   margin: 16px 0;
+  mat-icon {
+    margin: 0 4px 0 0;
+  }
   .mat-subheading-2 {
     margin: 0;
   }
-
+  h4 {
+    margin: 0 !important;
+  }
+}
+.section-header-sub {
+  margin: 8px 0;
+  mat-icon {
+    margin: 0 4px 0 0;
+  }
+  .mat-subheading-2 {
+    margin: 0;
+  }
+  h4 {
+    margin: 0 !important;
+  }
 }
 
 .background-card {

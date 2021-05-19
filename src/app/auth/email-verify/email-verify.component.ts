@@ -1,6 +1,6 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
   templateUrl: './email-verify.component.html',
   styleUrls: ['./email-verify.component.scss']
 })
-export class EmailVerifyComponent implements OnInit {
+export class EmailVerifyComponent implements OnInit, OnDestroy {
   afUser: any;
+  subscription: any;
   emailSent: boolean = false;
   constructor(
     public authService: AuthService,
@@ -18,16 +19,19 @@ export class EmailVerifyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.af.authState.subscribe(user => {
+    // tslint:disable-next-line: deprecation
+    this.subscription = this.af.authState.subscribe(user => {
       this.afUser = user;
       const interval = setInterval(() => {
         user.reload();
         if (this.afUser.emailVerified) {
-          clearInterval(interval)
+          clearInterval(interval);
         }
-        console.log('Reloading')
-      }, 1000)
-    })
+        console.log('Reloading');
+      }, 1000);
+    });
+  }
+  ngOnDestroy() {
   }
 
   async sendVerificationAgain() {
@@ -38,8 +42,8 @@ export class EmailVerifyComponent implements OnInit {
     if (this.afUser) {
       this.authService.createUserData(this.afUser)
         .then(() => {
-          this.router.navigate(['/auth/welcome'])
-        })
+          this.router.navigate(['/auth/welcome']);
+        });
     }
   }
 }

@@ -7,19 +7,20 @@
     *ngIf="authService.user$ | async as user"
     fxLayoutAlign="end center"
   >
-    <button
-      mat-flat-button
-      class="background-active--accent"
-      *ngIf="user.tags[tagDetail.id]"
-      [matTooltip]="'Сэдвийг дагахаа болих'"
-      matTooltipClass="tooltip"
-      [class.followed]="user.tags[tagDetail.id]"
-      (click)="toggleFollow(user, tagDetail)"
-    >
-      <mat-icon>notifications_active</mat-icon>
-      Дагаж байна
-    </button>
-    <button
+    <ng-container *ngIf="user.tags; else noTags">
+      <button
+        mat-flat-button
+        class="background-active--accent"
+        *ngIf="user.tags[tagDetail.id]"
+        [matTooltip]="'Сэдвийг дагахаа болих'"
+        matTooltipClass="tooltip"
+        [class.followed]="user.tags[tagDetail.id]"
+        (click)="toggleFollow(user, tagDetail)"
+      >
+        <mat-icon>notifications_active</mat-icon>
+        Дагаж байна
+      </button>
+      <button
       mat-flat-button
       class="background-active"
       *ngIf="!user.tags[tagDetail.id]"
@@ -30,6 +31,21 @@
       <mat-icon>notifications_off</mat-icon>
       Дагаагүй байна
     </button>
+    </ng-container>
+    <ng-template #noTags>
+      <button
+      mat-flat-button
+      class="background-active"
+      [matTooltip]="'Сэдвийг дагах'"
+      matTooltipClass="tooltip"
+      (click)="toggleFollow(user, tagDetail)"
+    >
+      <mat-icon>notifications_off</mat-icon>
+      Дагаагүй байна
+    </button>
+     
+    </ng-template>
+
     <button
       mat-icon-button
       (click)="edit(tagDetail)"

@@ -1,21 +1,21 @@
-import { NotificationService } from "./../services/notification.service";
-import { MetaObj } from "./../services/tag.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PostService } from "../services/post.service";
-import { AuthService } from "../services/auth.service";
-import { PageEvent } from "@angular/material/paginator";
-import { Observable, Subscription } from "rxjs";
-import { MenuService } from "../services/menu.service";
-import { TagService } from "../services/tag.service";
-import { PermissionService } from "../services/permission.service";
-import { first, isEmpty } from "rxjs/operators";
+import { NotificationService } from './../services/notification.service';
+import { MetaObj } from './../services/tag.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { AuthService } from '../services/auth.service';
+import { PageEvent } from '@angular/material/paginator';
+import { Observable, Subscription } from 'rxjs';
+import { MenuService } from '../services/menu.service';
+import { TagService } from '../services/tag.service';
+import { PermissionService } from '../services/permission.service';
+import { first, isEmpty } from 'rxjs/operators';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   posts: any;
   posts$: Observable<any>;
   toggleMenu: any;
@@ -26,9 +26,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   postMetas: Observable<any>;
   pinnedPosts$: Observable<any>;
   userTags = [];
-  showPaginator: boolean = true;
-  isNoPost: boolean = false;
+  showPaginator = true;
+  isNoPost = false;
   subscription: Subscription;
+  user: any;
+  userPosts: any;
 
   constructor(
     private postService: PostService,
@@ -37,23 +39,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     private menu: MenuService,
     public permissionService: PermissionService,
     public notificationService: NotificationService
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     this.toggleMenu = this.menu.toggleMenu;
     this.selectedSort = this.toggleMenu[0];
-    this.postMetas = this.postService.getPostMeta();
-    this.getStarted();
-    this.getTagsMenu();
-    this.notificationService.getPowerUsers();
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 
-  private getStarted() {
-    this.showPaginator = true;
+  ngOnInit(): void {
+    this.postMetas = this.postService.getPostMeta();
+    this.pinnedPosts$ = this.postService.getPinnedPost();
+    this.getStarted();
+  }
+
+  private async getStarted() {
     this.posts = [];
+    this.user = await this.authService.getUser();
+    if (this.user && this.user.posts) {
+      this.postService.setUserPosts(this.user.posts);
+    }
+    this.getTagsMenu(this.user);
     this.posts$ = this.postService.getFirstItems(10, this.selectedSort.sort);
     this.subscription = this.posts$
       .pipe(isEmpty())
@@ -61,7 +64,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.posts$.toPromise().then((data) => {
       this.copyItems(data);
     });
-    this.pinnedPosts$ = this.postService.getPinnedPost();
   }
 
   private copyItems(data) {
@@ -73,14 +75,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private goToTop() {
-    const element = document.getElementById("tags");
-    element.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById('tags');
+    element.scrollIntoView({ behavior: 'smooth' });
   }
 
-  private async getTagsMenu() {
-    const userData = await this.authService.getUser();
-    if (userData && userData.tags) {
-      const userTagsData = await this.tagService.getUserTags(userData);
+  private async getTagsMenu(user) {
+    if (user && user.tags) {
+      const userTagsData = await this.tagService.getUserTags(user);
       userTagsData.forEach((tag: any) => {
         if (tag.data()) {
           this.userTags.push(tag.data());

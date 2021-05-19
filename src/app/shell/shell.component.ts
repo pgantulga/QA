@@ -1,4 +1,3 @@
-import { async } from '@angular/core/testing';
 import { AuthService } from './../services/auth.service';
 import { BottomSheetComponent } from './../shared/bottom-sheet/bottom-sheet.component';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
@@ -67,9 +66,9 @@ export class ShellComponent implements OnInit {
                     link: message.notification.click_action
                 };
                 console.log('new not arrived')
-                // if (user.uid === message.data.actor) {
-                //     return null;
-                // }
+                if (user.uid === message.data.actor) {
+                    return null;
+                }
                 this.bottomSheet.open(BottomSheetComponent, {
                     data: bottomSheetData,
                     panelClass: 'custom-bottom-sheet'

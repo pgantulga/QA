@@ -59,12 +59,6 @@ export class AuthService {
   private userCollection = this.db.collection<any>('users');
   user$: Observable<User>;
 
-  private static getDisplayName(user): any {
-    return user.firstName || user.lastName
-      ? user.firstName + ' ' + user.lastName.charAt(0) + '.'
-      : null;
-  }
-
   getUser(): Promise<any> {
     return this.user$.pipe(first()).toPromise();
   }
@@ -74,31 +68,37 @@ export class AuthService {
   async googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
     const credential = await this.af.signInWithPopup(provider);
-    return this.checkUserExist(credential.user).then((res) => {
-      if (res) {
-        return this.updateUserData(credential.user).then(() => {
-          return new Promise((resolve) => {
-            resolve({ firstTime: false, uid: credential.user.uid });
-          });
-        });
-      } else {
-        return this.createUserData(credential.user).then(() => {
-          return new Promise((resolve) => {
-            resolve({ firstTime: true, uid: credential.user.uid });
-          });
-        });
-      }
-    });
+    return this.userLoginHandler(credential);
   }
-
-  private checkUserExist(user) {
-    const userRef = this.userCollection.doc(user.uid);
-    return userRef
-      .get()
-      .toPromise()
-      .then((doc) => {
-        return doc.exists;
+  async emailLogin(userData) {
+    const credential = await this.af.signInWithEmailAndPassword(
+      userData.email,
+      userData.password
+    );
+    if (credential.user.emailVerified) {
+      return this.userLoginHandler(credential);
+    } else {
+      return this.emailVerify();
+    }
+  }
+  private async userLoginHandler(data) {
+    const resolver = {
+      firstTime: true,
+      ...data.user,
+    };
+    const user = await this.getUser();
+    if (user) {
+      resolver.firstTime = user.company || user.position ? false : true;
+      return new Promise((resolve) => {
+        resolve(resolver);
       });
+    } else {
+      return this.createUserData(data.user).then(() => {
+        return new Promise((resolve) => {
+          resolve(resolver);
+        });
+      });
+    }
   }
 
   emailSignUp(userData) {
@@ -114,7 +114,6 @@ export class AuthService {
       .sendEmailVerification()
       .then(() => {
         this.router.navigate(['/auth/email-verify']);
-        console.log('email verification sent');
       })
       .catch((err) => {
         console.log(err);
@@ -123,13 +122,6 @@ export class AuthService {
 
   passwordReset(email) {
     return this.af.sendPasswordResetEmail(email);
-  }
-
-  signIn(userData) {
-    return this.af.signInWithEmailAndPassword(
-      userData.email,
-      userData.password
-    );
   }
 
   async signOut() {
@@ -142,15 +134,6 @@ export class AuthService {
     return this.router.navigate(['/']);
   }
 
-  private updateUserData(user: any): any {
-    const ref = this.userCollection.doc(user.uid);
-    const data = {
-      uid: user.uid,
-      email: user.email,
-      updatedAt: new Date(),
-    };
-    return ref.set(data, { merge: true });
-  }
 
   updateUserInstant(data: any, uid) {
     const ref = this.userCollection.doc(uid);
@@ -162,12 +145,9 @@ export class AuthService {
     const data = {
       uid: user.uid,
       createdAt: new Date(),
+      updatedAt: new Date(),
       email: user.email,
-      firstName: user.firstName ? user.firstName : null,
-      lastName: user.lastName ? user.lastName : null,
-      displayName: user.displayName
-        ? user.displayName
-        : AuthService.getDisplayName(user),
+      displayName: user.displayName || null,
       roles: {
         guest: true,
       },
@@ -180,11 +160,11 @@ export class AuthService {
         'user'
       );
       this.notificationService.createNotificationObject(
-          data.uid,
-          data,
-          11,
-          'post'
-      )
+        data.uid,
+        data,
+        11,
+        'post'
+      );
     });
   }
 

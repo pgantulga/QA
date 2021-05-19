@@ -17,7 +17,15 @@
         background-color: mat-color($my-grey, 800, 0.2);
       }
     }
-    
+    mat-hint {
+      font-style: italic;
+      margin-left: 12px;
+    }
+
+    mat-form-field {
+      margin-top: 12px;
+      padding-bottom: 2px;
+    }
   
   }
 

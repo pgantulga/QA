@@ -100,10 +100,11 @@ export class TagService {
                 displayName: user.displayName,
                 uid: user.uid
             },
-            description: formData.description,
+            description: formData.description || null,
             createdAt: new Date(),
             status: false
         };
+        console.log(data);
         return this.tagsRecommendations.add(data)
             .then(res => {
                 return res.update({
@@ -116,6 +117,9 @@ export class TagService {
             status: true,
             updatedAt: new Date()
         }, { merge: true });
+    }
+    deleteRecomment(tag) {
+        return this.tagsRecommendations.doc(tag.id).delete();
     }
 
 

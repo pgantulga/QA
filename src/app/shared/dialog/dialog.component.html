@@ -1,5 +1,5 @@
 <div mat-dialog-content>
-    <p>{{data.title}}</p>
+    <h3>{{data.title}}</h3>
     <p>{{data.content}}</p>
     <ng-container *ngIf="data.htmlData">
         <div [innerHtml]="data.htmlData"></div>
@@ -7,5 +7,5 @@
 </div>
 <div mat-dialog-actions>
     <button mat-button mat-dialog-close>Үгүй</button>
-    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Тийм</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Ok</button>
 </div>
