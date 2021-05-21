@@ -52,11 +52,10 @@ export class TagService {
         return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(6)).valueChanges();
     }
     async getUserTags(user) {
-        const userData = await this.db.collection('users').doc(user.uid).ref.get();
         const promises = [];
         const tagsRef = this.db.collection('tags', ref => ref.orderBy('updatedAt', 'desc'));
-        for (const p in userData.data().tags) {
-            if (userData.data().tags[p]) {
+        for (const p in user.tags) {
+            if (user.tags[p]) {
                 promises.push(tagsRef.doc(p).ref.get());
             }
         }
