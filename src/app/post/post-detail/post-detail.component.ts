@@ -1,48 +1,48 @@
-import { element } from "protractor";
+import { element } from 'protractor';
 import {
   Component,
   ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { ActivatedRoute, Router, RouterStateSnapshot } from "@angular/router";
-import { first, switchMap, take } from "rxjs/internal/operators";
-import { PostService } from "../../services/post.service";
-import { AuthService } from "../../services/auth.service";
-import { AnswerService } from "../../services/answer.service";
-import { combineLatest, Observable } from "rxjs";
-import { ViewportScroller } from "@angular/common";
-import { PermissionService } from "../../services/permission.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { SnackComponent } from "../../shared/components/snack/snack.component";
-import { MatDialog } from "@angular/material/dialog";
-import { DialogComponent } from "../../shared/dialog/dialog.component";
-import { DomSanitizer } from "@angular/platform-browser";
+} from '@angular/core';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
+import { first, switchMap, take } from 'rxjs/internal/operators';
+import { PostService } from '../../services/post.service';
+import { AuthService } from '../../services/auth.service';
+import { AnswerService } from '../../services/answer.service';
+import { combineLatest, Observable } from 'rxjs';
+import { ViewportScroller } from '@angular/common';
+import { PermissionService } from '../../services/permission.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackComponent } from '../../shared/components/snack/snack.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const DropdownMenu = [
   {
-    name: "Сүүлд нэмэгдсэн хариултууд",
-    sort: "createdAt",
+    name: 'Сүүлд нэмэгдсэн хариултууд',
+    sort: 'createdAt',
   },
   {
-    name: "Их үнэлгээтэй хариултууд",
-    sort: "totalVotes",
+    name: 'Их үнэлгээтэй хариултууд',
+    sort: 'totalVotes',
   },
 ];
 const LogTypes = [
-  "created",
-  "edited",
-  "voted",
-  "devoted",
-  "answered",
-  "replied",
+  'created',
+  'edited',
+  'voted',
+  'devoted',
+  'answered',
+  'replied',
 ];
 
 @Component({
-  selector: "app-post-detail",
-  templateUrl: "./post-detail.component.html",
-  styleUrls: ["./post-detail.component.scss"],
+  selector: 'app-post-detail',
+  templateUrl: './post-detail.component.html',
+  styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent implements OnInit {
   post$: Observable<any>;
@@ -72,8 +72,8 @@ export class PostDetailComponent implements OnInit {
   ngOnInit(): void {
     this.post$ = this.route.paramMap.pipe(
       switchMap((params) => {
-        this.logs$ = this.postService.getLogs(params.get("id"));
-        return this.postService.getPost(params.get("id"));
+        this.logs$ = this.postService.getLogs(params.get('id'));
+        return this.postService.getPost(params.get('id'));
       })
     );
 
@@ -88,8 +88,10 @@ export class PostDetailComponent implements OnInit {
         this.authService
           .getUser()
           .then((user) => {
-            this.postService.setUserPosts(user.posts);
+            if (user.posts) {
+              this.postService.setUserPosts(user.posts);
 
+            }
             return user ? this.postService.checkFollower(user, post) : null;
           })
           .then((value) => {
@@ -102,7 +104,7 @@ export class PostDetailComponent implements OnInit {
     );
   }
   scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: "smooth" });
+    el.scrollIntoView({ behavior: 'smooth' });
     if (this.selectedText) {
       this.answerService.setHighlightedText(this.selectedText);
     }
@@ -117,7 +119,7 @@ export class PostDetailComponent implements OnInit {
   getAnswers(sort: any): Observable<any> {
     return this.route.paramMap.pipe(
       switchMap((params) => {
-        return this.answerService.getAllAnswer(params.get("id"), sort);
+        return this.answerService.getAllAnswer(params.get('id'), sort);
       })
     );
   }
@@ -130,17 +132,17 @@ export class PostDetailComponent implements OnInit {
     return this.dialogRef
       .open(DialogComponent, {
         data: {
-          title: "Устгах үйлдэл",
-          content: "Та энэ хэлэлцүүлгийг устгахдаа итгэлтэй байна уу?",
+          title: 'Устгах үйлдэл',
+          content: 'Та энэ хэлэлцүүлгийг устгахдаа итгэлтэй байна уу?',
         },
       })
       .afterClosed()
       .subscribe((res) => {
         if (res) {
           return this.postService.deletePost(post.id, user).then(() => {
-            this.router.navigate(["/home"]);
+            this.router.navigate(['/home']);
             return this.snack.openFromComponent(SnackComponent, {
-              data: "Хэлэлцүүлэг устгагдлаа",
+              data: 'Хэлэлцүүлэг устгагдлаа',
             });
           });
         }
@@ -183,7 +185,7 @@ export class PostDetailComponent implements OnInit {
   }
   goToLogin() {
     const routerStateSnapshot = this.router.routerState.snapshot;
-    this.router.navigate(["/auth/login"], {
+    this.router.navigate(['/auth/login'], {
       queryParams: { returnUrl: this.router.routerState.snapshot.url },
     });
   }

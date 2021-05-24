@@ -63,7 +63,9 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.isVoted = false;
   }
   upVote() {
-    this.checkAuth();
+    if (!this.checkAuth()) {
+      return null;
+    }
     const vote = this.userVote === 1 ? 0 : 1;
     this.tooltipValue = this.userVote === 1 ? '-1' : '+1';
     // this.voteCount += 1;
@@ -71,7 +73,9 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.toggle();
   }
   downVote() {
-    this.checkAuth();
+    if (!this.checkAuth()) {
+      return null;
+    }
     const vote = this.userVote === -1 ? 0 : -1;
     this.tooltipValue = this.userVote === -1 ? '+1' : '-1';
     // this.voteCount += -1;
@@ -91,10 +95,18 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   }
   checkAuth() {
     if (!this.user) {
-      return this.snackBar.openFromComponent(SnackComponent, {
+      this.snackBar.openFromComponent(SnackComponent, {
         data: 'Та системд нэвтэрч байж үнэлгээ өгөх боломжтой.',
       })
+      return false;
     }
+    if (this.user.roles.guest) {
+      return this.snackBar.openFromComponent(SnackComponent, {
+        data: 'Та бүртгэлээ гүйцээнэ үү.'
+      });
+      return false;
+    }
+    return true;
   }
   toggle() {
     this.showTooltip = true;
