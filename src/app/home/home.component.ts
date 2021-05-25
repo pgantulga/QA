@@ -1,19 +1,19 @@
-import { NotificationService } from "./../services/notification.service";
-import { MetaObj } from "./../services/tag.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PostService } from "../services/post.service";
-import { AuthService } from "../services/auth.service";
-import { PageEvent } from "@angular/material/paginator";
-import { Observable, Subscription } from "rxjs";
-import { MenuService } from "../services/menu.service";
-import { TagService } from "../services/tag.service";
-import { PermissionService } from "../services/permission.service";
-import { first, isEmpty } from "rxjs/operators";
+import { NotificationService } from './../services/notification.service';
+import { MetaObj } from './../services/tag.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PostService } from '../services/post.service';
+import { AuthService } from '../services/auth.service';
+import { PageEvent } from '@angular/material/paginator';
+import { Observable, Subscription } from 'rxjs';
+import { MenuService } from '../services/menu.service';
+import { TagService } from '../services/tag.service';
+import { PermissionService } from '../services/permission.service';
+import { first, isEmpty } from 'rxjs/operators';
 
 @Component({
-  selector: "app-home",
-  templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.scss"],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   posts: any;
@@ -75,8 +75,8 @@ export class HomeComponent implements OnInit {
   }
 
   private goToTop() {
-    const element = document.getElementById("tags");
-    element.scrollIntoView({ behavior: "smooth" });
+    const element = document.getElementById('tags');
+    element.scrollIntoView({ behavior: 'smooth' });
   }
 
   private async getTagsMenu(user) {

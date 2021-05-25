@@ -1,3 +1,4 @@
+import { first, tap } from 'rxjs/operators';
 import { entityType, LogService } from './log-service.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -26,12 +27,17 @@ export class TagService {
     tagsRecommendations = this.db.collection('tagsRecommends', ref => ref.orderBy('createdAt', 'desc'));
     tagSource = new BehaviorSubject('default');
     currentTag = this.tagSource.asObservable();
+    userTagsSource = new BehaviorSubject('userTags');
+    userTags = this.userTagsSource.asObservable();
 
     constructor(
         private db: AngularFirestore,
         private authService: AuthService,
         private logService: LogService
         ) {
+    }
+    setUserTags(tags) {
+        this.userTagsSource.next(tags);
     }
     getMeta(): Observable<any> {
         return this.db.doc('metas/tag').valueChanges();
@@ -52,6 +58,10 @@ export class TagService {
         return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(6)).valueChanges();
     }
     async getUserTags(user) {
+        // const tags = await this.switchUserTags();
+        // if (tags !== 'userTags') {
+        //     return this.switchUserTags();
+        // }
         const promises = [];
         const tagsRef = this.db.collection('tags', ref => ref.orderBy('updatedAt', 'desc'));
         for (const p in user.tags) {
@@ -59,7 +69,14 @@ export class TagService {
                 promises.push(tagsRef.doc(p).ref.get());
             }
         }
-        return await Promise.all(promises);
+        const userTags = await Promise.all(promises);
+        this.setUserTags(userTags);
+        return userTags;
+    }
+    async switchUserTags() {
+        return await this.userTags.pipe(
+            first()
+        ).toPromise();
     }
 
     getTagInfo(id) {
