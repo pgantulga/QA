@@ -88,7 +88,7 @@ export class PostDetailComponent implements OnInit {
         this.authService
           .getUser()
           .then((user) => {
-            if (user.posts) {
+            if (user && user.posts) {
               this.postService.setUserPosts(user.posts);
 
             }

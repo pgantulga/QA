@@ -58,25 +58,41 @@ export class TagService {
         return this.db.collection('tags', ref => ref.orderBy('totalUsed', 'desc').limit(6)).valueChanges();
     }
     async getUserTags(user) {
-        // const tags = await this.switchUserTags();
-        // if (tags !== 'userTags') {
-        //     return this.switchUserTags();
-        // }
         const promises = [];
+        const tags = [];
         const tagsRef = this.db.collection('tags', ref => ref.orderBy('updatedAt', 'desc'));
         for (const p in user.tags) {
             if (user.tags[p]) {
                 promises.push(tagsRef.doc(p).ref.get());
             }
         }
-        const userTags = await Promise.all(promises);
-        this.setUserTags(userTags);
-        return userTags;
+        const newTags = await Promise.all(promises);
+        newTags.forEach(item => {
+            tags.push(item.data());
+        })
+        return tags;
     }
-    async switchUserTags() {
-        return await this.userTags.pipe(
-            first()
-        ).toPromise();
+    async getUserTagsMenu(user) {
+        const test = await this.userTags.pipe(first()).toPromise();
+        if (test !== 'userTags') {
+            console.log('from service');
+            return this.userTags;
+        }
+        console.log('from database');
+        const promises = [];
+        const tags = [];
+        const tagsRef = this.db.collection('tags', ref => ref.orderBy('updatedAt', 'desc'));
+        for (const p in user.tags) {
+            if (user.tags[p]) {
+                promises.push(tagsRef.doc(p).ref.get());
+            }
+        }
+        const newTags = await Promise.all(promises);
+        newTags.forEach(item => {
+            tags.push(item.data());
+        })
+        this.setUserTags(tags);
+        return tags;
     }
 
     getTagInfo(id) {

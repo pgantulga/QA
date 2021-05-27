@@ -24,7 +24,6 @@ export class PostGuardService implements CanActivate {
   ) { }
   user: any;
   canActivate(route: ActivatedRouteSnapshot) {
-    console.log(route.params);
     const obs = combineLatest([this.authService.user$, this.postService.getPost(route.params.id)]);
     const roles = ['member', 'moderator', 'admin'];
     return obs.pipe(
