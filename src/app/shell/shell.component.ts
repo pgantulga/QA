@@ -41,7 +41,6 @@ export class ShellComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
         this.listen();
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))

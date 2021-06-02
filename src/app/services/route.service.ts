@@ -37,6 +37,9 @@ export class RouteService {
         if (url.includes('/home') || url === '/') {
             return 'home';
         }
+        if (url.includes('blog')) {
+            return 'blog';
+        }
         if (url.includes('/tags')) {
             return 'tags';
         }
