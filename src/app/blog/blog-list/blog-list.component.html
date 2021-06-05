@@ -1,7 +1,7 @@
 <div class="blog-list">
   <div fxLayout="column">
-    <h4>Lorem ipsum dolor sit amet.</h4>
-    <p class="mat-caption">3 өдрийн өмнө</p>
+    <h4 (click)="gotoBlog(item)">{{ item.title }}</h4>
+    <p class="mat-caption">{{ item.createdAt | momentPipe}}</p>
     <p class="blog-description line-clamp-3">
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum deserunt id
       labore non sed perferendis similique minus earum! Explicabo vero, totam
@@ -10,9 +10,16 @@
       beatae ipsam quidem distinctio ipsum perspiciatis ipsa a asperiores
       exercitationem libero?
     </p>
-    <!-- <mat-chip-list>
-        <tag-chip></tag-chip>
-    </mat-chip-list> -->
+    <mat-chip-list>
+      <tag-chip
+        *ngFor="let tag of item.tags"
+        [item]="tag"
+        [routerLink]="['/tags/tagDetail', tag?.id]"
+      ></tag-chip>
+    </mat-chip-list>
+    <div class="author-section" fxLayout="column" fxLayoutAlign="end end">
+        <publisher-profile [publisher]="item.publishAs"></publisher-profile>
+    </div>
   </div>
 </div>
 <ng-content></ng-content>

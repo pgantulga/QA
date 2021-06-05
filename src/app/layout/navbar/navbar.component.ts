@@ -46,7 +46,8 @@ export class NavbarComponent implements OnInit {
     hideToolbar: boolean;
     preScrollPos: number;
     currentFab: any;
-    
+    addButton: any;
+
 
     constructor(public menu: MenuService,
         public authService: AuthService,
@@ -68,19 +69,26 @@ export class NavbarComponent implements OnInit {
         this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
         this.layout = this.routeService.getLayout(this.currentRoute);
         this.currentFab = this.setFabData(this.currentRoute);
-    
+        this.addButton = {
+            link: '/ask',
+            title: 'Хэлэлцүүлэг нэмэх'
+        }
+
     }
 
     ngOnInit(): void {
+        this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
+        this.setButtonData(this.currentRoute);
         this.routerEvent$ = this.router.events.pipe(
             filter(event => event instanceof NavigationEnd));
         this.routerEvent$.subscribe((e: NavigationEnd) => {
             this.currentRoute = this.routeService.getCurrentRoute(e.url);
+            this.setButtonData(this.currentRoute);
             this.currentFab = this.setFabData(this.currentRoute);
             this.layout = this.routeService.getLayout(this.currentRoute);
             this.previousUrl = e.url;
         }
-    );
+        );
         this.authService.user$.pipe(
             first(),
             switchMap(user => (user) ? this.notificationService.getNotifications(user) : of()
@@ -93,7 +101,19 @@ export class NavbarComponent implements OnInit {
             this.scrollable(event);
         });
     }
-
+    private setButtonData (currentRoute) {
+        if (currentRoute === 'blog') {
+            this.addButton = {
+                link:'/blog/add-blog',
+                title: 'Блог нэмэх'
+            }
+        } else {
+            this.addButton = {
+                link: '/ask',
+                title: 'Хэлэлцүүлэг нэмэх'
+            }
+        }
+    }
     setFabData(route) {
         return (route == 'post-detail') ? fabData[1] : fabData[0];
     }
@@ -110,14 +130,14 @@ export class NavbarComponent implements OnInit {
                 )
             post$.pipe(first()).subscribe((postData: any) => {
                 this.bottomSheet.open(AnswerBottomSheetComponent, {
-                    data: {id: postData.id, title: postData.title},
+                    data: { id: postData.id, title: postData.title },
                     panelClass: 'answer-bottom-sheet'
                 })
             })
-             
+
         }
     }
-   
+
     signOut() {
         const dialogRef = this.dialog.open(DialogComponent, {
             data: { title: 'Системээс гарах', content: 'Та системээс гарахдаа итгэлтэй байна уу?' }

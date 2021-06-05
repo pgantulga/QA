@@ -1,0 +1,75 @@
+<ng-container *ngIf="blog$ | async as blog">
+    <post-header [pageTitle]="blog.title" id="postheader">
+      <div sub-nav fxLayout="column">
+        <div fxLayout="column">
+          <p class="mat-caption meta">
+            Сүүлд шинэчлэгдсэн {{ blog.createdAt | momentPipe }}
+          </p>
+        </div>
+      </div>
+    </post-header>
+    <!-- post content -->
+    <div fxLayout="row" class="post-detail background-card">
+      <div fxLayout="column" fxLayoutAlign="start center" class="voteArea">
+        <!-- <vote-button [obj]="blog" [type]="'post'"></vote-button> -->
+      </div>
+      <div
+        class="ql-container ql-snow"
+        fxFlex
+        fxLayout="column"
+        style="border-width: 0"
+      >
+        <div
+          class="ql-editor"
+          [innerHTML]="htmlContent"
+        ></div>
+        <mat-chip-list>
+          <tag-chip
+            *ngFor="let tag of blog.tags"
+            [item]="tag"
+            [routerLink]="['/tags/tagDetail', tag?.id]"
+          ></tag-chip>
+        </mat-chip-list>
+        <div
+          class="author-section"
+          fxLayout="column"
+          fxLayoutAlign="end end"
+        >
+          <div fxLayout="row" fxLayout.xs="column">
+            <publisher-profile [publisher]="blog.publishAs"></publisher-profile>
+            <div class="admin-actions" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="2px">
+              <!-- <button
+                mat-icon-button
+                *ngIf="
+                  isPostAuthor(user, post.author) || permissionService.canEdit(user)
+                "
+                [routerLink]="['/posts', post.id, 'edit']"
+              >
+                <mat-icon>edit</mat-icon>
+              </button> -->
+              <!-- <button
+                mat-icon-button
+                *ngIf="
+                  isPostAuthor(user, post.author) ||
+                  permissionService.canDelete(user)
+                "
+                (click)="deletePost(post, user)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- answers -->
+    <!-- <div *ngIf="suggestedPosts$ | async as suggestedPosts">
+      <div style="margin: 16px 0">
+        <h2>Санал болгох сэдвүүд</h2>
+      </div>
+      <post-list *ngFor="let item of suggestedPosts; last as last" [post]="item">
+        <mat-divider *ngIf="!last"></mat-divider>
+      </post-list>
+    </div> -->
+  </ng-container>
+  

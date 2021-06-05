@@ -1,0 +1,36 @@
+<ng-container *ngIf="publisherData$ | async as publisherData">
+  <div fxLayout="row" class="user-profile-container">
+    <div
+      class="avatar"
+      *ngIf="publisher.type === 'company'"
+      [ngStyle]="{ 'background-color': '#dcedc8' }"
+    >
+      {{ publisher.displayName.charAt(0) }}
+    </div>
+    <div
+      class="avatar"
+      *ngIf="publisher.type === 'user'"
+      [ngStyle]="{ 'background-color': publisherData.color?.code }"
+    >
+      {{ publisher.displayName.charAt(0) }}
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <p
+        *ngIf="publisher.type === 'user'"
+        class="mat-caption profile-name"
+        [routerLink]="['/users', publisherData.uid]"
+      >
+        {{ publisher.displayName }}
+      </p>
+      <p *ngIf="publisher.type === 'company'" class="mat-caption profile-name">
+        {{ publisher.displayName }}
+      </p>
+      <p
+        *ngIf="publisher.type === 'user'"
+        class="mat-caption profile-email cut-text"
+      >
+        {{ publisherData?.occupation }}
+      </p>
+    </div>
+  </div>
+</ng-container>

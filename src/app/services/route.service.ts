@@ -37,6 +37,9 @@ export class RouteService {
         if (url.includes('/home') || url === '/') {
             return 'home';
         }
+        if (url.includes('blog/') && url.includes('add-blog')) {
+            return 'add-blog'
+        }
         if (url.includes('blog')) {
             return 'blog';
         }
@@ -59,6 +62,30 @@ export class RouteService {
             return 'moderator';
         }
         return 'not-found';
+    }
+    getRouteMenu(route) {
+        switch (route) {
+            case 'post-detail':
+                return [
+                    { name: 'Нүүр хуудас', link: 'home' },
+                    { name: 'Хэлэлцүүлгүүд', link: 'home' }
+                ]
+            case 'post-edit':
+                return [
+                    { name: 'Нүүр хуудас', link: 'home' },
+                    { name: 'Хэлэлцүүлэг нэмэх', link: null }
+                ]
+            case 'tag-detail':
+                return [
+                    { name: 'Нүүр хуудас', link: 'home' },
+                    {name: 'Сэдвүүд', link: 'tags'},
+                ]
+            case 'add-blog':
+                return [
+                    { name: 'Нүүр', link: 'blog' },
+                    { name: 'Блог нэмэх', link: null }
+                ]
+        }
     }
     getLayout(route) {
         if (route === 'post-detail'

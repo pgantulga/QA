@@ -51,6 +51,12 @@ import { PostLogsComponent } from './post-logs/post-logs.component';
         MatIconModule,
         HttpClientModule
     ],
-  exports: []
+  exports: [
+    VoteButtonComponent,
+    HeaderComponent,
+
+    UserProfileComponent,
+
+  ]
 })
 export class PostModule { }

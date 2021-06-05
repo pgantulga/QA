@@ -1,3 +1,4 @@
+import { CreateModule } from './../create/create.module';
 import { MdModule } from './../shared/md.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -42,7 +43,7 @@ import { TagsHeaderComponent } from './tags-header/tags-header.component';
     FormsModule,
     HomeModule,
     ReactiveFormsModule,
-    LayoutModule,
+    LayoutModule
   ]
 })
 export class TagModule { }

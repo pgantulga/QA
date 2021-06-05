@@ -1,8 +1,8 @@
   <div class="blog-wrapper" fxLayout="row" fxLayoutAlign="start end">
     <h1>Уурхайчин <span class="highlighted">блог</span>т тавтай морил!</h1>
   </div>
-  <div class="blog-list_container background-card">
-      <blog-list *ngFor="let item of [1,2,3,4]; last as last">
-          <mat-divider *ngIf="!last" style="margin-bottom: 12px;"></mat-divider>
+  <div class="blog-list_container background-card" *ngIf="allBlogs$ | async as blogs">
+      <blog-list *ngFor="let item of blogs; last as last" [item] = item>
+          <mat-divider  *ngIf="!last" style="margin-bottom: 12px;"></mat-divider>
       </blog-list>
   </div>

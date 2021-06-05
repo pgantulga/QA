@@ -1,3 +1,4 @@
+import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 import { BlogAddComponent } from './blog-add/blog-add.component';
 import { BlogComponent } from './blog/blog.component';
 import { NgModule } from '@angular/core';
@@ -10,7 +11,11 @@ const routes: Routes = [
     component: BlogComponent
   }, 
   {
-    path: 'add',
+    path: ':id',
+    component: BlogDetailComponent
+  },
+  {
+    path: 'add-blog',
     component: BlogAddComponent
   }
   

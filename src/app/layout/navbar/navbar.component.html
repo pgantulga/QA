@@ -40,11 +40,11 @@
         <button
           mat-flat-button
           color="accent"
-          [routerLink]="['/ask']"
+          [routerLink]="[addButton.link]"
           *ngIf="permissionService.canRead(user)"
         >
           <mat-icon>edit</mat-icon>
-          Хэлэлцүүлэг нэмэх
+          {{addButton.title}}
         </button>
       </div>
       <!--            <mat-form-field appearance="outline"  color="primary" [floatLabel]="'never'">-->

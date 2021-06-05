@@ -1,7 +1,13 @@
-@import 'custom-theme';
+@import "custom-theme";
 
 .blog-list {
-    h4 {
-        margin-bottom: 12px;
-    }
+  h4 {
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  h4:hover {
+    opacity: 0.8;
+    color: mat-color($accent);
+    cursor: pointer;
+  }
 }

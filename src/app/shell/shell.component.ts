@@ -28,6 +28,7 @@ export class ShellComponent implements OnInit {
             shareReplay()
         );
     isTopBar: boolean;
+    routeMenu: any;
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -50,10 +51,19 @@ export class ShellComponent implements OnInit {
                 }
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.routeService.setCurrentRoute(this.currentRoute);
+                this.routeMenu = this.getRouteMenu(this.currentRoute);
                 this.currentLayoutObj = this.routeService.getLayout(this.currentRoute);
                 this.sideMenu = (this.currentRoute === 'admin') ? this.menuService.adminMenu : null;
                 this.isTopBar = this.currentLayoutObj.layout1 || this.currentLayoutObj.layout2;
             });
+    }
+    getRouteMenu(route) {
+        const routesToHide = ['home', 'blog', 'login', 'tags', 'admin', 'moderator', 'not-found'];
+        //hide on home, blog, login, tags, admin, moderator, not-found
+        if(routesToHide.includes(route)) {
+            return false;
+        }
+        return this.routeService.getRouteMenu(route);
     }
     listen() {
         this.afMessaging.messages

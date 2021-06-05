@@ -14,13 +14,13 @@ export class BlogService {
   getAllBlogs() {
     return this.blogCollection.valueChanges()
   }
-  addBlog(formData, user, tagsArray) {
+  addBlog(formData, user, tagsArray, publishAs) {
     const data = {
       title: formData.title,
       content: formData.content,
       createdAt: new Date(),
       updatedAt: new Date(),
-      displayName: formData.displayName,
+      publishAs: publishAs,
       author: {
         displayName: user.displayName,
         uid: user.uid
@@ -39,10 +39,11 @@ export class BlogService {
       console.log('error: ' + err);
     })
   }
-  saveBlog(formData, tagsArray, oldValue) {
+  saveBlog(formData, tagsArray, oldValue, publishAs) {
     return this.blogCollection.doc(oldValue.id).set({
       title: formData.title,
       content: formData.content,
+      publishAs: publishAs,
       updatedAt: new Date(),
       tags: tagsArray,
     }, {merge: true})

@@ -34,6 +34,10 @@ export class ProfileSettingsComponent implements OnInit {
         Validators.required,
         Validators.maxLength(50)
     ]);
+    occupation = new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50)
+    ]);
 
     constructor(
         public authService: AuthService,
@@ -54,6 +58,7 @@ export class ProfileSettingsComponent implements OnInit {
                 this.selectedColor = (user.color) ? user.color : null;
                 this.displayName.setValue(user.displayName);
                 this.position.setValue(user.position);
+                this.occupation.setValue(user.occupation);
                 if (user.company) {
                     this.company.setValue(user.company.name);
                 }
@@ -90,6 +95,7 @@ export class ProfileSettingsComponent implements OnInit {
             displayName: this.displayName.value,
             company: this.companyService.setCompanyValue({ name: this.company.value, idCard: this.idCard }, this.user),
             position: this.position.value,
+            occupation: this.occupation.value,
             color: this.selectedColor,
             idCard: (this.idCard || this.user.idCard),
             updatedAt: new Date()

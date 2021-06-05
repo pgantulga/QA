@@ -64,6 +64,12 @@
         [class.container]="currentLayoutObj.layout1 || currentLayoutObj.layout2"
         [class.mat-sidenav-content-container]="currentRoute !== 'home'"
       >
+        <div *ngIf="routeMenu" fxLayout="row" >
+          <div *ngFor="let item of routeMenu" class="routeMenu" fxLayout="row" fxLayoutAlign = "start center">
+            <a routerLink="{{item.link}}">{{item.name}}</a>
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </div>
+        </div>
         <ng-content></ng-content>
       </div>
       <div fxFlex></div>

@@ -14,12 +14,12 @@ import { switchMap } from 'rxjs/operators';
 import { EMPTY, Observable } from 'rxjs';
 import { PermissionService } from 'src/app/services/permission.service';
 
-// export class MyErrorStateMatcher implements ErrorStateMatcher {
-//     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//         const isSubmitted = form && form.submitted;
-//         return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-//     }
-// }
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        const isSubmitted = form && form.submitted;
+        return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+    }
+}
 
 @Component({
     selector: 'app-post-add',

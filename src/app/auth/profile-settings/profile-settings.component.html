@@ -78,9 +78,16 @@
             required
           />
         </mat-form-field>
-        <mat-hint class="mat-caption"
-          >Жишээлбэл: Геологич
-        </mat-hint>
+        <mat-hint class="mat-caption">Жишээлбэл: Геологич </mat-hint>
+        <mat-form-field appearance="outline" color="accent">
+          <mat-label>Мэргэжил</mat-label>
+          <input
+            matInput
+            placeholder="Мэргэжил"
+            [formControl]="occupation"
+          />
+        </mat-form-field>
+
         <div class="name-card-container" fxLayout="row">
           <div class="type-indicator"></div>
           <div fxLayout="column">

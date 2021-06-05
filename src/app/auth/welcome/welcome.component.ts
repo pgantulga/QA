@@ -29,6 +29,9 @@ export class WelcomeComponent implements OnInit {
   position = new FormControl('', [
     Validators.maxLength(50)
   ]);
+  occupation = new FormControl('', [
+    Validators.maxLength(50)
+  ]);
   idCard: string;
   storagePath: string;
   constructor(
@@ -48,6 +51,7 @@ export class WelcomeComponent implements OnInit {
           this.company.setValue(user.company.name);
         }
         this.position.setValue(user.position);
+        this.occupation.setValue(user.occupation);
         this.color = this.getRandomColor();
         this.idCard = (this.user.idCard) ? this.user.idCard : null;
         this.user.idCard = this.user.idCard || null;
@@ -72,6 +76,7 @@ export class WelcomeComponent implements OnInit {
       company: {
         name: this.company.value
       },
+      occupation: this.occupation.value,
       position: this.position.value,
       color: this.selectedColor,
       idCard: (this.idCard || this.user.idCard),
