@@ -9,7 +9,15 @@
         <textarea matInput [(ngModel)]="data.description"  maxlength="256" #description style="height: 100px !important;"></textarea>
         <mat-hint align="end">{{description.value.length}} /200</mat-hint>
     </mat-form-field>
+    <div fxLayout="column">
+        <p class="mat-body-">Байгууллагын лого</p>
+        <upload-file>
+            [path]="storagePath"
+            (fileEmitter)="getImageFile($event)"
+        </upload-file>
+    </div>
 </div>
+
 <div mat-dialog-actions>
     <button mat-button (click)="cancel()">Цуцлах</button>
     <button mat-button [mat-dialog-close]="data" [disabled]="!data.name">Сануулах</button>

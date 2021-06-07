@@ -50,7 +50,6 @@ export class CompanyService {
     return this.db.collection('companies', ref => ref.orderBy('createdAt', 'desc')).valueChanges();
   }
   getCompany(id) {
-    console.log(id);
     return this.db.collection('companies').doc(id).valueChanges();
   }
   getCompaniesByArray() {

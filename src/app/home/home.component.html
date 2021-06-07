@@ -44,14 +44,6 @@
   <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
     <ng-container *ngIf="user">
       <mat-button-toggle
-        (click)="followingPost(user)"
-        [matTooltip]="'Дагасан'"
-        matTooltipClass="tooltip"
-      >
-        <mat-icon>notifications_active</mat-icon>
-      </mat-button-toggle>
-    </ng-container>
-    <mat-button-toggle
       *ngFor="let item of toggleMenu"
       (click)="changeSort(item)"
       [matTooltip]="item.name"
@@ -59,6 +51,14 @@
     >
       <mat-icon>{{ item.icon }}</mat-icon>
     </mat-button-toggle>
+      <mat-button-toggle
+        (click)="followingPost(user)"
+        [matTooltip]="'Дагасан'"
+        matTooltipClass="tooltip"
+      >
+        <mat-icon>notifications_active</mat-icon>
+      </mat-button-toggle>
+    </ng-container>
   </mat-button-toggle-group>
 </div>
 

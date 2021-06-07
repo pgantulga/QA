@@ -31,6 +31,12 @@
       >
         {{ publisherData?.occupation }}
       </p>
+      <p
+        *ngIf="publisher.type === 'company'"
+        class="mat-caption profile-email cut-text"
+      >
+        Байгууллага
+      </p>
     </div>
   </div>
 </ng-container>

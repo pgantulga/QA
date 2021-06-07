@@ -29,7 +29,7 @@ export class ModeratorCompanyComponent implements OnInit {
       width: '500px',
       data: {
         name: this.name,
-        description: this.description
+        description: this.description,
       }
     });
     dialogRef.afterClosed()

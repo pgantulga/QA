@@ -9,16 +9,16 @@ const routes: Routes = [
   {
     path: '',
     component: BlogComponent
-  }, 
-  {
-    path: ':id',
-    component: BlogDetailComponent
   },
   {
     path: 'add-blog',
     component: BlogAddComponent
-  }
-  
+  },
+  {
+    path: ':id',
+    component: BlogDetailComponent
+  },
+
 ];
 
 @NgModule({

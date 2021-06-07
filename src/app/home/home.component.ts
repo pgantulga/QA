@@ -80,6 +80,7 @@ export class HomeComponent implements OnInit {
   }
 
   private async getTagsMenu(user) {
+      this.userTags = [];
     if (user && user.tags) {
       const userTagsData = await this.tagService.getUserTagsMenu(user);
       userTagsData.forEach((tag: any) => {
@@ -113,6 +114,7 @@ export class HomeComponent implements OnInit {
   }
 
   changeSort(sort) {
+    this.showPaginator = true;
     this.selectedSort = sort;
     this.getStarted();
   }
