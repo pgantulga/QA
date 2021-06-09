@@ -44,6 +44,7 @@ export class CompanyService {
         name: formData.name,
         description: formData.description,
         updatedAt: new Date(),
+        logo: formData.logo || null
       }, { merge: true });
   }
   getCompanies() {

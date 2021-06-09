@@ -2,10 +2,9 @@
   <div fxLayout="row" class="user-profile-container">
     <div
       class="avatar"
-      *ngIf="publisher.type === 'company'"
-      [ngStyle]="{ 'background-color': '#dcedc8' }"
+      *ngIf="publisher.type === 'company' && publisherData.logo"
     >
-      {{ publisher.displayName.charAt(0) }}
+      <img src="{{publisherData.logo}}" alt="Company logo" class="avatar__image">
     </div>
     <div
       class="avatar"

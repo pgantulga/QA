@@ -37,10 +37,10 @@ export class RouteService {
         if (url.includes('/home') || url === '/') {
             return 'home';
         }
-        if (url.includes('blog/') && url.includes('add-blog')) {
-            return 'add-blog'
+        if (url.includes('/blog/') && url.includes('add-blog')) {
+            return 'add-blog';
         }
-        if (url.includes('blog')) {
+        if (url.includes('/blog')) {
             return 'blog';
         }
         if (url.includes('/tags')) {

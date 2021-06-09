@@ -17,7 +17,7 @@ export interface TagData {
 @Component({
   selector: 'dialog-tag-add',
   templateUrl: './tag-add.component.html',
-  styleUrls: ['./tag-add.component.css']
+  styleUrls: ['./tag-add.component.scss']
 })
 export class TagAddComponent  {
   constructor(public dialogRef: MatDialogRef<TagUpdateComponent>,

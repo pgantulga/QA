@@ -33,10 +33,12 @@ export class ModeratorCompanyComponent implements OnInit {
       }
     });
     dialogRef.afterClosed()
-      .subscribe(result => {
-        if (result) {
-          this.companyService.createCompany(result);
-        }
+      .subscribe({
+        next: (result: any) => {
+          if (result) {
+            this.companyService.createCompany(result);
+          }
+        },
       });
   }
   editCompany(company) {

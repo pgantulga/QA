@@ -1,21 +1,22 @@
 import { Company } from './../../../services/company.service';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TagUpdateComponent } from 'src/app/tag/tag-update/tag-update.component';
 
 @Component({
   selector: 'company-add',
   templateUrl: './company-add.component.html',
-  styleUrls: ['./company-add.component.css']
+  styleUrls: ['./company-add.component.scss']
 })
-export class CompanyAddComponent{
+export class CompanyAddComponent implements OnInit{
   storagePath: string;
 
-  constructor(public dialogRef: MatDialogRef<TagUpdateComponent>,
+  constructor(public dialogRef: MatDialogRef<CompanyAddComponent>,
               @Inject(MAT_DIALOG_DATA) public data: Company) {
                 this.storagePath = `images/logos/${this.data.name}`;
-                console.log(this.storagePath);
-
+  }
+  ngOnInit(): void {
+    console.log(this.storagePath);
   }
   cancel(): void {
     this.dialogRef.close();

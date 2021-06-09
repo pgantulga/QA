@@ -42,13 +42,18 @@ export class ShellComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
+        console.log(this.router.url);
         this.listen();
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd))
+            // tslint:disable-next-line: deprecation
             .subscribe((e: any) => {
                 if (!e.url) {
                     this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
                 }
+                console.log(this.currentRoute);
+
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.routeService.setCurrentRoute(this.currentRoute);
                 this.routeMenu = this.getRouteMenu(this.currentRoute);

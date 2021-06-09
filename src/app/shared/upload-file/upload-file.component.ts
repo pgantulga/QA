@@ -9,19 +9,21 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./upload-file.component.scss']
 })
 export class UploadFileComponent {
-  @Input() path: any;
+  @Input() path: string;
   @Output() fileEmitter = new EventEmitter<string>();
   snapshot: Observable<any>;
   percentage: Observable<any>;
   fileToUpload: File = null;
   task: AngularFireUploadTask;
 
-  constructor(private storage: AngularFireStorage) { }
+  constructor(private storage: AngularFireStorage) {
+  }
 
   onFileSelected(files) {
     this.fileToUpload = files.item(0);
   }
   upload() {
+    console.log(this.path);
     const path = this.path;
     const ref = this.storage.ref(path);
     this.task = this.storage.upload(path, this.fileToUpload);

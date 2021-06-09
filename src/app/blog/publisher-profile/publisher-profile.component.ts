@@ -19,7 +19,7 @@ export class PublisherProfileComponent implements OnInit {
     this.publisherData$ = this.getPublisherData(this.publisher);
   }
   private getPublisherData(publisher): Observable<any> {
-    if (publisher.type=== 'user') {
+    if (publisher.type === 'user') {
       return this.userService.getUserData(publisher)
     }
     if(publisher.type === 'company') {
