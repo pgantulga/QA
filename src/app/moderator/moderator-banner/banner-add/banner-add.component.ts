@@ -23,9 +23,6 @@ export class BannerAddComponent implements OnInit {
   cancel() {
     this.dialogRef.close();
   }
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-  }
   getImageFile(ev) {
     this.data.mediaUrl = ev;
   }

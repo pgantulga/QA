@@ -1,0 +1,9 @@
+<div
+  class="banner_container"
+  fxLayout="column"
+  fxLayoutALing="center center"
+  *ngIf="banner$ | async as banner"
+  (click)=goUrl(banner.targetUrl)
+>
+    <img [src]="banner.mediaUrl" alt="banner_horizon">
+</div>

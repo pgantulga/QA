@@ -33,15 +33,13 @@
     </div>
   </mat-chip-list>
 </div>
-<div class="banner-home">
-  
-</div>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
   <h2>Oнцлох</h2>
 </div>
 <div class="post-list_container" *ngIf="pinnedPosts$ | async as pinnedPosts">
   <post-list *ngFor="let item of pinnedPosts" [post]="item"></post-list>
 </div>
+<banner-horizon [bannerId]="'L2zcn1JWdmn95BYP38MI'"></banner-horizon>
 <div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
   <h2>Бүх хэлэлцүүлгүүд</h2>
   <mat-button-toggle-group name="posts" aria-label="sort" appearance="legacy">
@@ -94,4 +92,10 @@
       ></post-list-ghost>
     </ng-template>
   </ng-template>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="section-header">
+  <h2>Шинэ нийтлэлүүд</h2>
+</div>
+<div fxLayout="row" class="blog-cards-container">
+
 </div>

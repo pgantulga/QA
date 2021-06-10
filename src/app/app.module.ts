@@ -20,7 +20,6 @@ import {ModeratorGuard} from './moderator/moderator-guard.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AppErrorHandler} from './shared/app-error-handler';
 import { HttpClientModule } from '@angular/common/http';
-import { BannerHorizonComponent } from './banner/banner-horizon/banner-horizon.component';
 
 @NgModule({
     declarations: [
@@ -28,8 +27,7 @@ import { BannerHorizonComponent } from './banner/banner-horizon/banner-horizon.c
         DialogComponent,
         SnackComponent,
         ShellComponent,
-        BottomSheetComponent,
-        BannerHorizonComponent
+        BottomSheetComponent
     ],
     imports: [
         BrowserModule,

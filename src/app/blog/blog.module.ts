@@ -37,7 +37,8 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     ReactiveFormsModule,
     QuillModule.forRoot(),
     CreateModule,
-    PostModule
+    PostModule,
+    HomeModule
   ]
 })
 export class BlogModule { }

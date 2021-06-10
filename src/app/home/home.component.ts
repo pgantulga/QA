@@ -81,7 +81,7 @@ export class HomeComponent implements OnInit {
 
   private async getTagsMenu(user) {
       this.userTags = [];
-    if (user && user.tags) {
+      if (user && user.tags) {
       const userTagsData = await this.tagService.getUserTagsMenu(user);
       userTagsData.forEach((tag: any) => {
         if (tag) {

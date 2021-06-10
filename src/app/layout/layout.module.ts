@@ -1,18 +1,9 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {NavbarComponent} from './navbar/navbar.component';
-import {MatIconModule} from '@angular/material/icon';
 import {RouterModule} from '@angular/router';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatMenuModule} from '@angular/material/menu';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatDialogModule} from '@angular/material/dialog';
 import {SidebarComponent} from './sidebar/sidebar.component';
-import {MatListModule} from '@angular/material/list';
-import {MatChipsModule} from '@angular/material/chips';
 import {MdModule} from '../shared/md.module';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {SidePostDirComponent} from './side-post-dir/side-post-dir.component';
@@ -35,6 +26,7 @@ import { InfoComponent } from './info/info.component';
 import { LoginWarnComponent } from './login-warn/login-warn.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
+import { BannerHorizonComponent} from './banner-horizon/banner-horizon.component'
 
 
 @NgModule({
@@ -57,6 +49,7 @@ import { QuillModule } from 'ngx-quill';
         TopWrapperComponent,
         TagChipComponent,
         InfoComponent,
+        BannerHorizonComponent,
         LoginWarnComponent,
     ],
     exports: [
@@ -76,7 +69,8 @@ import { QuillModule } from 'ngx-quill';
         WarnComponent,
         InfoComponent,
         TagChipComponent,
-        LoginWarnComponent
+        LoginWarnComponent,
+        BannerHorizonComponent,
     ],
     imports: [
         CommonModule,

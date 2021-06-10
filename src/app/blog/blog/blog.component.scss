@@ -1,18 +1,33 @@
 @import "custom-theme";
 
 .blog-wrapper {
-    padding: 32px 0 8px 0;
-    h1 {
-        font-size: 24px;
-        .highlighted {
-            display: inline-block;   
-            background-color: mat-color($my-grey, 800);
-            color: mat-color($my-grey, 500);
-            text-transform: uppercase;
-            font-weight: bolder;
-        }
+  padding: 32px 0 8px 0;
+  h1 {
+    font-size: 24px;
+    .highlighted {
+      display: inline-block;
+      background-color: mat-color($my-grey, 800);
+      color: mat-color($my-grey, 500);
+      text-transform: uppercase;
+      font-weight: bolder;
     }
+  }
 }
 .blog-list_container {
-    max-width: 750px;
+  width: 100%;
+  max-width: 750px;
+}
+
+.post-item {
+  padding: 4px 0;
+  h4 {
+    margin: 0;
+  }
+  h4:hover {
+      cursor: pointer;
+      color: mat-color($accent)
+  }
+  .mat-caption {
+    margin: 0;
+  }
 }

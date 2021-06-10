@@ -1,8 +1,36 @@
-  <div class="blog-wrapper" fxLayout="row" fxLayoutAlign="start end">
-    <h1>Уурхайчин <span class="highlighted">блог</span>т тавтай морил!</h1>
+<div class="blog-wrapper" fxLayout="row" fxLayoutAlign="start end">
+  <h1>Уурхайчин <span class="highlighted">блог</span>т тавтай морил!</h1>
+</div>
+<div fxLayout="row">
+  <div
+    class="blog-list_container background-card"
+    *ngIf="allBlogs$ | async as blogs"
+    fxFlex
+    fxFlex.gt-sm="70"
+  >
+    <blog-list *ngFor="let item of blogs; last as last" [item]="item">
+      <mat-divider *ngIf="!last" style="margin-bottom: 12px"></mat-divider>
+    </blog-list>
   </div>
-  <div class="blog-list_container background-card" *ngIf="allBlogs$ | async as blogs">
-      <blog-list *ngFor="let item of blogs; last as last" [item] = item>
-          <mat-divider  *ngIf="!last" style="margin-bottom: 12px;"></mat-divider>
-      </blog-list>
+  <div
+    class="col-right background-card"
+    fxFlex
+    fxHide.sm
+    fxHide.xs
+    *ngIf="latestPosts$ | async as posts"
+  >
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="margin-bottom: 16px"
+    >
+      <h2>Шинэ хэлэлцүүлгүүд</h2>
+    </div>
+    <div class="post-item" *ngFor="let post of posts" fxLayout="column">
+      <h4 class="line-clamp-2" (click)=goToPost(post)>
+        {{ post.title }}
+      </h4>
+      <p class="mat-caption">{{ post.lastLog.timestamp | momentPipe }}</p>
+    </div>
   </div>
+</div>
