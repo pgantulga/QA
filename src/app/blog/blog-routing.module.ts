@@ -17,6 +17,9 @@ const routes: Routes = [
   {
     path: ':id',
     component: BlogDetailComponent
+  },{
+    path: 'edit/:id',
+    component: BlogAddComponent
   },
 
 ];

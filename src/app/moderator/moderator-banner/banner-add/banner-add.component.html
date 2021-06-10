@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Баннер нэмэх</h1>
+<div mat-dialog-content>
+    
+  <mat-form-field color="accent">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput [(ngModel)]="data.name" required />
+  </mat-form-field>
+  <mat-form-field color="accent">
+    <mat-label>Click Target url</mat-label>
+    <input type="text" matInput [(ngModel)]="data.targetUrl" required />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <upload-file
+    [path]="storagePath"
+    (fileEmitter)="getImageFile($event)"
+  ></upload-file>
+  <button mat-button (click)="cancel()">Цуцлах</button>
+  <button mat-button (click)=closeDialog() [disabled]="!data.targetUrl">
+    Сануулах
+  </button>
+</div>

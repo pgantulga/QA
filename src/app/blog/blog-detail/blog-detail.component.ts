@@ -1,49 +1,67 @@
-import { BlogService } from './../../services/blog.service';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Component, OnInit } from '@angular/core';
-import { first, switchMap } from 'rxjs/internal/operators';
-import { DomSanitizer } from '@angular/platform-browser';
+import { SnackComponent } from "./../../shared/components/snack/snack.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { DialogComponent } from "./../../shared/dialog/dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { PermissionService } from "./../../services/permission.service";
+import { AuthService } from "./../../services/auth.service";
+import { BlogService } from "./../../services/blog.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { Component, OnInit } from "@angular/core";
+import { first, switchMap } from "rxjs/internal/operators";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-blog-detail',
-  templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.scss']
+  selector: "app-blog-detail",
+  templateUrl: "./blog-detail.component.html",
+  styleUrls: ["./blog-detail.component.scss"],
 })
 export class BlogDetailComponent implements OnInit {
   blog$: Observable<any>;
   htmlContent: any;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private blogService: BlogService,
-    private sanitizer: DomSanitizer
-  ) { }
+    private sanitizer: DomSanitizer,
+    public authService: AuthService,
+    public permissionService: PermissionService,
+    private dialogRef: MatDialog,
+    private snack: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.blog$ = this.route.paramMap.pipe(
       switchMap((params) => {
-        return this.blogService.getBlog(params.get('id'));
+        return this.blogService.getBlog(params.get("id"));
       })
     );
 
-    this.blog$.pipe(first())
-      .subscribe(
-        (blog) => {
-          this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(blog.content);
-          // this.authService
-          //   .getUser()
-          //   .then((user) => {
-          //     if (user && user.posts) {
-          //       this.postService.setUserPosts(user.posts);
-
-          //     }
-          //     return user ? this.postService.checkFollower(user, post) : null;
-          //   })
-          //   .then((value) => {
-          //     this.isFollowed = value;
-          //   });
-        },
-      )
+    this.blog$.pipe(first()).subscribe((blog) => {
+      this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(blog.content);
+    });
   }
-
+  isBlogAuthor(user1, user2) {
+    return user1.uid === user2.uid;
+  }
+  deleteBlog(blog) {
+    return this.dialogRef
+      .open(DialogComponent, {
+        data: {
+          title: "Устгах үйлдэл",
+          content: "Та энэ нийтлэлийг устгахдаа бэлэн байна уу?",
+        },
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          return this.blogService.deleteBlog(blog.id).then(() => {
+            this.router.navigate(["/blog"]);
+            return this.snack.openFromComponent(SnackComponent, {
+              data: "Нийтлэл устгагдлаа",
+            });
+          });
+        }
+      });
+  }
 }

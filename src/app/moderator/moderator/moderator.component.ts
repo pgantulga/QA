@@ -15,6 +15,10 @@ const ModeratorMenu = [
   {
     link: 'companies',
     name: 'Байгууллагууд'
+  },
+  {
+    link: 'banners',
+    name: 'Баннерууд'
   }
 ];
 @Component({

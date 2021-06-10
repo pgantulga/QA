@@ -24,7 +24,7 @@ export const config = {
     },
     imageCompress: {
         quality: 0.7, // default
-        maxWidth: 800, // default
+        maxWidth: 990, // default
         maxHeight: 1000, // default
         imageType: 'image/jpeg', // default
         debug: true, // default

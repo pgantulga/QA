@@ -29,6 +29,7 @@ mat-sidenav-content {
 /*---------------------------Layout-one---------------------------------*/
 .layout-one {
     margin-top: 8px;
+    min-height: calc(100vh - 200px);
     .mat-sidenav-content-container {
         padding-top: 80px;
     }

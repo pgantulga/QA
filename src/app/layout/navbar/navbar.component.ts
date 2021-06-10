@@ -19,16 +19,16 @@ import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 
 const fabData = [
     {
-        link: "'/ask'",
+        link: '\'/ask\'',
         icon: 'edit',
         name: 'ask'
     },
     {
-        link: "'/reply'",
+        link: '\'/reply\'',
         icon: 'reply',
         name: 'reply'
     }
-]
+];
 
 @Component({
     selector: 'app-navbar',
@@ -50,18 +50,18 @@ export class NavbarComponent implements OnInit {
 
 
     constructor(public menu: MenuService,
-        public authService: AuthService,
-        public permissionService: PermissionService,
-        public dialog: MatDialog,
-        public router: Router,
-        public route: ActivatedRoute,
-        public routeService: RouteService,
-        public notificationService: NotificationService,
-        private scrollDispatcher: ScrollDispatcher,
-        private zone: NgZone,
-        private location: Location,
-        private bottomSheet: MatBottomSheet,
-        private postService: PostService
+                public authService: AuthService,
+                public permissionService: PermissionService,
+                public dialog: MatDialog,
+                public router: Router,
+                public route: ActivatedRoute,
+                public routeService: RouteService,
+                public notificationService: NotificationService,
+                private scrollDispatcher: ScrollDispatcher,
+                private zone: NgZone,
+                private location: Location,
+                private bottomSheet: MatBottomSheet,
+                private postService: PostService
     ) {
         this.layout = this.routeService.getLayout(this.currentRoute);
         this.topMenu = this.menu.topMenu;
@@ -72,7 +72,7 @@ export class NavbarComponent implements OnInit {
         this.addButton = {
             link: '/ask',
             title: 'Хэлэлцүүлэг нэмэх'
-        }
+        };
 
     }
 
@@ -101,17 +101,17 @@ export class NavbarComponent implements OnInit {
             this.scrollable(event);
         });
     }
-    private setButtonData (currentRoute) {
+    private setButtonData(currentRoute) {
         if (currentRoute === 'blog') {
             this.addButton = {
-                link:'/blog/add-blog',
+                link: '/blog/add-blog',
                 title: 'Блог нэмэх'
-            }
+            };
         } else {
             this.addButton = {
                 link: '/ask',
                 title: 'Хэлэлцүүлэг нэмэх'
-            }
+            };
         }
     }
     setFabData(route) {
@@ -125,15 +125,15 @@ export class NavbarComponent implements OnInit {
             const post$ = this.postService.currentPost
                 .pipe(
                     switchMap((id: any) => {
-                        return this.postService.getPost(id)
+                        return this.postService.getPost(id);
                     })
-                )
+                );
             post$.pipe(first()).subscribe((postData: any) => {
                 this.bottomSheet.open(AnswerBottomSheetComponent, {
                     data: { id: postData.id, title: postData.title },
                     panelClass: 'answer-bottom-sheet'
-                })
-            })
+                });
+            });
 
         }
     }
@@ -162,11 +162,11 @@ export class NavbarComponent implements OnInit {
         if (this.preScrollPos < scroll && this.preScrollPos > 0) {
             this.zone.run(() => {
                 this.hideToolbar = true;
-            })
+            });
         } else {
             this.zone.run(() => {
                 this.hideToolbar = false;
-            })
+            });
         }
         this.preScrollPos = scroll;
     }

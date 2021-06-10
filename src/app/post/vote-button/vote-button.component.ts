@@ -18,10 +18,8 @@ import { MatTooltip } from '@angular/material/tooltip';
 })
 export class VoteButtonComponent implements OnInit, OnDestroy {
   @ViewChild("tooltip") tooltip: MatTooltip;
-
   @Input() obj: any;
   @Input() type: string;
-  
   isVoted: boolean;
   loading = false;
   user: any;

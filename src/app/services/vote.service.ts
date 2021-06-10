@@ -71,18 +71,18 @@ export class VoteService {
       let message: string;
       const id = (type === 'answer') ? item.parent.id : item.id;
       if (value === 1) {
-        message = 'voted'
+        message = 'voted';
       }
       if (value === 0) {
-        message = 'devoted'
+        message = 'devoted';
       }
       if (value === -1) {
-        message = 'downvoted'
+        message = 'downvoted';
       }
-      this.postService.addLog(user, message, id)
+      this.postService.addLog(user, message, id);
     })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }
 }

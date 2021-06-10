@@ -23,7 +23,6 @@
         getErrorMessage()
       }}</mat-error>
     </div>
-    <!-- <mat-hint align="end" class="mat-caption">Жишээлбэл: vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </mat-hint> -->
     <div class="background-card">
       <div class="sub-header">
         <h2>Агуулга</h2>
@@ -65,7 +64,12 @@
       </ng-template>
     </div>
   </div>
-  <div fxLayout="row" style="padding: 16px 0 0 0" fxLayoutAlign="end end" *ngIf="displayAs">
+  <div
+    fxLayout="row"
+    style="padding: 16px 0 0 0"
+    fxLayoutAlign="end end"
+    *ngIf="displayAs"
+  >
     <button
       type="button"
       mat-button

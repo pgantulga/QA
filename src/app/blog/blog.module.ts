@@ -20,7 +20,12 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
 
 
 @NgModule({
-  declarations: [BlogComponent, BlogListComponent, BlogAddComponent, PublisherProfileComponent, BlogDetailComponent],
+  declarations: [
+    BlogComponent,
+    BlogListComponent,
+    BlogAddComponent,
+    PublisherProfileComponent,
+    BlogDetailComponent],
   imports: [
     CommonModule,
     BlogRoutingModule,
@@ -33,7 +38,6 @@ import { BlogDetailComponent } from './blog-detail/blog-detail.component';
     QuillModule.forRoot(),
     CreateModule,
     PostModule
-
   ]
 })
 export class BlogModule { }

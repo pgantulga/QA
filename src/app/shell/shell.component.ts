@@ -49,11 +49,10 @@ export class ShellComponent implements OnInit {
             filter(event => event instanceof NavigationEnd))
             // tslint:disable-next-line: deprecation
             .subscribe((e: any) => {
-                if (!e.url) {
+
+                if (!e.url && this.currentRoute) {
                     this.currentRoute = this.routeService.getCurrentRoute(this.router.url);
                 }
-                console.log(this.currentRoute);
-
                 this.currentRoute = this.routeService.getCurrentRoute(e.url);
                 this.routeService.setCurrentRoute(this.currentRoute);
                 this.routeMenu = this.getRouteMenu(this.currentRoute);
@@ -65,7 +64,7 @@ export class ShellComponent implements OnInit {
     getRouteMenu(route) {
         const routesToHide = ['home', 'blog', 'login', 'tags', 'admin', 'moderator', 'not-found'];
         //hide on home, blog, login, tags, admin, moderator, not-found
-        if(routesToHide.includes(route)) {
+        if (routesToHide.includes(route)) {
             return false;
         }
         return this.routeService.getRouteMenu(route);

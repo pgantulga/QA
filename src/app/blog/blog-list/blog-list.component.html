@@ -2,14 +2,7 @@
   <div fxLayout="column">
     <h4 (click)="gotoBlog(item)">{{ item.title }}</h4>
     <p class="mat-caption">{{ item.createdAt | momentPipe}}</p>
-    <p class="blog-description line-clamp-3">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eum deserunt id
-      labore non sed perferendis similique minus earum! Explicabo vero, totam
-      nam neque atque ratione quisquam inventore perspiciatis suscipit dolor.
-      Dolor in cupiditate officia, voluptates, dolore, provident quam facilis
-      beatae ipsam quidem distinctio ipsum perspiciatis ipsa a asperiores
-      exercitationem libero?
-    </p>
+    <p class="line-clamp-3" [innerHtml]="htmlContent"></p>
     <mat-chip-list>
       <tag-chip
         *ngFor="let tag of item.tags"

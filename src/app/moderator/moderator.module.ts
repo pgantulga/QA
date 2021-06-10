@@ -15,10 +15,12 @@ import { ModeratorCompanyComponent } from './moderator-company/moderator-company
 import { CompanyAddComponent } from './moderator-company/company-add/company-add.component';
 import { ModeratorOverviewComponent } from './moderator-overview/moderator-overview.component';
 import { OverviewCardComponent } from './overview-card/overview-card.component';
+import { ModeratorBannerComponent } from './moderator-banner/moderator-banner.component';
+import { BannerAddComponent } from './moderator-banner/banner-add/banner-add.component';
 
 
 @NgModule({
-    declarations: [ModeratorComponent, ModeratorUserComponent, ModeratorTagsComponent, ModeratorPostsComponent, ModeratorCompanyComponent, CompanyAddComponent, ModeratorOverviewComponent, OverviewCardComponent],
+    declarations: [ModeratorComponent, ModeratorUserComponent, ModeratorTagsComponent, ModeratorPostsComponent, ModeratorCompanyComponent, CompanyAddComponent, ModeratorOverviewComponent, OverviewCardComponent, ModeratorBannerComponent, BannerAddComponent],
     imports: [
         CommonModule,
         ModeratorRoutingModule,

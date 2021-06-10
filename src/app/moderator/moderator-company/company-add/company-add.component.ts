@@ -16,13 +16,11 @@ export class CompanyAddComponent implements OnInit{
                 this.storagePath = `images/logos/${this.data.name}`;
   }
   ngOnInit(): void {
-    console.log(this.storagePath);
   }
   cancel(): void {
     this.dialogRef.close();
   }
   getImageFile(ev) {
-    console.log(ev);
     this.data.logo = ev;
 }
 }

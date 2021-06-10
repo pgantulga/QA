@@ -1,3 +1,5 @@
+import { switchMap } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
 import { PermissionService } from './../../services/permission.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from './../../services/blog.service';
@@ -8,7 +10,7 @@ import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from 'src/app/shared/components/snack/snack.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-blog-add',
@@ -17,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class BlogAddComponent implements OnInit {
   blogForm: FormGroup;
+  blog$: Observable<any>;
   config: any;
   author: any;
   tags: any[] = [];
@@ -31,19 +34,44 @@ export class BlogAddComponent implements OnInit {
     Validators.required,
     Validators.maxLength(300)
   ]);
-
+  description = new FormControl('', [
+    Validators.required,
+    Validators.minLength(300)
+  ])
+  isSecret: boolean;
   constructor(
     private blogService: BlogService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     public router: Router,
     public authService: AuthService,
-    public permissionService: PermissionService
+    public permissionService: PermissionService,
+    public route: ActivatedRoute
   ) {
     this.config = config;
   }
 
   ngOnInit(): void {
+    this.blog$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        if (params.get('id')) {
+          console.log(params.get('id'))
+          return this.blogService.getBlog(params.get('id'))
+        }
+        else { return EMPTY}
+      })
+    )
+    if (this.blog$) {
+      this.blog$.subscribe(data => {
+        if (data) {
+          this.oldValue = data;
+          this.tags = data.tags;
+          this.title.setValue(data.title);
+          this.content.setValue(data.content);
+          this.editing = true;
+        }
+      })
+    }
     this.authService.user$.subscribe(user => {
       this.author = user;
       this.displayUsers = this.displayUsers.concat(
@@ -51,7 +79,7 @@ export class BlogAddComponent implements OnInit {
           {
             displayName: this.author.displayName,
             type: 'user',
-            id: this.author.uid
+            uid: this.author.uid
           },
           {
             displayName: this.author.company.name,
@@ -115,10 +143,11 @@ export class BlogAddComponent implements OnInit {
     }, this.author, this.tags, this.displayAs)
   }
   private saveBlog(): Promise<any> {
+    console.log(this.author)
     return this.blogService.saveBlog({
       title: this.title.value,
       content: this.content.value,
-    }, this.author, this.tags, this.displayAs)
+    }, this.tags, this.oldValue, this.displayAs)
   }
 
 }

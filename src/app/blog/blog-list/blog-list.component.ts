@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
 })
 export class BlogListComponent implements OnInit {
   @Input() item: any;
-  constructor(private router: Router) { }
+  htmlContent: any;
+  constructor(private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(this.item.content);
+
   }
   gotoBlog(blog) {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {

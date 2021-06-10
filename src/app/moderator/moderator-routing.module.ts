@@ -1,3 +1,4 @@
+import { ModeratorBannerComponent } from './moderator-banner/moderator-banner.component';
 import { ModeratorOverviewComponent } from './moderator-overview/moderator-overview.component';
 import { ModeratorCompanyComponent } from './moderator-company/moderator-company.component';
 import {NgModule} from '@angular/core';
@@ -34,6 +35,10 @@ const routes: Routes = [
             {
                 path: 'companies',
                 component: ModeratorCompanyComponent
+            },
+            {
+                path: 'banners',
+                component: ModeratorBannerComponent
             }
         ]
     }
