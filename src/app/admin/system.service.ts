@@ -25,9 +25,9 @@ export class SystemService {
     const postRef = this.postService.postCollection;
     const postsPromise = await postRef.ref.get();
     postsPromise.forEach(item => {
-      if (item.data().pinned) {
+      if (!item.data().pinned) {
         console.log(item.data())
-        // return this.postService.postCollection.doc(item.id).delete()
+        return this.postService.postCollection.doc(item.id).delete();
         // 1. delete all except pinned
         // 2. changepost meta number
       }
@@ -45,7 +45,7 @@ export class SystemService {
     notifObjectsPromise.forEach(item => {
       console.log(item.data())
 
-      // return this.notifService.notificationObjectsRef.doc(item.id).delete();
+      return this.notifService.notificationObjectsRef.doc(item.id).delete();
     })
   }
 
@@ -53,7 +53,7 @@ export class SystemService {
     const notifiersPromise = await this.notifService.notifiersRef.ref.get();
     notifiersPromise.forEach(item => {
       console.log(item.data())
-      // return this.notifService.notifiersRef.doc(item.id).delete();
+      return this.notifService.notifiersRef.doc(item.id).delete();
     })
   }
 

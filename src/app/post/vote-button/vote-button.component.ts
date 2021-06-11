@@ -26,8 +26,8 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
   userVote: any;
   voteCount: any;
   tooltipValue: any;
-  showTooltip: boolean = false;
-  subscription: Subscription
+  showTooltip = false;
+  subscription: any;
 
   constructor(
     public voteService: VoteService,
@@ -61,7 +61,7 @@ export class VoteButtonComponent implements OnInit, OnDestroy {
     this.isVoted = false;
   }
   upVote() {
-    if (!this.checkAuth()) {
+    if (!this.checkAuth() ) {
       return null;
     }
     const vote = this.userVote === 1 ? 0 : 1;

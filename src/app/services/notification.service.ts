@@ -182,7 +182,6 @@ export class NotificationService {
     entity,
     parent?
   ) {
-    console.log('createNotifier');
     return this.notifiersRef
       .add({
         notificationObjectId: notificationId,

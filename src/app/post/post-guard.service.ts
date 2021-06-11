@@ -53,7 +53,6 @@ export class PostGuardService implements CanActivate {
           const dialogRef = this.dialog.open(DialogComponent, {data: dialogData});
           dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                console.log('request token');
                 this.router.navigate(['auth/profile-settings']);
             }
         });
