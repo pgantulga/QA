@@ -1,6 +1,9 @@
 <ng-container *ngIf="userData$ | async as userData">
     <div fxLayout="row" class="user-profile-container">
-        <div class="avatar" [ngStyle]="{'background-color': userData.color?.code}">{{userData.displayName.charAt(0)}}</div>
+        <div class="avatar" *ngIf="userData.profileImage">
+            <img [src]="userData.profileImage" alt="{{userData.displayName}}" class="avatar__image">
+        </div>
+        <div *ngIf="!userData.profileImage" class="avatar" [ngStyle]="{'background-color': userData.color?.code}">{{userData.displayName.charAt(0)}}</div>
         <div fxLayout="column" fxLayoutAlign="center start" >
             <p class="mat-caption profile-name" [routerLink]="['/users', userData.uid]">{{userData.displayName}}</p>
             <p class="mat-caption profile-email cut-text">{{userData.email}}</p>

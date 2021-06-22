@@ -1,15 +1,32 @@
 <ng-container *ngIf="userData$ | async as userData">
-    <div fxLayout="column" class="user-profile-container-large" fxLayoutAlign="center center">
-        <div class="avatar-large" [ngStyle]="{'background-color': userData.color?.code}">{{avatar}}</div>
-        <div fxLayout="column" fxLayoutAlign="center center" >
-            <!--<div class="avatar-image">-->
-            <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
-            <!--</div>-->
-            <p class="mat-headline">{{userData.displayName}}</p>
-            <p class="mat-subheading-1">{{userData.email}}</p>
-            <p class="mat-body-2" style="margin-top: 8px;">{{userData.company?.name}}</p>
-<!--            <p class="mat-caption">{{userData.createdAt | momentPipe}} бүртгүүлсэн</p>-->
-<!--            <p class="mat-caption">Авсан үнэлгээ: {{userData.votesReceived}}</p>-->
-        </div>
+  <div
+    fxLayout="column"
+    class="user-profile-container-large"
+    fxLayoutAlign="center center"
+  >
+    <div
+      class="avatar-large"
+      [ngStyle]="{ 'background-color': userData.color?.code }"
+    >
+      <ng-container *ngIf="userData.profileImage; else noImage">
+        <img [src]="userData.profileImage" alt="{{userData.displayName}}" class="avatar__image">
+      </ng-container>
+      <ng-template #noImage>
+        {{ avatar }}
+      </ng-template>
     </div>
+    
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <!--<div class="avatar-image">-->
+      <!--<img src="../../assets/default_image.png" *ngIf="user.profileImage" alt="User profile">-->
+      <!--</div>-->
+      <p class="mat-headline">{{ userData.displayName }}</p>
+      <p class="mat-subheading-1">{{ userData.email }}</p>
+      <p class="mat-body-2" style="margin-top: 8px">
+        {{ userData.company?.name }}
+      </p>
+      <!--            <p class="mat-caption">{{userData.createdAt | momentPipe}} бүртгүүлсэн</p>-->
+      <!--            <p class="mat-caption">Авсан үнэлгээ: {{userData.votesReceived}}</p>-->
+    </div>
+  </div>
 </ng-container>

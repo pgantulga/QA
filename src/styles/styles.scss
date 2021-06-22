@@ -85,12 +85,14 @@ a:hover {
   width: 40px;
   height: 40px;
   border-radius: 36px;
+  border: 1px solid mat-color($primary, 800, 0.2);
   font-size: 18px;
   font-weight: bold;
   line-height: 40px;
   text-align: center;
   display: inline-block;
   vertical-align: middle;
+  overflow: hidden;
   color: rgba(0, 0, 0, 0.6);
   margin: 2px 6px 0 0;
   .avatar__image {
@@ -102,6 +104,7 @@ a:hover {
   width: 72px;
   height: 72px;
   border-radius: 72px;
+  border: 1px solid mat-color($primary, 800, 0.2);
   font-size: 48px;
   line-height: 72px;
   text-align: center;
@@ -109,6 +112,11 @@ a:hover {
   vertical-align: middle;
   color: #ffffff;
   margin: 2px;
+  overflow: hidden;
+
+  .avatar__image {
+    width: 100%;
+  }
 }
 
 /****************************************Buttons****************************************************/

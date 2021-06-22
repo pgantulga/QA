@@ -11,7 +11,12 @@
       *ngIf="publisher.type === 'user'"
       [ngStyle]="{ 'background-color': publisherData.color?.code }"
     >
+    <ng-container *ngIf="publisherData.profileImage; else noImage">
+      <img [src]="publisherData.profileImage" alt="{{publisherData.displayName}}" class="avatar__image">
+    </ng-container>
+    <ng-template #noImage>
       {{ publisher.displayName.charAt(0) }}
+    </ng-template>
     </div>
     <div fxLayout="column" fxLayoutAlign="center start">
       <p

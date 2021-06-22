@@ -20,7 +20,9 @@ export class ProfileSettingsComponent implements OnInit {
     selectedColor: any;
     changePasswordButton = false;
     idCard: string;
+    profileImage: string;
     storagePath: string;
+    profileImagePath: string;
     verified: boolean;
     displayName = new FormControl('', [
         Validators.required,
@@ -54,6 +56,8 @@ export class ProfileSettingsComponent implements OnInit {
                 this.user = user;
                 this.verified = this.user.verified;
                 this.storagePath = `images/idCards/${this.user.uid}`;
+                this.profileImagePath = `images/profiles/${this.user.uid}`;
+                this.profileImage = this.user.profileImage;
                 this.color = this.getRandomColor();
                 this.selectedColor = (user.color) ? user.color : null;
                 this.displayName.setValue(user.displayName);
@@ -89,6 +93,9 @@ export class ProfileSettingsComponent implements OnInit {
     getImageFile(ev) {
         this.idCard = ev;
     }
+    getProfileImageFile(ev) {
+        this.profileImage = ev;
+    }
 
     onSubmit() {
         const data = {
@@ -98,9 +105,9 @@ export class ProfileSettingsComponent implements OnInit {
             occupation: this.occupation.value,
             color: this.selectedColor,
             idCard: (this.idCard || this.user.idCard),
-            updatedAt: new Date()
+            updatedAt: new Date(),
+            profileImage: this.profileImage || null
         };
-        console.log(data);
         this.authService.updateUserInstant(data, this.user.uid)
         .then(res => {
             if (!(this.user.roles.moderator || this.user.roles.admin)) {

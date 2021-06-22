@@ -22,6 +22,18 @@
           </button>
         </div>
       </div>
+
+      <div class="name-card-container" fxLayout="row">
+        <div class="type-indicator"></div>
+        <div fxLayout="column">
+          <p class="mat-body-2">Профайл зургаа солих/p>
+          <upload-file
+            [path]="profileImagePath"
+            (fileEmitter)="getProfileImageFile($event)"
+          ></upload-file>
+        </div>
+      </div>
+
       <mat-form-field appearance="outline" color="accent">
         <mat-label>Таны харагдах нэр</mat-label>
         <input
@@ -81,11 +93,7 @@
         <mat-hint class="mat-caption">Жишээлбэл: Геологич </mat-hint>
         <mat-form-field appearance="outline" color="accent">
           <mat-label>Мэргэжил</mat-label>
-          <input
-            matInput
-            placeholder="Мэргэжил"
-            [formControl]="occupation"
-          />
+          <input matInput placeholder="Мэргэжил" [formControl]="occupation" />
         </mat-form-field>
 
         <div class="name-card-container" fxLayout="row">
