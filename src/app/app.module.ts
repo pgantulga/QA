@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule} from '@angular/flex-layout';
 import { AngularFireModule} from '@angular/fire';
-import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics'
+import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 import { environment} from '../environments/environment';
 import { DialogComponent } from './shared/dialog/dialog.component';
 import { AuthGuard} from './services/auth-guard.service';
