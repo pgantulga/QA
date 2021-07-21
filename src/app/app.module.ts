@@ -31,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
         BottomSheetComponent
     ],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireAnalyticsModule,
