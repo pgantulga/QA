@@ -51,6 +51,12 @@ import { HttpClientModule } from '@angular/common/http';
         PostGuardService,
         {provide: ErrorHandler, useClass: AppErrorHandler},
         {provide: DEBUG_MODE, useValue: true},
+        {
+            provide: 'windowObject',
+            useFactory: () => {
+                return window;
+            }
+        }
         // {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
     ],
     exports: [

@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../../shared/components/snack/snack.component';
 import { TagService } from '../../services/tag.service';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { config } from '../../shared/quill-config';
+// import { config } from '../../shared/quill-config';
 import { switchMap } from 'rxjs/operators';
 import { EMPTY, Observable } from 'rxjs';
 import { PermissionService } from 'src/app/services/permission.service';
@@ -74,8 +74,8 @@ export class PostAddComponent implements OnInit {
                 }
             });
         }
-        
-        this.config = config;
+   
+        // this.config = config;
         this.authService.user$.subscribe(user => {
             this.author = user;
         });

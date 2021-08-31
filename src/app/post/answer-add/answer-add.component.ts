@@ -6,7 +6,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {configReply} from '../../shared/quill-config';
+// import {configReply} from '../../shared/quill-config';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 
 @Component({
@@ -27,7 +27,7 @@ export class AnswerAddComponent {
               public router: Router,
               private bottomSheet: MatBottomSheet
   ) {
-    this.config = configReply;
+    // this.config = configReply;
     this.answerService.highlightedText$.subscribe( value => {
       this.answerForm.patchValue(
           {

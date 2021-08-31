@@ -25,7 +25,7 @@ import {TagSelectComponent} from '../tag/tag-select/tag-select.component';
         FormsModule,
         LayoutModule,
         ReactiveFormsModule,
-        QuillModule.forRoot()
+        // QuillModule.forRoot()
     ]
 })
 export class CreateModule { }

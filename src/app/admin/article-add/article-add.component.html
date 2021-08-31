@@ -9,7 +9,7 @@
                 </mat-form-field>
                 <mat-error *ngIf="title.touched" align="end" class="mat-caption">{{getErrorMessage()}}</mat-error>
                 <p class="mat-subheading-2" style="margin-top: 16px">Content</p>
-                <quill-editor [formControl]="content" [modules]="config" required></quill-editor>
+                <!-- <quill-editor [formControl]="content" [modules]="config" required></quill-editor> -->
             </div>
             <div fxLayout="row" style="padding:16px 0 0 0" fxLayoutAlign="end end">
                 <button mat-flat-button>Cancel</button>

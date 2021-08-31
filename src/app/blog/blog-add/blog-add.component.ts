@@ -3,7 +3,7 @@ import { Observable, EMPTY } from 'rxjs';
 import { PermissionService } from './../../services/permission.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { BlogService } from './../../services/blog.service';
-import { config } from './../../shared/quill-config';
+// import { config } from './../../shared/quill-config';
 import { FormGroup, FormBuilder, FormControl, Validators, FormGroupDirective, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
@@ -48,7 +48,7 @@ export class BlogAddComponent implements OnInit {
     public permissionService: PermissionService,
     public route: ActivatedRoute
   ) {
-    this.config = config;
+    // this.config = config;
   }
 
   ngOnInit(): void {

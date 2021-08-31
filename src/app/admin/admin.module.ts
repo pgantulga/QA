@@ -26,7 +26,7 @@ import {TagModule} from '../tag/tag.module';
         MdModule,
         FlexLayoutModule,
         LayoutModule,
-        QuillModule.forRoot(),
+        // QuillModule.forRoot(),
         ReactiveFormsModule,
         FormsModule,
         TagModule,

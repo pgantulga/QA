@@ -24,7 +24,7 @@ export class CommentAddComponent  {
               public snackBar: MatSnackBar,
               public router: Router
               ) {
-    this.config = config;
+    // this.config = config;
     this.commentForm = this.formBuilder.group({
       editor: '',
     });

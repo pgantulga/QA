@@ -3,7 +3,7 @@ import {AnswerService} from '../../services/answer.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {configReply} from '../../shared/quill-config';
+// import {configReply} from '../../shared/quill-config';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
 
@@ -25,7 +25,7 @@ export class ReplyAddComponent implements OnInit {
         public dialog: MatDialog,
         public snackBar: MatSnackBar,
     ) {
-        this.config = configReply;
+        // this.config = configReply;
         this.replyForm = this.formBuilder.group({
             editor: ''
         });

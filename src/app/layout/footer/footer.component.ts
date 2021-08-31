@@ -1,6 +1,8 @@
-import { Component, ViewEncapsulation} from '@angular/core';
+import { GlobalObjectService } from './../../services/global-object.service';
+import { Component, Inject, PLATFORM_ID, ViewEncapsulation} from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArticleService } from 'src/app/services/article-service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'footer',
@@ -12,12 +14,15 @@ import { ArticleService } from 'src/app/services/article-service';
 export class FooterComponent {
   article$: Observable<any>;
   tocId: string;
-  constructor(private articleService: ArticleService) {
+  // window: any;
+  constructor(private articleService: ArticleService, windowRef: GlobalObjectService, @Inject(PLATFORM_ID) private platformId: object) {
     this.tocId = '44LFn7kNX5BPkb1RwID5';
     this.article$ = this.articleService.getArticle('WYg2RZvhKat1PxtPaUL0');
+    // this.window = windowRef.getWindow();
    }
    feedback() {
-    window.location.href = 'mailto:tulga@miningmongolia.mn?subject=Санал хүсэлт Уурхайчин форум';
+     if (isPlatformBrowser(this.platformId)) {
+      // this.window.location.href = 'mailto:tulga@miningmongolia.mn?subject=Санал хүсэлт Уурхайчин форум';
+     }
   }
 }
-  

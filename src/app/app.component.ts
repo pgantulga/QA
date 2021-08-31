@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
       } else if (event instanceof RouteConfigLoadEnd) {
         this.loading = false;
       }
-    })
+    });
 
   }
   ngOnInit(): void {
@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
    this.gotop();
   }
   gotop() {
+     // tslint:disable-next-line: no-shadowed-variable
      const element = document.getElementsByName('top-anchor');
-    element[0].scrollIntoView({behavior: "smooth"});
+     element[0].scrollIntoView({behavior: 'smooth'});
   }
 }

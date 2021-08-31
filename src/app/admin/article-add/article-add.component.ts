@@ -9,7 +9,7 @@ import {TagService} from '../../services/tag.service';
 import {switchMap} from 'rxjs/operators';
 import {DialogComponent} from '../../shared/dialog/dialog.component';
 import {SnackComponent} from '../../shared/components/snack/snack.component';
-import {config} from '../../shared/quill-config';
+// import {config} from '../../shared/quill-config';
 import {ArticleService} from '../../services/article-service';
 import {RouteService} from "../../services/route.service";
 
@@ -22,7 +22,7 @@ import {RouteService} from "../../services/route.service";
 export class ArticleAddComponent implements OnInit {
   postForm: FormGroup;
   author: any;
-  config: any;
+  // config: any;
   tags: any[] = [];
   content = new FormControl('', [
     Validators.required
@@ -65,7 +65,7 @@ export class ArticleAddComponent implements OnInit {
     return this.title.hasError('length') ? '150 тэмдэгтэд багтаана уу' : '';
   }
   ngOnInit(): void {
-    this.config = config;
+    // this.config = config;
   }
 
   createArticle() {

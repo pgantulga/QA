@@ -136,7 +136,13 @@
           "options": {
             "outputPath": "dist/QA/server",
             "main": "server.ts",
-            "tsConfig": "tsconfig.server.json"
+            "tsConfig": "tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
+            "externalDependencies": ["@firebase/firestore"]
           },
           "configurations": {
             "production": {
