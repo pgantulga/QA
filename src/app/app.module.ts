@@ -1,7 +1,10 @@
-import { ShellComponent } from './shell/shell.component';
 import { MatIconRegistry } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
-import {ErrorHandler, NgModule} from '@angular/core';
+import { NgModule, PLATFORM_ID, APP_ID, Inject, ErrorHandler } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
+import { ShellComponent } from './shell/shell.component';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule} from '@angular/flex-layout';
@@ -20,7 +23,6 @@ import {PostGuardService} from './post/post-guard.service';
 import {ModeratorGuard} from './moderator/moderator-guard.service';
 import {AngularFireMessagingModule} from '@angular/fire/messaging';
 import {AppErrorHandler} from './shared/app-error-handler';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -40,7 +42,10 @@ import { HttpClientModule } from '@angular/common/http';
         MdModule,
         FlexLayoutModule,
         AngularFireMessagingModule,
-        HttpClientModule
+        HttpClientModule,
+        QuillModule.forRoot({
+            suppressGlobalRegisterWarning: true
+        })
     ],
     providers: [
         ScreenTrackingService,
@@ -63,4 +68,14 @@ import { HttpClientModule } from '@angular/common/http';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+    constructor(
+        // tslint:disable-next-line: ban-types
+        @Inject(PLATFORM_ID) private platformId: Object,
+        @Inject(APP_ID) private appId: string
+      ) {
+        const platform = isPlatformBrowser(platformId) ?
+          'in the browser' : 'on the server';
+        console.log(`Running ${platform} with appId=${appId}`);
+      }
+}

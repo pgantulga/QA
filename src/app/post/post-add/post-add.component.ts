@@ -57,11 +57,11 @@ export class PostAddComponent implements OnInit {
         this.post$ = this.route.paramMap.pipe(
             switchMap(params => {
                 if (params.get('id')) {
-                    return this.postService.getPost(params.get('id'))
+                    return this.postService.getPost(params.get('id'));
                 }
-                else { return EMPTY}
+                else { return EMPTY; }
             })
-        )
+        );
         if (this.post$) {
             this.post$.subscribe((data: any) => {
                 if (data) {
@@ -74,7 +74,7 @@ export class PostAddComponent implements OnInit {
                 }
             });
         }
-   
+
         // this.config = config;
         this.authService.user$.subscribe(user => {
             this.author = user;
