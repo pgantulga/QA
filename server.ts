@@ -5,42 +5,12 @@ import { join } from 'path';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
 
-// const domino = require('domino');
-// const fs = require('fs');
-// const path = require('path');
-// const template = fs
-//   .readFileSync('.', path.join('dist/QA/browser', 'index.html'))
-//   .toString();
-// const win = domino.createWindow(template);
-
 const MockBrowser = require('mock-browser').mocks.MockBrowser;
 const mock = new MockBrowser();
 
 // tslint:disable-next-line: no-string-literal
 global['window'] = mock.getWindow();
 
-// // tslint:disable-next-line:no-string-literal
-// global['branch'] = null;
-// // tslint:disable-next-line:no-string-literal
-// global['object'] = win.object;
-// // tslint:disable-next-line:no-string-literal
-// global['window'] = win;
-// // tslint:disable-next-line:no-string-literal
-// global['document'] = win.document;
-// // tslint:disable-next-line:no-string-literal
-// global['DOMTokenList'] = win.DOMTokenList;
-// // tslint:disable-next-line:no-string-literal
-// global['Node'] = win.Node;
-// // tslint:disable-next-line:no-string-literal
-// global['Text'] = win.Text;
-// // tslint:disable-next-line:no-string-literal
-// global['HTMLElement'] = win.HTMLElement;
-// // tslint:disable-next-line:no-string-literal
-// global['navigator'] = win.navigator;
-// // tslint:disable-next-line:no-string-literal
-// global['Event'] = null;
-// // tslint:disable-next-line:no-string-literal
-// global['MutationObserver'] = getMockMutationObserver();
 import 'zone.js/dist/zone-node';
 
 import { AppServerModule } from './src/main.server';
@@ -49,10 +19,10 @@ import { AppServerModule } from './src/main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/QA/browser');
+  const distFolder = join(process.cwd(), 'dist/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
-    : 'index';
+    : 'index';  
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine(

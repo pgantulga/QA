@@ -1,4 +1,4 @@
-// import ImageCompress from 'quill-image-compress';
+import ImageCompress from 'quill-image-compress';
 import * as Quill from 'quill';
 Quill.register('modules/imageCompress', ImageCompress);
 

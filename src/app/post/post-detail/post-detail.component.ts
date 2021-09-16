@@ -18,7 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../../shared/components/snack/snack.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Meta } from '@angular/platform-browser';
 
 const DropdownMenu = [
     {
@@ -66,8 +66,11 @@ export class PostDetailComponent implements OnInit {
         public permissionService: PermissionService,
         private snack: MatSnackBar,
         private dialogRef: MatDialog,
-        private sanitizer: DomSanitizer
-    ) { }
+        private sanitizer: DomSanitizer,
+        private meta: Meta
+    ) { 
+        
+    }
 
     ngOnInit(): void {
         this.post$ = this.route.paramMap.pipe(
