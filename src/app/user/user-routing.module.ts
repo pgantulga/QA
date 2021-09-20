@@ -13,8 +13,8 @@ const routes: Routes = [
   {
     path: ':uid',
     component: UserDetailComponent,
-    canActivate: [AuthGuard],
-    data: {roles: ['subscriber', 'member', 'moderator', 'admin']}
+    // canActivate: [AuthGuard],
+    // data: {roles: ['subscriber', 'member', 'moderator', 'admin']}
   }
 ];
 

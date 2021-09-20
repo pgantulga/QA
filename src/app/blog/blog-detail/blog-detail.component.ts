@@ -10,6 +10,8 @@ import { Observable } from "rxjs";
 import { Component, OnInit } from "@angular/core";
 import { first, switchMap } from "rxjs/internal/operators";
 import { DomSanitizer } from "@angular/platform-browser";
+import { Meta } from '@angular/platform-browser';  
+
 
 @Component({
   selector: "app-blog-detail",
@@ -27,7 +29,8 @@ export class BlogDetailComponent implements OnInit {
     public authService: AuthService,
     public permissionService: PermissionService,
     private dialogRef: MatDialog,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private meta: Meta
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +42,7 @@ export class BlogDetailComponent implements OnInit {
 
     this.blog$.pipe(first()).subscribe((blog) => {
       this.htmlContent = this.sanitizer.bypassSecurityTrustHtml(blog.content);
+      this.meta.updateTag({name: 'og:title', content: blog.title})
     });
   }
   isBlogAuthor(user1, user2) {

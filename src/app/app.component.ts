@@ -2,6 +2,7 @@ import { element } from 'protractor';
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from './services/theme.service';
 import { Router, RouterEvent, RouteConfigLoadStart, RouteConfigLoadEnd } from '@angular/router';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
   loading: boolean;
   constructor(
     private themeService: ThemeService,
-    private router: Router
+    private router: Router,
+    private meta: Meta
   ) {
     this.loading = false;
     router.events.subscribe((event: RouterEvent) => {
@@ -26,6 +28,10 @@ export class AppComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.meta.addTags([
+      { name: 'og:title', content: 'Angular SEO Integration, Music CRUD, Angular Universal' },
+    
+    ]);
   }
   onActivate(event) {
    this.gotop();
