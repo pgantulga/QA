@@ -22,10 +22,11 @@
       <div
         class="ql-editor"
         [innerHTML]="htmlContent"
-        [sttSelectedTextTooltip]="selectedTextTooltipTemplate"
         (sttSelectedText)="selectedText = $event"
       ></div>
-      <ng-template #selectedTextTooltipTemplate>
+      <!-- [sttSelectedTextTooltip]="selectedTextTooltipTemplate" -->
+
+      <!-- <ng-template #selectedTextTooltipTemplate>
         <div
           class="selected-text-tooltip-bar"
           (mousedown)="$event.preventDefault()"
@@ -41,7 +42,7 @@
             <mat-icon>reply</mat-icon>
           </button>
         </div>
-      </ng-template>
+      </ng-template> -->
       <mat-chip-list>
         <tag-chip
           *ngFor="let tag of post.tags"

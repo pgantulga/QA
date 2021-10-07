@@ -1,3 +1,4 @@
+import { environment } from './src/environments/environment';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
@@ -18,7 +19,10 @@ import { AppServerModule } from './src/main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/browser');
+  //for angularfire  
+  const websiteFileLocation = "../dist/browser";
+  // const websiteFileLocation = environment.production ? "browser" : "dist/browser";
+  const distFolder = join(process.cwd(), websiteFileLocation);
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
     : 'index';  

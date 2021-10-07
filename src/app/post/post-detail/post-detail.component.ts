@@ -1,10 +1,7 @@
-import { element } from 'protractor';
 import {
     Component,
-    ElementRef,
-    OnDestroy,
+    Inject,
     OnInit,
-    ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
 import { first, switchMap, take } from 'rxjs/internal/operators';
@@ -12,13 +9,14 @@ import { PostService } from '../../services/post.service';
 import { AuthService } from '../../services/auth.service';
 import { AnswerService } from '../../services/answer.service';
 import { combineLatest, Observable } from 'rxjs';
-import { ViewportScroller } from '@angular/common';
+import { ViewportScroller, DOCUMENT } from '@angular/common';
 import { PermissionService } from '../../services/permission.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackComponent } from '../../shared/components/snack/snack.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { DomSanitizer, Meta } from '@angular/platform-browser';
+
 
 const DropdownMenu = [
     {
@@ -67,7 +65,8 @@ export class PostDetailComponent implements OnInit {
         private snack: MatSnackBar,
         private dialogRef: MatDialog,
         private sanitizer: DomSanitizer,
-        private meta: Meta
+        private meta: Meta,
+        @Inject(DOCUMENT) private document: Document
     ) { 
         
     }
