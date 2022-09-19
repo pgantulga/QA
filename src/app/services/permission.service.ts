@@ -78,12 +78,12 @@ export class PermissionService {
     return this.checkAuth(user, allowed);
   }
   canRead(user: User): boolean {
-    const allowed = ['subscriber', 'member', 'moderator', 'admin'];
+    const allowed = ['guest','subscriber', 'member', 'moderator', 'admin'];
     return this.checkAuth(user, allowed);
   }
 
   canCreate(user: User): boolean {
-    const allowed = ['subscriber', 'member', 'moderator', 'admin'];
+    const allowed = ['guest','subscriber', 'member', 'moderator', 'admin'];
     return this.checkAuth(user, allowed);
   }
 

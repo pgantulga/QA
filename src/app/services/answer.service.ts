@@ -32,17 +32,28 @@ export class AnswerService {
     }
 
     addAnswer(post, answer, user) {
+        // tslint:disable-next-line: variable-name
+        let temp_author ={};
         this.answersRef = this.db.collection('posts').doc(post.id).collection('answers', ref => ref.orderBy('createdAt', 'desc'));
+        if (user) {
+            temp_author = {
+                displayName: user.displayName ,
+                uid: user.uid ,
+                profilePic: ''
+            }
+        } else {
+            temp_author = {
+                displayName: 'Anonymous' ,
+                uid: 'anonymous' ,
+                profilePic: ''
+            }
+        }
         const postObj = {
             content: answer.content,
             votesNumber: 0,
             createdAt: new Date(),
             updatedAt: new Date(),
-            author: {
-                displayName: user.displayName,
-                uid: user.uid,
-                profilePic: ''
-            },
+            author: temp_author,
             parent: {
                 id: post.id,
                 title: post.title
@@ -57,7 +68,7 @@ export class AnswerService {
                 return res.update({ id: res.id });
             })
             .then(() => {
-                return this.postService.followPost(post, user);
+                // return this.postService.followPost(post, user);
             })
             .catch(err => {
                 console.log('Error occurred: ' + err);

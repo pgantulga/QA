@@ -1,7 +1,7 @@
 <div class="answers background-card">
   <div class="answer-list"  fxLayout="column">
     <div fxLayout="row">
-      <vote-button [obj]="answer" [type]="'answer'"></vote-button>
+      <!-- <vote-button [obj]="answer" [type]="'answer'"></vote-button> -->
       <div fxFlex fxLayout="column">
         <p class="mat-caption">{{ answer.createdAt | momentPipe }}</p>
         <div class="vote-content" [innerHTML]="answer.content"></div>
@@ -9,6 +9,8 @@
           <div fxLayout="row" fxLayout.xs="column"    fxLayoutAlign="end end" >
             <user-profile [user]="answer.author"></user-profile>
             <div fxLayout="row">
+              <!-- *ngIf="permissionService.canEdit(user)" -->
+
               <button
                 mat-icon-button
                 class="background-button"
@@ -18,7 +20,7 @@
               >
                 <mat-icon>reply</mat-icon>
               </button>
-              <button
+              <!-- <button
                 mat-icon-button
                 class="background-button"
                 (click)="delete()"
@@ -26,6 +28,12 @@
                   permissionService.canEdit(user) ||
                   answer.author.uid === user.uid
                 "
+              > -->
+              <button
+                mat-icon-button
+                class="background-button"
+                (click)="delete()"
+                *ngIf="permissionService.canEdit(user)"
               >
                 <mat-icon>delete</mat-icon>
               </button>
@@ -38,17 +46,18 @@
               [user]="user"
             ></reply-add>
           </div>
+          <!-- *ngIf="answer.repliesCount" -->
           <div
             fxLayout="row"
             style="margin-left: -16px"
-            *ngIf="answer.repliesCount"
+            
           >
             <button
               mat-button
               class="background-active"
               (click)="showRepliesToggle()"
             >
-              Хариултууд ({{ answer.repliesCount }})<mat-icon>{{
+              Хариултууд {{ answer.repliesCount }}<mat-icon>{{
                 toggleIcon
               }}</mat-icon>
             </button>

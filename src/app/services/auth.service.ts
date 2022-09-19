@@ -51,7 +51,8 @@ export class AuthService {
         if (user) {
           return this.userCollection.doc<User>(user.uid).valueChanges();
         } else {
-          return of(null);
+          return this.userCollection.doc<User>('anonymous').valueChanges()
+          // return of(null);
         }
       })
     );
