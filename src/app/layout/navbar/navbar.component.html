@@ -41,7 +41,7 @@
           mat-flat-button
           color="accent"
           [routerLink]="[addButton.link]"
-          *ngIf="permissionService.canRead(user)"
+          *ngIf="permissionService.canEdit(user)"
         >
           <mat-icon>edit</mat-icon>
           {{addButton.title}}

@@ -14,15 +14,15 @@ import { isPlatformBrowser } from '@angular/common';
 export class FooterComponent {
   article$: Observable<any>;
   tocId: string;
-  // window: any;
+  window: any;
   constructor(private articleService: ArticleService, windowRef: GlobalObjectService, @Inject(PLATFORM_ID) private platformId: object) {
     this.tocId = '44LFn7kNX5BPkb1RwID5';
     this.article$ = this.articleService.getArticle('WYg2RZvhKat1PxtPaUL0');
-    // this.window = windowRef.getWindow();
+    this.window = windowRef.getWindow();
    }
    feedback() {
      if (isPlatformBrowser(this.platformId)) {
-      // this.window.location.href = 'mailto:tulga@miningmongolia.mn?subject=Санал хүсэлт Уурхайчин форум';
+      this.window.location.href = 'mailto:tulga@miningmongolia.mn?subject=Санал хүсэлт Уурхайчин форум';
      }
   }
 }
